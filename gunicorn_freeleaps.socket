@@ -1,0 +1,6 @@
+[Unit]
+Description=Lingyuan Yan socket
+[Socket]
+ListenStream= /home/wwwadmin/freeleaps/freeleaps.sock 
+[Install]
+WantedBy=sockets.target
