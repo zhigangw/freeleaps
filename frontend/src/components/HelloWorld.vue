@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1>{{ hello_json }}</h1>
+    <h1>{{ hello_json.text }}</h1>
   </div>
 </template>
 
