@@ -1,4 +1,4 @@
-export const userAuthStore = {
+const userAuthStore = {
     namespace: true,
     state() {
         return {
@@ -23,4 +23,6 @@ export const userAuthStore = {
             return state.isUserAuthenticated;
         }
     }
-}
+};
+
+export default userAuthStore;
