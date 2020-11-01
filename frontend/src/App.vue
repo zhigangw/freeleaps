@@ -1,6 +1,9 @@
 <template>
   <div>
     <img alt="Vue logo" src="./assets/logo.png" />
+    <h3>{{counter}}</h3>
+    <button @click="increment">Add 1</button>
+    <button @click="decrement">Minus 1</button>
     <FrontDoor />
     <UserBasic />
     <UserLinked />
@@ -52,6 +55,7 @@ import SellerServiceCreate from "./components/seller/SellerServiceCreate";
 import SellerSkill from "./components/seller/SellerSkill";
 import SellerTransferMoney from "./components/seller/SellerTransferMoney";
 
+
 export default {
   name: "App",
   components: {
@@ -79,6 +83,20 @@ export default {
     SellerSkill,
     SellerTransferMoney
   },
+  computed:{
+    counter(){
+      return this.$store.state.counter;
+    }
+  },
+  methods: {
+    increment(){
+      this.$store.commit('increment');
+    },
+    decrement(){
+      this.$store.commit('decrement');
+    }
+  }
+
 };
 </script>
 
