@@ -1,9 +1,9 @@
 <template>
   <div>
     <img alt="Vue logo" src="./assets/logo.png" />
-    <h3>{{counter}}</h3>
-    <button @click="increment">Add 1</button>
-    <button @click="decrement">Minus 1</button>
+    <h3>{{isUserAuthenticated}}</h3>
+    <button @click="login">login</button>
+    <button @click="logout">logout</button>
     <FrontDoor />
     <UserBasic />
     <UserLinked />
@@ -84,16 +84,16 @@ export default {
     SellerTransferMoney
   },
   computed:{
-    counter(){
-      return this.$store.state.counter;
+    isUserAuthenticated(){
+      return this.$store.getters['isUserAuthenticated'];
     }
   },
   methods: {
-    increment(){
-      this.$store.commit('increment');
+    login(){
+      this.$store.dispatch('userAuthenticated');
     },
-    decrement(){
-      this.$store.commit('decrement');
+    logout(){
+      this.$store.dispatch('userUnauthenticated');
     }
   }
 
