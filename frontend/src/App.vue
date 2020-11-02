@@ -31,29 +31,29 @@
 </template>
 
 <script>
-import FrontDoor from "./components/user/FrontDoor";
-import UserBasic from "./components/user/UserBasic";
-import UserLinked from "./components/user/UserLinkedin";
-import UserRegister from "./components/user/UserRegister";
-import UserSignin from "./components/user/UserSignin";
-import BuyerDashboard from "./components/buyer/BuyerDashboard";
-import BuyerInviteSeller from "./components/buyer/BuyerInviteSeller";
-import BuyerPackage from "./components/buyer/BuyerPackage";
-import BuyerProjectList from "./components/buyer/BuyerProjectList";
-import BuyerQuoteView from "./components/buyer/BuyerQuoteView";
-import PostProjectDescription from "./components/buyer/PostProjectDescription";
-import PostProjectNote from "./components/buyer/PostProjectNote";
-import PostProjectReview from "./components/buyer/PostProjectReview";
-import SellerBuyerRequestView from "./components/seller/SellerBuyerRequestView";
-import SellerDashboard from "./components/seller/SellerDashboard";
-import SellerEarnings from "./components/seller/SellerEarnings";
-import SellerMarketplace from "./components/seller/SellerMarketplace";
-import SellerPackage from "./components/seller/SellerPackage";
-import SellerProjectView from "./components/seller/SellerProjectView";
-import SellerQuoting from "./components/seller/SellerQuoting";
-import SellerServiceCreate from "./components/seller/SellerServiceCreate";
-import SellerSkill from "./components/seller/SellerSkill";
-import SellerTransferMoney from "./components/seller/SellerTransferMoney";
+import FrontDoor from "./pages/user/FrontDoor";
+import UserBasic from "./pages/user/UserBasic";
+import UserLinked from "./pages/user/UserLinkedin";
+import UserRegister from "./pages/user/UserRegister";
+import UserSignin from "./pages/user/UserSignin";
+import BuyerDashboard from "./pages/buyer/BuyerDashboard";
+import BuyerInviteSeller from "./pages/buyer/BuyerInviteSeller";
+import BuyerPackage from "./pages/buyer/BuyerPackage";
+import BuyerProjectList from "./pages/buyer/BuyerProjectList";
+import BuyerQuoteView from "./pages/buyer/BuyerQuoteView";
+import PostProjectDescription from "./pages/buyer/PostProjectDescription";
+import PostProjectNote from "./pages/buyer/PostProjectNote";
+import PostProjectReview from "./pages/buyer/PostProjectReview";
+import SellerBuyerRequestView from "./pages/seller/SellerBuyerRequestView";
+import SellerDashboard from "./pages/seller/SellerDashboard";
+import SellerEarnings from "./pages/seller/SellerEarnings";
+import SellerMarketplace from "./pages/seller/SellerMarketplace";
+import SellerPackage from "./pages/seller/SellerPackage";
+import SellerProjectView from "./pages/seller/SellerProjectView";
+import SellerQuoting from "./pages/seller/SellerQuoting";
+import SellerServiceCreate from "./pages/seller/SellerServiceCreate";
+import SellerSkill from "./pages/seller/SellerSkill";
+import SellerTransferMoney from "./pages/seller/SellerTransferMoney";
 
 
 export default {

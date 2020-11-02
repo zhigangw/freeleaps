@@ -1,1 +1,2 @@
-export {default} from './store/index';
+export {store} from './store/index';
+export {freeleapsAxios} from './backend/index';
