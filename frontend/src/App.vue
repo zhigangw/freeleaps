@@ -33,7 +33,7 @@
 <script>
 import FrontDoor from "./pages/user/FrontDoor";
 import UserBasic from "./pages/user/UserBasic";
-import UserLinked from "./pages/user/UserLinkedin";
+import UserLinkedin from "./pages/user/UserLinkedin";
 import UserRegister from "./pages/user/UserRegister";
 import UserSignin from "./pages/user/UserSignin";
 import BuyerDashboard from "./pages/buyer/BuyerDashboard";
@@ -61,7 +61,7 @@ export default {
   components: {
     FrontDoor,
     UserBasic,
-    UserLinked,
+    UserLinkedin,
     UserRegister,
     UserSignin,
     BuyerDashboard,
