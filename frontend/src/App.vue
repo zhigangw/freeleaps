@@ -1,36 +1,42 @@
 <template>
   <div>
+    <buyer-nav-bar></buyer-nav-bar>
+    <main>
+      <router-view></router-view>
+    </main>
     <img alt="Vue logo" src="./assets/logo.png" />
     <h3>{{isUserAuthenticated}}</h3>
     <button @click="login">login</button>
     <button @click="logout">logout</button>
     <FrontDoor />
     <UserBasic />
-    <UserLinked />
+    <UserLinkedin />
     <UserRegister />
     <UserSignin />
-    <BuyerDashboard/>
-    <BuyerInviteSeller/>
-    <BuyerPackage/>
-    <BuyerProjectList/>
-    <BuyerQuoteView/>
-    <PostProjectDescription/>
-    <PostProjectNote/>
-    <PostProjectReview/>
-    <SellerBuyerRequestView/>
-    <SellerDashboard/>
-    <SellerEarnings/>
-    <SellerMarketplace/>
-    <SellerPackage/>
-    <SellerProjectView/>
-    <SellerQuoting/>
-    <SellerServiceCreate/>
-    <SellerSkill/>
-    <SellerTransferMoney/>
+    <BuyerDashboard />
+    <BuyerInviteSeller />
+    <BuyerPackage />
+    <BuyerProjectList />
+    <BuyerQuoteView />
+    <PostProjectDescription />
+    <PostProjectNote />
+    <PostProjectReview />
+    <SellerBuyerRequestView />
+    <SellerDashboard />
+    <SellerEarnings />
+    <SellerMarketplace />
+    <SellerPackage />
+    <SellerProjectView />
+    <SellerQuoting />
+    <SellerServiceCreate />
+    <SellerSkill />
+    <SellerTransferMoney />
   </div>
 </template>
 
 <script>
+import BuyerNavBar from "./components/nav/BuyerNavBar.vue";
+
 import FrontDoor from "./pages/user/FrontDoor";
 import UserBasic from "./pages/user/UserBasic";
 import UserLinkedin from "./pages/user/UserLinkedin";
@@ -55,10 +61,10 @@ import SellerServiceCreate from "./pages/seller/SellerServiceCreate";
 import SellerSkill from "./pages/seller/SellerSkill";
 import SellerTransferMoney from "./pages/seller/SellerTransferMoney";
 
-
 export default {
   name: "App",
   components: {
+    BuyerNavBar,
     FrontDoor,
     UserBasic,
     UserLinkedin,
@@ -81,22 +87,21 @@ export default {
     SellerQuoting,
     SellerServiceCreate,
     SellerSkill,
-    SellerTransferMoney
+    SellerTransferMoney,
   },
-  computed:{
-    isUserAuthenticated(){
-      return this.$store.getters['isUserAuthenticated'];
-    }
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.getters["isUserAuthenticated"];
+    },
   },
   methods: {
-    login(){
-      this.$store.dispatch('userAuthenticated');
+    login() {
+      this.$store.dispatch("userAuthenticated");
     },
-    logout(){
-      this.$store.dispatch('userUnauthenticated');
-    }
-  }
-
+    logout() {
+      this.$store.dispatch("userUnauthenticated");
+    },
+  },
 };
 </script>
 
