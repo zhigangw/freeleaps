@@ -6,14 +6,14 @@ const userRoleEnum = Object.freeze({
 
 const userProfileStore = {
     namespace: true,
-    identity() {
+    state() {
         return {
             role: userRoleEnum.NONE
         }
     },
     mutations: {
-        setRole(identity, payload) {
-            identity.role = payload.role;
+        setRole(state, payload) {
+            state.role = payload.role;
         },
     },
     actions: {
@@ -25,8 +25,8 @@ const userProfileStore = {
         },
     },
     getters: {
-        userRole(identity) {
-            return identity.role;
+        userRole(state) {
+            return state.role;
         }
     }
 };

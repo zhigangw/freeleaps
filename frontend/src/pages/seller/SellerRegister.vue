@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h1>UserRegister</h1>
+    <h1>SellerRegister</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: "UserRegister",
+  name: "SellerRegister",
   props: {},
 
   data() {

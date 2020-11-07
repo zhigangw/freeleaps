@@ -11,7 +11,7 @@
     <FrontDoor />
     <UserBasic />
     <UserLinkedin />
-    <UserRegister />
+    <BuyerRegister />
     <UserSignin />
     <BuyerDashboard />
     <BuyerInviteSeller />
@@ -21,6 +21,7 @@
     <PostProjectDescription />
     <PostProjectNote />
     <PostProjectReview />
+    <SellerRegister />
     <SellerBuyerRequestView />
     <SellerDashboard />
     <SellerEarnings />
@@ -40,8 +41,8 @@ import BuyerNavBar from "./components/nav/BuyerNavBar.vue";
 import FrontDoor from "./pages/user/FrontDoor";
 import UserBasic from "./pages/user/UserBasic";
 import UserLinkedin from "./pages/user/UserLinkedin";
-import UserRegister from "./pages/user/UserRegister";
 import UserSignin from "./pages/user/UserSignin";
+import BuyerRegister from "./pages/buyer/BuyerRegister";
 import BuyerDashboard from "./pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "./pages/buyer/BuyerInviteSeller";
 import BuyerPackage from "./pages/buyer/BuyerPackage";
@@ -50,6 +51,7 @@ import BuyerQuoteView from "./pages/buyer/BuyerQuoteView";
 import PostProjectDescription from "./pages/buyer/PostProjectDescription";
 import PostProjectNote from "./pages/buyer/PostProjectNote";
 import PostProjectReview from "./pages/buyer/PostProjectReview";
+import SellerRegister from "./pages/seller/SellerRegister";
 import SellerBuyerRequestView from "./pages/seller/SellerBuyerRequestView";
 import SellerDashboard from "./pages/seller/SellerDashboard";
 import SellerEarnings from "./pages/seller/SellerEarnings";
@@ -68,8 +70,8 @@ export default {
     FrontDoor,
     UserBasic,
     UserLinkedin,
-    UserRegister,
     UserSignin,
+    BuyerRegister,
     BuyerDashboard,
     BuyerInviteSeller,
     BuyerPackage,
@@ -78,6 +80,7 @@ export default {
     PostProjectDescription,
     PostProjectNote,
     PostProjectReview,
+    SellerRegister,
     SellerBuyerRequestView,
     SellerDashboard,
     SellerEarnings,

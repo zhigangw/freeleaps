@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import {store, userRoleEnum} from '../store/index';
+import { store, userRoleEnum } from '../store/index';
 
 import FrontDoor from "../../pages/user/FrontDoor";
 import UserBasic from "../../pages/user/UserBasic";
 import UserLinkedin from "../../pages/user/UserLinkedin";
-import UserRegister from "../../pages/user/UserRegister";
 import UserSignin from "../../pages/user/UserSignin";
+import BuyerRegister from "../../pages/buyer/BuyerRegister";
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
 import BuyerPackage from "../../pages/buyer/BuyerPackage";
@@ -14,6 +14,7 @@ import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
 import PostProjectDescription from "../../pages/buyer/PostProjectDescription";
 import PostProjectNote from "../../pages/buyer/PostProjectNote";
 import PostProjectReview from "../../pages/buyer/PostProjectReview";
+import SellerRegister from "../../pages/seller/SellerRegister";
 import SellerBuyerRequestView from "../../pages/seller/SellerBuyerRequestView";
 import SellerDashboard from "../../pages/seller/SellerDashboard";
 import SellerEarnings from "../../pages/seller/SellerEarnings";
@@ -27,218 +28,222 @@ import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes: [
-        { path: '/', redirect: '/front-door' },
+  history: createWebHistory(),
+  routes: [
+    { path: '/', redirect: '/front-door' },
+    {
+      name: 'front-door',
+      path: '/front-door',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: FrontDoor/*, footer: TeamsFooter */ },
+      /*children: [
         {
-            name: 'front-door',
-            path: '/front-door',
-            meta: { requiredRole: userRoleEnum.NONE },
-            components: { default: FrontDoor/*, footer: TeamsFooter */ },
-            /*children: [
-              {
-                name: 'team-members',
-                path: ':teamId',
-                component: TeamMembers,
-                props: true
-              } // /teams/t1
-            ]*/
-        },
+          name: 'team-members',
+          path: ':teamId',
+          component: TeamMembers,
+          props: true
+        } // /teams/t1
+      ]*/
+    },
 
-        {
-            name: 'user-basic',
-            path: '/user-basic',
-            meta: { requiredRole: userRoleEnum.NONE },
-            components: { default: UserBasic },
-        },
+    {
+      name: 'user-basic',
+      path: '/user-basic',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UserBasic },
+    },
 
-        {
-            name: 'user-linkedin',
-            path: '/user-linkedin',
-            meta: { requiredRole: userRoleEnum.NONE },
-            components: { default: UserLinkedin },
-        },
+    {
+      name: 'user-linkedin',
+      path: '/user-linkedin',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UserLinkedin },
+    },
 
+    {
+      name: 'user-signin',
+      path: '/user-signin',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UserSignin },
+    },
 
-        {
-            name: 'user-register',
-            path: '/user-register',
-            meta: { requiredRole: userRoleEnum.NONE },
-            components: { default: UserRegister },
-        },
+    {
+      name: 'buyer-register',
+      path: '/buyer-register',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: BuyerRegister },
+    },
 
-        {
-            name: 'user-signin',
-            path: '/user-signin',
-            meta: { requiredRole: userRoleEnum.NONE },
-            components: { default: UserSignin },
-        },
+    {
+      name: 'buyer-dashboard',
+      path: '/buyer-dashboard',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerDashboard },
+    },
 
-        {
-            name: 'buyer-dashboard',
-            path: '/buyer-dashboard',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: BuyerDashboard },
-        },
+    {
+      name: 'buyer-invite-seller',
+      path: '/buyer-invite-seller',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerInviteSeller },
+    },
 
-        {
-            name: 'buyer-invite-seller',
-            path: '/buyer-invite-seller',
-            meta: {requiredRole: userRoleEnum.BUYER },
-            components: { default: BuyerInviteSeller },
-        },
+    {
+      name: 'buyer-package',
+      path: '/buyer-package',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerPackage },
+    },
 
-        {
-            name: 'buyer-package',
-            path: '/buyer-package',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: BuyerPackage },
-        },
+    {
+      name: 'buyer-project-list',
+      path: '/buyer-project-list',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerProjectList },
+    },
 
-        {
-            name: 'buyer-project-list',
-            path: '/buyer-project-list',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: BuyerProjectList },
-        },
+    {
+      name: 'buyer-quote-view',
+      path: '/buyer-quote-view',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerQuoteView },
+    },
 
-        {
-            name: 'buyer-quote-view',
-            path: '/buyer-quote-view',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: BuyerQuoteView },
-        },
+    {
+      name: 'post-project-description',
+      path: '/post-project-description',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: PostProjectDescription },
+    },
 
-        {
-            name: 'post-project-description',
-            path: '/post-project-description',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: PostProjectDescription },
-        },
+    {
+      name: 'post-project-note',
+      path: '/post-project-note',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: PostProjectNote },
+    },
 
-        {
-            name: 'post-project-note',
-            path: '/post-project-note',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: PostProjectNote },
-        },
-
-        {
-            name: 'post-project-review',
-            path: '/post-project-review',
-            meta: { requiredRole: userRoleEnum.BUYER },
-            components: { default: PostProjectReview },
-        },
+    {
+      name: 'post-project-review',
+      path: '/post-project-review',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: PostProjectReview },
+    },
 
 
-        {
-            name: 'seller-buyer-request-view',
-            path: '/seller-buyer-request-view',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerBuyerRequestView },
-        },
+    {
+      name: 'seller-register',
+      path: '/seller-register',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: SellerRegister },
+    },
 
-        {
-            name: 'seller-dashboard',
-            path: '/seller-dashboard',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerDashboard },
-        },
+    {
+      name: 'seller-buyer-request-view',
+      path: '/seller-buyer-request-view',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerBuyerRequestView },
+    },
 
-        {
-            name: 'seller-earnings',
-            path: '/seller-earnings',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerEarnings },
-        },
+    {
+      name: 'seller-dashboard',
+      path: '/seller-dashboard',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerDashboard },
+    },
 
-        {
-            name: 'seller-marketplace',
-            path: '/seller-marketplace',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerMarketplace },
-        },
+    {
+      name: 'seller-earnings',
+      path: '/seller-earnings',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerEarnings },
+    },
 
-        {
-            name: 'seller-package',
-            path: '/seller-package',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerPackage },
-        },
+    {
+      name: 'seller-marketplace',
+      path: '/seller-marketplace',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerMarketplace },
+    },
 
-        {
-            name: 'seller-project-view',
-            path: '/seller-project-view',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerProjectView },
-        },
+    {
+      name: 'seller-package',
+      path: '/seller-package',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerPackage },
+    },
 
-        {
-            name: 'seller-quoting',
-            path: '/seller-quoting',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerQuoting },
-        },
+    {
+      name: 'seller-project-view',
+      path: '/seller-project-view',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerProjectView },
+    },
 
-        {
-            name: 'seller-service-create',
-            path: '/seller-service-create',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerServiceCreate },
-        },
+    {
+      name: 'seller-quoting',
+      path: '/seller-quoting',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerQuoting },
+    },
 
-        {
-            name: 'seller-skill',
-            path: '/seller-skill',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerSkill },
-        },
-        {
-            name: 'seller-transfer-money',
-            path: '/seller-transfer-money',
-            meta: { requiredRole: userRoleEnum.SELLER },
-            components: { default: SellerTransferMoney },
-        },
+    {
+      name: 'seller-service-create',
+      path: '/seller-service-create',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerServiceCreate },
+    },
 
-        /*
-        {
-          path: '/users',
-          components: {
-            default: UsersList,
-            footer: UsersFooter
-          },
-          beforeEnter(to, from, next) {
-            console.log('users beforeEnter');
-            console.log(to, from);
-            next();
-          }
-        },
-        { path: '/:notFound(.*)', component: NotFound }
-        */
-    ],
+    {
+      name: 'seller-skill',
+      path: '/seller-skill',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerSkill },
+    },
+    {
+      name: 'seller-transfer-money',
+      path: '/seller-transfer-money',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerTransferMoney },
+    },
 
-    linkActiveClass: 'active',
-    /*    scrollBehavior(_, _2, savedPosition) {
-          if (savedPosition) {
-            return savedPosition;
-          }
-          return { left: 0, top: 0 };
-        }
+    /*
+    {
+      path: '/users',
+      components: {
+        default: UsersList,
+        footer: UsersFooter
+      },
+      beforeEnter(to, from, next) {
+        console.log('users beforeEnter');
+        console.log(to, from);
+        next();
+      }
+    },
+    { path: '/:notFound(.*)', component: NotFound }
     */
+  ],
+
+  linkActiveClass: 'active',
+  /*    scrollBehavior(_, _2, savedPosition) {
+        if (savedPosition) {
+          return savedPosition;
+        }
+        return { left: 0, top: 0 };
+      }
+  */
 });
 
 
 
-router.beforeEach(function(to, _, next) {
-    if (to.meta.needsAuth && !store.getters.isAuthenticated) {
-      next('/auth');
-    } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
-      next('/coaches');
-    } else {
-      next();
-    }
-  });
-  
+router.beforeEach(function (to, from, next) {
+  if (to.meta.requiredRoles.includes(store.getters["userRole"])) {
+    next();
+  } else {
+    next('/user-signin');
+  }
+});
+
 /*
 router.beforeEach(function(to, from, next) {
   console.log('Global beforeEach');
