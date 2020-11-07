@@ -25,4 +25,4 @@ const userAuthStore = {
     }
 };
 
-export default userAuthStore;
+export { userAuthStore };

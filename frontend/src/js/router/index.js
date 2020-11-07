@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import {store, userRoleEnum} from '../store/index';
 
 import FrontDoor from "../../pages/user/FrontDoor";
 import UserBasic from "../../pages/user/UserBasic";
@@ -28,11 +29,11 @@ import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', redirect: '/teams' },
+        { path: '/', redirect: '/front-door' },
         {
             name: 'front-door',
             path: '/front-door',
-            meta: { needsAuth: false },
+            meta: { requiredRole: userRoleEnum.NONE },
             components: { default: FrontDoor/*, footer: TeamsFooter */ },
             /*children: [
               {
@@ -47,14 +48,14 @@ const router = createRouter({
         {
             name: 'user-basic',
             path: '/user-basic',
-            meta: { needsAuth: false },
+            meta: { requiredRole: userRoleEnum.NONE },
             components: { default: UserBasic },
         },
 
         {
             name: 'user-linkedin',
             path: '/user-linkedin',
-            meta: { needsAuth: false },
+            meta: { requiredRole: userRoleEnum.NONE },
             components: { default: UserLinkedin },
         },
 
@@ -62,70 +63,70 @@ const router = createRouter({
         {
             name: 'user-register',
             path: '/user-register',
-            meta: { needsAuth: false },
+            meta: { requiredRole: userRoleEnum.NONE },
             components: { default: UserRegister },
         },
 
         {
             name: 'user-signin',
             path: '/user-signin',
-            meta: { needsAuth: false },
+            meta: { requiredRole: userRoleEnum.NONE },
             components: { default: UserSignin },
         },
 
         {
             name: 'buyer-dashboard',
             path: '/buyer-dashboard',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: BuyerDashboard },
         },
 
         {
             name: 'buyer-invite-seller',
             path: '/buyer-invite-seller',
-            meta: { needsAuth: true },
+            meta: {requiredRole: userRoleEnum.BUYER },
             components: { default: BuyerInviteSeller },
         },
 
         {
             name: 'buyer-package',
             path: '/buyer-package',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: BuyerPackage },
         },
 
         {
             name: 'buyer-project-list',
             path: '/buyer-project-list',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: BuyerProjectList },
         },
 
         {
             name: 'buyer-quote-view',
             path: '/buyer-quote-view',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: BuyerQuoteView },
         },
 
         {
             name: 'post-project-description',
             path: '/post-project-description',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: PostProjectDescription },
         },
 
         {
             name: 'post-project-note',
             path: '/post-project-note',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: PostProjectNote },
         },
 
         {
             name: 'post-project-review',
             path: '/post-project-review',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.BUYER },
             components: { default: PostProjectReview },
         },
 
@@ -133,69 +134,69 @@ const router = createRouter({
         {
             name: 'seller-buyer-request-view',
             path: '/seller-buyer-request-view',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerBuyerRequestView },
         },
 
         {
             name: 'seller-dashboard',
             path: '/seller-dashboard',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerDashboard },
         },
 
         {
             name: 'seller-earnings',
             path: '/seller-earnings',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerEarnings },
         },
 
         {
             name: 'seller-marketplace',
             path: '/seller-marketplace',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerMarketplace },
         },
 
         {
             name: 'seller-package',
             path: '/seller-package',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerPackage },
         },
 
         {
             name: 'seller-project-view',
             path: '/seller-project-view',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerProjectView },
         },
 
         {
             name: 'seller-quoting',
             path: '/seller-quoting',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerQuoting },
         },
 
         {
             name: 'seller-service-create',
             path: '/seller-service-create',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerServiceCreate },
         },
 
         {
             name: 'seller-skill',
             path: '/seller-skill',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerSkill },
         },
         {
             name: 'seller-transfer-money',
             path: '/seller-transfer-money',
-            meta: { needsAuth: true },
+            meta: { requiredRole: userRoleEnum.SELLER },
             components: { default: SellerTransferMoney },
         },
 
@@ -226,6 +227,18 @@ const router = createRouter({
     */
 });
 
+
+
+router.beforeEach(function(to, _, next) {
+    if (to.meta.needsAuth && !store.getters.isAuthenticated) {
+      next('/auth');
+    } else if (to.meta.requiresUnauth && store.getters.isAuthenticated) {
+      next('/coaches');
+    } else {
+      next();
+    }
+  });
+  
 /*
 router.beforeEach(function(to, from, next) {
   console.log('Global beforeEach');
@@ -251,4 +264,4 @@ router.afterEach(function(to, from) {
 });
 */
 
-export {router};
+export { router };
