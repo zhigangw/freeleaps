@@ -1,5 +1,5 @@
 const userAuthStore = {
-    namespace: true,
+    namespaced: true,
     state() {
         return {
             isUserAuthenticated: false

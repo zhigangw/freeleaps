@@ -94,15 +94,15 @@ export default {
   },
   computed: {
     isUserAuthenticated() {
-      return this.$store.getters["isUserAuthenticated"];
+      return this.$store.getters["userAuth/isUserAuthenticated"];
     },
   },
   methods: {
     login() {
-      this.$store.dispatch("userAuthenticated");
+      this.$store.dispatch("userAuth/userAuthenticated");
     },
     logout() {
-      this.$store.dispatch("userUnauthenticated");
+      this.$store.dispatch("userAuth/userUnauthenticated");
     },
   },
 };

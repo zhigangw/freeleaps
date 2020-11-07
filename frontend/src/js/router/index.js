@@ -237,7 +237,7 @@ const router = createRouter({
 
 
 router.beforeEach(function (to, from, next) {
-  if (to.meta.requiredRoles.includes(store.getters["userRole"])) {
+  if (to.meta.requiredRoles.includes(store.getters["userProfile/userRole"])) {
     next();
   } else {
     next('/user-signin');

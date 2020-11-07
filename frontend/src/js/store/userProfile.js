@@ -5,7 +5,7 @@ const userRoleEnum = Object.freeze({
 });
 
 const userProfileStore = {
-    namespace: true,
+    namespaced: true,
     state() {
         return {
             role: userRoleEnum.NONE

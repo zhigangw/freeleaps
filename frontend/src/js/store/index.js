@@ -4,8 +4,8 @@ import { userRoleEnum, userProfileStore } from './userProfile';
 
 const store = createStore({
     modules: {
-        userAuthStore,
-        userProfileStore,
+        userAuth: userAuthStore,
+        userProfile: userProfileStore,
     },
 });
 
