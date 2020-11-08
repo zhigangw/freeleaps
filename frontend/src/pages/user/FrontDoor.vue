@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>FrontDoor</h1>
+    <button @click="gotoBuyerRegister">Become Buyer</button>
+    <button @click="gotoSellerRegister">Become Seller</button>
   </div>
 </template>
 
@@ -15,7 +17,14 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoBuyerRegister(){
+      this.$router.push("/buyer-register")
+    },
+    gotoSellerRegister(){
+      this.$router.push("/seller-register")    
+    }
+  },
 };
 </script>
 

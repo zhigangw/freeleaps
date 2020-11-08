@@ -6,7 +6,6 @@
     </main>
     <img alt="Vue logo" src="./assets/logo.png" />
     <h3>{{isUserAuthenticated}}</h3>
-    <button @click="login">login</button>
     <button @click="logout">logout</button>
     <FrontDoor />
     <UserBasic />
@@ -98,11 +97,9 @@ export default {
     },
   },
   methods: {
-    login() {
-      this.$store.dispatch("userAuth/userAuthenticated");
-    },
     logout() {
       this.$store.dispatch("userAuth/userUnauthenticated");
+      this.$store.dispatch("userProfile/logoutRoles");
     },
   },
 };

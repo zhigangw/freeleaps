@@ -17,17 +17,26 @@ const userProfileStore = {
         },
     },
     actions: {
+        logoutRoles(context) {
+            context.commit('setRole', { role: userRoleEnum.NONE })
+        },
         useBuyerRole(context) {
             context.commit('setRole', { role: userRoleEnum.BUYER })
         },
         useSellerRole(context) {
-            context.commit('setRole', { role: userRoleEnum.BUYER })
+            context.commit('setRole', { role: userRoleEnum.SELLER })
         },
     },
     getters: {
         userRole(state) {
             return state.role;
-        }
+        },
+        userIsBuyer(state) {
+            return state.role === userRoleEnum.BUYER;
+        },
+        userIsSeller(state) {
+            return state.role === userRoleEnum.SELLER;
+        },
     }
 };
 

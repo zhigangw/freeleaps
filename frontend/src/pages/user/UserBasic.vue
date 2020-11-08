@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>UserBasic</h1>
+    <button @click="gotoNext">Next</button>
   </div>
 </template>
 
@@ -15,7 +16,11 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoNext(){
+      this.$router.push("/user-photo");
+    }
+  },
 };
 </script>
 

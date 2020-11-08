@@ -3,6 +3,7 @@ import { store, userRoleEnum } from '../store/index';
 
 import FrontDoor from "../../pages/user/FrontDoor";
 import UserBasic from "../../pages/user/UserBasic";
+import UserPhoto from "../../pages/user/UserPhoto"
 import UserLinkedin from "../../pages/user/UserLinkedin";
 import UserSignin from "../../pages/user/UserSignin";
 import BuyerRegister from "../../pages/buyer/BuyerRegister";
@@ -49,14 +50,36 @@ const router = createRouter({
     {
       name: 'user-basic',
       path: '/user-basic',
-      meta: { requiredRoles: [userRoleEnum.NONE] },
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER,
+          userRoleEnum.SELLER
+        ]
+      },
       components: { default: UserBasic },
+    },
+
+    {
+      name: 'user-photo',
+      path: '/user-photo',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER,
+          userRoleEnum.SELLER
+        ]
+      },
+      components: { default: UserPhoto },
     },
 
     {
       name: 'user-linkedin',
       path: '/user-linkedin',
-      meta: { requiredRoles: [userRoleEnum.NONE] },
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER,
+          userRoleEnum.SELLER
+        ]
+      },
       components: { default: UserLinkedin },
     },
 

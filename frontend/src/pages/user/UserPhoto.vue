@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>BuyerRegister</h1>
-    <button @click="createAccount">Create Account</button>
+    <h1>UserPhoto</h1>
+    <button @click="gotoNext">Next</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "BuyerRegister",
+  name: "UserPhoto",
   props: {},
 
   data() {
@@ -17,10 +17,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    createAccount(){
-      this.$store.dispatch("userAuth/authenticateUser")
-      this.$store.dispatch("userProfile/useBuyerRole");
-      this.$router.push("/user-basic");
+    gotoNext(){
+      this.$router.push("/user-linkedin");
     }
   },
 };

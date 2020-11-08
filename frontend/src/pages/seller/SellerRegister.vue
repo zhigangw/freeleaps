@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>SellerRegister</h1>
+    <button @click="createAccount">Create Account</button>
   </div>
 </template>
 
@@ -15,7 +16,13 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    createAccount(){
+      this.$store.dispatch("userAuth/authenticateUser")
+      this.$store.dispatch("userProfile/useSellerRole");
+      this.$router.push("/user-basic");
+    }
+  },
 };
 </script>
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>UserLinkedin</h1>
+    <button @click="gotoNext">Next</button>
   </div>
 </template>
 
@@ -15,7 +16,18 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoNext() {
+      if (this.$store.getters["userProfile/userIsBuyer"]) {
+        this.$router.push("/buyer-dashboard");
+      } else if (this.$store.getters["userProfile/userIsSeller"]) {
+        this.$router.push("/seller-dashboard");
+      } else {
+        // do nothing
+        //this.$router.push("");
+      }
+    },
+  },
 };
 </script>
 

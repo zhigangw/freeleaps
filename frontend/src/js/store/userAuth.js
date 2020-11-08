@@ -11,10 +11,10 @@ const userAuthStore = {
         },
     },
     actions: {
-        userAuthenticated(context) {
+        authenticateUser(context) {
             context.commit('setAuth', { isAuthed: true })
         },
-        userUnauthenticated(context) {
+        unauthenticateUser(context) {
             context.commit('setAuth', { isAuthed: false })
         },
     },
