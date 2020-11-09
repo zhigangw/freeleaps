@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>BuyerProjectList</h1>
+    <h1>BuyerProjectView</h1>
+    <button @click="gotoDashboard">Dashboard</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "BuyerProjectList",
+  name: "BuyerProjectView",
   props: {},
 
   data() {
@@ -15,7 +16,11 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoDashboard(){
+      this.$router.push("/buyer-dashboard")
+    }
+  },
 };
 </script>
 

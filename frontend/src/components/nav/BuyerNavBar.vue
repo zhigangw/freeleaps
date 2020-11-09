@@ -1,17 +1,41 @@
 <template>
   <header>
+    <img class="img-freeleaps-logo" alt="freeleaps logo" src="../../assets/logo.png" />
     <nav>
       <ul>
         <li>
           <router-link to="/buyer-dashboard">Dashboard</router-link>
         </li>
         <li>
-          <router-link to="/buyer-project-list">Projects</router-link>
+          <button @click="logout" v-if="isUserAuthenticated">logout</button>
+          <button @click="login" v-else>login</button>
         </li>
       </ul>
     </nav>
   </header>
 </template>
+
+<script>
+export default {
+  name: "BuyerNavBar",
+  components: {},
+  computed: {
+    isUserAuthenticated() {
+      return this.$store.getters["userAuth/isUserAuthenticated"];
+    },
+  },
+  methods: {
+    login() {
+      this.$router.push("/user-signin");
+    },
+    logout() {
+      this.$store.dispatch("userAuth/unauthenticateUser");
+      this.$store.dispatch("userProfile/logoutRoles");
+      this.$router.push("/user-signin");
+    },
+  },
+};
+</script>
 
 <style scoped>
 header {
@@ -54,5 +78,11 @@ a.active {
   color: #f1a80a;
   border-color: #f1a80a;
   background-color: #1a037e;
+}
+.img-freeleaps-logo {
+  float: left;
+  height: 70%;
+  margin: 15px;
+  background: #555;
 }
 </style>

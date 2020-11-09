@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>BuyerDashboard</h1>
+    <button @click="postProject">Post a Project</button>
+    <button @click="viewProject">Project Details</button>
   </div>
 </template>
 
@@ -15,7 +17,14 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    postProject(){
+      this.$router.push("/post-project-description");
+    },
+    viewProject(){
+      this.$router.push("/buyer-project-view")
+    }
+  },
 };
 </script>
 

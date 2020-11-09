@@ -1,21 +1,28 @@
 <template>
   <div>
     <h1>UserSignin</h1>
+    <button @click="signIn">Sign In</button>
   </div>
 </template>
 
 <script>
+
 export default {
   name: "UserSignin",
   props: {},
-
   data() {
     return {};
   },
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    signIn() {
+      this.$store.dispatch("userAuth/authenticateUser");
+      this.$store.dispatch("userProfile/useSellerRole");
+      this.mxNavSignedin();
+    },
+  },
 };
 </script>
 
