@@ -20,7 +20,7 @@ export default {
     signIn() {
       this.$store.dispatch("userAuth/authenticateUser");
       this.$store.dispatch("userProfile/useSellerRole");
-      this.mxNavSignedin();
+      this.mnx_navAfterSignedin();
     },
   },
 };

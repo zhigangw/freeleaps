@@ -20,7 +20,7 @@ export default {
     createAccount(){
       this.$store.dispatch("userAuth/authenticateUser")
       this.$store.dispatch("userProfile/useBuyerRole");
-      this.$router.push("/user-basic");
+      this.mnx_navAfterCreatedAccount();
     }
   },
 };

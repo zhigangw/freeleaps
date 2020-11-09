@@ -17,9 +17,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    gotoDashboard(){
-      this.$router.push("/buyer-dashboard")
-    }
+    gotoDashboard() {
+      this.mnx_navToBuyerDashboard();
+    },
   },
 };
 </script>

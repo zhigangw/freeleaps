@@ -18,12 +18,12 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    postProject(){
-      this.$router.push("/post-project-description");
+    postProject() {
+      this.mnx_navToPostProjectDescription();
     },
-    viewProject(){
-      this.$router.push("/buyer-project-view")
-    }
+    viewProject() {
+      this.mnx_navToBuyerProjectView();
+    },
   },
 };
 </script>
