@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>SellerRegister</h1>
-    <button @click="createAccount">Create Account</button>
+    <h1>Buyer Basic Info</h1>
+    <button @click="gotoNext">Next</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SellerRegister",
+  name: "BuyerBasicInfo",
   props: {},
 
   data() {
@@ -17,10 +17,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    createAccount(){
-      this.mnx_authenticatedUser();
-      this.mnx_setUserSeller();
-      this.mnx_navAfterRegister();
+    gotoNext(){
+      this.mnx_navToBuyerPhoto();
     }
   },
 };

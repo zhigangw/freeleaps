@@ -1,2 +1,3 @@
 import navigatorMixin from "./navigator";
-export {navigatorMixin}
+import userIdentityMixin from "./userIdentity";
+export { navigatorMixin, userIdentityMixin }

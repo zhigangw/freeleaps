@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>UserLinkedin</h1>
+    <h1>BuyerLinkedin</h1>
     <button @click="gotoNext">Next</button>
   </div>
 </template>
@@ -18,14 +18,7 @@ export default {
   mounted() {},
   methods: {
     gotoNext() {
-      if (this.$store.getters["userProfile/userIsBuyer"]) {
-        this.$router.push("/buyer-dashboard");
-      } else if (this.$store.getters["userProfile/userIsSeller"]) {
-        this.$router.push("/seller-dashboard");
-      } else {
-        // do nothing
-        //this.$router.push("");
-      }
+      this.mnx_navToBuyerPackage();
     },
   },
 };

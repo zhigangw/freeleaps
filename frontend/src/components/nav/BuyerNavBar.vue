@@ -7,6 +7,9 @@
           <router-link to="/buyer-dashboard">Dashboard</router-link>
         </li>
         <li>
+          <button @click="switchToSeller">switch to seller</button>
+        </li>
+        <li>
           <button @click="logout" v-if="isUserAuthenticated">logout</button>
           <button @click="login" v-else>login</button>
         </li>
@@ -21,17 +24,20 @@ export default {
   components: {},
   computed: {
     isUserAuthenticated() {
-      return this.$store.getters["userAuth/isUserAuthenticated"];
+      return this.mnx_isUserAuthenticated();
     },
   },
   methods: {
+    switchToSeller(){
+
+    },
     login() {
-      this.$router.push("/user-signin");
+      this.mnx_navToSignin();
     },
     logout() {
-      this.$store.dispatch("userAuth/unauthenticateUser");
+      this.mnx_unauthenticatedUser();
       this.$store.dispatch("userProfile/logoutRoles");
-      this.$router.push("/user-signin");
+      this.mnx_navToSignin();
     },
   },
 };

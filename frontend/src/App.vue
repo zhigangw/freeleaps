@@ -15,17 +15,8 @@ export default {
   components: {
     BuyerNavBar,
   },
-  computed: {
-    isUserAuthenticated() {
-      return this.$store.getters["userAuth/isUserAuthenticated"];
-    },
-  },
-  methods: {
-    logout() {
-      this.$store.dispatch("userAuth/userUnauthenticated");
-      this.$store.dispatch("userProfile/logoutRoles");
-    },
-  },
+  computed: {},
+  methods: {},
 };
 </script>
 

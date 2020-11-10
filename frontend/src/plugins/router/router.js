@@ -2,25 +2,28 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { store, userRoleEnum } from '../store/index';
 
 import FrontDoor from "../../pages/user/FrontDoor";
-import UserBasic from "../../pages/user/UserBasic";
-import UserPhoto from "../../pages/user/UserPhoto"
-import UserLinkedin from "../../pages/user/UserLinkedin";
 import UserSignin from "../../pages/user/UserSignin";
 import BuyerRegister from "../../pages/buyer/BuyerRegister";
+import BuyerBasicInfo from "../../pages/buyer/BuyerBasicInfo";
+import BuyerPhoto from "../../pages/buyer/BuyerPhoto"
+import BuyerLinkedin from "../../pages/buyer/BuyerLinkedin";
+import BuyerPackage from "../../pages/buyer/BuyerPackage";
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
-import BuyerPackage from "../../pages/buyer/BuyerPackage";
 import BuyerProjectView from "../../pages/buyer/BuyerProjectView";
 import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
 import PostProjectDescription from "../../pages/buyer/PostProjectDescription";
 import PostProjectNote from "../../pages/buyer/PostProjectNote";
 import PostProjectReview from "../../pages/buyer/PostProjectReview";
 import SellerRegister from "../../pages/seller/SellerRegister";
-import SellerBuyerRequestView from "../../pages/seller/SellerBuyerRequestView";
+import SellerBasicInfo from "../../pages/seller/SellerBasicInfo";
+import SellerPhoto from "../../pages/seller/SellerPhoto"
+import SellerLinkedin from "../../pages/seller/SellerLinkedin";
+import SellerPackage from "../../pages/seller/SellerPackage";
 import SellerDashboard from "../../pages/seller/SellerDashboard";
+import SellerBuyerRequestView from "../../pages/seller/SellerBuyerRequestView";
 import SellerEarnings from "../../pages/seller/SellerEarnings";
 import SellerMarketplace from "../../pages/seller/SellerMarketplace";
-import SellerPackage from "../../pages/seller/SellerPackage";
 import SellerProjectView from "../../pages/seller/SellerProjectView";
 import SellerQuoting from "../../pages/seller/SellerQuoting";
 import SellerServiceCreate from "../../pages/seller/SellerServiceCreate";
@@ -48,42 +51,6 @@ const router = createRouter({
     },
 
     {
-      name: 'user-basic',
-      path: '/user-basic',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER,
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: UserBasic },
-    },
-
-    {
-      name: 'user-photo',
-      path: '/user-photo',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER,
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: UserPhoto },
-    },
-
-    {
-      name: 'user-linkedin',
-      path: '/user-linkedin',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER,
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: UserLinkedin },
-    },
-
-    {
       name: 'user-signin',
       path: '/user-signin',
       meta: { requiredRoles: [userRoleEnum.NONE] },
@@ -98,6 +65,46 @@ const router = createRouter({
     },
 
     {
+      name: 'buyer-basic-info',
+      path: '/buyer-basic-info',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER
+        ]
+      },
+      components: { default: BuyerBasicInfo },
+    },
+
+    {
+      name: 'buyer-photo',
+      path: '/buyer-photo',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER
+        ]
+      },
+      components: { default: BuyerPhoto },
+    },
+
+    {
+      name: 'buyer-linkedin',
+      path: '/buyer-linkedin',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.BUYER
+        ]
+      },
+      components: { default: BuyerLinkedin },
+    },
+
+    {
+      name: 'buyer-package',
+      path: '/buyer-package',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerPackage },
+    },
+
+    {
       name: 'buyer-dashboard',
       path: '/buyer-dashboard',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
@@ -109,13 +116,6 @@ const router = createRouter({
       path: '/buyer-invite-seller',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: BuyerInviteSeller },
-    },
-
-    {
-      name: 'buyer-package',
-      path: '/buyer-package',
-      meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerPackage },
     },
 
     {
@@ -160,12 +160,44 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: SellerRegister },
     },
+    {
+      name: 'seller-basic-info',
+      path: '/seller-basic-info',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.SELLER
+        ]
+      },
+      components: { default: SellerBasicInfo },
+    },
 
     {
-      name: 'seller-buyer-request-view',
-      path: '/seller-buyer-request-view',
+      name: 'seller-photo',
+      path: '/seller-photo',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.SELLER
+        ]
+      },
+      components: { default: SellerPhoto },
+    },
+
+    {
+      name: 'seller-linkedin',
+      path: '/seller-linkedin',
+      meta: {
+        requiredRoles: [
+          userRoleEnum.SELLER
+        ]
+      },
+      components: { default: SellerLinkedin },
+    },
+
+    {
+      name: 'seller-package',
+      path: '/seller-package',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerBuyerRequestView },
+      components: { default: SellerPackage },
     },
 
     {
@@ -174,6 +206,14 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.SELLER] },
       components: { default: SellerDashboard },
     },
+
+    {
+      name: 'seller-buyer-request-view',
+      path: '/seller-buyer-request-view',
+      meta: { requiredRoles: [userRoleEnum.SELLER] },
+      components: { default: SellerBuyerRequestView },
+    },
+
 
     {
       name: 'seller-earnings',
@@ -187,13 +227,6 @@ const router = createRouter({
       path: '/seller-marketplace',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
       components: { default: SellerMarketplace },
-    },
-
-    {
-      name: 'seller-package',
-      path: '/seller-package',
-      meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerPackage },
     },
 
     {

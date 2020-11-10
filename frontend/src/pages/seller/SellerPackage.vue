@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>SellerPackage</h1>
+    <button @click="gotoNext">Next</button>
   </div>
 </template>
 
@@ -15,7 +16,11 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoNext() {
+      this.mnx_navToSellerDashboard();
+    },
+  },
 };
 </script>
 

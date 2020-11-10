@@ -18,12 +18,13 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    gotoBuyerRegister(){
-      this.$router.push("/buyer-register")
+    gotoBuyerRegister() {
+      this.mnx_navToBuyerRegister();
     },
-    gotoSellerRegister(){
-      this.$router.push("/seller-register")    
-    }
+
+    gotoSellerRegister() {
+      this.mnx_navToBuyerRegister();
+    },
   },
 };
 </script>

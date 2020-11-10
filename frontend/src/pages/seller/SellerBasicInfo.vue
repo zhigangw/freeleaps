@@ -1,13 +1,13 @@
 <template>
   <div>
-    <h1>UserBasic</h1>
+    <h1>Seller Basic Info</h1>
     <button @click="gotoNext">Next</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "UserBasic",
+  name: "SellerBasicInfo",
   props: {},
 
   data() {
@@ -18,7 +18,7 @@ export default {
   mounted() {},
   methods: {
     gotoNext(){
-      this.$router.push("/user-photo");
+      this.mnx_navToSellerPhoto();
     }
   },
 };

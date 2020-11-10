@@ -18,8 +18,7 @@ export default {
   mounted() {},
   methods: {
     signIn() {
-      this.$store.dispatch("userAuth/authenticateUser");
-      this.$store.dispatch("userProfile/useSellerRole");
+      this.mnx_authenticatedUser();
       this.mnx_navAfterSignedin();
     },
   },

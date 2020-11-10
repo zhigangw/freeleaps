@@ -18,9 +18,9 @@ export default {
   mounted() {},
   methods: {
     createAccount(){
-      this.$store.dispatch("userAuth/authenticateUser")
-      this.$store.dispatch("userProfile/useBuyerRole");
-      this.mnx_navAfterCreatedAccount();
+      this.mnx_authenticatedUser();
+      this.mnx_setUserBuyer();
+      this.mnx_navToBuyerBasicInfo();
     }
   },
 };
