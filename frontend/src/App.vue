@@ -1,19 +1,17 @@
 <template>
   <div>
-    <buyer-nav-bar></buyer-nav-bar>
     <main>
+      <router-view name="header"></router-view>
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
-import BuyerNavBar from "./components/nav/BuyerNavBar.vue";
-
 export default {
   name: "App",
   components: {
-    BuyerNavBar,
+    
   },
   computed: {},
   methods: {},

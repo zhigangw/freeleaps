@@ -4,28 +4,26 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/seller-dashboard">Dashboard</router-link>
+          <p>Welcome to freeleaps</p>
         </li>
         <li>
           <Loginout />
         </li>
         <li>
-          <SwitchRole />
+          <Signup />
         </li>
       </ul>
     </nav>
   </header>
 </template>
-
 <script>
 import Loginout from "../user/Loginout";
-import SwitchRole from "../user/SwitchRole";
+import Signup from "../user/Signup";
 
 export default {
-  name: "SellerNavBar",
-  components: { Loginout, SwitchRole },
-  computed: {
-  },
+  name: "BuyerNavBar",
+  components: { Loginout, Signup },
+  computed: {},
   methods: {},
 };
 </script>

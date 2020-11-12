@@ -18,6 +18,7 @@ export default {
   mounted() {},
   methods: {
     gotoNext(){
+      console.log(this.mnx_isUserBuyer());
       this.mnx_navToBuyerPhoto();
     }
   },

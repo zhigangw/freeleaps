@@ -5,7 +5,7 @@ export default {
         },
 
         mnx_isUserAuthenticated() {
-            return this.$store.getters["userProfile/isUserAuthenticated"];
+            return this.$store.getters["userAuth/isUserAuthenticated"];
         },
 
         mnx_isUserBuyer() {
@@ -15,7 +15,7 @@ export default {
         mnx_isUserSeller() {
             return this.$store.getters["userProfile/userIsSeller"];
         },
-        
+
         mnx_setUserSeller() {
             this.$store.dispatch("userProfile/useSellerRole");
         },
@@ -27,5 +27,9 @@ export default {
         mnx_unauthenticatedUser() {
             this.$store.dispatch("userAuth/unauthenticateUser");
         },
+
+        mnx_logoutRole() {
+            this.$store.dispatch("userProfile/logoutRoles");
+        }
     },
 }

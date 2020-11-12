@@ -20,6 +20,7 @@ export default {
     createAccount(){
       this.mnx_authenticatedUser();
       this.mnx_setUserBuyer();
+      console.log(this.mnx_isUserBuyer());
       this.mnx_navToBuyerBasicInfo();
     }
   },

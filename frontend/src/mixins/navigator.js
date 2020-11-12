@@ -1,5 +1,8 @@
 export default {
     methods: {
+        mnx_navToSignup() {
+            this.$router.push("/fromt-door");
+        },
         mnx_navToSignin() {
             this.$router.push("/user-signin");
         },
@@ -7,10 +10,10 @@ export default {
         mnx_navAfterSignedin() {
             if (this.mnx_isUserAuthenticated()) {
                 if (this.mnx_isUserBuyer()) {
-                    this.$router.push("/buyer-basic");
+                    this.mnx_navToBuyerDashboard();
                 }
                 if (this.mnx_isUserSeller()) {
-                    this.$router.push("/seller-basic");
+                    this.mnx_navToSellerDashboard();
                 }
             }
         },
@@ -38,14 +41,19 @@ export default {
             this.$router.push("/buyer-dashboard")
         },
 
-        mnx_navToPostProjectDescription() {
-            this.$router.push("/post-project-description");
-        },
-
         mnx_navToBuyerProjectView() {
             this.$router.push("/buyer-project-view")
         },
 
+        mnx_navToPostProjectDescription() {
+            this.$router.push("/post-project-description");
+        },
+        mnx_navToPostProjectNote() {
+            this.$router.push("/post-project-note");
+        },
+        mnx_navToPostProjectReview() {
+            this.$router.push("/post-project-review")
+        },
         mnx_navToSellerRegister() {
             this.$router.push("/seller-register")
         },
@@ -68,6 +76,19 @@ export default {
 
         mnx_navToSellerDashboard() {
             this.$router.push("/seller-dashboard");
-        }
+        },
+
+        mnx_navToSellerBrowseRequests() {
+            this.$router.push("/seller-browse-requests");
+        },
+        mnx_navToSellerProjectView() {
+            this.$router.push("/seller-project-view");
+        },
+        mnx_navToSellerEarnings() {
+            this.$router.push("/seller-earnings");
+        },
+        mnx_navToSellerTransferMoney() {
+            this.$router.push("/seller-transfer-money");
+        },
     },
 };

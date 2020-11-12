@@ -20,7 +20,7 @@ export default {
     createAccount(){
       this.mnx_authenticatedUser();
       this.mnx_setUserSeller();
-      this.mnx_navAfterRegister();
+      this.mnx_navToSellerBasicInfo();
     }
   },
 };

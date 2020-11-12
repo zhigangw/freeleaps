@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>PostProjectDescription</h1>
-  </div>
+    <button @click="gotoNext">Next</button></div>
 </template>
 
 <script>
@@ -15,7 +15,10 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    gotoNext(){
+      this.mnx_navToPostProjectNote();
+    }},
 };
 </script>
 

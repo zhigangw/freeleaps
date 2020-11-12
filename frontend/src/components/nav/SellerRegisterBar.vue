@@ -4,7 +4,7 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/seller-dashboard">Dashboard</router-link>
+          <p>Welcome to freeleaps</p>
         </li>
         <li>
           <Loginout />
@@ -16,13 +16,12 @@
     </nav>
   </header>
 </template>
-
 <script>
 import Loginout from "../user/Loginout";
 import SwitchRole from "../user/SwitchRole";
 
 export default {
-  name: "SellerNavBar",
+  name: "BuyerNavBar",
   components: { Loginout, SwitchRole },
   computed: {
   },

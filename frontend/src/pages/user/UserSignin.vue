@@ -19,6 +19,9 @@ export default {
   methods: {
     signIn() {
       this.mnx_authenticatedUser();
+
+      /*TODO: get the identity from backend */
+      this.mnx_setUserSeller();
       this.mnx_navAfterSignedin();
     },
   },

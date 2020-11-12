@@ -7,11 +7,10 @@
           <router-link to="/buyer-dashboard">Dashboard</router-link>
         </li>
         <li>
-          <button @click="switchToSeller">switch to seller</button>
+          <Loginout />
         </li>
         <li>
-          <button @click="logout" v-if="isUserAuthenticated">logout</button>
-          <button @click="login" v-else>login</button>
+          <SwitchRole />
         </li>
       </ul>
     </nav>
@@ -19,27 +18,15 @@
 </template>
 
 <script>
+import Loginout from "../user/Loginout";
+import SwitchRole from "../user/SwitchRole";
+
 export default {
   name: "BuyerNavBar",
-  components: {},
+  components: { Loginout, SwitchRole },
   computed: {
-    isUserAuthenticated() {
-      return this.mnx_isUserAuthenticated();
-    },
   },
-  methods: {
-    switchToSeller(){
-
-    },
-    login() {
-      this.mnx_navToSignin();
-    },
-    logout() {
-      this.mnx_unauthenticatedUser();
-      this.$store.dispatch("userProfile/logoutRoles");
-      this.mnx_navToSignin();
-    },
-  },
+  methods: {},
 };
 </script>
 

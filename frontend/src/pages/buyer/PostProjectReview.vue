@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>PostProjectReview</h1>
+    <button @click="postProject">Post</button>
   </div>
 </template>
 
@@ -15,7 +16,11 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    postProject() {
+      this.mnx_navToBuyerDashboard();
+    },
+  },
 };
 </script>
 
