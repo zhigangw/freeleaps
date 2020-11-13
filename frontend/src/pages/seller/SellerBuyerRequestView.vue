@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>SellerBuyerRequestView</h1>
+    <button @click="browseRequests">Back</button>
+    <button @click="saveRequest">Save for later</button>
+    <button @click="applyForRequest">Apply</button>
   </div>
 </template>
 
@@ -15,7 +18,19 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    browseRequests() {
+      this.mnx_navToSellerBrowseRequests();
+    },
+
+    saveRequest() {
+      //TODO
+    },
+    
+    applyForRequest() {
+      this.mnx_navToSellerApplyRequest();
+    },
+  },
 };
 </script>
 

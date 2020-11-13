@@ -45,7 +45,7 @@ const router = createRouter({
       name: 'front-door',
       path: '/front-door',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: FrontDoor/*, footer: TeamsFooter */,header: GuestBar},
+      components: { default: FrontDoor/*, footer: TeamsFooter */, header: GuestBar },
       /*children: [
         {
           name: 'team-members',
@@ -60,14 +60,14 @@ const router = createRouter({
       name: 'user-signin',
       path: '/user-signin',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: UserSignin ,header: GuestBar},
+      components: { default: UserSignin, header: GuestBar },
     },
 
     {
       name: 'buyer-register',
       path: '/buyer-register',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: BuyerRegister ,header: BuyerRegisterBar},
+      components: { default: BuyerRegister, header: BuyerRegisterBar },
     },
 
     {
@@ -78,7 +78,7 @@ const router = createRouter({
           userRoleEnum.BUYER
         ]
       },
-      components: { default: BuyerBasicInfo ,header: BuyerRegisterBar},
+      components: { default: BuyerBasicInfo, header: BuyerRegisterBar },
     },
 
     {
@@ -89,7 +89,7 @@ const router = createRouter({
           userRoleEnum.BUYER
         ]
       },
-      components: { default: BuyerPhoto ,header: BuyerRegisterBar},
+      components: { default: BuyerPhoto, header: BuyerRegisterBar },
     },
 
     {
@@ -100,63 +100,63 @@ const router = createRouter({
           userRoleEnum.BUYER
         ]
       },
-      components: { default: BuyerLinkedin,header: BuyerRegisterBar},
+      components: { default: BuyerLinkedin, header: BuyerRegisterBar },
     },
 
     {
       name: 'buyer-package',
       path: '/buyer-package',
-      meta: { requiredRoles: [userRoleEnum.BUYER] ,header: BuyerRegisterBar},
-      components: { default: BuyerPackage },
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerPackage, header: BuyerRegisterBar },
     },
 
     {
       name: 'buyer-dashboard',
       path: '/buyer-dashboard',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerDashboard ,header: BuyerNavBar},
+      components: { default: BuyerDashboard, header: BuyerNavBar },
     },
 
     {
       name: 'buyer-invite-seller',
       path: '/buyer-invite-seller',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerInviteSeller ,header: BuyerNavBar },
+      components: { default: BuyerInviteSeller, header: BuyerNavBar },
     },
 
     {
       name: 'buyer-project-view',
       path: '/buyer-project-view',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerProjectView ,header: BuyerNavBar },
+      components: { default: BuyerProjectView, header: BuyerNavBar },
     },
 
     {
       name: 'buyer-quote-view',
       path: '/buyer-quote-view',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerQuoteView ,header: BuyerNavBar },
+      components: { default: BuyerQuoteView, header: BuyerNavBar },
     },
 
     {
       name: 'post-project-description',
       path: '/post-project-description',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectDescription  ,header: BuyerNavBar},
+      components: { default: PostProjectDescription, header: BuyerNavBar },
     },
 
     {
       name: 'post-project-note',
       path: '/post-project-note',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectNote ,header: BuyerNavBar},
+      components: { default: PostProjectNote, header: BuyerNavBar },
     },
 
     {
       name: 'post-project-review',
       path: '/post-project-review',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectReview  ,header: BuyerNavBar},
+      components: { default: PostProjectReview, header: BuyerNavBar },
     },
 
 
@@ -164,7 +164,7 @@ const router = createRouter({
       name: 'seller-register',
       path: '/seller-register',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: SellerRegister  ,header: SellerRegisterBar},
+      components: { default: SellerRegister, header: SellerRegisterBar },
     },
     {
       name: 'seller-basic-info',
@@ -174,7 +174,7 @@ const router = createRouter({
           userRoleEnum.SELLER
         ]
       },
-      components: { default: SellerBasicInfo ,header: SellerRegisterBar},
+      components: { default: SellerBasicInfo, header: SellerRegisterBar },
     },
 
     {
@@ -185,7 +185,7 @@ const router = createRouter({
           userRoleEnum.SELLER
         ]
       },
-      components: { default: SellerPhoto ,header: SellerRegisterBar},
+      components: { default: SellerPhoto, header: SellerRegisterBar },
     },
 
     {
@@ -196,28 +196,28 @@ const router = createRouter({
           userRoleEnum.SELLER
         ]
       },
-      components: { default: SellerLinkedin ,header: SellerRegisterBar},
+      components: { default: SellerLinkedin, header: SellerRegisterBar },
     },
 
     {
       name: 'seller-package',
       path: '/seller-package',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerPackage ,header: SellerRegisterBar},
+      components: { default: SellerPackage, header: SellerRegisterBar },
     },
 
     {
       name: 'seller-dashboard',
       path: '/seller-dashboard',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerDashboard ,header: SellerNavBar},
+      components: { default: SellerDashboard, header: SellerNavBar },
     },
 
     {
       name: 'seller-buyer-request-view',
       path: '/seller-buyer-request-view',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerBuyerRequestView ,header: SellerNavBar},
+      components: { default: SellerBuyerRequestView, header: SellerNavBar },
     },
 
 
@@ -225,48 +225,48 @@ const router = createRouter({
       name: 'seller-earnings',
       path: '/seller-earnings',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerEarnings ,header: SellerNavBar},
+      components: { default: SellerEarnings, header: SellerNavBar },
     },
 
     {
       name: 'seller-browse-requests',
       path: '/seller-browse-requests',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerBrowseRequests ,header: SellerNavBar},
+      components: { default: SellerBrowseRequests, header: SellerNavBar },
     },
 
     {
       name: 'seller-project-view',
       path: '/seller-project-view',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerProjectView ,header: SellerNavBar},
+      components: { default: SellerProjectView, header: SellerNavBar },
     },
 
     {
       name: 'seller-quoting',
       path: '/seller-quoting',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerQuoting ,header: SellerNavBar},
+      components: { default: SellerQuoting, header: SellerNavBar },
     },
 
     {
       name: 'seller-service-create',
       path: '/seller-service-create',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerServiceCreate ,header: SellerNavBar},
+      components: { default: SellerServiceCreate, header: SellerNavBar },
     },
 
     {
       name: 'seller-skill',
       path: '/seller-skill',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerSkill,header: SellerNavBar },
+      components: { default: SellerSkill, header: SellerNavBar },
     },
     {
       name: 'seller-transfer-money',
       path: '/seller-transfer-money',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerTransferMoney ,header: SellerNavBar},
+      components: { default: SellerTransferMoney, header: SellerNavBar },
     },
 
     /*

@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>SellerMarketplace</h1>
+    <button @click="viewDetail">request detail</button>
   </div>
 </template>
 
@@ -15,7 +16,11 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    viewDetail() {
+      this.mnx_navToSellerBuyerRequestView();
+    },
+  },
 };
 </script>
 

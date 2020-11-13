@@ -18,8 +18,20 @@ export default {
     },
   },
   methods: {
-    switchToBuyer() {},
-    switchToSeller() {},
+    switchToBuyer() {
+      if (this.mnx_isUserAuthenticated()) {
+        //TODO fetch the profile from backend
+        this.mnx_setUserBuyer();
+        this.mnx_navToBuyerDashboard();
+      }
+    },
+    switchToSeller() {
+      if (this.mnx_isUserAuthenticated()) {
+        //TODO fetch the profile from backend
+        this.mnx_setUserSeller();
+        this.mnx_navToSellerDashboard();
+      }
+    },
   },
 };
 </script>

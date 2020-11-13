@@ -1,6 +1,9 @@
 <template>
   <div>
     <h1>SellerQuoting</h1>
+    <button @click="saveRequest">Save</button>
+    <button @click="applyForRequest">Apply</button>
+    <button @click="cancelAndBack">Cancel</button>
   </div>
 </template>
 
@@ -15,7 +18,19 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {},
+  methods: {
+    saveRequest() {
+      //TODO
+    },
+
+    applyForRequest() {
+      //TODO
+    },
+
+    cancelAndBack(){
+      this.mnx_navToSellerBuyerRequestView();
+    }
+  },
 };
 </script>
 

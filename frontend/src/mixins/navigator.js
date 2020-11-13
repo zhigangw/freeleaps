@@ -81,12 +81,23 @@ export default {
         mnx_navToSellerBrowseRequests() {
             this.$router.push("/seller-browse-requests");
         },
+
+        mnx_navToSellerBuyerRequestView() {
+            this.$router.push("/seller-buyer-request-view");
+        },
+
+        mnx_navToSellerApplyRequest() {
+            this.$router.push("/seller-quoting");
+        },
+
         mnx_navToSellerProjectView() {
             this.$router.push("/seller-project-view");
         },
+
         mnx_navToSellerEarnings() {
             this.$router.push("/seller-earnings");
         },
+        
         mnx_navToSellerTransferMoney() {
             this.$router.push("/seller-transfer-money");
         },

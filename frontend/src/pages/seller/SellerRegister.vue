@@ -18,6 +18,7 @@ export default {
   mounted() {},
   methods: {
     createAccount(){
+      //TODO Create buyer profile on backend
       this.mnx_authenticatedUser();
       this.mnx_setUserSeller();
       this.mnx_navToSellerBasicInfo();
