@@ -1,7 +1,10 @@
 from flask import Flask
 from flask import jsonify
+# from .mongodb.db import db
+
 app = Flask(__name__)
 
+# db.init_app(app)
 
 @app.route('/api/hello')
 def hello():
