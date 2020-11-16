@@ -1,4 +1,4 @@
-from ..db import db
-class User(db.Document):
-    name = db.StringField()
-    email = db.StringField()
+import mongoengine as me
+class UserDoc(me.Document):
+    name = me.StringField()
+    email = me.StringField(primary_key=True)

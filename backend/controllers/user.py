@@ -6,16 +6,23 @@ from flask import jsonify, request
 from flask_restful import Api, Resource, url_for
 import jwt
 
-from ..mongodb.models.user import User
-from ..mongodb.db import db
+from ..mongodb.models.user import UserDoc
 
 
 class UserRegister(Resource):
-    def get(self):
+    def post(self):
+        user = UserDoc(name="Zhigang Wang", email="wzg1973@gmail.com")
+        user.save()
         return jsonify(text='Hello, register!')
 
-    # data = request.get_json()
-    # user = User(**data)
-    # db.session.add(user)
-    # db.session.commit()
-    # return jsonify(user.to_dict()), 201
+
+class UserSignin(Resource):
+    def get(self):
+        user = UserDoc.objects(name="Zhigang Wang")
+        return jsonify(user)
+
+
+class UserLogout(Resource):
+    def get(self):
+        UserDoc.objects(name="Zhigang Wang").delete()
+        return jsonify(text='Hello, logout:')

@@ -299,7 +299,19 @@ const router = createRouter({
 
 
 router.beforeEach(function (to, from, next) {
-  if (to.meta.requiredRoles.includes(store.getters["userProfile/userRole"])) {
+
+  console.log(to, from, store.getters["userProfile/userRole"]);
+  
+  if (to.name == 'front-door') {
+    next();
+  }
+  else if (to.name == 'user-signin') {
+    next();
+  }
+  else if (to.meta.requiredRoles.includes(userRoleEnum.NONE)) {
+    next();
+  }
+  else if (to.meta.requiredRoles.includes(store.getters["userProfile/userRole"])) {
     next();
   } else {
     next('/user-signin');
