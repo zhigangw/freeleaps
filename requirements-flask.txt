@@ -1,7 +1,6 @@
 Flask
 Flask-Cors
 gunicorn
-PyJMT
 flask-mongoengine
 flask_restful
 flask-jwt-extended

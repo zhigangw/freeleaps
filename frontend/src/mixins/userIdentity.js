@@ -1,7 +1,8 @@
 export default {
     methods: {
-        mnx_authenticatedUser() {
-            this.$store.dispatch("userAuth/authenticateUser");
+        mnx_authenticatedUser(jwt) {
+            this.$store.dispatch("userAuth/authenticateUser", { jwt: jwt});
+
         },
 
         mnx_isUserAuthenticated() {
@@ -30,6 +31,9 @@ export default {
 
         mnx_logoutRole() {
             this.$store.dispatch("userProfile/logoutRoles");
+        },
+        mnx_setUserRole(role) {
+            this.$store.dispatch("userProfile/setUserRole", { role: role });
         }
     },
 }

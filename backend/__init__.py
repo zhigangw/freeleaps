@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, Blueprint
 from flask_restful import Api, Resource, url_for
-from .controllers.user import UserLogout, UserRegister, UserSignin
+from .controllers.user import UserSignout, UserSignup, UserSignin
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import (
     JWTManager, jwt_required, create_access_token,
@@ -20,9 +20,9 @@ def create_app(test_config=None):
     api_bp = Blueprint('api', __name__)
 
     api = Api(api_bp)
-    api.add_resource(UserRegister, '/api/user-register')
-    api.add_resource(UserSignin, '/api/user-signin')
-    api.add_resource(UserLogout, '/api/user-logout')
+    api.add_resource(UserSignup, '/api/user/signup')
+    api.add_resource(UserSignin, '/api/user/signin')
+    api.add_resource(UserSignout, '/api/user/signout')
     app.register_blueprint(api_bp)
 
     db = MongoEngine(app)

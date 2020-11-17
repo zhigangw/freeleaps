@@ -23,6 +23,7 @@
 
 <script>
 import { BackendApi } from "../../utils/index";
+import { userRoleEnum } from "../../types/index";
 
 export default {
   name: "BuyerRegister",
@@ -43,15 +44,21 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    createAccount() {
-      //TODO Create buyer profile on backend
-      this.mnx_authenticatedUser();
+    signedUserIn(jwt) {
+      this.mnx_authenticatedUser(jwt);
       this.mnx_setUserBuyer();
       this.mnx_navToBuyerBasicInfo();
     },
 
     submitForm() {
-      BackendApi.signup(this.email, this.password);
+      BackendApi.signup(this.email, this.password, userRoleEnum.BUYER)
+        .then(function (response) {
+          console.log(response);
+          this.signedUserIn(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
 };

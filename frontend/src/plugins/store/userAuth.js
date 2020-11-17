@@ -2,25 +2,37 @@ const userAuthStore = {
     namespaced: true,
     state() {
         return {
-            isUserAuthenticated: false
+            access_token: null,
+            expiresIn:null,
+            userId:null,
+
         }
     },
     mutations: {
         setAuth(state, payload) {
-            state.isUserAuthenticated = payload.isAuthed;
+            state.access_token = payload.jwt.access_token;
+            state.expiresIn = payload.jwt.expiresIn;
+            state.userId = payload.jwt.userId;
+
         },
+        clearAuth(state){
+            state.access_token= null;
+            state.expiresIn =null;
+            state.userId = null;
+
+        }
     },
     actions: {
-        authenticateUser(context) {
-            context.commit('setAuth', { isAuthed: true })
+        authenticateUser(context, payload) {
+            context.commit('setAuth', payload)
         },
         unauthenticateUser(context) {
-            context.commit('setAuth', { isAuthed: false })
+            context.commit('clearAuth')
         },
     },
     getters: {
         isUserAuthenticated(state) {
-            return state.isUserAuthenticated;
+            return state.access_token /*state.expiresIn*/ ;
         }
     }
 };

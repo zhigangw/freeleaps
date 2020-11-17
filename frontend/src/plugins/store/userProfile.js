@@ -1,8 +1,4 @@
-const userRoleEnum = Object.freeze({
-    NONE: 0,
-    SELLER: 1,
-    BUYER: 2,
-});
+import { userRoleEnum } from "../../types/index"
 
 const userProfileStore = {
     namespaced: true,
@@ -17,6 +13,9 @@ const userProfileStore = {
         },
     },
     actions: {
+        setUserRole(context, role){
+            context.commit('setRole', { role: role })
+        },
         logoutRoles(context) {
             context.commit('setRole', { role: userRoleEnum.NONE })
         },
