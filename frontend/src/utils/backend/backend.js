@@ -1,10 +1,10 @@
 import { backendAxios } from './axios'
 
 class BackendApi {
-    static signup(email, passwoard, role) {
+    static signup(email, password, role) {
         const request = backendAxios.post('/api/user/signup', {
             email: email,
-            passwoard: passwoard,
+            password: password,
             role: role,
         });
         return request;

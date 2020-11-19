@@ -16,7 +16,7 @@
         <input type="password" id="repeat-password" v-model.trim="repeat_password" />
       </div>
       <p v-if="!formIsValid">Please enter a valid email and password .</p>
-      <button>Create Account</button>
+      <button type="submit">Create Account</button>
     </form>
   </div>
 </template>
@@ -50,10 +50,9 @@ export default {
       this.mnx_navToBuyerBasicInfo();
     },
 
-    submitForm() {
+    async submitForm() {
       BackendApi.signup(this.email, this.password, userRoleEnum.BUYER)
-        .then(function (response) {
-          console.log(response);
+        .then((response) => {
           this.signedUserIn(response.data);
         })
         .catch(function (error) {

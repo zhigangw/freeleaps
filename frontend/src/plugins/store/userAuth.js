@@ -4,7 +4,7 @@ const userAuthStore = {
         return {
             access_token: null,
             expiresIn:null,
-            userId:null,
+            identity:null,
 
         }
     },
