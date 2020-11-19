@@ -8,6 +8,12 @@ export default {
         mnx_isUserAuthenticated() {
             return this.$store.getters["userAuth/isUserAuthenticated"];
         },
+        mnx_getUserIdentity() {
+            return this.$store.getters["userAuth/userIdentify"];
+        },
+        mnx_getUserAuthToken() {
+            return this.$store.getters["userAuth/userAuthToken"];
+        },
 
         mnx_isUserBuyer() {
             return this.$store.getters["userProfile/userIsBuyer"];
@@ -32,6 +38,7 @@ export default {
         mnx_logoutRole() {
             this.$store.dispatch("userProfile/logoutRoles");
         },
+
         mnx_setUserRole(role) {
             this.$store.dispatch("userProfile/setUserRole", { role: role });
         }

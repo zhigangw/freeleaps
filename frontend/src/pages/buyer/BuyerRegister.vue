@@ -35,8 +35,6 @@ export default {
       password: "",
       repeat_password: "",
       formIsValid: true,
-      mode: "login",
-      isLoading: false,
       error: null,
     };
   },
@@ -55,7 +53,7 @@ export default {
         .then((response) => {
           this.signedUserIn(response.data);
         })
-        .catch(function (error) {
+        .catch((error) => {
           console.log(error);
         });
     },

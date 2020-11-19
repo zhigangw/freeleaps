@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { BackendApi } from "../../utils/index";
 
 export default {
   name: "Loginout",
@@ -20,9 +21,18 @@ export default {
       this.mnx_navToSignin();
     },
     logout() {
-      this.mnx_unauthenticatedUser();
-      this.mnx_logoutRole();
-      this.mnx_navToSignin();
+      BackendApi.signout(
+        this.mnx_getUserIdentity(),
+        this.mnx_getUserAuthToken()
+      )
+        .then((response) => {
+          this.mnx_unauthenticatedUser();
+          this.mnx_logoutRole();
+          this.mnx_navToSignin();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

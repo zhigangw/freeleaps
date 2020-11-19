@@ -9,6 +9,28 @@ class BackendApi {
         });
         return request;
     }
+
+    static signin(email, password) {
+        const request = backendAxios.post('/api/user/signin', {
+            email: email,
+            password: password
+        });
+        return request;
+    }
+
+    static signout(identity, jwt) {
+        const request = backendAxios.post(
+            '/api/user/signout',
+            {
+                identity: identity,
+            },
+            {
+                headers: { Authorization: `Bearer: ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { BackendApi }

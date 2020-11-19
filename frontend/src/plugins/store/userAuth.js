@@ -3,8 +3,8 @@ const userAuthStore = {
     state() {
         return {
             access_token: null,
-            expiresIn:null,
-            identity:null,
+            expiresIn: null,
+            identity: null,
 
         }
     },
@@ -15,9 +15,9 @@ const userAuthStore = {
             state.userId = payload.jwt.userId;
 
         },
-        clearAuth(state){
-            state.access_token= null;
-            state.expiresIn =null;
+        clearAuth(state) {
+            state.access_token = null;
+            state.expiresIn = null;
             state.userId = null;
 
         }
@@ -32,7 +32,13 @@ const userAuthStore = {
     },
     getters: {
         isUserAuthenticated(state) {
-            return state.access_token /*state.expiresIn*/ ;
+            return state.access_token != null /*state.expiresIn*/;
+        },
+        userAuthToken(state){
+            return state.access_token;
+        },
+        userIdentity(state){
+            return state.access_token;
         }
     }
 };

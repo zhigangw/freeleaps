@@ -53,7 +53,7 @@ class UserSignup(Resource):
         # Identity can be any data that is json serializable
         access_token = create_access_token(identity=args.email)
         identity = args.email
-        expiresIn = datetime.utcnow() + timedelta(minutes=30)
+        expiresIn = datetime.utcnow() + timedelta(minutes=10)
         print(access_token)
         resp =  jsonify(
             access_token=access_token,

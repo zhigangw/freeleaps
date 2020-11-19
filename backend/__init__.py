@@ -30,6 +30,7 @@ def create_app(test_config=None):
     # Setup the Flask-JWT-Extended extension
     app.config['JWT_SECRET_KEY'] = 'pv5m-tAa5D2q3j8EQ7kKA4nm2W0IdmxWkdVidLdDZzCdre30I0P_cQ'
     app.config['SECRET_KEY'] = 'fdbWuiXITfH2FI-2zrWpB48BKnQnhnUe53Us0C3vBy1fi_BvNWhH7A'
+    app.config['JWT_ACCESS_TOKEN_EXPIRES']  = 900 #in seconds
     jwt = JWTManager(app)
 
 
