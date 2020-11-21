@@ -111,7 +111,7 @@ class UserSignin(Resource):
             access_token=access_token,
             expiresIn=expiresIn,
             identity=identity,
-            user=user)
+            role=user.role)
         return make_response(resp, 200)
 
 

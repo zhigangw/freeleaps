@@ -9,7 +9,7 @@ const userProfileStore = {
     },
     mutations: {
         setRole(state, payload) {
-            state.role = payload.role;
+            state.role = userRoleEnum(payload.role);
         },
     },
     actions: {

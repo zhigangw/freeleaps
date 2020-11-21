@@ -42,9 +42,9 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    signedUserIn(jwt) {
-      this.mnx_authenticatedUser(jwt);
-      this.mnx_setUserBuyer();
+    signedUserIn(response) {
+      this.mnx_authenticatedUser(response);
+      this.mnx_setUserRole(response.role);
       this.mnx_navToBuyerBasicInfo();
     },
 
