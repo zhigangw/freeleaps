@@ -33,15 +33,15 @@ export default {
   methods: {
     signIn() {
       BackendApi.signin(this.email, this.password)
-      .then(response =>{
-      this.mnx_authenticatedUser();
-      /*TODO: get the identity from backend */
-      this.mnx_setUserSeller();
-      this.mnx_navAfterSignedin();})
-      .catch( (error) =>{
+        .then((response) => {
+          this.mnx_authenticatedUser(response.data);
+          /*TODO: get the identity from backend */
+          this.mnx_setUserSeller();
+          this.mnx_navAfterSignedin();
+        })
+        .catch((error) => {
           console.log(error);
-        }),
-
+        });
     },
   },
 };

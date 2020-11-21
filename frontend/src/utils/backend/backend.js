@@ -25,7 +25,7 @@ class BackendApi {
                 identity: identity,
             },
             {
-                headers: { Authorization: `Bearer: ${jwt}` }
+                headers: { Authorization: `Bearer ${jwt}` }
             }
         );
         return request;

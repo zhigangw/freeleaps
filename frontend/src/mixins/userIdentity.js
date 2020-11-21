@@ -2,14 +2,13 @@ export default {
     methods: {
         mnx_authenticatedUser(jwt) {
             this.$store.dispatch("userAuth/authenticateUser", { jwt: jwt});
-
         },
 
         mnx_isUserAuthenticated() {
             return this.$store.getters["userAuth/isUserAuthenticated"];
         },
         mnx_getUserIdentity() {
-            return this.$store.getters["userAuth/userIdentify"];
+            return this.$store.getters["userAuth/userIdentity"];
         },
         mnx_getUserAuthToken() {
             return this.$store.getters["userAuth/userAuthToken"];

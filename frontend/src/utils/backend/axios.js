@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const backendAxios = axios.create({
-  baseURL: ''
+  baseURL: '',
 });
 
 export {backendAxios}

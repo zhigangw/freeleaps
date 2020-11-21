@@ -12,13 +12,12 @@ const userAuthStore = {
         setAuth(state, payload) {
             state.access_token = payload.jwt.access_token;
             state.expiresIn = payload.jwt.expiresIn;
-            state.userId = payload.jwt.userId;
-
+            state.identity = payload.jwt.identity;
         },
         clearAuth(state) {
             state.access_token = null;
             state.expiresIn = null;
-            state.userId = null;
+            state.identity = null;
 
         }
     },
@@ -38,7 +37,7 @@ const userAuthStore = {
             return state.access_token;
         },
         userIdentity(state){
-            return state.access_token;
+            return state.identity;
         }
     }
 };

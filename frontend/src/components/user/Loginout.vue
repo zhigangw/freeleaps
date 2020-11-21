@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="logout" v-if="isUserAuthenticated">logout</button>
-    <button @click="login" v-else>login</button>
+    <button @click="signout" v-if="isUserAuthenticated">logout</button>
+    <button @click="signin" v-else>login</button>
   </div>
 </template>
 
@@ -17,21 +17,27 @@ export default {
     },
   },
   methods: {
-    login() {
+    logout(response, error) {
+      console.log(response);
+      console.log(error);
+      this.mnx_unauthenticatedUser();
+      this.mnx_logoutRole();
       this.mnx_navToSignin();
     },
-    logout() {
+    signin() {
+      this.mnx_navToSignin();
+    },
+    signout() {
       BackendApi.signout(
         this.mnx_getUserIdentity(),
         this.mnx_getUserAuthToken()
       )
         .then((response) => {
-          this.mnx_unauthenticatedUser();
-          this.mnx_logoutRole();
-          this.mnx_navToSignin();
+          this.logout(response, null);
         })
         .catch((error) => {
-          console.log(error);
+          // continue to logout with errors
+          this.logout(null, error);
         });
     },
   },
