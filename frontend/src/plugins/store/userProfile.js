@@ -9,12 +9,12 @@ const userProfileStore = {
     },
     mutations: {
         setRole(state, payload) {
-            state.role = userRoleEnum(payload.role);
+            state.role = (payload.role);
         },
     },
     actions: {
-        setUserRole(context, role){
-            context.commit('setRole', { role: role })
+        setUserRole(context, payload) {
+            context.commit('setRole', payload)
         },
         logoutRoles(context) {
             context.commit('setRole', { role: userRoleEnum.NONE })

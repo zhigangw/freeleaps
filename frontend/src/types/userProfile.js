@@ -3,5 +3,12 @@ const userRoleEnum = Object.freeze({
     SELLER: 1,
     BUYER: 2,
 });
-
-export {userRoleEnum}
+const convertIntoToUserRole = function (i) {
+    for (var p in userRoleEnum) {
+        if (p === i || userRoleEnum[p] === i) {
+            return p;
+        }
+    }
+    return userRoleEnum.NONE
+}
+export { userRoleEnum, convertIntoToUserRole }

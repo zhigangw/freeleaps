@@ -10,9 +10,11 @@ export default {
         mnx_navAfterSignedin() {
             if (this.mnx_isUserAuthenticated()) {
                 if (this.mnx_isUserBuyer()) {
+                    console.log(this.mnx_isUserBuyer());
                     this.mnx_navToBuyerDashboard();
                 }
                 if (this.mnx_isUserSeller()) {
+                    console.log(this.mnx_isUserSeller());
                     this.mnx_navToSellerDashboard();
                 }
             }

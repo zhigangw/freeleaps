@@ -1,1 +1,1 @@
-export {userRoleEnum} from './userProfile'
+export { userRoleEnum, convertIntoToUserRole } from './userProfile'
