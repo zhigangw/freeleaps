@@ -1,63 +1,28 @@
 <template>
   <div>
-    <form @submit.prevent="submitForm">
-      <h1>BuyerRegister</h1>
-
-      <div class="form-control">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" v-model.trim="email" />
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input type="password" id="password" v-model.trim="password" />
-      </div>
-      <div class="form-control">
-        <label for="repeat-password">Repeat Password</label>
-        <input type="password" id="repeat-password" v-model.trim="repeat_password" />
-      </div>
-      <p v-if="!formIsValid">Please enter a valid email and password .</p>
-      <button type="submit">Create Account</button>
-    </form>
+    <h1>BuyerRegister</h1>
+    <Register :role="role"></Register>
   </div>
 </template>
 
 <script>
-import { BackendApi } from "../../utils/index";
 import { userRoleEnum } from "../../types/index";
+import Register from "../../components/divs/user/Register";
 
 export default {
   name: "BuyerRegister",
   props: {},
+  components: { Register },
 
   data() {
     return {
-      email: "",
-      password: "",
-      repeat_password: "",
-      formIsValid: true,
-      error: null,
+      role: userRoleEnum.BUYER,
     };
   },
 
   created() {},
   mounted() {},
-  methods: {
-    signedUserIn(response) {
-      this.mnx_authenticatedUser(response);
-      this.mnx_setUserRole(response.role);
-      this.mnx_navToBuyerBasicInfo();
-    },
-
-    async submitForm() {
-      BackendApi.signup(this.email, this.password, userRoleEnum.BUYER)
-        .then((response) => {
-          this.signedUserIn(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-  },
+  methods: {},
 };
 </script>
 

@@ -1,29 +1,24 @@
 <template>
   <header>
-    <img class="img-freeleaps-logo" alt="freeleaps logo" src="../../assets/logo.png" />
+    <img class="img-freeleaps-logo" alt="freeleaps logo" src="../../../assets/logo.png" />
     <nav>
       <ul>
         <li>
-          <router-link to="/buyer-dashboard">Dashboard</router-link>
+          <p>Welcome to freeleaps</p>
         </li>
         <li>
           <Loginout />
-        </li>
-        <li>
-          <SwitchRole />
         </li>
       </ul>
     </nav>
   </header>
 </template>
-
 <script>
-import Loginout from "../user/Loginout";
-import SwitchRole from "../user/SwitchRole";
+import Loginout from "../../buttons/user/Loginout";
 
 export default {
   name: "BuyerNavBar",
-  components: { Loginout, SwitchRole },
+  components: { Loginout },
   computed: {
   },
   methods: {},

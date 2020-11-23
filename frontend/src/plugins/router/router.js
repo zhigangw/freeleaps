@@ -30,11 +30,11 @@ import SellerServiceCreate from "../../pages/seller/SellerServiceCreate";
 import SellerSkill from "../../pages/seller/SellerSkill";
 import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 
-import BuyerNavBar from "../../components/nav/BuyerNavBar.vue";
-import BuyerRegisterBar from "../../components/nav/BuyerRegisterBar.vue";
-import GuestBar from "../../components/nav/GuestBar.vue";
-import SellerNavBar from "../../components/nav/SellerNavBar.vue";
-import SellerRegisterBar from "../../components/nav/SellerRegisterBar.vue";
+import BuyerNavBar from "../../components/bars/nav/BuyerNavBar.vue";
+import BuyerRegisterBar from "../../components/bars/nav/BuyerRegisterBar.vue";
+import GuestBar from "../../components/bars/nav/GuestBar.vue";
+import SellerNavBar from "../../components/bars/nav/SellerNavBar.vue";
+import SellerRegisterBar from "../../components/bars/nav/SellerRegisterBar.vue";
 
 
 const router = createRouter({

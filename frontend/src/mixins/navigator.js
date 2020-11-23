@@ -10,16 +10,23 @@ export default {
         mnx_navAfterSignedin() {
             if (this.mnx_isUserAuthenticated()) {
                 if (this.mnx_isUserBuyer()) {
-                    console.log(this.mnx_isUserBuyer());
                     this.mnx_navToBuyerDashboard();
                 }
                 if (this.mnx_isUserSeller()) {
-                    console.log(this.mnx_isUserSeller());
                     this.mnx_navToSellerDashboard();
                 }
             }
         },
 
+        mnx_navAfterSignedup() {
+            if (this.mnx_isUserBuyer()) {
+                this.mnx_navToBuyerBasicInfo();
+            }
+            if (this.mnx_isUserSeller()) {
+                this.mnx_navToSellerBasicInfo();
+            }
+        },
+        
         mnx_navToBuyerRegister() {
             this.$router.push("/buyer-register");
         },
@@ -99,7 +106,7 @@ export default {
         mnx_navToSellerEarnings() {
             this.$router.push("/seller-earnings");
         },
-        
+
         mnx_navToSellerTransferMoney() {
             this.$router.push("/seller-transfer-money");
         },

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { BackendApi } from "../../utils/index";
+import { BackendApi } from "../../../utils/index";
 
 export default {
   name: "Loginout",

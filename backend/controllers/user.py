@@ -2,14 +2,16 @@ from functools import wraps
 from datetime import datetime, timedelta
 import hashlib
 from flask import jsonify, request, make_response
+from flask import json
 
 from flask_restful import Api, Resource, url_for, fields, marshal_with, reqparse
 from flask_jwt_extended import (
     jwt_required, create_access_token,
     get_jwt_identity
 )
+from mongoengine import queryset
 
-from ..mongodb.models.user import UserDoc
+from ..mongodb.models.user import UserDoc, AuthProfile
 
 
 def create_jwt_token(identity):
@@ -50,39 +52,31 @@ class UserSignup(Resource):
             default=1, choices=range(5), help='The user\'s role',
         )
 
-    def __init__(self) -> None:
-        self.user_signup_post_parser = reqparse.RequestParser()
-        self.user_signup_post_parser.add_argument(
-            'email', dest='email',
-            type=email, location='json',
-            required=True, help='The user\'s email',
-        )
-        self.user_signup_post_parser.add_argument(
-            'password', dest='password',
-            location='json', required=True,
-            help='The user\'s password',
-        )
-        self.user_signup_post_parser.add_argument(
-            'role', dest='role',
-            type=int, location='json',
-            default=1, choices=range(5), help='The user\'s role',
-        )
-
     def post(self):
         args = self.user_signup_post_parser.parse_args()
-        identity = email = args.email
-        user = UserDoc(identity,
-                       password=hashlib.md5(
-                           args.password.encode('utf-8')).hexdigest(),
-                       role=args.role)
-        user.save()
+        return_code = 200
+        resp = None
 
-        access_token, expiresIn = create_jwt_token(identity=args.email)
-        resp = jsonify(
-            access_token=access_token,
-            expiresIn=expiresIn,
-            identity=identity)
-        return make_response(resp, 200)
+        if(UserDoc.objects(user_profile__email=args.email).count() > 0 or
+           UserDoc.objects(auth_profile__identity=args.email).count() > 0):
+            resp = jsonify(text="uesr exists")
+            return_code = 401
+        else:
+            user = UserDoc(auth_profile=AuthProfile(
+                identity=args.email,
+                password=hashlib.md5(
+                    args.password.encode('utf-8')).hexdigest(),
+                role=args.role)
+            )
+            user.save()
+
+            access_token, expiresIn = create_jwt_token(identity=args.email)
+            resp = jsonify(
+                access_token=access_token,
+                expiresIn=expiresIn,
+                identity=args.email,
+                role=user.auth_profile.role)
+        return make_response(resp, return_code)
 
 
 class UserSignin(Resource):
@@ -101,18 +95,25 @@ class UserSignin(Resource):
 
     def post(self):
         args = self.post_parser.parse_args()
-        identity = email = args.email
-        user = UserDoc.objects(email=identity,
-                               password=hashlib.md5(
-                                   args.password.encode('utf-8')).hexdigest()
-                               ).first()
-        access_token, expiresIn = create_jwt_token(identity=identity)
-        resp = jsonify(
-            access_token=access_token,
-            expiresIn=expiresIn,
-            identity=identity,
-            role=user.role)
-        return make_response(resp, 200)
+        identity = args.email
+        queryset = UserDoc.objects(auth_profile__identity=identity,
+                                   auth_profile__password=hashlib.md5(
+                                       args.password.encode('utf-8')).hexdigest()
+                                   )
+        return_code = 200
+        resp = None
+        if(queryset.count() == 0):
+            resp = jsonify(text="user doesn't exist")
+            return_code = 401
+        else:
+            user = queryset.first()
+            access_token, expiresIn = create_jwt_token(identity=identity)
+            resp = jsonify(
+                access_token=access_token,
+                expiresIn=expiresIn,
+                identity=identity,
+                role=user.auth_profile.role)
+        return make_response(resp, return_code)
 
 
 class UserSignout(Resource):
@@ -128,7 +129,8 @@ class UserSignout(Resource):
     def post(self):
         args = self.post_parser.parse_args()
         identity = args.identity
-        user = UserDoc.objects(email=identity).first()
+        queryset = UserDoc.objects(auth_profile__identity=identity)
+        user = queryset.first()
         resp = jsonify(
             identity=identity,
             user=user)

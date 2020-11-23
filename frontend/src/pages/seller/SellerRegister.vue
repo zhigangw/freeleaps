@@ -1,29 +1,28 @@
 <template>
   <div>
     <h1>SellerRegister</h1>
-    <button @click="createAccount">Create Account</button>
+    <Register :role="role"></Register>
   </div>
 </template>
 
 <script>
+import { userRoleEnum } from "../../types/index";
+import Register from "../../components/divs/user/Register";
+
 export default {
   name: "SellerRegister",
   props: {},
+  components: { Register },
 
   data() {
-    return {};
+    return {
+      role: userRoleEnum.SELLER,
+    };
   },
 
   created() {},
   mounted() {},
-  methods: {
-    createAccount(){
-      //TODO Create buyer profile on backend
-      this.mnx_authenticatedUser();
-      this.mnx_setUserSeller();
-      this.mnx_navToSellerBasicInfo();
-    }
-  },
+  methods: {},
 };
 </script>
 

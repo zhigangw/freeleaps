@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img class="img-freeleaps-logo" alt="freeleaps logo" src="../../assets/logo.png" />
+    <img class="img-freeleaps-logo" alt="freeleaps logo" src="../../../assets/logo.png" />
     <nav>
       <ul>
         <li>
@@ -14,7 +14,7 @@
   </header>
 </template>
 <script>
-import Loginout from "../user/Loginout";
+import Loginout from "../../buttons/user/Loginout";
 
 export default {
   name: "BuyerNavBar",

@@ -23,7 +23,7 @@ export default {
     },
 
     gotoSellerRegister() {
-      this.mnx_navToBuyerRegister();
+      this.mnx_navToSellerRegister();
     },
   },
 };
