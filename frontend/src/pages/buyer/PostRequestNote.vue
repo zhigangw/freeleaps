@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "PostProjectNote",
+  name: "PostRequestNote",
   props: {},
 
   data() {
@@ -18,7 +18,7 @@ export default {
   mounted() {},
   methods: {
     gotoNext() {
-      this.mnx_navToPostProjectReview();
+      this.mnx_navToPostRequestReview();
     },
   },
 };

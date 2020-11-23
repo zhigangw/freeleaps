@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1>PostProjectDescription</h1>
-    <button @click="gotoNext">Next</button></div>
+    <h1>PostProjectReview</h1>
+    <button @click="postProject">Post</button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "PostProjectDescription",
+  name: "PostRequestReview",
   props: {},
 
   data() {
@@ -16,9 +17,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    gotoNext(){
-      this.mnx_navToPostProjectNote();
-    }},
+    postProject() {
+      this.mnx_navToBuyerDashboard();
+    },
+  },
 };
 </script>
 

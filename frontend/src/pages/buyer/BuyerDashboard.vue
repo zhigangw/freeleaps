@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>BuyerDashboard</h1>
-    <button @click="postProject">Post a Project</button>
+    <button @click="postProject">Post a Request</button>
     <button @click="viewProject">Project Details</button>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   mounted() {},
   methods: {
     postProject() {
-      this.mnx_navToPostProjectDescription();
+      this.mnx_navToPostRequestDescription();
     },
     viewProject() {
       this.mnx_navToBuyerProjectView();

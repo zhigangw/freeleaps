@@ -12,9 +12,9 @@ import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
 import BuyerProjectView from "../../pages/buyer/BuyerProjectView";
 import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
-import PostProjectDescription from "../../pages/buyer/PostProjectDescription";
-import PostProjectNote from "../../pages/buyer/PostProjectNote";
-import PostProjectReview from "../../pages/buyer/PostProjectReview";
+import PostRequestDescription from "../../pages/buyer/PostRequestDescription";
+import PostRequestNote from "../../pages/buyer/PostRequestNote";
+import PostRequestReview from "../../pages/buyer/PostRequestReview";
 import SellerRegister from "../../pages/seller/SellerRegister";
 import SellerBasicInfo from "../../pages/seller/SellerBasicInfo";
 import SellerPhoto from "../../pages/seller/SellerPhoto"
@@ -139,24 +139,24 @@ const router = createRouter({
     },
 
     {
-      name: 'post-project-description',
-      path: '/post-project-description',
+      name: 'post-request-description',
+      path: '/post-request-description',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectDescription, header: BuyerNavBar },
+      components: { default: PostRequestDescription, header: BuyerNavBar },
     },
 
     {
-      name: 'post-project-note',
-      path: '/post-project-note',
+      name: 'post-request-note',
+      path: '/post-request-note',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectNote, header: BuyerNavBar },
+      components: { default: PostRequestNote, header: BuyerNavBar },
     },
 
     {
-      name: 'post-project-review',
-      path: '/post-project-review',
+      name: 'post-request-review',
+      path: '/post-request-review',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostProjectReview, header: BuyerNavBar },
+      components: { default: PostRequestReview, header: BuyerNavBar },
     },
 
 

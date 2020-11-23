@@ -18,7 +18,7 @@ export default {
   mounted() {},
   methods: {
     gotoNext(){
-      this.navToSellerLinkedin();
+      this.mnx_navToSellerLinkedin();
     }
   },
 };

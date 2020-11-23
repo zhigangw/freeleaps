@@ -26,7 +26,7 @@ export default {
                 this.mnx_navToSellerBasicInfo();
             }
         },
-        
+
         mnx_navToBuyerRegister() {
             this.$router.push("/buyer-register");
         },
@@ -54,14 +54,14 @@ export default {
             this.$router.push("/buyer-project-view")
         },
 
-        mnx_navToPostProjectDescription() {
-            this.$router.push("/post-project-description");
+        mnx_navToPostRequestDescription() {
+            this.$router.push("/post-request-description");
         },
-        mnx_navToPostProjectNote() {
-            this.$router.push("/post-project-note");
+        mnx_navToPostRequestNote() {
+            this.$router.push("/post-request-note");
         },
-        mnx_navToPostProjectReview() {
-            this.$router.push("/post-project-review")
+        mnx_navToPostRequestReview() {
+            this.$router.push("/post-request-review")
         },
         mnx_navToSellerRegister() {
             this.$router.push("/seller-register")
