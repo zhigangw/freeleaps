@@ -54,14 +54,14 @@ export default {
             this.$router.push("/buyer-project-view")
         },
 
-        mnx_navToPostRequestDescription() {
-            this.$router.push("/post-request-description");
+        mnx_navToPostRequestDescription(requestId) {
+            this.$router.push("/post-request-description/:" + requestId);
         },
-        mnx_navToPostRequestNote() {
-            this.$router.push("/post-request-note");
+        mnx_navToPostRequestNote(requestId) {
+            this.$router.push("/post-request-note" + requestId);
         },
-        mnx_navToPostRequestReview() {
-            this.$router.push("/post-request-review")
+        mnx_navToPostRequestReview(requestId) {
+            this.$router.push("/post-request-review" + requestId)
         },
         mnx_navToSellerRegister() {
             this.$router.push("/seller-register")
@@ -110,5 +110,9 @@ export default {
         mnx_navToSellerTransferMoney() {
             this.$router.push("/seller-transfer-money");
         },
+        mnx_goBack() {
+            this.$router.go(-1)j
+        },
+
     },
 };

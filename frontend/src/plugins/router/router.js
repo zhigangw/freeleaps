@@ -140,23 +140,26 @@ const router = createRouter({
 
     {
       name: 'post-request-description',
-      path: '/post-request-description',
+      path: '/post-request-description/:requestId',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: PostRequestDescription, header: BuyerNavBar },
+      props: true,
     },
 
     {
       name: 'post-request-note',
-      path: '/post-request-note',
+      path: '/post-request-note/:requestId',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: PostRequestNote, header: BuyerNavBar },
+      props: true,
     },
 
     {
       name: 'post-request-review',
-      path: '/post-request-review',
+      path: '/post-request-review/:requestId',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: PostRequestReview, header: BuyerNavBar },
+      props: true,
     },
 
 
@@ -301,7 +304,7 @@ const router = createRouter({
 router.beforeEach(function (to, from, next) {
 
   console.log(to, from, store.getters["userProfile/userRole"]);
-  
+
   if (to.name == 'front-door') {
     next();
   }

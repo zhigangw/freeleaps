@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { BackendApi } from "../../../utils/index";
+import { UserAuthApi } from "../../../utils/index";
 
 export default {
   name: "Register",

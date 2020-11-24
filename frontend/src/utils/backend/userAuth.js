@@ -1,6 +1,6 @@
 import { backendAxios } from './axios'
 
-class BackendApi {
+class UserAuthApi {
     static signup(email, password, role) {
         const request = backendAxios.post('/api/user/signup', {
             email: email,
@@ -33,4 +33,4 @@ class BackendApi {
 
 }
 
-export { BackendApi }
+export { UserAuthApi }

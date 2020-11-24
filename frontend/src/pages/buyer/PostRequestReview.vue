@@ -1,14 +1,18 @@
 <template>
   <div>
     <h1>PostProjectReview</h1>
-    <button @click="postProject">Post</button>
+    <button type="button" @click="modifyDescription">Description</button>
+    <button type="button" @click="modifyNotes">Notes</button>
+    <button type="button" @click="postRequest">Post Now</button>
   </div>
 </template>
 
 <script>
 export default {
   name: "PostRequestReview",
-  props: {},
+  props: {
+    requestId: null,
+  },
 
   data() {
     return {};
@@ -17,7 +21,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    postProject() {
+    postRequest() {
       this.mnx_navToBuyerDashboard();
     },
   },

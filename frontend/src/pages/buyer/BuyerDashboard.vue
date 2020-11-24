@@ -19,7 +19,7 @@ export default {
   mounted() {},
   methods: {
     postProject() {
-      this.mnx_navToPostRequestDescription();
+      this.mnx_navToPostRequestDescription(null);
     },
     viewProject() {
       this.mnx_navToBuyerProjectView();
