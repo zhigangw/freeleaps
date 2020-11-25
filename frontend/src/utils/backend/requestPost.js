@@ -1,45 +1,79 @@
 import { backendAxios } from './axios'
+import { userUtils } from '../store/index'
 
 class RequestPostApi {
-    static fillDescription(problemStatement, deliverables, criteria) {
-        const request = backendAxios.post('/api/request-post/fill-description', {
-            problemStatement: problemStatement,
-            deliverables: deliverables,
-            criteria: criteria,
-        });
+    static fillDescription(requestId, problemStatement, deliverables, criteria) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/fill-description',
+            {
+                requestId: requestId,
+                problemStatement: problemStatement,
+                deliverables: deliverables,
+                criteria: criteria,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
         return request;
     }
 
     static fetchDescription(requestId) {
-        const request = backendAxios.post('/api/request-post/fetch-description', {
-            requestId: requestId
-        });
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/fetch-description',
+            {
+                requestId: requestId
+            }
+            ,
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
         return request;
     }
 
-    static fillNote(totalBudget, escortedDeposit, estimatedTime, qualification, notes) {
-        const request = backendAxios.post('/api/request-post/fill-note', {
-            totalBudget: totalBudget,
-            escortedDeposit: escortedDeposit,
-            estimatedTime: estimatedTime,
-            qualification: qualification,
-            notes:notes
-        });
+    static fillNote(totalBudget, currency, escortedDeposit, estimatedHours, qualification, notes) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/fill-note',
+            {
+                totalBudget: totalBudget,
+                currency: currency,
+                escortedDeposit: escortedDeposit,
+                estimatedHours: estimatedHours,
+                qualification: qualification,
+                notes: notes
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
         return request;
     }
 
     static fetchNotes(requestId) {
-        const request = backendAxios.post('/api/request-post/fetch-notes', {
-            requestId: requestId
-        });
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/fetch-notes',
+            {
+                requestId: requestId
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
         return request;
     }
 
-    static postRequest(identity, jwt) {
+    static fillStatus(requestId, status) {
+        let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
-            '/api/request-post/post-request',
+            '/api/request-post/fill-status',
             {
-                identity: identity,
+                requestId: requestId,
+                status: status,
             },
             {
                 headers: { Authorization: `Bearer ${jwt}` }

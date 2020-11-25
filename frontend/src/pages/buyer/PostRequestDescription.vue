@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { RequestPostApi } from "../../../utils/index";
+import { RequestPostApi, requestPostUtils } from "../../utils/index";
 
 export default {
   name: "PostRequestDescription",
@@ -38,13 +38,13 @@ export default {
 
   created() {},
   mounted() {
-    this.fetchDescription()
   },
   methods: {
     goNext() {
       this.mnx_navToPostRequestNote(this.requestId);
     },
-    async fetchRequest() {
+    
+    async fetchDescription() {
       if (this.requestId != null) {
         RequestPostApi.fetchDescription(requestId)
           .then((response) => {
@@ -58,7 +58,16 @@ export default {
       }
     },
     async submitForm() {
+      requestPostUtils.fillRequestId(this.requestId);
+      requestPostUtils.fillDescription(
+        {
+        problemStatement:this.problemStatement,
+        deliverables:this.deliverables,
+        criteria:this.criteria
+        }
+      );
       RequestPostApi.fillDescription(
+        this.requestId,
         this.problemStatement,
         this.deliverables,
         this.criteria

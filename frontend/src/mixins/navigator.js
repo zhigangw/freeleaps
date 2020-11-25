@@ -111,7 +111,7 @@ export default {
             this.$router.push("/seller-transfer-money");
         },
         mnx_goBack() {
-            this.$router.go(-1)j
+            this.$router.go(-1);
         },
 
     },

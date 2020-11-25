@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { BackendApi } from "../../utils/index";
+import { UserAuthApi } from "../../utils/index";
 
 export default {
   name: "UserSignin",
@@ -32,7 +32,7 @@ export default {
   mounted() {},
   methods: {
     signIn() {
-      BackendApi.signin(this.email, this.password)
+      UserAuthApi.signin(this.email, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
           this.mnx_setUserRole(response.data.role);

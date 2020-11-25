@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import { RequestPostApi, requestPostUtils } from "../../utils/index";
+
 export default {
   name: "PostRequestNote",
   props: {
@@ -38,17 +40,16 @@ export default {
   data() {
     return {
       totalBudget: null,
+      currency: "USD",
       escortedDeposit: null,
-      estimatedTime: null,
+      estimatedHours: null,
       qualification: null,
       notes: null,
     };
   },
 
   created() {},
-  mounted() {
-    this.fetchNotes();
-  },
+  mounted() {},
   methods: {
     gotoNext() {
       this.mnx_navToPostRequestReview(this.requestId);
@@ -61,8 +62,9 @@ export default {
       if (this.requestId != null) {
         RequestPostApi.fetchNotes(this.requestId).then((response) => {
           this.totalBudget = response.data.totalBudget;
+          this.currency = response.data.currency;
           this.escortedDeposit = response.data.escortedDeposit;
-          this.estimatedTime = response.data.estimatedTime;
+          this.estimatedHours = response.data.estimatedHours;
           this.qualification = response.data.qualification;
           this.notes = response.data.notes;
         });
@@ -70,14 +72,27 @@ export default {
     },
 
     async submitForm() {
+      requestPostUtils.fillRequestId(this.requestId);
+      requestPostUtils.fillNotes({
+        totalBudget: this.totalBudget,
+        currency: this.currency,
+        escortedDeposit: this.escortedDeposit,
+        estimatedHours: this.estimatedHours,
+        qualification: this.qualification,
+        notes: this.notes,
+      });
+
       RequestPostApi.fillNote(
+        this.requestId,
         this.totalBudget,
+        this.currency,
         this.escortedDeposit,
-        this.estimatedTime,
+        this.estimatedHours,
         this.qualification,
         this.notes
       )
         .then((response) => {
+          response;
           this.goNext();
         })
         .catch((error) => {

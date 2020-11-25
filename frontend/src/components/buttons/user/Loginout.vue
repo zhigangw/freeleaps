@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { BackendApi } from "../../../utils/index";
+import { UserAuthApi } from "../../../utils/index";
 
 export default {
   name: "Loginout",
@@ -18,8 +18,8 @@ export default {
   },
   methods: {
     logout(response, error) {
-      console.log(response);
-      console.log(error);
+      response;
+      error;
       this.mnx_unauthenticatedUser();
       this.mnx_logoutRole();
       this.mnx_navToSignin();
@@ -28,7 +28,7 @@ export default {
       this.mnx_navToSignin();
     },
     signout() {
-      BackendApi.signout(
+      UserAuthApi.signout(
         this.mnx_getUserIdentity(),
         this.mnx_getUserAuthToken()
       )

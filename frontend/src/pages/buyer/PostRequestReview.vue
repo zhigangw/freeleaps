@@ -8,6 +8,9 @@
 </template>
 
 <script>
+import { RequestPostApi, requestPostUtils } from "../../utils/index";
+import { requestPostStatusEnum } from "../../types/index";
+
 export default {
   name: "PostRequestReview",
   props: {
@@ -15,15 +18,39 @@ export default {
   },
 
   data() {
-    return {};
+    return {
+      description: null,
+      notes: null,
+    };
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchRequest();
+  },
   methods: {
-    postRequest() {
-      this.mnx_navToBuyerDashboard();
+    async postRequest() {
+      RequestPostApi.fillStatus(this.requestId, requestPostStatusEnum.PUBLISHED)
+        .then((response) => {
+          this.mnx_navToBuyerDashboard();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
+
+    async fetchRequest() {
+      this.description = requestPostUtils.fetchDescription();
+      this.notes = requestPostUtils.fetchNotes();
+    },
+
+    modifyDescription(){
+          this.mnx_navToPostRequestDescription();
+    },
+
+    modifyNotes(){
+          this.mnx_navToPostRequestNotes();
+    }
   },
 };
 </script>

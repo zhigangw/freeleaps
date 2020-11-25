@@ -1,16 +1,11 @@
 from functools import wraps
 from datetime import datetime, timedelta
 import hashlib
-from flask import jsonify, request, make_response
-from flask import json
-
-from flask_restful import Api, Resource, url_for, fields, marshal_with, reqparse
+from flask import jsonify, make_response
+from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
-    jwt_required, create_access_token,
-    get_jwt_identity
+    jwt_required, create_access_token
 )
-from mongoengine import queryset
-
 from ..mongodb.models.user import UserDoc, AuthProfile
 
 
