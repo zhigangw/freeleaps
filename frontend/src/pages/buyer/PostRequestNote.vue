@@ -12,7 +12,7 @@
       </div>
       <div class="form-control">
         <label for="estimated-time">Estimated Time</label>
-        <input type="number" id="estimated-time" v-model.trim="estimatedTime" />
+        <input type="number" id="estimated-time" v-model.trim="estimatedHours" />
       </div>>
       <div class="form-control">
         <label for="qualification">Qualification</label>

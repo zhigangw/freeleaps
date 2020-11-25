@@ -58,10 +58,10 @@ export default {
             this.$router.push("/post-request-description/:" + requestId);
         },
         mnx_navToPostRequestNote(requestId) {
-            this.$router.push("/post-request-note" + requestId);
+            this.$router.push("/post-request-note/:" + requestId);
         },
         mnx_navToPostRequestReview(requestId) {
-            this.$router.push("/post-request-review" + requestId)
+            this.$router.push("/post-request-review/:" + requestId)
         },
         mnx_navToSellerRegister() {
             this.$router.push("/seller-register")

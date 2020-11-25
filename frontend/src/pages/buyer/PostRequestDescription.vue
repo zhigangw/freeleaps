@@ -30,6 +30,7 @@ export default {
 
   data() {
     return {
+      localRequestId:null,
       problemStatement: null,
       deliverables: null,
       criteria: null,
@@ -38,15 +39,16 @@ export default {
 
   created() {},
   mounted() {
+    this.localRequestId = this.requestId;
   },
   methods: {
     goNext() {
-      this.mnx_navToPostRequestNote(this.requestId);
+      this.mnx_navToPostRequestNote(this.localRequestId);
     },
     
     async fetchDescription() {
-      if (this.requestId != null) {
-        RequestPostApi.fetchDescription(requestId)
+      if (this.localRequestId != null) {
+        RequestPostApi.fetchDescription(this.localRequestId)
           .then((response) => {
             this.problemStatement = response.data.problemStatement;
             this.deliverables = response.data.deliverables;
@@ -58,7 +60,7 @@ export default {
       }
     },
     async submitForm() {
-      requestPostUtils.fillRequestId(this.requestId);
+      requestPostUtils.fillRequestId(this.localRequestId);
       requestPostUtils.fillDescription(
         {
         problemStatement:this.problemStatement,
@@ -67,13 +69,13 @@ export default {
         }
       );
       RequestPostApi.fillDescription(
-        this.requestId,
+        this.localRequestId,
         this.problemStatement,
         this.deliverables,
         this.criteria
       )
         .then((response) => {
-          this.requestId = response.data.requestId;
+          this.localRequestId = response.data.requestId;
           this.goNext();
         })
         .catch((error) => {

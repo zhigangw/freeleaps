@@ -6,8 +6,8 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     jwt_required, create_access_token
 )
-from mongoengine import queryset
-from ..mongodb.models.request import RequestPostDoc, RequestDescription, RequestNotes
+
+from ..mongodb.models.request_post import RequestPostDoc, RequestDescription, RequestNotes
 from ..mongodb.utils.validator import FieldValidator
 
 
@@ -65,16 +65,14 @@ class RequestPostFillDescription(Resource):
             )
 
         else:
-            print(dir(RequestDescription))
-            description = RequestDescription(
+            requestPost = RequestPostDoc(
+                description=RequestDescription(
                 problemStatement=args.problemStatement,
                 deliverables=args.deliverables,
                 criteria=args.criteria)
-            requestPost = RequestPostDoc(
-                description=description
-                ).save()
+            ).save()
             resp = jsonify(
-                requestId=str(requestPost.requestId)
+                requestId=str(requestPost.id)
             )
 
         return make_response(resp, return_code)
