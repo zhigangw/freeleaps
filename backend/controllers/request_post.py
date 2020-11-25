@@ -56,12 +56,12 @@ class RequestPostFillDescription(Resource):
             RequestPostDoc.objects(
                 id=args.requestId
             ).update(
-                set__description__S_problemStatement=args.problemStatement,
-                set__description__S_deliverables=args.deliverables,
-                set__description__S_criteria=args.criteria,
+                set__description__problemStatement=args.problemStatement,
+                set__description__deliverables=args.deliverables,
+                set__description__criteria=args.criteria,
             )
             resp = jsonify(
-                requestId=args.requestId
+                requestId=str(args.requestId)
             )
 
         else:

@@ -30,7 +30,7 @@ export default {
 
   data() {
     return {
-      localRequestId:null,
+      localRequestId: null,
       problemStatement: null,
       deliverables: null,
       criteria: null,
@@ -40,12 +40,25 @@ export default {
   created() {},
   mounted() {
     this.localRequestId = this.requestId;
+    this.fetchLocalStoredDescription();
   },
   methods: {
     goNext() {
       this.mnx_navToPostRequestNote(this.localRequestId);
     },
-    
+    async fetchLocalStoredDescription() {
+      if (
+        this.localRequestId != null &&
+        this.localRequestId != "null" &&
+        this.localRequestId == requestPostUtils.fetchRequestId()
+      ) {
+        let description = requestPostUtils.fetchDescription();
+        this.problemStatement = description.problemStatement;
+        this.deliverables = description.deliverables;
+        this.criteria = description.criteria;
+      }
+    },
+
     async fetchDescription() {
       if (this.localRequestId != null) {
         RequestPostApi.fetchDescription(this.localRequestId)
@@ -60,14 +73,6 @@ export default {
       }
     },
     async submitForm() {
-      requestPostUtils.fillRequestId(this.localRequestId);
-      requestPostUtils.fillDescription(
-        {
-        problemStatement:this.problemStatement,
-        deliverables:this.deliverables,
-        criteria:this.criteria
-        }
-      );
       RequestPostApi.fillDescription(
         this.localRequestId,
         this.problemStatement,
@@ -76,6 +81,12 @@ export default {
       )
         .then((response) => {
           this.localRequestId = response.data.requestId;
+          requestPostUtils.fillRequestId(this.localRequestId);
+          requestPostUtils.fillDescription({
+            problemStatement: this.problemStatement,
+            deliverables: this.deliverables,
+            criteria: this.criteria,
+          });
           this.goNext();
         })
         .catch((error) => {

@@ -39,7 +39,7 @@ export default {
 
   data() {
     return {
-      localRequestId:null,
+      localRequestId: null,
       totalBudget: null,
       currency: "USD",
       escortedDeposit: null,
@@ -52,6 +52,7 @@ export default {
   created() {},
   mounted() {
     this.localRequestId = this.requestId;
+    this.fetchLocalStoredNotes();
   },
   methods: {
     gotoNext() {
@@ -61,8 +62,24 @@ export default {
       this.mnx_navToPostRequestDescription(this.localRequestId);
     },
 
+    async fetchLocalStoredNotes() {
+      if (
+        this.localRequestId != null &&
+        this.localRequestId != "null" &&
+        this.localRequestId == requestPostUtils.fetchRequestId()
+      ) {
+        let notes = requestPostUtils.fetchNotes();
+        this.totalBudget = notes.totalBudget;
+        this.currency = notes.currency;
+        this.escortedDeposit = notes.escortedDeposit;
+        this.estimatedHours = notes.estimatedHours;
+        this.qualification = notes.qualification;
+        this.notes = notes.notes;
+      }
+    },
+
     async fetchNotes() {
-      if (this.localRequestId != null) {
+      if (this.localRequestId != null && this.localRequestId != "null") {
         RequestPostApi.fetchNotes(this.requestId).then((response) => {
           this.totalBudget = response.data.totalBudget;
           this.currency = response.data.currency;
@@ -75,16 +92,6 @@ export default {
     },
 
     async submitForm() {
-      requestPostUtils.fillRequestId(this.localRequestId);
-      requestPostUtils.fillNotes({
-        totalBudget: this.totalBudget,
-        currency: this.currency,
-        escortedDeposit: this.escortedDeposit,
-        estimatedHours: this.estimatedHours,
-        qualification: this.qualification,
-        notes: this.notes,
-      });
-
       RequestPostApi.fillNote(
         this.localRequestId,
         this.totalBudget,
@@ -95,7 +102,17 @@ export default {
         this.notes
       )
         .then((response) => {
-          this. localRequestId = response.data.requestId;
+          this.localRequestId = response.data.requestId;
+          requestPostUtils.fillRequestId(this.localRequestId);
+          requestPostUtils.fillNotes({
+            totalBudget: this.totalBudget,
+            currency: this.currency,
+            escortedDeposit: this.escortedDeposit,
+            estimatedHours: this.estimatedHours,
+            qualification: this.qualification,
+            notes: this.notes,
+          });
+
           this.gotoNext();
         })
         .catch((error) => {
