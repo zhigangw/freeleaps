@@ -34,11 +34,21 @@ class RequestPostApi {
         return request;
     }
 
-    static fillNote(totalBudget, currency, escortedDeposit, estimatedHours, qualification, notes) {
+    static fillNote(
+        requestId,
+        totalBudget,
+        currency,
+        escortedDeposit,
+        estimatedHours,
+        qualification,
+        notes
+    ) {
+        console.log("fillNote:"+ requestId);
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/request-post/fill-note',
             {
+                requestId: requestId,
                 totalBudget: totalBudget,
                 currency: currency,
                 escortedDeposit: escortedDeposit,

@@ -20,7 +20,7 @@ class RequestQuote(me.EmbeddedDocument):
 
 class RequestPostDoc(me.Document):
     poster = me.ReferenceField(UserDoc)
-    status = me.IntField # 0 -- draft 1 -- published
+    status = me.IntField() # 0 -- draft 1 -- published
     description = me.EmbeddedDocumentField(RequestDescription)
     notes = me.EmbeddedDocumentField(RequestNotes)
     quotes = me.EmbeddedDocumentListField(RequestQuote)

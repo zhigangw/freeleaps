@@ -13,15 +13,15 @@
       <div class="form-control">
         <label for="estimated-time">Estimated Time</label>
         <input type="number" id="estimated-time" v-model.trim="estimatedHours" />
-      </div>>
+      </div>
       <div class="form-control">
         <label for="qualification">Qualification</label>
         <input type="text" id="qualification" v-model.trim="qualification" />
-      </div>>
+      </div>
       <div class="form-control">
         <label for="notes">Notes</label>
         <input type="text" id="notes" v-model.trim="notes" />
-      </div>>
+      </div>
       <button type="button" @click="goBack">Back</button>
       <button type="submit">Next</button>
     </form>
@@ -39,6 +39,7 @@ export default {
 
   data() {
     return {
+      localRequestId:null,
       totalBudget: null,
       currency: "USD",
       escortedDeposit: null,
@@ -49,17 +50,19 @@ export default {
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.localRequestId = this.requestId;
+  },
   methods: {
     gotoNext() {
-      this.mnx_navToPostRequestReview(this.requestId);
+      this.mnx_navToPostRequestReview(this.localRequestId);
     },
     goBack() {
-      this.mnx_navToPostRequestDescription(this.requestId);
+      this.mnx_navToPostRequestDescription(this.localRequestId);
     },
 
     async fetchNotes() {
-      if (this.requestId != null) {
+      if (this.localRequestId != null) {
         RequestPostApi.fetchNotes(this.requestId).then((response) => {
           this.totalBudget = response.data.totalBudget;
           this.currency = response.data.currency;
@@ -72,7 +75,7 @@ export default {
     },
 
     async submitForm() {
-      requestPostUtils.fillRequestId(this.requestId);
+      requestPostUtils.fillRequestId(this.localRequestId);
       requestPostUtils.fillNotes({
         totalBudget: this.totalBudget,
         currency: this.currency,
@@ -83,7 +86,7 @@ export default {
       });
 
       RequestPostApi.fillNote(
-        this.requestId,
+        this.localRequestId,
         this.totalBudget,
         this.currency,
         this.escortedDeposit,
@@ -92,8 +95,8 @@ export default {
         this.notes
       )
         .then((response) => {
-          response;
-          this.goNext();
+          this. localRequestId = response.data.requestId;
+          this.gotoNext();
         })
         .catch((error) => {
           console.log(error);

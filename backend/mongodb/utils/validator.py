@@ -7,7 +7,7 @@ class FieldValidator():
 
     @staticmethod
     def objectid(oid):
-        if(oid == ':null'):
+        if(oid == 'null'):
             return None
         if(FieldValidator.is_valid_oid(oid)):
             return ObjectId(oid)

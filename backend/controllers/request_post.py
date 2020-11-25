@@ -67,9 +67,9 @@ class RequestPostFillDescription(Resource):
         else:
             requestPost = RequestPostDoc(
                 description=RequestDescription(
-                problemStatement=args.problemStatement,
-                deliverables=args.deliverables,
-                criteria=args.criteria)
+                    problemStatement=args.problemStatement,
+                    deliverables=args.deliverables,
+                    criteria=args.criteria)
             ).save()
             resp = jsonify(
                 requestId=str(requestPost.id)
@@ -180,27 +180,32 @@ class RequestPostFillNotes(Resource):
         resp = None
         if(args.requestId):
             RequestPostDoc.objects(
-                _id=args.requestId
+                id=args.requestId
             ).update(
-                set__notes__S_totalBudget=args.totalBudget,
-                set__notes__S_currency=args.currency,
-                set__notes__S_escortedDeposit=args.escortedDeposit,
-                set__notes__S_estimatedHours=args.estimatedHours,
-                set__notes__S_qualification=args.qualification,
-                set__notes__S_notes=args.notes,
+                set__notes__totalBudget=args.totalBudget,
+                set__notes__currency=args.currency,
+                set__notes__escortedDeposit=args.escortedDeposit,
+                set__notes__estimatedHours=args.estimatedHours,
+                set__notes__qualification=args.qualification,
+                set__notes__notes=args.notes
             )
             resp = jsonify(
                 requestId=args.requestId
             )
 
         else:
-            requestPost = RequestPostDoc(notes=RequestNotes(
-                problemStatement=args.problemStatement,
-                deliverables=args.deliverables,
-                criteria=args.criteria)
+            requestPost = RequestPostDoc(
+                notes=RequestNotes(
+                totalBudget=args.totalBudget,
+                currency=args.currency,
+                escortedDeposit=args.escortedDeposit,
+                estimatedHours=args.estimatedHours,
+                qualification=args.qualification,
+                notes=args.notes
+                )
             ).save()
             resp = jsonify(
-                requestId=requestPost.requestId
+                requestId=str(requestPost.id)
             )
 
         return make_response(resp, return_code)
@@ -229,7 +234,7 @@ class RequestPostFetchNotes(Resource):
         if(querySet.count() > 0):
             requestPost = querySet.first()
             resp = jsonify(
-                requestId=requestPost.requestId,
+                requestId=str(requestPost.id),
                 notes=requestPost.notes
             )
             return_code = 200
@@ -266,16 +271,15 @@ class RequestPostFillStatus(Resource):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
-        querySet = RequestPostDoc.objects(
-            _id=args.requestId
+        updatedDoc = RequestPostDoc.objects(
+            id=args.requestId
         ).update(
             status=args.status
         )
-        if(querySet.count() > 0):
-            requestPost = querySet.first()
+        if(updatedDoc > 0):
             resp = jsonify(
-                requestId=requestPost.requestId,
-                status=requestPost.status
+                requestId=str(args.requestId),
+                status=args.status
             )
             return_code = 200
         else:
