@@ -8,6 +8,7 @@ from flask_jwt_extended import (
 )
 from mongoengine import queryset
 from ..mongodb.models.request import RequestPostDoc, RequestDescription, RequestNotes
+from ..mongodb.utils.validator import FieldValidator
 
 
 class RequestPostFillDescription(Resource):
@@ -16,7 +17,7 @@ class RequestPostFillDescription(Resource):
         self.post_parser.add_argument(
             'requestId',
             dest='requestId',
-            type=str,
+            type=FieldValidator.objectid,
             location='json',
             required=False,
             help='The request post\'s requestId',
@@ -46,13 +47,14 @@ class RequestPostFillDescription(Resource):
             help='The request post\'s criteria',
         )
 
+    @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
-        if(args.requestId):
+        if(FieldValidator.is_valid_oid(args.requestId)):
             RequestPostDoc.objects(
-                _id=args.requestId
+                id=args.requestId
             ).update(
                 set__description__S_problemStatement=args.problemStatement,
                 set__description__S_deliverables=args.deliverables,
@@ -63,13 +65,16 @@ class RequestPostFillDescription(Resource):
             )
 
         else:
-            requestPost = RequestPostDoc(description=RequestDescription(
+            print(dir(RequestDescription))
+            description = RequestDescription(
                 problemStatement=args.problemStatement,
                 deliverables=args.deliverables,
                 criteria=args.criteria)
-            ).save()
+            requestPost = RequestPostDoc(
+                description=description
+                ).save()
             resp = jsonify(
-                requestId=requestPost.requestId
+                requestId=str(requestPost.requestId)
             )
 
         return make_response(resp, return_code)
@@ -87,12 +92,13 @@ class RequestPostFetchDescription(Resource):
             help='The request post\'s requestId',
         )
 
+    @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
         querySet = RequestPostDoc.objects(
-            _id=args.requestId
+            id=args.requestId
         )
         if(querySet.count() > 0):
             requestPost = querySet.first()
@@ -169,6 +175,7 @@ class RequestPostFillNotes(Resource):
             help='The request post\'s notes',
         )
 
+    @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
         return_code = 200
@@ -213,6 +220,7 @@ class RequestPostFetchNotes(Resource):
             help='The request post\'s requestId',
         )
 
+    @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
         return_code = 200
@@ -255,7 +263,7 @@ class RequestPostFillStatus(Resource):
             help='The request post\'s requestId',
         )
 
-
+    @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
         return_code = 200
@@ -264,7 +272,7 @@ class RequestPostFillStatus(Resource):
             _id=args.requestId
         ).update(
             status=args.status
-            )
+        )
         if(querySet.count() > 0):
             requestPost = querySet.first()
             resp = jsonify(
@@ -278,5 +286,3 @@ class RequestPostFillStatus(Resource):
             )
             return_code = 404
         return make_response(resp, return_code)
-
-
