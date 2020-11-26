@@ -125,8 +125,8 @@ const router = createRouter({
     },
 
     {
-      name: 'buyer-project-view',
-      path: '/buyer-project-view',
+      name: 'buyer-request-view',
+      path: '/buyer-request-view',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: BuyerProjectView, header: BuyerNavBar },
     },
@@ -136,6 +136,12 @@ const router = createRouter({
       path: '/buyer-quote-view',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: BuyerQuoteView, header: BuyerNavBar },
+    },
+    {
+      name: 'buyer-project-view',
+      path: '/buyer-project-view',
+      meta: { requiredRoles: [userRoleEnum.BUYER] },
+      components: { default: BuyerProjectView, header: BuyerNavBar },
     },
 
     {

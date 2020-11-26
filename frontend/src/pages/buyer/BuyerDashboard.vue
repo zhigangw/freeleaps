@@ -4,15 +4,18 @@
     <table>
       <tr v-for="post in postList" :key="post.requestId">
         <td>{{post.description.problemStatement}}</td>
+        <td>
+          <button :id="post.requestId" @click="viewProject($event)">Details</button>
+        </td>
       </tr>
     </table>
     <button @click="postProject">Post a Request</button>
-    <button @click="viewProject">Project Details</button>
   </div>
 </template>
 
 <script>
 import { RequestPostApi } from "../../utils/index";
+import { requestPostStatusEnum } from "../../types/index";
 
 export default {
   name: "BuyerDashboard",
@@ -32,8 +35,18 @@ export default {
     postProject() {
       this.mnx_navToPostRequestDescription(null);
     },
-    viewProject() {
-      this.mnx_navToBuyerProjectView();
+    viewProject(event) {
+      let requestId = event.currentTarget.id;
+      let request = this.postList.filter(function (x) {
+        return x.requestId == requestId;
+      });
+      if (request.status == requestPostStatusEnum.DRAFT) {
+        this.mnx_navToPostRequestReview(requestId);
+      } else if (request.status == requestPostStatusEnum.PUBLISHED) {
+        this.mnx_navToBuyerRequestView(requestId);
+      } else {
+        this.mnx_navToBuyerProjectView(requestId);
+      }
     },
     async fetchAllPostSummary() {
       RequestPostApi.fetchMineAsSummary()

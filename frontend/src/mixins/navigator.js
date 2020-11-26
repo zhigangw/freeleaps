@@ -53,6 +53,9 @@ export default {
         mnx_navToBuyerProjectView() {
             this.$router.push("/buyer-project-view")
         },
+        mnx_navToBuyerRequestView() {
+            this.$router.push("/buyer-request-view")
+        },
 
         mnx_navToPostRequestDescription(requestId) {
             this.$router.push("/post-request-description/" + requestId);
