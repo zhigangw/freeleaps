@@ -94,8 +94,8 @@ export default {
             this.$router.push("/seller-browse-requests");
         },
 
-        mnx_navToSellerBuyerRequestView() {
-            this.$router.push("/seller-buyer-request-view");
+        mnx_navToSellerBuyerRequestView(requestId) {
+            this.$router.push("/seller-buyer-request-view/" + requestId);
         },
 
         mnx_navToSellerApplyRequest() {

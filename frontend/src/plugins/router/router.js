@@ -224,9 +224,10 @@ const router = createRouter({
 
     {
       name: 'seller-buyer-request-view',
-      path: '/seller-buyer-request-view',
+      path: '/seller-buyer-request-view/:requestId',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
       components: { default: SellerBuyerRequestView, header: SellerNavBar },
+      props: true,
     },
 
 

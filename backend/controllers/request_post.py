@@ -265,6 +265,44 @@ class RequestPostFetchNotes(Resource):
         return make_response(resp, return_code)
 
 
+class RequestPostFetchWhole(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'requestId',
+            dest='requestId',
+            type=str,
+            location='json',
+            required=True,
+            help='The request post\'s requestId',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        querySet = RequestPostDoc.objects(
+            id=args.requestId
+        )
+        if(querySet.count() > 0):
+            requestPost = querySet.first()
+            resp = jsonify(
+                requestId=str(requestPost.id),
+                status = requestPost.status,
+                description=requestPost.description,
+                notes = requestPost.notes,
+                publishedDate = requestPost.statueUpdatedDate
+            )
+            return_code = 200
+        else:
+            resp = jsonify(
+                text='not found the post specified by requestId'
+            )
+            return_code = 404
+        return make_response(resp, return_code)
+
+
 class RequestPostFillStatus(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
@@ -340,6 +378,7 @@ class RequestPostFetchMyAllAsSummary(Resource):
         resp = jsonify(s)
         return_code = 200
         return make_response(resp, return_code)
+
 
 class RequestPostFetchAllPublishedAsSummary(Resource):
     def __init__(self) -> None:

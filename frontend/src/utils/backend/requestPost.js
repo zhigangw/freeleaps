@@ -77,6 +77,19 @@ class RequestPostApi {
         return request;
     }
 
+    static fetchWhole(requestId) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/fetch-whole',
+            {
+                requestId: requestId
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
     static fillStatus(requestId, status) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
