@@ -92,6 +92,19 @@ class RequestPostApi {
         return request;
     }
 
+    static fetchMineAsSummary() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/mine-summary',
+            {
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { RequestPostApi }

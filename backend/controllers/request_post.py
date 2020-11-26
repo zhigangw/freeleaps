@@ -1,12 +1,12 @@
 from functools import wraps
 from datetime import datetime, timedelta
-import hashlib
 from flask import jsonify, make_response
 from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
-    jwt_required, create_access_token
+    jwt_required, get_jwt_identity
 )
-
+from mongoengine.queryset.transform import update
+from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.models.request_post import RequestPostDoc, RequestDescription, RequestNotes
 from ..mongodb.utils.validator import FieldValidator
 
@@ -52,10 +52,14 @@ class RequestPostFillDescription(Resource):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
+        userIdentity = get_jwt_identity()
         if(FieldValidator.is_valid_oid(args.requestId)):
             RequestPostDoc.objects(
-                id=args.requestId
+                id=args.requestId,
+                posterIdentity=userIdentity,
             ).update(
+                set__posterIdentity=userIdentity,
+                set__updatedDate=datetime.utcnow(),
                 set__description__problemStatement=args.problemStatement,
                 set__description__deliverables=args.deliverables,
                 set__description__criteria=args.criteria,
@@ -66,6 +70,10 @@ class RequestPostFillDescription(Resource):
 
         else:
             requestPost = RequestPostDoc(
+                posterIdentity=userIdentity,
+                status=RequestPostStatus.DRAFT,
+                createdDate=datetime.utcnow(),
+                updatedDate=datetime.utcnow(),
                 description=RequestDescription(
                     problemStatement=args.problemStatement,
                     deliverables=args.deliverables,
@@ -95,8 +103,10 @@ class RequestPostFetchDescription(Resource):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
+        userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
-            id=args.requestId
+            id=args.requestId,
+            posterIdentity=userIdentity,
         )
         if(querySet.count() > 0):
             requestPost = querySet.first()
@@ -176,12 +186,15 @@ class RequestPostFillNotes(Resource):
     @jwt_required
     def post(self):
         args = self.post_parser.parse_args()
+        userIdentity = get_jwt_identity()
         return_code = 200
         resp = None
         if(args.requestId):
             RequestPostDoc.objects(
-                id=args.requestId
+                id=args.requestId,
+                posterIdentity=userIdentity,
             ).update(
+                set__updatedDate=datetime.utcnow(),
                 set__notes__totalBudget=args.totalBudget,
                 set__notes__currency=args.currency,
                 set__notes__escortedDeposit=args.escortedDeposit,
@@ -195,13 +208,17 @@ class RequestPostFillNotes(Resource):
 
         else:
             requestPost = RequestPostDoc(
+                posterIdentity=userIdentity,
+                status=RequestPostStatus.DRAFT,
+                createdDate=datetime.utcnow(),
+                updatedDate=datetime.utcnow(),
                 notes=RequestNotes(
-                totalBudget=args.totalBudget,
-                currency=args.currency,
-                escortedDeposit=args.escortedDeposit,
-                estimatedHours=args.estimatedHours,
-                qualification=args.qualification,
-                notes=args.notes
+                    totalBudget=args.totalBudget,
+                    currency=args.currency,
+                    escortedDeposit=args.escortedDeposit,
+                    estimatedHours=args.estimatedHours,
+                    qualification=args.qualification,
+                    notes=args.notes
                 )
             ).save()
             resp = jsonify(
@@ -228,8 +245,10 @@ class RequestPostFetchNotes(Resource):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
+        userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
-            _id=args.requestId
+            posterIdentity=userIdentity,
+            id=args.requestId
         )
         if(querySet.count() > 0):
             requestPost = querySet.first()
@@ -271,10 +290,14 @@ class RequestPostFillStatus(Resource):
         args = self.post_parser.parse_args()
         return_code = 200
         resp = None
+        userIdentity = get_jwt_identity()
         updatedDoc = RequestPostDoc.objects(
+            posterIdentity=userIdentity,
             id=args.requestId
         ).update(
-            status=args.status
+            set__status=args.status,
+            set__updatedDate=datetime.utcnow(),
+            set__statueUpdatedDate=datetime.utcnow(),
         )
         if(updatedDoc > 0):
             resp = jsonify(
@@ -287,4 +310,33 @@ class RequestPostFillStatus(Resource):
                 text='not found the post specified by requestId'
             )
             return_code = 404
+        return make_response(resp, return_code)
+
+
+class RequestPostFetchAllAsSummary(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        querySet = RequestPostDoc.objects(
+            posterIdentity=userIdentity
+        )
+        s = []
+        for q in querySet:
+            r = {
+                'requestId': str(q.id),
+                'status': q.status,
+                'createdDate': q.createdDate,
+                'updatedDate': q.updatedDate,
+                'statueUpdatedDate': q.statueUpdatedDate,
+                'description': q.description
+            }
+            s.append(r)
+
+        resp = jsonify(s)
+        return_code = 200
         return make_response(resp, return_code)

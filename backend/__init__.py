@@ -8,7 +8,8 @@ from .controllers.request_post import (
     RequestPostFetchDescription,
     RequestPostFillNotes,
     RequestPostFetchNotes,
-    RequestPostFillStatus
+    RequestPostFillStatus,
+    RequestPostFetchAllAsSummary
     )
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
@@ -36,6 +37,7 @@ def create_app(test_config=None):
     api.add_resource(RequestPostFillNotes, '/api/request-post/fill-note')
     api.add_resource(RequestPostFetchNotes, '/api/request-post/fetch-notes')
     api.add_resource(RequestPostFillStatus, '/api/request-post/fill-status')
+    api.add_resource(RequestPostFetchAllAsSummary, '/api/request-post/mine-summary')
 
     app.register_blueprint(api_bp)
 
