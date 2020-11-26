@@ -7,6 +7,9 @@
           <router-link to="/seller-dashboard">Dashboard</router-link>
         </li>
         <li>
+          <router-link to="/seller-browse-requests">Requests</router-link>
+        </li>
+        <li>
           <Loginout />
         </li>
         <li>
@@ -24,8 +27,7 @@ import SwitchRole from "../../buttons/user/SwitchRole";
 export default {
   name: "SellerNavBar",
   components: { Loginout, SwitchRole },
-  computed: {
-  },
+  computed: {},
   methods: {},
 };
 </script>

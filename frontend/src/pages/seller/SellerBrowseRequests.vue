@@ -1,24 +1,50 @@
 <template>
   <div>
     <h1>SellerMarketplace</h1>
-    <button @click="viewDetail">request detail</button>
+    <table>
+      <tr v-for="post in postList" :key="post.requestId">
+        <td>{{post.description.problemStatement}}</td>
+        <td>
+          <button :id="post.requestId" @click="viewRequest($event)">Details</button>
+        </td>
+      </tr>
+    </table>
   </div>
 </template>
 
 <script>
+import { RequestPostApi } from "../../utils/index";
+
 export default {
   name: "SellerMarketplace",
   props: {},
 
   data() {
-    return {};
+    return {
+      postList: [],
+    };
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchAllPublishedPostSummary();
+  },
   methods: {
     viewDetail() {
       this.mnx_navToSellerBuyerRequestView();
+    },
+    async fetchAllPublishedPostSummary() {
+      RequestPostApi.fetchAllPublishedAsSummary()
+        .then((response) => {
+          this.postList = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+    viewRequest(event) {
+      let requestId = event.currentTarget.id;
+      this.mnx_navToSellerBuyerRequestView(requestId);
     },
   },
 };

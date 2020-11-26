@@ -29,7 +29,7 @@ export default {
 
   created() {},
   mounted() {
-    this.fetchAllPostSummary();
+    this.fetchMyAllPostSummary();
   },
   methods: {
     postProject() {
@@ -48,7 +48,7 @@ export default {
         this.mnx_navToBuyerProjectView(requestId);
       }
     },
-    async fetchAllPostSummary() {
+    async fetchMyAllPostSummary() {
       RequestPostApi.fetchMineAsSummary()
         .then((response) => {
           this.postList = response.data;

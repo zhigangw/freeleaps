@@ -313,7 +313,7 @@ class RequestPostFillStatus(Resource):
         return make_response(resp, return_code)
 
 
-class RequestPostFetchAllAsSummary(Resource):
+class RequestPostFetchMyAllAsSummary(Resource):
     def __init__(self) -> None:
         pass
 
@@ -324,6 +324,33 @@ class RequestPostFetchAllAsSummary(Resource):
         userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
             posterIdentity=userIdentity
+        )
+        s = []
+        for q in querySet:
+            r = {
+                'requestId': str(q.id),
+                'status': q.status,
+                'createdDate': q.createdDate,
+                'updatedDate': q.updatedDate,
+                'statueUpdatedDate': q.statueUpdatedDate,
+                'description': q.description
+            }
+            s.append(r)
+
+        resp = jsonify(s)
+        return_code = 200
+        return make_response(resp, return_code)
+
+class RequestPostFetchAllPublishedAsSummary(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        querySet = RequestPostDoc.objects(
+            status=RequestPostStatus.PUBLISHED
         )
         s = []
         for q in querySet:

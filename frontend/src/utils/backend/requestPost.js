@@ -105,6 +105,18 @@ class RequestPostApi {
         return request;
     }
 
+    static fetchAllPublishedAsSummary() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-post/published-summary',
+            {
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
 }
 
 export { RequestPostApi }
