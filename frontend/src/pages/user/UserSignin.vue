@@ -4,7 +4,7 @@
     <form @submit.prevent="signIn">
       <div class="form-control">
         <label for="email">E-Mail</label>
-        <input type="email" id="email" v-model.trim="email" />
+        <input type="email" id="email" v-model.trim="email"  placeholder="type in your email"/>
       </div>
       <div class="form-control">
         <label for="password">Password</label>

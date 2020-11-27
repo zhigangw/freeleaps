@@ -289,10 +289,10 @@ class RequestPostFetchWhole(Resource):
             requestPost = querySet.first()
             resp = jsonify(
                 requestId=str(requestPost.id),
-                status = requestPost.status,
+                status=requestPost.status,
                 description=requestPost.description,
-                notes = requestPost.notes,
-                publishedDate = requestPost.statueUpdatedDate
+                notes=requestPost.notes,
+                publishedDate=requestPost.statueUpdatedDate
             )
             return_code = 200
         else:
@@ -406,3 +406,4 @@ class RequestPostFetchAllPublishedAsSummary(Resource):
         resp = jsonify(s)
         return_code = 200
         return make_response(resp, return_code)
+

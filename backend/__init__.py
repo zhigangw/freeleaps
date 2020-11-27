@@ -13,6 +13,7 @@ from .controllers.request_post import (
     RequestPostFetchAllPublishedAsSummary,
     RequestPostFetchWhole
 )
+from .controllers.request_quote import RequestQuoteSubmit
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 
@@ -44,6 +45,7 @@ def create_app(test_config=None):
     api.add_resource(RequestPostFetchAllPublishedAsSummary,
                      '/api/request-post/published-summary')
     api.add_resource(RequestPostFetchWhole, '/api/request-post/fetch-whole')
+    api.add_resource(RequestQuoteSubmit, '/api/request-quote/submit')
 
     app.register_blueprint(api_bp)
 

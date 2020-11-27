@@ -1,5 +1,4 @@
 import mongoengine as me
-from .user import UserDoc
 
 
 class RequestDescription(me.EmbeddedDocument):
@@ -17,10 +16,6 @@ class RequestNotes(me.EmbeddedDocument):
     notes = me.StringField()
 
 
-class RequestQuote(me.EmbeddedDocument):
-    providerIdentity = me.StringField()
-
-
 class RequestPostDoc(me.Document):
     posterIdentity = me.StringField()
     status = me.IntField()  # 0 -- draft 1 -- published
@@ -29,4 +24,3 @@ class RequestPostDoc(me.Document):
     statueUpdatedDate = me.DateTimeField()
     description = me.EmbeddedDocumentField(RequestDescription)
     notes = me.EmbeddedDocumentField(RequestNotes)
-    quotes = me.EmbeddedDocumentListField(RequestQuote)

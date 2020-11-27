@@ -12,23 +12,23 @@
       <form @submit.prevent="submitForm">
         <div class="form-control">
           <label for="total-budget">Total Budget</label>
-          <input type="number" id="total-budget" v-model.trim="totalBudget" />
+          <input type="number" id="total-budget" v-model.trim.lazy="quote.notes.totalBudget" />
         </div>
         <div class="form-control">
           <label for="escorted-deposit">Escorted Deposit</label>
-          <input type="number" id="escorted-deposit" v-model.trim="escortedDeposit" />
+          <input type="number" id="escorted-deposit" v-model.trim.lazy="quote.notes.escortedDeposit" />
         </div>
         <div class="form-control">
           <label for="estimated-time">Estimated Time</label>
-          <input type="number" id="estimated-time" v-model.trim="estimatedHours" />
+          <input type="number" id="estimated-time" v-model.trim.lazy="quote.notes.estimatedHours" />
         </div>
         <div class="form-control">
           <label for="qualification">Qualification</label>
-          <input type="text" id="qualification" v-model.trim="qualification" />
+          <input type="text" id="qualification" v-model.trim.lazy="quote.notes.qualification" />
         </div>
         <div class="form-control">
           <label for="notes">Notes</label>
-          <input type="text" id="notes" v-model.trim="notes" />
+          <input type="text" id="notes" v-model.trim.lazy="quote.notes.notes" />
         </div>
         <button type="submit">Submit</button>
       </form>
@@ -67,8 +67,9 @@ export default {
         status: null,
       },
       quote: {
-        ...this.requestPost.notes
-      }
+        notes: {
+        },
+      },
     };
   },
 
@@ -104,7 +105,7 @@ export default {
         this.estimatedHours,
         this.qualification,
         this.notes
-        )
+      )
         .then((response) => {
           response;
           console.log("submitQuote succeeded");
