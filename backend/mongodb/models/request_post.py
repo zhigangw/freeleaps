@@ -1,20 +1,7 @@
 import mongoengine as me
 
-
-class RequestDescription(me.EmbeddedDocument):
-    problemStatement = me.StringField()
-    deliverables = me.StringField()
-    criteria = me.StringField()
-
-
-class RequestNotes(me.EmbeddedDocument):
-    totalBudget = me.IntField()
-    currency = me.StringField()
-    escortedDeposit = me.IntField()
-    estimatedHours = me.IntField()
-    qualification = me.StringField()
-    notes = me.StringField()
-
+from .requests_description import RequestDescription
+from .request_notes import RequestNotes 
 
 class RequestPostDoc(me.Document):
     posterIdentity = me.StringField()

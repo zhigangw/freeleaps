@@ -45,7 +45,7 @@ def create_app(test_config=None):
     api.add_resource(RequestPostFetchAllPublishedAsSummary,
                      '/api/request-post/published-summary')
     api.add_resource(RequestPostFetchWhole, '/api/request-post/fetch-whole')
-    api.add_resource(RequestQuoteSubmit, '/api/request-quote/submit')
+    api.add_resource(RequestQuoteSubmit, '/api/request-quote/submit-quote')
 
     app.register_blueprint(api_bp)
 

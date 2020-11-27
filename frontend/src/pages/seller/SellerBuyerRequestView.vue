@@ -16,7 +16,11 @@
         </div>
         <div class="form-control">
           <label for="escorted-deposit">Escorted Deposit</label>
-          <input type="number" id="escorted-deposit" v-model.trim.lazy="quote.notes.escortedDeposit" />
+          <input
+            type="number"
+            id="escorted-deposit"
+            v-model.trim.lazy="quote.notes.escortedDeposit"
+          />
         </div>
         <div class="form-control">
           <label for="estimated-time">Estimated Time</label>
@@ -30,7 +34,7 @@
           <label for="notes">Notes</label>
           <input type="text" id="notes" v-model.trim.lazy="quote.notes.notes" />
         </div>
-        <button type="submit">Submit</button>
+        <button>Submit</button>
       </form>
     </div>
     <button @click="browseRequests">Back</button>
@@ -67,8 +71,8 @@ export default {
         status: null,
       },
       quote: {
-        notes: {
-        },
+        requestId:null,
+        notes: {},
       },
     };
   },
@@ -89,6 +93,7 @@ export default {
       RequestPostApi.fetchWhole(this.requestId)
         .then((response) => {
           this.requestPost = response.data;
+          this.quote.requestId = this.requestPost.requestId;
           Object.assign(this.quote.notes, this.requestPost.notes);
         })
         .catch((error) => {
@@ -97,15 +102,7 @@ export default {
     },
 
     async applyForRequest() {
-      RequestQuoteApi.submitQuote(
-        this.requestId,
-        this.totalBudget,
-        this.currency,
-        this.escortedDeposit,
-        this.estimatedHours,
-        this.qualification,
-        this.notes
-      )
+      RequestQuoteApi.submitQuote(this.quote)
         .then((response) => {
           response;
           console.log("submitQuote succeeded");
@@ -113,6 +110,10 @@ export default {
         .catch((error) => {
           console.error(error);
         });
+    },
+
+    async submitForm() {
+      this.applyForRequest();
     },
   },
 };
