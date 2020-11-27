@@ -1,3 +1,3 @@
-import {UserAuthApi}  from './userAuth'
-import {RequestPostApi}  from './requestPost'
-export{UserAuthApi, RequestPostApi}
+export {UserAuthApi}  from './userAuth'
+export {RequestPostApi}  from './requestPost'
+export {RequestQuoteApi} from './requestQuote'

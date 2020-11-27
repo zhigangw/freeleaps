@@ -1,18 +1,45 @@
 <template>
   <div>
-    <h1>SellerBuyerRequestView</h1>
-    <h3>Description</h3>
-    <p v-if="isFetched">{{requestPost.description.problemStatement}}</p>
-    <h3>Notes</h3>
-    <p v-if="isFetched">{{requestPost.notes.totalBudget}}</p>
+    <div>
+      <h1>SellerBuyerRequestView</h1>
+      <h3>Description</h3>
+      <p v-if="isFetched">{{requestPost.description.problemStatement}}</p>
+      <h3>Notes</h3>
+      <p v-if="isFetched">{{requestPost.notes.totalBudget}}</p>
+    </div>
+    <div>
+      <h1>Quote</h1>
+      <form @submit.prevent="submitForm">
+        <div class="form-control">
+          <label for="total-budget">Total Budget</label>
+          <input type="number" id="total-budget" v-model.trim="totalBudget" />
+        </div>
+        <div class="form-control">
+          <label for="escorted-deposit">Escorted Deposit</label>
+          <input type="number" id="escorted-deposit" v-model.trim="escortedDeposit" />
+        </div>
+        <div class="form-control">
+          <label for="estimated-time">Estimated Time</label>
+          <input type="number" id="estimated-time" v-model.trim="estimatedHours" />
+        </div>
+        <div class="form-control">
+          <label for="qualification">Qualification</label>
+          <input type="text" id="qualification" v-model.trim="qualification" />
+        </div>
+        <div class="form-control">
+          <label for="notes">Notes</label>
+          <input type="text" id="notes" v-model.trim="notes" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
     <button @click="browseRequests">Back</button>
-    <button @click="saveRequest">Save for later</button>
-    <button @click="applyForRequest">Apply</button>
   </div>
 </template>
 
 <script>
-import { RequestPostApi } from "../../utils/index";
+import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
+
 export default {
   name: "SellerBuyerRequestView",
   props: {
@@ -39,6 +66,9 @@ export default {
         publishedDate: null,
         status: null,
       },
+      quote: {
+        ...this.requestPost.notes
+      }
     };
   },
 
@@ -58,18 +88,30 @@ export default {
       RequestPostApi.fetchWhole(this.requestId)
         .then((response) => {
           this.requestPost = response.data;
+          Object.assign(this.quote.notes, this.requestPost.notes);
         })
         .catch((error) => {
           console.error(error);
         });
     },
 
-    saveRequest() {
-      //TODO
-    },
-
-    applyForRequest() {
-      this.mnx_navToSellerApplyRequest();
+    async applyForRequest() {
+      RequestQuoteApi.submitQuote(
+        this.requestId,
+        this.totalBudget,
+        this.currency,
+        this.escortedDeposit,
+        this.estimatedHours,
+        this.qualification,
+        this.notes
+        )
+        .then((response) => {
+          response;
+          console.log("submitQuote succeeded");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

@@ -43,7 +43,6 @@ class RequestPostApi {
         qualification,
         notes
     ) {
-        console.log("fillNote:"+ requestId);
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/request-post/fill-note',
