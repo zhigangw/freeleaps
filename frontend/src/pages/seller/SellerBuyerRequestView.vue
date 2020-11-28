@@ -3,9 +3,9 @@
     <div>
       <h1>SellerBuyerRequestView</h1>
       <h3>Description</h3>
-      <p v-if="isFetched">{{requestPost.description.problemStatement}}</p>
+      <p>{{requestPost.description.problemStatement}}</p>
       <h3>Notes</h3>
-      <p v-if="isFetched">{{requestPost.notes.totalBudget}}</p>
+      <p>{{requestPost.notes.totalBudget}}</p>
     </div>
     <div>
       <h1>Quote</h1>
@@ -43,6 +43,7 @@
 
 <script>
 import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
+import {requestPostSkeleton} from "../../types/index"
 
 export default {
   name: "SellerBuyerRequestView",
@@ -52,24 +53,7 @@ export default {
 
   data() {
     return {
-      requestPost: {
-        description: {
-          criteria: null,
-          deliverables: null,
-          problemStatement: null,
-        },
-        notes: {
-          currency: "USD",
-          escortedDeposit: 0,
-          estimatedHours: 0,
-          notes: null,
-          qualification: null,
-          totalBudget: 0,
-        },
-        requestId: null,
-        publishedDate: null,
-        status: null,
-      },
+      requestPost: requestPostSkeleton,
       quote: {
         requestId: null,
         notes: {},
@@ -82,9 +66,6 @@ export default {
     this.fetchPostWhole();
   },
   methods: {
-    isFetched() {
-      return this.requestPost != null;
-    },
     browseRequests() {
       this.mnx_navToSellerBrowseRequests();
     },

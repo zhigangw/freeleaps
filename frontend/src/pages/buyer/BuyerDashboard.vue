@@ -39,10 +39,10 @@ export default {
       let requestId = event.currentTarget.id;
       let request = this.postList.filter(function (x) {
         return x.requestId == requestId;
-      });
+      })[0];
       if (request.status == requestPostStatusEnum.DRAFT) {
         this.mnx_navToPostRequestReview(requestId);
-      } else if (request.status == requestPostStatusEnum.PUBLISHED) {
+      } else if (request.status === requestPostStatusEnum.PUBLISHED) {
         this.mnx_navToBuyerRequestView(requestId);
       } else {
         this.mnx_navToBuyerProjectView(requestId);

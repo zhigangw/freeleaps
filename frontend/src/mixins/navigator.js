@@ -50,11 +50,11 @@ export default {
             this.$router.push("/buyer-dashboard")
         },
 
-        mnx_navToBuyerProjectView() {
-            this.$router.push("/buyer-project-view")
+        mnx_navToBuyerProjectView(requestId) {
+            this.$router.push("/buyer-project-view/" + requestId);
         },
-        mnx_navToBuyerRequestView() {
-            this.$router.push("/buyer-request-view")
+        mnx_navToBuyerRequestView(requestId) {
+            this.$router.push("/buyer-request-view/" + requestId);
         },
 
         mnx_navToPostRequestDescription(requestId) {

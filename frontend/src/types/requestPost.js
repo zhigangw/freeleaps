@@ -2,4 +2,13 @@ const requestPostStatusEnum = Object.freeze({
     DRAFT: 0,
     PUBLISHED: 1,
 });
-export { requestPostStatusEnum }
+
+const requestPostSkeleton ={
+    description:{
+  
+    },
+    notes:{
+  
+    }
+  }
+export { requestPostStatusEnum, requestPostSkeleton}

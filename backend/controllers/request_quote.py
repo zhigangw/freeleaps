@@ -82,7 +82,36 @@ class RequestQuoteMine(Resource):
             requestId=args.requestId,
             providerIdentity=userIdentity,
         ).first()
-        
+
         resp = jsonify(quote)
 
         return make_response(resp, return_code)
+
+        
+class RequestQuoteFetchQuotes(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'requestId',
+            dest='requestId',
+            type=str,
+            location='json',
+            required=True,
+            help='The request post\'s requestId',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        userIdentity = get_jwt_identity()
+        return_code = 200
+        resp = None
+
+        quotes = RequestQuoteDoc.objects(
+            requestId=args.requestId,
+        )
+        
+        resp = jsonify(quotes)
+
+        return make_response(resp, return_code)
+

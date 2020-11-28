@@ -1,24 +1,72 @@
 <template>
   <div>
     <h1>BuyerRequestView</h1>
+    <h3>Description</h3>
+    <p>{{requestPost.description.problemStatement}}</p>
+    <h3>Notes</h3>
+    <p>{{requestPost.notes.totalBudget}}</p>
+    <h3>Quotes</h3>
+
+    <table>
+      <tr v-for="quote in quotes" :key="quote.requestId">
+        <td>{{quote.providerIdentity}}</td>
+        <td>
+          <button :id="quote.requestId" @click="viewQuote($event)">Details</button>
+        </td>
+      </tr>
+    </table>
     <button @click="gotoDashboard">Dashboard</button>
   </div>
 </template>
 
 <script>
+import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
+import { requestPostSkeleton } from "../../types/index";
+
 export default {
   name: "BuyerRequestView",
-  props: {},
+  props: {
+    requestId: null,
+  },
 
   data() {
-    return {};
+    return {
+      requestPost: requestPostSkeleton,
+      quotes: [],
+    };
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchPostWhole();
+  },
   methods: {
     gotoDashboard() {
       this.mnx_navToBuyerDashboard();
+    },
+    viewQuote(event) {
+      let requestId = event.currentTarget.id;
+      console.log(requestId);
+    },
+    async fetchPostWhole() {
+      RequestPostApi.fetchWhole(this.requestId)
+        .then((response) => {
+          this.requestPost = response.data;
+          this.fetchQoutes();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    async fetchQoutes() {
+      RequestQuoteApi.fetchQuotes(this.requestId)
+        .then((response) => {
+          this.quotes = response.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     },
   },
 };

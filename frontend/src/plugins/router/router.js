@@ -11,6 +11,7 @@ import BuyerPackage from "../../pages/buyer/BuyerPackage";
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
 import BuyerProjectView from "../../pages/buyer/BuyerProjectView";
+import BuyerRequestView from "../../pages/buyer/BuyerRequestView";
 import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
 import PostRequestDescription from "../../pages/buyer/PostRequestDescription";
 import PostRequestNote from "../../pages/buyer/PostRequestNote";
@@ -126,9 +127,10 @@ const router = createRouter({
 
     {
       name: 'buyer-request-view',
-      path: '/buyer-request-view',
+      path: '/buyer-request-view/:requestId',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerProjectView, header: BuyerNavBar },
+      components: { default: BuyerRequestView, header: BuyerNavBar },
+      props: true,
     },
 
     {
@@ -139,9 +141,10 @@ const router = createRouter({
     },
     {
       name: 'buyer-project-view',
-      path: '/buyer-project-view',
+      path: '/buyer-project-view/:requestId',
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: BuyerProjectView, header: BuyerNavBar },
+      props: true,
     },
 
     {
