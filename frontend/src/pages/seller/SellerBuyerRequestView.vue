@@ -71,7 +71,7 @@ export default {
         status: null,
       },
       quote: {
-        requestId:null,
+        requestId: null,
         notes: {},
       },
     };
@@ -95,6 +95,22 @@ export default {
           this.requestPost = response.data;
           this.quote.requestId = this.requestPost.requestId;
           Object.assign(this.quote.notes, this.requestPost.notes);
+          this.fetchMyQoute();
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    async fetchMyQoute() {
+      RequestQuoteApi.fetchMine(this.requestId)
+        .then((response) => {
+          if ("requestId" in response.data) {
+            this.quote.requestId = response.data.requestId;
+          }
+          if ("notes" in response.data) {
+            Object.assign(this.quote.notes, response.data.notes);
+          }
         })
         .catch((error) => {
           console.error(error);

@@ -12,6 +12,7 @@ from ..mongodb.utils.validator import FieldValidator
 
 import json
 
+
 def notes(jnote):
     return RequestNotes.from_json(json.dumps(jnote))
 
@@ -54,5 +55,34 @@ class RequestQuoteSubmit(Resource):
         resp = jsonify(
             requestId=args.requestId
         )
+
+        return make_response(resp, return_code)
+
+
+class RequestQuoteMine(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'requestId',
+            dest='requestId',
+            type=str,
+            location='json',
+            required=True,
+            help='The request post\'s requestId',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        userIdentity = get_jwt_identity()
+        return_code = 200
+        resp = None
+
+        quote = RequestQuoteDoc.objects(
+            requestId=args.requestId,
+            providerIdentity=userIdentity,
+        ).first()
+        
+        resp = jsonify(quote)
 
         return make_response(resp, return_code)
