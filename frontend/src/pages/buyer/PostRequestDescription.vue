@@ -4,15 +4,15 @@
     <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="problem-statement">Problem Statement(as the title)</label>
-        <input type="text" id="problem-statement" v-model.trim="problemStatement" />
+        <textarea id="problem-statement" v-model.trim="problemStatement" />
       </div>
       <div class="form-control">
         <label for="deliverables">Deliverables</label>
-        <input type="text" id="deliverables" v-model.trim="deliverables" />
+        <textarea id="deliverables" v-model.trim="deliverables" />
       </div>
       <div class="form-control">
         <label for="criteria">Criteria</label>
-        <input type="text" id="criteria" v-model.trim="criteria" />
+        <textarea id="criteria" v-model.trim="criteria" />
       </div>>
       <button type="submit">Next</button>
     </form>

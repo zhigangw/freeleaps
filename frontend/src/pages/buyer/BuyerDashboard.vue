@@ -20,7 +20,7 @@ import { requestPostStatusEnum } from "../../types/index";
 export default {
   name: "BuyerDashboard",
   props: {},
-
+  components: {},
   data() {
     return {
       postList: [],

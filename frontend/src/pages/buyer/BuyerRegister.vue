@@ -1,18 +1,18 @@
 <template>
   <div>
     <h1>BuyerRegister</h1>
-    <Register :role="role"></Register>
+    <UserRegister :role="role"></UserRegister>
   </div>
 </template>
 
 <script>
 import { userRoleEnum } from "../../types/index";
-import Register from "../../components/divs/user/Register";
+import UserRegister from "../../components/divs/user/UserRegister";
 
 export default {
   name: "BuyerRegister",
   props: {},
-  components: { Register },
+  components: { UserRegister },
 
   data() {
     return {

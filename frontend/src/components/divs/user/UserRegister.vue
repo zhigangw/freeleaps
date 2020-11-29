@@ -23,7 +23,7 @@
 import { UserAuthApi } from "../../../utils/index";
 
 export default {
-  name: "Register",
+  name: "UserRegister",
   props: {
     role: { type: Number, required: true },
   },
@@ -48,7 +48,7 @@ export default {
     },
 
     async submitForm() {
-      BackendApi.signup(this.email, this.password, this.role)
+      UserAuthApi.signup(this.email, this.password, this.role)
         .then((response) => {
           this.signedUserIn(response.data);
         })

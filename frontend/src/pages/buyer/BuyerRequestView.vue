@@ -15,30 +15,37 @@
         </td>
       </tr>
     </table>
+    <QuoteViewer ref="viewQuoteModal" :quote="selectedQuote"></QuoteViewer>>
     <button @click="gotoDashboard">Dashboard</button>
+
   </div>
 </template>
 
 <script>
 import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
 import { requestPostSkeleton } from "../../types/index";
+import QuoteViewer from "../../components/divs/quote/QuoteViewer";
 
 export default {
   name: "BuyerRequestView",
   props: {
     requestId: null,
   },
-
+  components: {
+    QuoteViewer,
+  },
   data() {
     return {
       requestPost: requestPostSkeleton,
       quotes: [],
+      selectedQuote: null,
     };
   },
 
   created() {},
   mounted() {
     this.fetchPostWhole();
+    this.fetchQoutes();
   },
   methods: {
     gotoDashboard() {
@@ -46,13 +53,15 @@ export default {
     },
     viewQuote(event) {
       let requestId = event.currentTarget.id;
-      console.log(requestId);
+      this.selectedQuote = this.quotes.filter((x) => {
+        return x.requestId === requestId;
+      })[0];
+      this.$refs.viewQuoteModal.openModal();
     },
     async fetchPostWhole() {
       RequestPostApi.fetchWhole(this.requestId)
         .then((response) => {
           this.requestPost = response.data;
-          this.fetchQoutes();
         })
         .catch((error) => {
           console.error(error);
