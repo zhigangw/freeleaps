@@ -1,18 +1,18 @@
 from flask.globals import request
 import mongoengine as me
 from .user import UserDoc
-from .request import Request
 
 class Contract(me.EmbeddedDocument):
-    request = me.ReferenceField(UserDoc)
+    requestId = me.StringField()
+    quoteId = me.StringField()
 
 class WorkSite(me.EmbeddedDocument):
-    team_site = me.StringField()
-    git_site = me.StringField()
+    teamSite = me.StringField()
+    gitSite = me.StringField()
 
 
-class Project(me.Document):
-    buyer = me.ReferenceField(UserDoc)
-    seller = me.ReferenceField(UserDoc)
+class ProjectDoc(me.Document):
+    createdDate = me.DateField()
+    updatedDate = me.DateField()
     contract = me.EmbeddedDocumentField(Contract)
-    work_site = me.EmbeddedDocumentField(WorkSite)
+    workSite = me.EmbeddedDocumentField(WorkSite)

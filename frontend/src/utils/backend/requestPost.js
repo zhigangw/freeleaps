@@ -2,15 +2,13 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class RequestPostApi {
-    static fillDescription(requestId, problemStatement, deliverables, criteria) {
+    static fillDescription(requestId, description) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/request-post/fill-description',
             {
                 requestId: requestId,
-                problemStatement: problemStatement,
-                deliverables: deliverables,
-                criteria: criteria,
+                description: description
             },
             {
                 headers: { Authorization: `Bearer ${jwt}` }
@@ -36,11 +34,6 @@ class RequestPostApi {
 
     static fillNote(
         requestId,
-        totalBudget,
-        currency,
-        escortedDeposit,
-        estimatedHours,
-        qualification,
         notes
     ) {
         let jwt = userUtils.getJwtToken();
@@ -48,11 +41,6 @@ class RequestPostApi {
             '/api/request-post/fill-note',
             {
                 requestId: requestId,
-                totalBudget: totalBudget,
-                currency: currency,
-                escortedDeposit: escortedDeposit,
-                estimatedHours: estimatedHours,
-                qualification: qualification,
                 notes: notes
             },
             {

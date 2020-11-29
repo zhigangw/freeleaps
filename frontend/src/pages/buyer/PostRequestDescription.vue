@@ -4,15 +4,15 @@
     <form @submit.prevent="submitForm">
       <div class="form-control">
         <label for="problem-statement">Problem Statement(as the title)</label>
-        <textarea id="problem-statement" v-model.trim="problemStatement" />
+        <textarea id="problem-statement" v-model.trim="description.problemStatement" />
       </div>
       <div class="form-control">
         <label for="deliverables">Deliverables</label>
-        <textarea id="deliverables" v-model.trim="deliverables" />
+        <textarea id="deliverables" v-model.trim="description.deliverables" />
       </div>
       <div class="form-control">
         <label for="criteria">Criteria</label>
-        <textarea id="criteria" v-model.trim="criteria" />
+        <textarea id="criteria" v-model.trim="description.criteria" />
       </div>>
       <button type="submit">Next</button>
     </form>
@@ -21,6 +21,7 @@
 
 <script>
 import { RequestPostApi, requestPostUtils } from "../../utils/index";
+import { requestPostSkeleton } from "../../types/index";
 
 export default {
   name: "PostRequestDescription",
@@ -31,9 +32,7 @@ export default {
   data() {
     return {
       localRequestId: null,
-      problemStatement: null,
-      deliverables: null,
-      criteria: null,
+      description: requestPostSkeleton.description,
     };
   },
 
@@ -52,10 +51,7 @@ export default {
         this.localRequestId != "null" &&
         this.localRequestId == requestPostUtils.fetchRequestId()
       ) {
-        let description = requestPostUtils.fetchDescription();
-        this.problemStatement = description.problemStatement;
-        this.deliverables = description.deliverables;
-        this.criteria = description.criteria;
+        this.description = requestPostUtils.fetchDescription();
       }
     },
 
@@ -63,10 +59,7 @@ export default {
       if (this.localRequestId != null) {
         RequestPostApi.fetchDescription(this.localRequestId)
           .then((response) => {
-            this.problemStatement = response.data.problemStatement;
-            this.deliverables = response.data.deliverables;
-            this.criteria = response.data.criteria;
-          })
+            this.description = response.data;})
           .catch((error) => {
             console.log(error);
           });
@@ -75,18 +68,12 @@ export default {
     async submitForm() {
       RequestPostApi.fillDescription(
         this.localRequestId,
-        this.problemStatement,
-        this.deliverables,
-        this.criteria
+        this.description
       )
         .then((response) => {
           this.localRequestId = response.data.requestId;
           requestPostUtils.fillRequestId(this.localRequestId);
-          requestPostUtils.fillDescription({
-            problemStatement: this.problemStatement,
-            deliverables: this.deliverables,
-            criteria: this.criteria,
-          });
+          requestPostUtils.fillDescription(this.description);
           this.goNext();
         })
         .catch((error) => {

@@ -8,7 +8,7 @@ from flask_jwt_extended import (
 from mongoengine.queryset.transform import update
 from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.models.request_post import RequestPostDoc, RequestDescription, RequestNotes
-from ..mongodb.utils.validator import FieldValidator
+from ..mongodb.utils.field_validator import FieldValidator
 
 
 class RequestPostFillDescription(Resource):
@@ -23,28 +23,12 @@ class RequestPostFillDescription(Resource):
             help='The request post\'s requestId',
         )
         self.post_parser.add_argument(
-            'problemStatement',
-            dest='problemStatement',
-            type=str,
+            'description',
+            dest='description',
+            type=FieldValidator.description,
             location='json',
             required=True,
             help='The request post\'s description',
-        )
-        self.post_parser.add_argument(
-            'deliverables',
-            dest='deliverables',
-            type=str,
-            location='json',
-            required=True,
-            help='The request post\'s deliverables',
-        )
-        self.post_parser.add_argument(
-            'criteria',
-            dest='criteria',
-            type=str,
-            location='json',
-            required=True,
-            help='The request post\'s criteria',
         )
 
     @jwt_required
@@ -60,9 +44,7 @@ class RequestPostFillDescription(Resource):
             ).update(
                 set__posterIdentity=userIdentity,
                 set__updatedDate=datetime.utcnow(),
-                set__description__problemStatement=args.problemStatement,
-                set__description__deliverables=args.deliverables,
-                set__description__criteria=args.criteria,
+                set__description=args.description,
             )
             resp = jsonify(
                 requestId=str(args.requestId)
@@ -74,10 +56,7 @@ class RequestPostFillDescription(Resource):
                 status=RequestPostStatus.DRAFT,
                 createdDate=datetime.utcnow(),
                 updatedDate=datetime.utcnow(),
-                description=RequestDescription(
-                    problemStatement=args.problemStatement,
-                    deliverables=args.deliverables,
-                    criteria=args.criteria)
+                description=args.description
             ).save()
             resp = jsonify(
                 requestId=str(requestPost.id)
@@ -131,53 +110,13 @@ class RequestPostFillNotes(Resource):
             dest='requestId',
             type=str,
             location='json',
-            required=False,
+            required=True,
             help='The request post\'s requestId',
-        )
-        self.post_parser.add_argument(
-            'totalBudget',
-            dest='totalBudget',
-            type=int,
-            location='json',
-            required=True,
-            help='The request post\'s totalBudget',
-        )
-        self.post_parser.add_argument(
-            'currency',
-            dest='currency',
-            type=str,
-            location='json',
-            required=True,
-            help='The request post\'s currency',
-        )
-        self.post_parser.add_argument(
-            'escortedDeposit',
-            dest='escortedDeposit',
-            type=int,
-            location='json',
-            required=True,
-            help='The request post\'s escortedDeposit',
-        )
-        self.post_parser.add_argument(
-            'estimatedHours',
-            dest='estimatedHours',
-            type=int,
-            location='json',
-            required=True,
-            help='The request post\'s estimatedHours',
-        )
-        self.post_parser.add_argument(
-            'qualification',
-            dest='qualification',
-            type=str,
-            location='json',
-            required=True,
-            help='The request post\'s qualification',
         )
         self.post_parser.add_argument(
             'notes',
             dest='notes',
-            type=str,
+            type=FieldValidator.notes,
             location='json',
             required=True,
             help='The request post\'s notes',
@@ -189,41 +128,17 @@ class RequestPostFillNotes(Resource):
         userIdentity = get_jwt_identity()
         return_code = 200
         resp = None
-        if(args.requestId):
-            RequestPostDoc.objects(
-                id=args.requestId,
-                posterIdentity=userIdentity,
-            ).update(
-                set__updatedDate=datetime.utcnow(),
-                set__notes__totalBudget=args.totalBudget,
-                set__notes__currency=args.currency,
-                set__notes__escortedDeposit=args.escortedDeposit,
-                set__notes__estimatedHours=args.estimatedHours,
-                set__notes__qualification=args.qualification,
-                set__notes__notes=args.notes
-            )
-            resp = jsonify(
-                requestId=args.requestId
-            )
-
-        else:
-            requestPost = RequestPostDoc(
-                posterIdentity=userIdentity,
-                status=RequestPostStatus.DRAFT,
-                createdDate=datetime.utcnow(),
-                updatedDate=datetime.utcnow(),
-                notes=RequestNotes(
-                    totalBudget=args.totalBudget,
-                    currency=args.currency,
-                    escortedDeposit=args.escortedDeposit,
-                    estimatedHours=args.estimatedHours,
-                    qualification=args.qualification,
-                    notes=args.notes
-                )
-            ).save()
-            resp = jsonify(
-                requestId=str(requestPost.id)
-            )
+        RequestPostDoc.objects(
+            id=args.requestId,
+            posterIdentity=userIdentity,
+        ).update(
+            set__updatedDate=datetime.utcnow(),
+            set__notes=args.notes,
+            upsert=True
+        )
+        resp = jsonify(
+            requestId=args.requestId
+        )
 
         return make_response(resp, return_code)
 
@@ -406,4 +321,3 @@ class RequestPostFetchAllPublishedAsSummary(Resource):
         resp = jsonify(s)
         return_code = 200
         return make_response(resp, return_code)
-
