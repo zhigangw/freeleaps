@@ -42,6 +42,21 @@ class RequestQuoteApi {
         return request;
     }
 
+    static acceptQuote(quoteId, requestId) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-quote/accept-quote',
+            {
+                quoteId: quoteId,
+                requestId: requestId
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { RequestQuoteApi }

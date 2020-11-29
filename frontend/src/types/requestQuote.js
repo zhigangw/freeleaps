@@ -5,4 +5,10 @@ const requestQuoteStatusEnum = Object.freeze({
     ACCEPTED: 3,
     DECLINED: 4,
 });
-export { requestQuoteStatusEnum }
+
+class ReqeustQuoteData{
+    static getId(quote){
+        return quote._id.$oid;
+    }
+}
+export { requestQuoteStatusEnum, ReqeustQuoteData }
