@@ -28,6 +28,18 @@ class RequestQuoteApi {
         return request;
     }
 
+    static fetchOpen() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-quote/fetch-open',
+            {
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
     static fetchQuotes(requestId) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(

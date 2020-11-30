@@ -22,6 +22,7 @@ class WorkerProfile(me.EmbeddedDocument):
 
 class SellerProfile(me.EmbeddedDocument):
     content = me.StringField()
+    savedRequests = me.ListField(me.StringField())
 
 
 class BuyerProfile(me.EmbeddedDocument):

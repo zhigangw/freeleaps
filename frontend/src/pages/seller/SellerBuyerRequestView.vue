@@ -37,13 +37,19 @@
         <button>Submit</button>
       </form>
     </div>
+    <button @click="saveRequest">Save</button>
     <button @click="browseRequests">Back</button>
   </div>
 </template>
 
 <script>
-import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
-import {requestPostSkeleton} from "../../types/index"
+import {
+  RequestPostApi,
+  RequestQuoteApi,
+  SellerProfileApi,
+  ValueChecker,
+} from "../../utils/index";
+import { requestPostSkeleton } from "../../types/index";
 
 export default {
   name: "SellerBuyerRequestView",
@@ -86,10 +92,16 @@ export default {
     async fetchMyQoute() {
       RequestQuoteApi.fetchMine(this.requestId)
         .then((response) => {
-          if ("requestId" in response.data) {
+          if (
+            ValueChecker.IsValidObject(response.data) &&
+            "requestId" in response.data
+          ) {
             this.quote.requestId = response.data.requestId;
           }
-          if ("notes" in response.data) {
+          if (
+            ValueChecker.IsValidObject(response.data) &&
+            "notes" in response.data
+          ) {
             Object.assign(this.quote.notes, response.data.notes);
           }
         })
@@ -111,6 +123,16 @@ export default {
 
     async submitForm() {
       this.applyForRequest();
+    },
+
+    async saveRequest() {
+      SellerProfileApi.saveRequest(this.requestId)
+        .then((response) => {
+          response;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

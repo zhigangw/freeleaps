@@ -40,7 +40,7 @@ class RequestPostFillDescription(Resource):
         if(FieldValidator.is_valid_oid(args.requestId)):
             RequestPostDoc.objects(
                 id=args.requestId,
-                posterIdentity=userIdentity,
+                posterId=userIdentity,
             ).update(
                 set__posterIdentity=userIdentity,
                 set__updatedDate=datetime.utcnow(),
@@ -52,7 +52,7 @@ class RequestPostFillDescription(Resource):
 
         else:
             requestPost = RequestPostDoc(
-                posterIdentity=userIdentity,
+                posterId=userIdentity,
                 status=RequestPostStatus.DRAFT,
                 createdDate=datetime.utcnow(),
                 updatedDate=datetime.utcnow(),
@@ -85,7 +85,7 @@ class RequestPostFetchDescription(Resource):
         userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
             id=args.requestId,
-            posterIdentity=userIdentity,
+            posterId=userIdentity,
         )
         if(querySet.count() > 0):
             requestPost = querySet.first()
@@ -130,7 +130,7 @@ class RequestPostFillNotes(Resource):
         resp = None
         RequestPostDoc.objects(
             id=args.requestId,
-            posterIdentity=userIdentity,
+            posterId=userIdentity,
         ).update(
             set__updatedDate=datetime.utcnow(),
             set__notes=args.notes,
@@ -162,7 +162,7 @@ class RequestPostFetchNotes(Resource):
         resp = None
         userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
-            posterIdentity=userIdentity,
+            posterId=userIdentity,
             id=args.requestId
         )
         if(querySet.count() > 0):
@@ -245,7 +245,7 @@ class RequestPostFillStatus(Resource):
         resp = None
         userIdentity = get_jwt_identity()
         updatedDoc = RequestPostDoc.objects(
-            posterIdentity=userIdentity,
+            posterId=userIdentity,
             id=args.requestId
         ).update(
             set__status=args.status,
@@ -276,7 +276,7 @@ class RequestPostFetchMyAllAsSummary(Resource):
         resp = None
         userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
-            posterIdentity=userIdentity
+            posterId=userIdentity
         )
         s = []
         for q in querySet:

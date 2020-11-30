@@ -8,16 +8,14 @@ from flask_jwt_extended import (
 )
 from mongoengine.base import utils
 from mongoengine.queryset.transform import update
-from ..mongodb.models.request_post import  RequestPostDoc
+from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.models.request_notes import RequestNotes
 
 from ..mongodb.models.request_quote import RequestQuoteDoc
-from ..mongodb.models.project import WorkSite, Contract, ProjectDoc
+from ..mongodb.models.project_manage import WorkSite, Contract, ProjectDoc
 from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.types.request_qoute import RequestQuoteStatus
 from ..mongodb.utils.field_validator import FieldValidator
-
-
 
 
 class RequestQuoteSubmit(Resource):
@@ -49,7 +47,7 @@ class RequestQuoteSubmit(Resource):
 
         RequestQuoteDoc.objects(
             requestId=args.requestId,
-            providerIdentity=userIdentity,
+            providerId=userIdentity,
         ).update(
             set__updatedDate=datetime.utcnow(),
             set__notes=args.notes,
@@ -83,7 +81,7 @@ class RequestQuoteMine(Resource):
 
         quote = RequestQuoteDoc.objects(
             requestId=args.requestId,
-            providerIdentity=userIdentity,
+            providerId=userIdentity,
         ).first()
 
         resp = jsonify(quote)
@@ -112,6 +110,26 @@ class RequestQuoteFetchQuotes(Resource):
 
         quotes = RequestQuoteDoc.objects(
             requestId=args.requestId,
+        )
+
+        resp = jsonify(quotes)
+
+        return make_response(resp, return_code)
+
+
+class RequestQuoteFetchOpen(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        userIdentity = get_jwt_identity()
+        return_code = 200
+        resp = None
+
+        quotes = RequestQuoteDoc.objects(
+            providerId=userIdentity,
+            status__ne =RequestQuoteStatus.ACCEPTED
         )
 
         resp = jsonify(quotes)
@@ -179,13 +197,16 @@ class RequestQuoteAcceptQuote(Resource):
         quote.status = RequestQuoteStatus.ACCEPTED
         quote.updatedDate = datetime.utcnow()
         quote.save()
-        
+
         project = ProjectDoc(
             createdDate=datetime.utcnow(),
             updatedDate=datetime.utcnow(),
             contract=Contract(
                 requestId=args.requestId,
-                quoteId=args.quoteId
+                quoteId=args.quoteId,
+                posterId=request.posterId,
+                providerId=quote.providerId,
+                notes=quote.notes
             ),
             workSite=WorkSite(
                 teamSite="to_be_done",
@@ -193,7 +214,6 @@ class RequestQuoteAcceptQuote(Resource):
             )
         )
         project.save()
-
 
         resp = jsonify(projectId=project.id)
 

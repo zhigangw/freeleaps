@@ -15,12 +15,17 @@ from .controllers.request_post import (
 
 )
 from .controllers.request_quote import (
-    RequestQuoteAcceptQuote, 
-    RequestQuoteSubmit, 
-    RequestQuoteMine, 
-    RequestQuoteFetchQuotes
+    RequestQuoteAcceptQuote,
+    RequestQuoteSubmit,
+    RequestQuoteMine,
+    RequestQuoteFetchQuotes,
+    RequestQuoteFetchOpen
 )
-
+from .controllers.seller_profile import (
+    SellerProfileSaveRequest,
+    SellerProfileFetchSavedRequests
+)
+from .controllers.project_manage import ProjectManageFetchForProvider
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 
@@ -58,6 +63,15 @@ def create_app(test_config=None):
                      '/api/request-quote/fetch-quotes')
     api.add_resource(RequestQuoteAcceptQuote,
                      '/api/request-quote/accept-quote')
+    api.add_resource(RequestQuoteFetchOpen,
+                     '/api/request-quote/fetch-open')
+                     
+    api.add_resource(SellerProfileSaveRequest,
+                     '/api/seller-profile/save-request')
+    api.add_resource(SellerProfileFetchSavedRequests,
+                     '/api/seller-profile/fetch-saved-requests')
+    api.add_resource(ProjectManageFetchForProvider,
+                     '/api/project-manage/fetch-for-provider')
 
     app.register_blueprint(api_bp)
 

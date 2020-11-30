@@ -1,10 +1,13 @@
 from flask.globals import request
 import mongoengine as me
-from .user import UserDoc
+from .request_notes import RequestNotes
 
 class Contract(me.EmbeddedDocument):
     requestId = me.StringField()
     quoteId = me.StringField()
+    posterId = me.StringField()
+    providerId = me.StringField()
+    notes = me.EmbeddedDocumentField(RequestNotes)
 
 class WorkSite(me.EmbeddedDocument):
     teamSite = me.StringField()

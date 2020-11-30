@@ -5,6 +5,7 @@ from .request_notes import RequestNotes
 
 class RequestQuoteDoc(me.Document):
     requestId = me.StringField()
-    providerIdentity = me.StringField()
+    providerId = me.StringField()
     updatedDate = me.DateTimeField()
+    status = me.IntField() #RequestQuoteStatus
     notes = me.EmbeddedDocumentField(RequestNotes)
