@@ -24,7 +24,7 @@ class ProjectManageFetchForProvider(Resource):
             contract__providerId=userIdentity,
         )
         resp = jsonify(
-            requestId=str(projects)
+            projects
         )
 
         return make_response(resp, return_code)

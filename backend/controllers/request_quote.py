@@ -215,6 +215,6 @@ class RequestQuoteAcceptQuote(Resource):
         )
         project.save()
 
-        resp = jsonify(projectId=project.id)
+        resp = jsonify(projectId=str(project.id))
 
         return make_response(resp, return_code)
