@@ -1,6 +1,17 @@
 <template>
   <div>
     <h1>SellerDashboard</h1>
+    <h3>Ongoing Projects</h3>
+    <table>
+      <tr v-for="project in projects" :key="project._id">
+        <td>{{project.workSite.teamSite}}</td>
+        <td>
+          <button :id="getIdFromProject(project)" @click="viewProject($event)">Details</button>
+        </td>
+      </tr>
+    </table>
+    <h3>Open Quotes</h3>
+    <h3>Saved Requests</h3>
     <button @click="gotoProjectView">Project Details</button>
     <button @click="gotoEarnings">Earnings</button>
     <button @click="gotoTransferMoney">Transfer Money</button>
@@ -13,6 +24,7 @@ import {
   RequestQuoteApi,
   PojectManagerApi,
 } from "../../utils/index";
+import  { ProjectData } from "../../types/index";
 
 export default {
   name: "SellerDashboard",
@@ -33,8 +45,12 @@ export default {
     this.fetchSavedRequests();
   },
   methods: {
-    gotoProjectView() {
-      this.mnx_navToSellerProjectView();
+    getIdFromProject(project){
+        return ProjectData.getId(project);
+    },
+    viewProject(event) {
+      let projectId = event.currentTarget.id;
+      this.mnx_navToSellerProjectView(projectId);
     },
     gotoEarnings() {
       this.mnx_navToSellerEarnings();
@@ -47,6 +63,7 @@ export default {
       PojectManagerApi.fetchForProvider()
         .then((response) => {
           this.projects = response.data;
+          console.log(this.projects);
         })
         .catch((error) => {
           console.log(error);

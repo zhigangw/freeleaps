@@ -1,13 +1,16 @@
 <template>
   <div>
     <h1>SellerProjectView</h1>
+    <h3>projectId:{{projectId}}</h3>
   </div>
 </template>
 
 <script>
 export default {
   name: "SellerProjectView",
-  props: {},
+  props: {
+    projectId:null,
+  },
 
   data() {
     return {};

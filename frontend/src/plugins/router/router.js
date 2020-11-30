@@ -250,9 +250,10 @@ const router = createRouter({
 
     {
       name: 'seller-project-view',
-      path: '/seller-project-view',
+      path: '/seller-project-view/:projectId',
       meta: { requiredRoles: [userRoleEnum.SELLER] },
       components: { default: SellerProjectView, header: SellerNavBar },
+      props: true
     },
 
     {

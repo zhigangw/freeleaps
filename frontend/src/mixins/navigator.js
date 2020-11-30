@@ -102,8 +102,8 @@ export default {
             this.$router.push("/seller-quoting");
         },
 
-        mnx_navToSellerProjectView() {
-            this.$router.push("/seller-project-view");
+        mnx_navToSellerProjectView(projectId) {
+            this.$router.push("/seller-project-view/" + projectId);
         },
 
         mnx_navToSellerEarnings() {
