@@ -2,7 +2,12 @@ import os
 
 from flask import Flask, Blueprint
 from flask_restful import Api, Resource, url_for
-from .controllers.user import UserSignout, UserSignup, UserSignin
+from .controllers.user import (
+    UserSignout, 
+    UserSignup, 
+    UserSignin, 
+    UserIsNameAvailable
+    )
 from .controllers.request_post import (
     RequestPostFillDescription,
     RequestPostFetchDescription,
@@ -44,6 +49,8 @@ def create_app(test_config=None):
     api.add_resource(UserSignup, '/api/user/signup')
     api.add_resource(UserSignin, '/api/user/signin')
     api.add_resource(UserSignout, '/api/user/signout')
+    api.add_resource(UserIsNameAvailable,
+                     '/api/user/check-username-availability')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
@@ -65,7 +72,7 @@ def create_app(test_config=None):
                      '/api/request-quote/accept-quote')
     api.add_resource(RequestQuoteFetchOpen,
                      '/api/request-quote/fetch-open')
-                     
+
     api.add_resource(SellerProfileSaveRequest,
                      '/api/seller-profile/save-request')
     api.add_resource(SellerProfileFetchSavedRequests,

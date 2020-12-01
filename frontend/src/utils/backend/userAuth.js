@@ -1,26 +1,43 @@
 import { backendAxios } from './axios'
+import { userUtils } from '../store/index'
 
 class UserAuthApi {
-    static signup(email, password, role) {
+    static signup(username, password, role) {
         const request = backendAxios.post('/api/user/signup', {
-            email: email,
+            username: username,
             password: password,
             role: role,
         });
         return request;
     }
 
-    static signin(email, password) {
+    static signin(username, password) {
         const request = backendAxios.post('/api/user/signin', {
-            email: email,
+            username: username,
             password: password
         });
         return request;
     }
 
-    static signout(identity, jwt) {
+    static signout(identity) {
+        let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/user/signout',
+            {
+                identity: identity,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
+    static checkUsernameAvailability(identity) 
+    {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/check-username-availability',
             {
                 identity: identity,
             },

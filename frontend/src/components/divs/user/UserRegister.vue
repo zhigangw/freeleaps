@@ -2,8 +2,14 @@
   <div>
     <form @submit.prevent="submitForm">
       <div class="form-control">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" v-model.trim="email" />
+        <label for="username">Username</label>
+        <input
+          type="username"
+          id="username"
+          v-model.trim="username"
+          @change="checkUsernameAvailability"
+        />
+        <p v-if="isUsernameNotAvailable">user name is not available</p>
       </div>
       <div class="form-control">
         <label for="password">Password</label>
@@ -30,17 +36,28 @@ export default {
 
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
       repeat_password: "",
       formIsValid: true,
       error: null,
+      isUsernameNotAvailable: false,
     };
   },
 
   created() {},
   mounted() {},
   methods: {
+    async checkUsernameAvailability() {
+      UserAuthApi.checkUsernameAvailability(this.username)
+        .then((response) => {
+          this.isUsernameNotAvailable = response.data.available == false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
     signedUserIn(response) {
       this.mnx_authenticatedUser(response);
       this.mnx_setUserRole(response.role);
@@ -48,7 +65,7 @@ export default {
     },
 
     async submitForm() {
-      UserAuthApi.signup(this.email, this.password, this.role)
+      UserAuthApi.signup(this.username, this.password, this.role)
         .then((response) => {
           this.signedUserIn(response.data);
         })
