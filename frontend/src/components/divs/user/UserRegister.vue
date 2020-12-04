@@ -6,21 +6,36 @@
         <input
           type="username"
           id="username"
+          :title="userNameFormatMessage"
           v-model.trim="username"
-          @change="checkUsernameAvailability"
+          @change="validateUsername"
         />
-        <p v-if="isUsernameNotAvailable">user name is not available</p>
+        <p v-if="isInvalidUsername">{{usernameError}}</p>
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model.trim="password" />
+        <input
+          type="password"
+          id="password"
+          :title="passwordFormatMessage"
+          v-model.trim="password"
+          @change="validatePassword"
+        />
+        <p v-if="isInvalidPassword">{{passwordError}}</p>
       </div>
       <div class="form-control">
         <label for="repeat-password">Repeat Password</label>
-        <input type="password" id="repeat-password" v-model.trim="repeat_password" />
+        <input
+          type="password"
+          id="repeat-password"
+          :title="repeatpasswordFormatMessage"
+          v-model.trim="repeat_password"
+          @change="validateRepeatPassword"
+        />
+        <p v-if="isInvalidRepeatPassword">{{repeatPasswordError}}</p>
       </div>
-      <p v-if="!formIsValid">Please enter a valid email and password .</p>
-      <button type="submit">Create Account</button>
+      <p v-if="isInvalidPassword">{{passwordError}}</p>
+      <button type="submit" :disabled="hasInvalidInput()">Create Account</button>
     </form>
   </div>
 </template>
@@ -42,12 +57,43 @@ export default {
       formIsValid: true,
       error: null,
       isUsernameNotAvailable: false,
+      isInvalidUsername: false,
+      isInvalidPassword: false,
+      isInvalidRepeatPassword: false,
+      usernameError: null,
+      passwordError: null,
+      repeatPasswordError: null,
+      userNamePattern: /^([a-zA-Z]{1,1}[a-zA-Z0-9]{5,17}$)/,
+      userNameFormatMessage:
+        "6 to 18 characters, start with at least one letter and contains alphanumeric characters",
+      passwordPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/,
+      passwordFormatMessage:
+        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)",
+      repeatpasswordFormatMessage: "Must be identical to the password above",
     };
   },
 
   created() {},
   mounted() {},
   methods: {
+    hasInvalidInput() {
+      return (
+        !this.isInvalidUsername &&
+        !this.isInvalidPassword &&
+        this.isInvalidRepeatPassword
+      );
+    },
+
+    validateUsername() {
+      if (!this.userNamePattern.test(this.username)) {
+        this.isInvalidUsername = true;
+        this.usernameError = "Invalid username !";
+      } else {
+        this.isInvalidUsername = false;
+        this.checkUsernameAvailability();
+      }
+    },
+
     async checkUsernameAvailability() {
       UserAuthApi.checkUsernameAvailability(this.username)
         .then((response) => {
@@ -56,6 +102,24 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    validatePassword() {
+      if (!this.passwordPattern.test(this.password)) {
+        this.isInvalidPassword = true;
+        this.passwordError = "Invalid password !";
+      } else {
+        this.isInvalidPassword = false;
+      }
+    },
+
+    validateRepeatPassword() {
+      if (this.password != this.repeat_password) {
+        this.isInvalidRepeatPassword = true;
+        this.repeatPasswordError = "Two typed in password must be identical";
+      } else {
+        this.isInvalidRepeatPassword = false;
+      }
     },
 
     signedUserIn(response) {

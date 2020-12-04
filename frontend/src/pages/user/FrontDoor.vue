@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import { userRoleEnum } from "../../types/index";
+
 export default {
   name: "FrontDoor",
   props: {},
@@ -19,11 +21,11 @@ export default {
   mounted() {},
   methods: {
     gotoBuyerRegister() {
-      this.mnx_navToBuyerRegister();
+      this.mnx_navToUserSignup(userRoleEnum.BUYER);
     },
 
     gotoSellerRegister() {
-      this.mnx_navToSellerRegister();
+      this.mnx_navToUserSignup(userRoleEnum.SELLER);
     },
   },
 };

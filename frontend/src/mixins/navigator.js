@@ -1,8 +1,9 @@
 export default {
     methods: {
-        mnx_navToSignup() {
-            this.$router.push("/fromt-door");
+        mnx_navToFrontDoor() {
+            this.$router.push("/front-door");
         },
+
         mnx_navToSignin() {
             this.$router.push("/user-signin");
         },
@@ -27,23 +28,8 @@ export default {
             }
         },
 
-        mnx_navToBuyerRegister() {
-            this.$router.push("/buyer-register");
-        },
-
-        mnx_navToBuyerBasicInfo() {
-            this.$router.push("/buyer-basic-info");
-        },
-
-        mnx_navToBuyerPhoto() {
-            this.$router.push("/buyer-photo");
-        },
-        mnx_navToBuyerLinkedin() {
-            this.$router.push("/buyer-linkedin");
-        },
-
-        mnx_navToBuyerPackage() {
-            this.$router.push("/buyer-package");
+        mnx_navToUserSignup(startingRole) {
+            this.$router.push("/user-signup/" + startingRole);
         },
 
         mnx_navToBuyerDashboard() {
@@ -66,26 +52,7 @@ export default {
         mnx_navToPostRequestReview(requestId) {
             this.$router.push("/post-request-review/" + requestId)
         },
-        mnx_navToSellerRegister() {
-            this.$router.push("/seller-register")
-        },
-
-        mnx_navToSellerBasicInfo() {
-            this.$router.push("/seller-basic-info");
-        },
-
-        mnx_navToSellerPhoto() {
-            this.$router.push("/seller-photo");
-        },
-
-        mnx_navToSellerLinkedin() {
-            this.$router.push("/seller-linkedin");
-        },
-
-        mnx_navToSellerPackage() {
-            this.$router.push("/seller-package");
-        },
-
+        
         mnx_navToSellerDashboard() {
             this.$router.push("/seller-dashboard");
         },

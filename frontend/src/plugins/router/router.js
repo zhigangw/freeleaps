@@ -3,11 +3,8 @@ import { store, userRoleEnum } from '../store/index';
 
 import FrontDoor from "../../pages/user/FrontDoor";
 import UserSignin from "../../pages/user/UserSignin";
-import BuyerRegister from "../../pages/buyer/BuyerRegister";
-import BuyerBasicInfo from "../../pages/buyer/BuyerBasicInfo";
-import BuyerPhoto from "../../pages/buyer/BuyerPhoto"
-import BuyerLinkedin from "../../pages/buyer/BuyerLinkedin";
-import BuyerPackage from "../../pages/buyer/BuyerPackage";
+import UserSignup from "../../pages/user/UserSignup";
+
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
 import BuyerProjectView from "../../pages/buyer/BuyerProjectView";
@@ -16,11 +13,6 @@ import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
 import PostRequestDescription from "../../pages/buyer/PostRequestDescription";
 import PostRequestNote from "../../pages/buyer/PostRequestNote";
 import PostRequestReview from "../../pages/buyer/PostRequestReview";
-import SellerRegister from "../../pages/seller/SellerRegister";
-import SellerBasicInfo from "../../pages/seller/SellerBasicInfo";
-import SellerPhoto from "../../pages/seller/SellerPhoto"
-import SellerLinkedin from "../../pages/seller/SellerLinkedin";
-import SellerPackage from "../../pages/seller/SellerPackage";
 import SellerDashboard from "../../pages/seller/SellerDashboard";
 import SellerBuyerRequestView from "../../pages/seller/SellerBuyerRequestView";
 import SellerEarnings from "../../pages/seller/SellerEarnings";
@@ -32,10 +24,9 @@ import SellerSkill from "../../pages/seller/SellerSkill";
 import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 
 import BuyerNavBar from "../../components/bars/nav/BuyerNavBar.vue";
-import BuyerRegisterBar from "../../components/bars/nav/BuyerRegisterBar.vue";
 import GuestBar from "../../components/bars/nav/GuestBar.vue";
 import SellerNavBar from "../../components/bars/nav/SellerNavBar.vue";
-import SellerRegisterBar from "../../components/bars/nav/SellerRegisterBar.vue";
+import UserSignupBar from "../../components/bars/nav/UserSignupBar.vue";
 
 
 const router = createRouter({
@@ -65,51 +56,13 @@ const router = createRouter({
     },
 
     {
-      name: 'buyer-register',
-      path: '/buyer-register',
+      name: 'user-signup',
+      path: '/user-signup/:startingRole',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: BuyerRegister, header: BuyerRegisterBar },
+      components: { default: UserSignup, header: UserSignupBar },
+      props: true,
     },
 
-    {
-      name: 'buyer-basic-info',
-      path: '/buyer-basic-info',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER
-        ]
-      },
-      components: { default: BuyerBasicInfo, header: BuyerRegisterBar },
-    },
-
-    {
-      name: 'buyer-photo',
-      path: '/buyer-photo',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER
-        ]
-      },
-      components: { default: BuyerPhoto, header: BuyerRegisterBar },
-    },
-
-    {
-      name: 'buyer-linkedin',
-      path: '/buyer-linkedin',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.BUYER
-        ]
-      },
-      components: { default: BuyerLinkedin, header: BuyerRegisterBar },
-    },
-
-    {
-      name: 'buyer-package',
-      path: '/buyer-package',
-      meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: BuyerPackage, header: BuyerRegisterBar },
-    },
 
     {
       name: 'buyer-dashboard',
@@ -169,53 +122,6 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.BUYER] },
       components: { default: PostRequestReview, header: BuyerNavBar },
       props: true,
-    },
-
-
-    {
-      name: 'seller-register',
-      path: '/seller-register',
-      meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: SellerRegister, header: SellerRegisterBar },
-    },
-    {
-      name: 'seller-basic-info',
-      path: '/seller-basic-info',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: SellerBasicInfo, header: SellerRegisterBar },
-    },
-
-    {
-      name: 'seller-photo',
-      path: '/seller-photo',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: SellerPhoto, header: SellerRegisterBar },
-    },
-
-    {
-      name: 'seller-linkedin',
-      path: '/seller-linkedin',
-      meta: {
-        requiredRoles: [
-          userRoleEnum.SELLER
-        ]
-      },
-      components: { default: SellerLinkedin, header: SellerRegisterBar },
-    },
-
-    {
-      name: 'seller-package',
-      path: '/seller-package',
-      meta: { requiredRoles: [userRoleEnum.SELLER] },
-      components: { default: SellerPackage, header: SellerRegisterBar },
     },
 
     {
