@@ -10,9 +10,8 @@
           v-model.trim="username"
           placeholder="type in your username"
           :title="userNameFormatMessage"
-          @change="validateUsername"
         />
-        <span v-if="isInvalidUsername">{{usernameError}}</span>
+        <p v-if="isInvalidUsername">{{usernameError}}</p>
       </div>
       <div class="form-control">
         <label for="password">Password</label>
@@ -22,11 +21,11 @@
           v-model.trim="password"
           placeholder="type in your password"
           :title="passwordFormatMessage"
-          @click="validatePassword"
         />
-        <span v-if="isInvalidPassword">{{passwordError}}</span>
+        <p v-if="isInvalidPassword">{{passwordError}}</p>
       </div>
       <button type="submit">Sign In</button>
+      <p v-if="hasInvalidInput()">{{inputError}}</p>
     </form>
   </div>
 </template>
@@ -45,6 +44,7 @@ export default {
       isInvalidPassword: false,
       usernameError: null,
       passwordError: null,
+      inputError: null,
       userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
       passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
     };
@@ -53,8 +53,16 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    clearUsernameError() {
+      this.isInvalidUsername = false;
+    },
+
+    clearPasswordError() {
+      this.isInvalidPassword = false;
+    },
+
     hasInvalidInput() {
-      return !this.isInvalidUsername && !this.isInvalidPassword;
+      return this.isInvalidUsername || this.isInvalidPassword;
     },
 
     validateUsername() {
@@ -63,7 +71,6 @@ export default {
         this.isInvalidUsername = true;
       } else {
         this.isInvalidUsername = false;
-        this.checkUsernameAvailability();
       }
     },
 
@@ -74,9 +81,19 @@ export default {
       } else {
         this.isInvalidPassword = false;
       }
+      console.log(this.isInvalidUsername);
+      console.log(this.isInvalidPassword);
+      console.log(this.hasInvalidInput());
     },
 
     signIn() {
+      this.validateUsername();
+      this.validatePassword();
+      if (this.hasInvalidInput()) {
+        this.inputError = "Please fix erros before submit.";
+        return;
+      }
+
       UserAuthApi.signin(this.username, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);

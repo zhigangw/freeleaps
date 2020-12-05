@@ -8,8 +8,10 @@
           id="username"
           :title="userNameFormatMessage"
           v-model.trim="username"
-          @change="validateUsername"
+          @change="checkUsernameAvailability"
+          @input="clearUsernameError"
         />
+        <p v-if="isUsernameNotAvailable">{{usernameNotAvailableError}}</p>
         <p v-if="isInvalidUsername">{{usernameError}}</p>
       </div>
       <div class="form-control">
@@ -19,7 +21,7 @@
           id="password"
           :title="passwordFormatMessage"
           v-model.trim="password"
-          @change="validatePassword"
+          @input="clearPasswordError"
         />
         <p v-if="isInvalidPassword">{{passwordError}}</p>
       </div>
@@ -30,7 +32,7 @@
           id="repeat-password"
           :title="repeatpasswordFormatMessage"
           v-model.trim="repeat_password"
-          @change="validateRepeatPassword"
+          @input="clearRepeatPasswordError"
         />
         <p v-if="isInvalidRepeatPassword">{{repeatPasswordError}}</p>
       </div>
@@ -41,7 +43,8 @@
       <input type="radio" id="seller" value="1" v-model.number="role" />
       <label for="female">I want to make money</label>
       <br />
-      <button type="submit" :disabled="hasInvalidInput()">Create Account</button>
+      <button type="submit">Create Account</button>
+      <p v-if="hasInvalidInput()">{{error}}</p>
     </form>
   </div>
 </template>
@@ -63,7 +66,6 @@ export default {
       username: "",
       password: "",
       repeat_password: "",
-      formIsValid: true,
       error: null,
       isUsernameNotAvailable: false,
       isInvalidUsername: false,
@@ -75,6 +77,7 @@ export default {
       userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
       passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
       repeatpasswordFormatMessage: "Must be identical to the password above",
+      usernameNotAvailableError: "This username is not available",
     };
   },
 
@@ -88,19 +91,22 @@ export default {
     },
     hasInvalidInput() {
       return (
+        this.isUsernameNotAvailable ||
         this.isInvalidUsername ||
         this.isInvalidPassword ||
         this.isInvalidRepeatPassword
       );
     },
-
+    clearUsernameError() {
+      this.isUsernameNotAvailable = false;
+      this.isInvalidUsername = false;
+    },
     validateUsername() {
       this.usernameError = UserProfileValidator.validateUsername(this.username);
       if (this.usernameError) {
         this.isInvalidUsername = true;
       } else {
         this.isInvalidUsername = false;
-        this.checkUsernameAvailability();
       }
     },
 
@@ -112,6 +118,14 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+
+    clearPasswordError() {
+      this.isInvalidPassword = false;
+    },
+
+    clearRepeatPasswordError() {
+      this.isInvalidRepeatPassword = false;
     },
 
     validatePassword() {
@@ -139,6 +153,13 @@ export default {
     },
 
     async submitForm() {
+      this.validateUsername();
+      this.validatePassword();
+      this.validateRepeatPassword();
+      if (this.hasInvalidInput()) {
+        this.error = "Please fix erros before submit";
+        return;
+      }
       UserAuthApi.signup(this.username, this.password, this.roleValue())
         .then((response) => {
           this.signedUserIn(response.data);
