@@ -1,0 +1,1 @@
+export {UserProfileValidator} from "./userProfile"

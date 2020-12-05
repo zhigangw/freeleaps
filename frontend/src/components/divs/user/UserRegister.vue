@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { UserAuthApi } from "../../../utils/index";
+import { UserAuthApi, UserProfileValidator } from "../../../utils/index";
 
 export default {
   name: "UserRegister",
@@ -63,12 +63,8 @@ export default {
       usernameError: null,
       passwordError: null,
       repeatPasswordError: null,
-      userNamePattern: /^([a-zA-Z]{1,1}[a-zA-Z0-9]{5,17}$)/,
-      userNameFormatMessage:
-        "6 to 18 characters, start with at least one letter and contains alphanumeric characters",
-      passwordPattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/,
-      passwordFormatMessage:
-        "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)",
+      userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
+      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
       repeatpasswordFormatMessage: "Must be identical to the password above",
     };
   },
@@ -85,9 +81,9 @@ export default {
     },
 
     validateUsername() {
-      if (!this.userNamePattern.test(this.username)) {
+      this.usernameError = UserProfileValidator.validateUsername(this.username);
+      if (this.usernameError) {
         this.isInvalidUsername = true;
-        this.usernameError = "Invalid username !";
       } else {
         this.isInvalidUsername = false;
         this.checkUsernameAvailability();
@@ -105,9 +101,9 @@ export default {
     },
 
     validatePassword() {
-      if (!this.passwordPattern.test(this.password)) {
+      this.passwordError = UserProfileValidator.validatePassword(this.password);
+      if (this.passwordError) {
         this.isInvalidPassword = true;
-        this.passwordError = "Invalid password !";
       } else {
         this.isInvalidPassword = false;
       }
