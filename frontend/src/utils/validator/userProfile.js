@@ -1,4 +1,5 @@
-const userNamePattern = /^([a-zA-Z]{1,1}[a-zA-Z0-9]{5,17}$)/;
+const userNamePattern = /^([a-zA-Z]{1,1}[a-zA-Z0-9]{5,15}$)/;
+const userNameFirstLetterPattern = /^[a-zA-Z].*$/;
 const userNameFormatMessage =
     "6 to 18 characters, start with at least one letter and contains alphanumeric characters";
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
@@ -13,11 +14,24 @@ class UserProfileValidator {
     }
     static
         validateUsername(username) {
-        let usernameError = null;
-        if (!userNamePattern.test(username)) {
-            usernameError = "Invalid username !";
+        if (username == undefined || username == null || username.length == 0) {
+            return "username can't be empty";
         }
-        return usernameError;
+        if (username.length < 6) {
+            return "username need have 6 or more charactoers";
+        }
+
+        if (username.length > 16) {
+            return "username need have 16 or less charactoers";
+        }
+
+        if (!userNameFirstLetterPattern.test(username)) {
+            return "username need start with a letter.";
+        }
+        if (!userNamePattern.test(username)) {
+            return "username can only contain letters and numbers";
+        }
+        return null;
     }
 
     static
@@ -28,8 +42,18 @@ class UserProfileValidator {
     static
         validatePassword(password) {
         let passwordError = null;
+        if (password == undefined || password == null || password.length == 0) {
+            return "password can't be empty";
+        }
+        if (password.length < 8) {
+            return "password need have 8 or more characters.";
+        }
+        if (password.length > 18) {
+            return "password need have 18 or less characters.";
+        }
+
         if (!passwordPattern.test(password)) {
-            passwordError = "Invalid password !";
+            passwordError = "password need have at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&) !";
         }
         return passwordError;
     }
