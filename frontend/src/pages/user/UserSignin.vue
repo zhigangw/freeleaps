@@ -3,12 +3,28 @@
     <h1>UserSignin</h1>
     <form @submit.prevent="signIn">
       <div class="form-control">
-        <label for="email">E-Mail</label>
-        <input type="email" id="email" v-model.trim="email"  placeholder="type in your email"/>
+        <label for="username">Username</label>
+        <input
+          type="username"
+          id="username"
+          v-model.trim="username"
+          placeholder="type in your username"
+          :title="userNameFormatMessage"
+          @change="validateUsername"
+        />
+        <span v-if="isInvalidUsername">{{usernameError}}</span>
       </div>
       <div class="form-control">
         <label for="password">Password</label>
-        <input type="password" id="password" v-model.trim="password" />
+        <input
+          type="password"
+          id="password"
+          v-model.trim="password"
+          placeholder="type in your password"
+          :title="passwordFormatMessage"
+          @click="validatePassword"
+        />
+        <span v-if="isInvalidPassword">{{passwordError}}</span>
       </div>
       <button type="submit">Sign In</button>
     </form>
@@ -16,21 +32,50 @@
 </template>
 
 <script>
-import { UserAuthApi } from "../../utils/index";
+import { UserAuthApi, UserProfileValidator } from "../../utils/index";
 
 export default {
   name: "UserSignin",
   props: {},
   data() {
     return {
-      email: "",
+      username: "",
       password: "",
+      isInvalidUsername: false,
+      isInvalidPassword: false,
+      usernameError: null,
+      passwordError: null,
+      userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
+      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
     };
   },
 
   created() {},
   mounted() {},
   methods: {
+    hasInvalidInput() {
+      return !this.isInvalidUsername && !this.isInvalidPassword;
+    },
+
+    validateUsername() {
+      this.usernameError = UserProfileValidator.validateUsername(this.username);
+      if (this.usernameError) {
+        this.isInvalidUsername = true;
+      } else {
+        this.isInvalidUsername = false;
+        this.checkUsernameAvailability();
+      }
+    },
+
+    validatePassword() {
+      this.passwordError = UserProfileValidator.validatePassword(this.password);
+      if (this.passwordError) {
+        this.isInvalidPassword = true;
+      } else {
+        this.isInvalidPassword = false;
+      }
+    },
+
     signIn() {
       UserAuthApi.signin(this.email, this.password)
         .then((response) => {

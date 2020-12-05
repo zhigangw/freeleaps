@@ -3,7 +3,7 @@ const userNameFormatMessage =
     "6 to 18 characters, start with at least one letter and contains alphanumeric characters";
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
 const passwordFormatMessage =
-    "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)";
+    "8 characters or more, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)";
 
 
 class UserProfileValidator {
