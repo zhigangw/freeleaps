@@ -1,33 +1,80 @@
 <template>
   <div>
-    <h1>User Signup</h1>
-    <UserRegister :role="roleValue"></UserRegister>
-    <input type="radio" id="buyer" value="2" v-model.number="role" />
-    <label for="male">I want to post requests</label>
-    <br />
-    <input type="radio" id="seller" value="1" v-model.number="role" />
-    <label for="female">I want to make money</label>
-    <br />
+    <form @submit.prevent="submitForm">
+      <div class="form-control">
+        <label for="username">Username</label>
+        <input
+          type="username"
+          id="username"
+          :title="userNameFormatMessage"
+          v-model.trim="username"
+          @change="validateUsername"
+        />
+        <p v-if="isInvalidUsername">{{usernameError}}</p>
+      </div>
+      <div class="form-control">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          :title="passwordFormatMessage"
+          v-model.trim="password"
+          @change="validatePassword"
+        />
+        <p v-if="isInvalidPassword">{{passwordError}}</p>
+      </div>
+      <div class="form-control">
+        <label for="repeat-password">Repeat Password</label>
+        <input
+          type="password"
+          id="repeat-password"
+          :title="repeatpasswordFormatMessage"
+          v-model.trim="repeat_password"
+          @change="validateRepeatPassword"
+        />
+        <p v-if="isInvalidRepeatPassword">{{repeatPasswordError}}</p>
+      </div>
+
+      <input type="radio" id="buyer" value="2" v-model.number="role" />
+      <label for="male">I want to post requests</label>
+      <br />
+      <input type="radio" id="seller" value="1" v-model.number="role" />
+      <label for="female">I want to make money</label>
+      <br />
+      <button type="submit" :disabled="hasInvalidInput()">Create Account</button>
+    </form>
   </div>
 </template>
 
 <script>
-import { userRoleEnum } from "../../types/index";
-import UserRegister from "../../components/divs/user/UserRegister";
+import { UserAuthApi, UserProfileValidator } from "../../utils/index";
 
 export default {
-  name: "UserSignup",
+  name: "UserRegister",
   props: {
     startingRole: {
-        type:String,
+      type: String,
     },
   },
-  components: { UserRegister },
 
   data() {
     return {
-      role: userRoleEnum.NONE,
-      roleValue:Number(this.role)
+      role: null,
+      username: "",
+      password: "",
+      repeat_password: "",
+      formIsValid: true,
+      error: null,
+      isUsernameNotAvailable: false,
+      isInvalidUsername: false,
+      isInvalidPassword: false,
+      isInvalidRepeatPassword: false,
+      usernameError: null,
+      passwordError: null,
+      repeatPasswordError: null,
+      userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
+      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
+      repeatpasswordFormatMessage: "Must be identical to the password above",
     };
   },
 
@@ -35,7 +82,72 @@ export default {
   mounted() {
     this.role = this.startingRole;
   },
-  methods: {},
+  methods: {
+    roleValue() {
+      return Number(this.role);
+    },
+    hasInvalidInput() {
+      return (
+        this.isInvalidUsername ||
+        this.isInvalidPassword ||
+        this.isInvalidRepeatPassword
+      );
+    },
+
+    validateUsername() {
+      this.usernameError = UserProfileValidator.validateUsername(this.username);
+      if (this.usernameError) {
+        this.isInvalidUsername = true;
+      } else {
+        this.isInvalidUsername = false;
+        this.checkUsernameAvailability();
+      }
+    },
+
+    async checkUsernameAvailability() {
+      UserAuthApi.checkUsernameAvailability(this.username)
+        .then((response) => {
+          this.isUsernameNotAvailable = response.data.available == false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    validatePassword() {
+      this.passwordError = UserProfileValidator.validatePassword(this.password);
+      if (this.passwordError) {
+        this.isInvalidPassword = true;
+      } else {
+        this.isInvalidPassword = false;
+      }
+    },
+
+    validateRepeatPassword() {
+      if (this.password != this.repeat_password) {
+        this.isInvalidRepeatPassword = true;
+        this.repeatPasswordError = "Two typed in password must be identical";
+      } else {
+        this.isInvalidRepeatPassword = false;
+      }
+    },
+
+    signedUserIn(response) {
+      this.mnx_authenticatedUser(response);
+      this.mnx_setUserRole(this.roleValue());
+      this.mnx_navAfterSignedup();
+    },
+
+    async submitForm() {
+      UserAuthApi.signup(this.username, this.password, this.roleValue())
+        .then((response) => {
+          this.signedUserIn(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
 };
 </script>
 

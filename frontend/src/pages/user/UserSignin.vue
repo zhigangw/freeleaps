@@ -77,7 +77,7 @@ export default {
     },
 
     signIn() {
-      UserAuthApi.signin(this.email, this.password)
+      UserAuthApi.signin(this.username, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
           this.mnx_setUserRole(response.data.role);

@@ -21,10 +21,10 @@ export default {
 
         mnx_navAfterSignedup() {
             if (this.mnx_isUserBuyer()) {
-                this.mnx_navToBuyerBasicInfo();
+                this.mnx_navToBuyerDashboard();
             }
             if (this.mnx_isUserSeller()) {
-                this.mnx_navToSellerBasicInfo();
+                this.mnx_navToSellerDashboard();
             }
         },
 

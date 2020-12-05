@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="signup" v-if="isUserAuthenticated">Sign up</button>
+    <button @click="signup" v-if="!isUserAuthenticated">Sign up</button>
   </div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
   },
   methods: {
     signup() {
-      this.mnx_navToSignup();
+      this.mnx_navToFrontDoor();
     },
   },
 };
