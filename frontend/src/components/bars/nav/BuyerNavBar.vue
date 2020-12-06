@@ -10,7 +10,7 @@
           <Loginout />
         </li>
         <li>
-          <SwitchRole />
+          <UserSettings />
         </li>
       </ul>
     </nav>
@@ -19,11 +19,11 @@
 
 <script>
 import Loginout from "../../buttons/user/Loginout";
-import SwitchRole from "../../buttons/user/SwitchRole";
+import UserSettings from "../../buttons/user/UserSettings";
 
 export default {
   name: "BuyerNavBar",
-  components: { Loginout, SwitchRole },
+  components: { Loginout, UserSettings },
   computed: {
   },
   methods: {},

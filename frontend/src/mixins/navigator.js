@@ -32,6 +32,10 @@ export default {
             this.$router.push("/user-signup/" + startingRole);
         },
 
+        mnx_navToUserSettings() {
+            this.$router.push("/user-settings")
+        },
+
         mnx_navToBuyerDashboard() {
             this.$router.push("/buyer-dashboard")
         },

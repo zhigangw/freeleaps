@@ -4,16 +4,13 @@
     <nav>
       <ul>
         <li>
-          <router-link to="/seller-dashboard">Dashboard</router-link>
-        </li>
-        <li>
-          <router-link to="/seller-browse-requests">Requests</router-link>
+          <router-link to="/buyer-dashboard">Dashboard</router-link>
         </li>
         <li>
           <Loginout />
         </li>
         <li>
-          <UserSettings />
+          <SwitchRole />
         </li>
       </ul>
     </nav>
@@ -22,12 +19,13 @@
 
 <script>
 import Loginout from "../../buttons/user/Loginout";
-import UserSettings from "../../buttons/user/UserSettings";
+import SwitchRole from "../../buttons/user/SwitchRole";
 
 export default {
-  name: "SellerNavBar",
-  components: { Loginout, UserSettings },
-  computed: {},
+  name: "BuyerNavBar",
+  components: { Loginout, SwitchRole },
+  computed: {
+  },
   methods: {},
 };
 </script>

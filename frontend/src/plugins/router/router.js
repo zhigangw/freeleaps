@@ -4,6 +4,7 @@ import { store, userRoleEnum } from '../store/index';
 import FrontDoor from "../../pages/user/FrontDoor";
 import UserSignin from "../../pages/user/UserSignin";
 import UserSignup from "../../pages/user/UserSignup";
+import UserSettings from "../../pages/user/UserSettings";
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
@@ -27,6 +28,7 @@ import BuyerNavBar from "../../components/bars/nav/BuyerNavBar.vue";
 import GuestBar from "../../components/bars/nav/GuestBar.vue";
 import SellerNavBar from "../../components/bars/nav/SellerNavBar.vue";
 import UserSignupBar from "../../components/bars/nav/UserSignupBar.vue";
+import UserNavBar from "../../components/bars/nav/UserNavBar.vue";
 
 
 const router = createRouter({
@@ -63,6 +65,14 @@ const router = createRouter({
       props: true,
     },
 
+
+    {
+      name: 'user-settings',
+      path: '/user-settings',
+      meta: { requiredRoles: [userRoleEnum.BUYER,userRoleEnum.SELLER] },
+      components: { default: UserSettings, header: UserNavBar },
+      props: true,
+    },
 
     {
       name: 'buyer-dashboard',
