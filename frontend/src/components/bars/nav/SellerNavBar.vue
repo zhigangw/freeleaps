@@ -10,10 +10,10 @@
           <router-link to="/seller-browse-requests">Requests</router-link>
         </li>
         <li>
-          <Loginout />
+          <loginout-button />
         </li>
         <li>
-          <UserSettings />
+          <me-avatar />
         </li>
       </ul>
     </nav>
@@ -21,12 +21,12 @@
 </template>
 
 <script>
-import Loginout from "../../buttons/user/Loginout";
-import UserSettings from "../../buttons/user/UserSettings";
+import LoginoutButton from "../../buttons/user/LoginoutButton";
+import MeAvatar from "../../buttons/user/MeAvatar";
 
 export default {
   name: "SellerNavBar",
-  components: { Loginout, UserSettings },
+  components: { LoginoutButton, MeAvatar },
   computed: {},
   methods: {},
 };

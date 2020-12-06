@@ -7,22 +7,22 @@
           <p>Welcome to freeleaps</p>
         </li>
         <li>
-          <Loginout />
+          <LoginoutButton />
         </li>
         <li>
-          <Signup />
+          <SignupButton />
         </li>
       </ul>
     </nav>
   </header>
 </template>
 <script>
-import Loginout from "../../buttons/user/Loginout";
-import Signup from "../../buttons/user/Signup";
+import LoginoutButton from "../../buttons/user/LoginoutButton";
+import SignupButton from "../../buttons/user/SignupButton";
 
 export default {
   name: "BuyerNavBar",
-  components: { Loginout, Signup },
+  components: { LoginoutButton, SignupButton },
   computed: {},
   methods: {},
 };

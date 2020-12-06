@@ -5,7 +5,7 @@
       <table>
         <tr>
           <td>
-            <Username :username="username" @click="updateUsername"/>
+            <label-button :name="'Username:'" :value="username" @click="updateUsername"/>
           </td>
         </tr>
       </table>
@@ -17,13 +17,13 @@
 
 <script>
 import { userRoleEnum } from "../../types/index";
-import  Username from "../../components/divs/user/Username";
+import  LabelButton from "../../components/buttons/templates/LabelButton";
 
 export default {
   name: "FrontDoor",
   props: {},
   components: {
-    Username,
+    LabelButton,
   },
 
   data() {

@@ -7,10 +7,7 @@
           <router-link to="/buyer-dashboard">Dashboard</router-link>
         </li>
         <li>
-          <Loginout />
-        </li>
-        <li>
-          <SwitchRole />
+          <loginout-button />
         </li>
       </ul>
     </nav>
@@ -18,12 +15,11 @@
 </template>
 
 <script>
-import Loginout from "../../buttons/user/Loginout";
-import SwitchRole from "../../buttons/user/SwitchRole";
+import LoginoutButton from "../../buttons/user/LoginoutButton";
 
 export default {
   name: "BuyerNavBar",
-  components: { Loginout, SwitchRole },
+  components: { LoginoutButton,  },
   computed: {
   },
   methods: {},

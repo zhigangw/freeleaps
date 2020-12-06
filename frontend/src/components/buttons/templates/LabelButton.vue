@@ -1,15 +1,16 @@
 <template>
   <div>
-    <label>Name:</label>
-    <button v-bind="$attrs">{{username}}</button>
+    <label>{{name}}</label>
+    <button v-bind="$attrs">{{value}}</button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Username",
+  name: "LabelButton",
   props: {
-    username: null,
+    name: null,
+    value: null,
   },
 
   data() {
@@ -17,8 +18,7 @@ export default {
   },
 
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {},
 };
 </script>

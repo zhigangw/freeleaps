@@ -7,18 +7,18 @@
           <p>Welcome to freeleaps</p>
         </li>
         <li>
-          <Loginout />
+          <loginout-button />
         </li>
       </ul>
     </nav>
   </header>
 </template>
 <script>
-import Loginout from "../../buttons/user/Loginout";
+import LoginoutButton from "../../buttons/user/LoginoutButton";
 
 export default {
   name: "UserSignupBar",
-  components: { Loginout },
+  components: { LoginoutButton },
   computed: {
   },
   methods: {},

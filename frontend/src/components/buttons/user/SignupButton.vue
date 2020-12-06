@@ -7,7 +7,7 @@
 <script>
 
 export default {
-  name: "Signup",
+  name: "SignupButton",
   components: {},
   computed: {
     isUserAuthenticated() {

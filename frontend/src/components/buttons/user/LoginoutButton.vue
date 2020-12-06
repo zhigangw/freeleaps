@@ -9,7 +9,7 @@
 import { UserAuthApi } from "../../../utils/index";
 
 export default {
-  name: "Loginout",
+  name: "LoginoutButton",
   components: {},
   computed: {
     isUserAuthenticated() {

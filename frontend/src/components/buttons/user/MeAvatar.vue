@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "UserSetting",
+  name: "MeAvatar",
   components: {},
   computed: {},
   methods: {
