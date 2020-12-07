@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <h3>work</h3>
+      <h3>account</h3>
       <table>
         <tr>
           <td>
@@ -11,11 +11,16 @@
               @click="updateUsername"
             />
           </td>
+          <td>
+            <label-button :name="'password:'" :value="'******'" @click="updatePassword" />
+          </td>
         </tr>
       </table>
     </div>
+
     <button @click="gotoBuyerRegister">Become Buyer</button>
     <button @click="gotoSellerRegister">Become Seller</button>
+    <update-username-modal ref="updateUsernameModal" />
   </div>
 </template>
 
@@ -23,12 +28,14 @@
 import { userRoleEnum } from "../../types/index";
 import LabelButton from "../../components/buttons/templates/LabelButton";
 import { UserProfileApi } from "../../utils/index";
+import UpdateUsernameModal from "../../components/modals/user/UpdateUsernameModal";
 
 export default {
   name: "UserSettings",
   props: {},
   components: {
     LabelButton,
+    UpdateUsernameModal,
   },
 
   data() {
@@ -48,8 +55,13 @@ export default {
   },
   methods: {
     updateUsername() {
-      console.log("updateUsername clicked");
+      this.$refs.updateUsernameModal.openModal();
     },
+
+    updatePassword() {
+      console.log("updatePassword clicked");
+    },
+
     gotoBuyerRegister() {
       this.mnx_navToUserSignup(userRoleEnum.BUYER);
     },

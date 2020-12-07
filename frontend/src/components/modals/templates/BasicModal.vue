@@ -19,8 +19,7 @@
         </div>
 
         <div class="modal__footer">
-          <slot name="footer">
-          </slot>
+          <slot name="footer"></slot>
         </div>
       </div>
     </div>
@@ -33,6 +32,14 @@ export default {
   props: {
     quote: null,
   },
+  emits: {
+    open: function () {
+      return true;
+    },
+    close: function () {
+      return true;
+    },
+  },
   data() {
     return {
       show: false,
@@ -44,10 +51,12 @@ export default {
     closeModal() {
       this.show = false;
       document.querySelector("body").classList.remove("overflow-hidden");
+      this.$emit("close");
     },
     openModal() {
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
+      this.$emit("open");
     },
   },
 };
