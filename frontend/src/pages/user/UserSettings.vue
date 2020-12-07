@@ -5,7 +5,11 @@
       <table>
         <tr>
           <td>
-            <label-button :name="'Username:'" :value="username" @click="updateUsername"/>
+            <label-button
+              :name="'Username:'"
+              :value="user.account.identity"
+              @click="updateUsername"
+            />
           </td>
         </tr>
       </table>
@@ -17,10 +21,11 @@
 
 <script>
 import { userRoleEnum } from "../../types/index";
-import  LabelButton from "../../components/buttons/templates/LabelButton";
+import LabelButton from "../../components/buttons/templates/LabelButton";
+import { UserProfileApi } from "../../utils/index";
 
 export default {
-  name: "FrontDoor",
+  name: "UserSettings",
   props: {},
   components: {
     LabelButton,
@@ -28,14 +33,21 @@ export default {
 
   data() {
     return {
-      username: "zhigangw"
+      user: {
+        account: {},
+        work: {},
+        personal: {},
+        career: {},
+      },
     };
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchUserProfile();
+  },
   methods: {
-    updateUsername(){
+    updateUsername() {
       console.log("updateUsername clicked");
     },
     gotoBuyerRegister() {
@@ -44,6 +56,16 @@ export default {
 
     gotoSellerRegister() {
       this.mnx_navToUserSignup(userRoleEnum.SELLER);
+    },
+
+    async fetchUserProfile() {
+      UserProfileApi.fetchSettings()
+        .then((response) => {
+          this.user = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

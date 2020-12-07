@@ -15,7 +15,7 @@
         </td>
       </tr>
     </table>
-    <QuoteViewer ref="viewQuoteModal" :quote="selectedQuote"></QuoteViewer>>
+    <quote-viewer-modal ref="viewQuoteModal" :quote="selectedQuote"></quote-viewer-modal>>
     <button @click="gotoDashboard">Dashboard</button>
 
   </div>
@@ -24,7 +24,7 @@
 <script>
 import { RequestPostApi, RequestQuoteApi } from "../../utils/index";
 import { requestPostSkeleton } from "../../types/index";
-import QuoteViewer from "../../components/divs/quote/QuoteViewer";
+import QuoteViewerModal from "../../components/modals/quote/QuoteViewerModal";
 
 export default {
   name: "BuyerRequestView",
@@ -32,7 +32,7 @@ export default {
     requestId: null,
   },
   components: {
-    QuoteViewer,
+    QuoteViewerModal,
   },
   data() {
     return {

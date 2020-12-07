@@ -1,11 +1,13 @@
 import mongoengine as me
 
+
 class AuthProfile(me.EmbeddedDocument):
     identity = me.StringField()
     password = me.StringField()
     role = me.IntField()
 
-class UserProfile(me.EmbeddedDocument):
+
+class PersonalProfile(me.EmbeddedDocument):
     firstname = me.StringField()
     lastname = me.StringField()
     email = me.StringField()
@@ -15,9 +17,31 @@ class UserProfile(me.EmbeddedDocument):
     linkedin_page = me.StringField()
 
 
-class WorkerProfile(me.EmbeddedDocument):
+class WorkProfile(me.EmbeddedDocument):
     email = me.StringField()
     home_page = me.StringField()
+
+
+class ExperiencePeriod(me.EmbeddedDocument):
+    startDate = me.DateTimeField()
+    endDate = me.DateTimeField()
+    jobTitle = me.StringField()
+    topline = me.StringField()
+    details = me.ListField(me.StringField())
+
+
+class Experience(me.EmbeddedDocument):
+    topline = me.StringField()
+    periods = me.EmbeddedDocumentListField(ExperiencePeriod)
+
+
+class Skill(me.EmbeddedDocument):
+    name = me.StringField()
+
+
+class CareerProfile(me.EmbeddedDocument):
+    experience = me.StringField()
+    skills = me.EmbeddedDocumentListField(Skill)
 
 
 class SellerProfile(me.EmbeddedDocument):
@@ -30,8 +54,9 @@ class BuyerProfile(me.EmbeddedDocument):
 
 
 class UserDoc(me.Document):
-    auth_profile = me.EmbeddedDocumentField(AuthProfile)
-    user_profile = me.EmbeddedDocumentField(UserProfile)
-    worker_profile = me.EmbeddedDocumentField(WorkerProfile)
-    seller_profile = me.EmbeddedDocumentField(SellerProfile)
-    buyer_profile = me.EmbeddedDocumentField(BuyerProfile)
+    authProfile = me.EmbeddedDocumentField(AuthProfile)
+    personalProfile = me.EmbeddedDocumentField(PersonalProfile)
+    workProfile = me.EmbeddedDocumentField(WorkProfile)
+    careerProfile=me.EmbeddedDocumentField(CareerProfile)
+    sellerProfile = me.EmbeddedDocumentField(SellerProfile)
+    buyerProfile = me.EmbeddedDocumentField(BuyerProfile)

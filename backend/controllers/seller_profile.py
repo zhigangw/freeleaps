@@ -35,7 +35,7 @@ class SellerProfileSaveRequest(Resource):
         UserDoc.objects(
             id=userIdentity,
         ).update(
-            set__seller_profile__S__savedRequest=args.requestId
+            set__sellerProfile__S__savedRequest=args.requestId
         )
         resp = jsonify(
             requestId=str(args.requestId)
@@ -55,9 +55,9 @@ class SellerProfileFetchSavedRequests(Resource):
         userIdentity = get_jwt_identity()
 
         user = UserDoc.objects(
-            auth_profile__identity=userIdentity,
+            id=userIdentity,
         ).first()
-        
+
         if(user == None):
             resp = jsonify(
                 text="user with the give credential not exists"
@@ -65,14 +65,14 @@ class SellerProfileFetchSavedRequests(Resource):
             return_code = 404
             return make_response(resp, return_code)
 
-        if(user.seller_profile == None
+        if(user.sellerProfile == None
            or
-           len(user.seller_profile.savedRequests) == 0
+           len(user.sellerProfile.savedRequests) == 0
            ):
-           resp = jsonify([])
-           return make_response(resp, return_code)
+            resp = jsonify([])
+            return make_response(resp, return_code)
 
-        requestIds = user.seller_profile.savedRequests
+        requestIds = user.sellerProfile.savedRequests
         requests = RequestPostDoc.objects(
             id in requestIds
         )

@@ -2,12 +2,12 @@ import os
 
 from flask import Flask, Blueprint
 from flask_restful import Api, Resource, url_for
-from .controllers.user import (
-    UserSignout, 
-    UserSignup, 
-    UserSignin, 
+from .controllers.user_auth import (
+    UserSignout,
+    UserSignup,
+    UserSignin,
     UserIsNameAvailable
-    )
+)
 from .controllers.request_post import (
     RequestPostFillDescription,
     RequestPostFetchDescription,
@@ -26,6 +26,7 @@ from .controllers.request_quote import (
     RequestQuoteFetchQuotes,
     RequestQuoteFetchOpen
 )
+from .controllers.user_profile import UserProfileFetchForSettings
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
     SellerProfileFetchSavedRequests
@@ -52,6 +53,9 @@ def create_app(test_config=None):
     api.add_resource(UserIsNameAvailable,
                      '/api/user/check-username-availability')
 
+    api.add_resource(UserProfileFetchForSettings,
+                     '/api/user-profile/fetch-settings')
+    
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
     api.add_resource(RequestPostFetchDescription,
@@ -64,6 +68,7 @@ def create_app(test_config=None):
     api.add_resource(RequestPostFetchAllPublishedAsSummary,
                      '/api/request-post/published-summary')
     api.add_resource(RequestPostFetchWhole, '/api/request-post/fetch-whole')
+
     api.add_resource(RequestQuoteSubmit, '/api/request-quote/submit-quote')
     api.add_resource(RequestQuoteMine, '/api/request-quote/fetch-mine')
     api.add_resource(RequestQuoteFetchQuotes,
@@ -77,6 +82,7 @@ def create_app(test_config=None):
                      '/api/seller-profile/save-request')
     api.add_resource(SellerProfileFetchSavedRequests,
                      '/api/seller-profile/fetch-saved-requests')
+
     api.add_resource(ProjectManageFetchForProvider,
                      '/api/project-manage/fetch-for-provider')
 

@@ -14,15 +14,13 @@
             </svg>
           </button>
         </div>
-
         <div class="modal__body">
-          <h3>Total Budget</h3>
-          <p>{{quote.notes.totalBudget}}</p>
+          <slot name="body" />
         </div>
 
         <div class="modal__footer">
-          <button @click="closeModal">Close</button>
-          <button @click="acceptQuote">Accept</button>
+          <slot name="footer">
+          </slot>
         </div>
       </div>
     </div>
@@ -30,11 +28,8 @@
 </template>
 
 <script>
-
-import { RequestQuoteApi } from "../../../utils/index";
-import { ReqeustQuoteData } from "../../../types/index";
 export default {
-  name: "QuoteViewer",
+  name: "QuoteViewerModal",
   props: {
     quote: null,
   },
@@ -54,18 +49,6 @@ export default {
       this.show = true;
       document.querySelector("body").classList.add("overflow-hidden");
     },
-    acceptQuote(){
-      RequestQuoteApi.acceptQuote(
-        ReqeustQuoteData.getId(this.quote),
-        this.quote.requestId
-      )
-      .then(response=>{
-        response;
-      })
-      .catch(error => {
-        console.log(error);
-      })
-    }
   },
 };
 </script>

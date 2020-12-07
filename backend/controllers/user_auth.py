@@ -39,11 +39,11 @@ class UserSignup(Resource):
         return_code = 200
         resp = None
 
-        if(UserDoc.objects(auth_profile__identity=args.username).count() > 0):
+        if(UserDoc.objects(authProfile__identity=args.username).count() > 0):
             resp = jsonify(text="uesr exists")
             return_code = 401
         else:
-            user = UserDoc(auth_profile=AuthProfile(
+            user = UserDoc(authProfile=AuthProfile(
                 identity=args.username,
                 password=hashlib.md5(
                     args.password.encode('utf-8')).hexdigest(),
@@ -51,12 +51,12 @@ class UserSignup(Resource):
             )
             user.save()
 
-            access_token, expiresIn = create_jwt_token(identity=args.username)
+            access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                expiresIn=expiresIn,
                 identity=args.username,
-                role=user.auth_profile.role)
+                expiresIn=expiresIn,
+                role=user.authProfile.role)
         return make_response(resp, return_code)
 
 
@@ -77,8 +77,8 @@ class UserSignin(Resource):
     def post(self):
         args = self.post_parser.parse_args()
         identity = args.username
-        queryset = UserDoc.objects(auth_profile__identity=identity,
-                                   auth_profile__password=hashlib.md5(
+        queryset = UserDoc.objects(authProfile__identity=identity,
+                                   authProfile__password=hashlib.md5(
                                        args.password.encode('utf-8')).hexdigest()
                                    )
         return_code = 200
@@ -88,12 +88,12 @@ class UserSignin(Resource):
             return_code = 401
         else:
             user = queryset.first()
-            access_token, expiresIn = create_jwt_token(identity=identity)
+            access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                expiresIn=expiresIn,
                 identity=identity,
-                role=user.auth_profile.role)
+                expiresIn=expiresIn,
+                role=user.authProfile.role)
         return make_response(resp, return_code)
 
 
@@ -104,12 +104,16 @@ class UserSignout(Resource):
     @jwt_required
     def post(self):
         identity = get_jwt_identity()
-        queryset = UserDoc.objects(auth_profile__identity=identity)
-        user = queryset.first()
-        resp = jsonify(
-            identity=identity,
-            user=user)
-        return make_response(resp, 200)
+        user = UserDoc.objects(id=identity).first()
+        resp = None
+        return_code = 200
+        if user != None:
+            resp = jsonify(
+                identity=identity)
+        else:
+            resp = jsonify(text="invalid user token. user not exists")
+            return_code = 404
+        return make_response(resp, return_code)
 
 
 class UserIsNameAvailable(Resource):
@@ -126,7 +130,7 @@ class UserIsNameAvailable(Resource):
         identity = args.identity
 
         available = False if UserDoc.objects(
-            auth_profile__identity=identity).count() > 0 else True
+            authProfile__identity=identity).count() > 0 else True
         resp = jsonify(
             available=available
         )
