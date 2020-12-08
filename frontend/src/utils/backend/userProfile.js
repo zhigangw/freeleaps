@@ -15,7 +15,6 @@ class UserProfileApi {
         );
         return request;
     }
-
 }
 
 export { UserProfileApi }

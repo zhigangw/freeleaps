@@ -33,8 +33,7 @@ class UserAuthApi {
         return request;
     }
 
-    static checkUsernameAvailability(identity) 
-    {
+    static checkUsernameAvailability(identity) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/user/check-username-availability',
@@ -46,6 +45,22 @@ class UserAuthApi {
             }
         );
         return request;
+    }
+
+    static updateUsername(identity) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/update-username',
+            {
+
+                identity: identity,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+
     }
 
 }

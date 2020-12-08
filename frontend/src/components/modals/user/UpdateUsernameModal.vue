@@ -8,6 +8,7 @@
     </template>
     <template #footer>
       <button @click="updateUsername">Update</button>
+      <p v-if="message">{{message}}</p>
     </template>
   </basic-modal>
 </template>
@@ -15,11 +16,15 @@
 <script>
 import BasicModal from "../templates/BasicModal";
 import UsernameInput from "../../inputs/user/UsernameInput";
+import { UserAuthApi } from "../../../utils/index";
 
 export default {
   name: "UpdateUsernameModal",
-  props: {
-    quote: null,
+  props: {},
+  emits: {
+    updated: function (username) {
+      return username != undefined;
+    },
   },
   components: {
     BasicModal,
@@ -29,20 +34,37 @@ export default {
     return {
       show: false,
       username: null,
+      message: null,
     };
   },
 
-  mounted() {},
+  mounted() {
+  },
   methods: {
-    openModal() {
+    openModal(username) {
       this.show = true;
+      this.username = username;
       this.$refs.basicModal.openModal();
     },
     modalClosed() {
       this.show = false;
     },
     updateUsername() {
-      this.$refs.usernameInput.validate();
+      this.message = null;
+      let validateError = this.$refs.usernameInput.validate();
+      if (validateError) {
+        this.message = "Please fix the errors before submit";
+      } else {
+        UserAuthApi.updateUsername(this.username)
+          .then((response) => {
+            this.username = response.data.identity;
+            this.message = "new username is:" + this.username;
+            this.$emit("updated", this.username);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };

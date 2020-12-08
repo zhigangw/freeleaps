@@ -20,7 +20,7 @@
 
     <button @click="gotoBuyerRegister">Become Buyer</button>
     <button @click="gotoSellerRegister">Become Seller</button>
-    <update-username-modal ref="updateUsernameModal" />
+    <update-username-modal ref="updateUsernameModal" @updated="onUsernameUpdated" />
   </div>
 </template>
 
@@ -55,7 +55,10 @@ export default {
   },
   methods: {
     updateUsername() {
-      this.$refs.updateUsernameModal.openModal();
+      this.$refs.updateUsernameModal.openModal(this.user.account.identity);
+    },
+    onUsernameUpdated(username) {
+      this.user.account.identity = username;
     },
 
     updatePassword() {

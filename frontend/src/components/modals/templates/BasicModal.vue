@@ -28,7 +28,7 @@
 
 <script>
 export default {
-  name: "QuoteViewerModal",
+  name: "BasicModal",
   props: {
     quote: null,
   },

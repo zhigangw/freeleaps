@@ -6,7 +6,8 @@ from .controllers.user_auth import (
     UserSignout,
     UserSignup,
     UserSignin,
-    UserIsNameAvailable
+    UserIsNameAvailable,
+    UserUpdateUsername
 )
 from .controllers.request_post import (
     RequestPostFillDescription,
@@ -50,6 +51,7 @@ def create_app(test_config=None):
     api.add_resource(UserSignup, '/api/user/signup')
     api.add_resource(UserSignin, '/api/user/signin')
     api.add_resource(UserSignout, '/api/user/signout')
+    api.add_resource(UserUpdateUsername, '/api/user/update-username')
     api.add_resource(UserIsNameAvailable,
                      '/api/user/check-username-availability')
 

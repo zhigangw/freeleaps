@@ -135,3 +135,41 @@ class UserIsNameAvailable(Resource):
             available=available
         )
         return make_response(resp, 200)
+
+
+class UserUpdateUsername(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'identity', dest='identity',
+            type=str, location='json',
+            required=True, help='The user\'s identity',
+        )
+
+    @jwt_required
+    def post(self):
+        identity = get_jwt_identity()
+        resp = None
+        args = self.post_parser.parse_args()
+        username = args.identity
+        return_code = 200
+
+        available = False if UserDoc.objects(
+            authProfile__identity=username).count() > 0 else True
+        if(not available):
+            resp = jsonify(
+                text="username is not available any more"
+            )
+            return_code = 403
+            return make_response(resp, return_code)
+
+        UserDoc.objects(
+            id=identity
+        ).update(
+            set__authProfile__identity=username
+        )
+        resp = jsonify(
+            identity=username,
+        )
+
+        return make_response(resp, return_code)
