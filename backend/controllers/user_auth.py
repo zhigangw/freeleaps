@@ -173,3 +173,32 @@ class UserUpdateUsername(Resource):
         )
 
         return make_response(resp, return_code)
+
+
+class UserUpdatePassword(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'password', dest='password',
+            type=str, location='json',
+            required=True, help='The user\'s password',
+        )
+
+    @jwt_required
+    def post(self):
+        identity = get_jwt_identity()
+        resp = None
+        args = self.post_parser.parse_args()
+        return_code = 200
+
+        UserDoc.objects(
+            id=identity
+        ).update(
+            authProfile__password=hashlib.md5(
+                args.password.encode('utf-8')).hexdigest()
+        )
+        resp = jsonify(
+            text="password is updated",
+        )
+
+        return make_response(resp, return_code)

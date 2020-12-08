@@ -1,8 +1,9 @@
 <template>
   <label-text-input
     ref="labelTextInput"
-    type="text"
+    :type="'text'"
     :title="userNameFormatMessage"
+    :label="label"
     v-model.trim="username"
     @change="checkUsernameAvailability"
   />
@@ -15,6 +16,7 @@ export default {
   name: "UsernameInput",
   props: {
     checkAvailability: false,
+    label: null,
   },
   components: {
     LabelTextInput,
@@ -27,7 +29,9 @@ export default {
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    console.log(this.label);
+  },
   methods: {
     async checkUsernameAvailability() {
       if (!this.checkAvailability) return;

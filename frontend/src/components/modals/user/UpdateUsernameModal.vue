@@ -4,7 +4,13 @@
       <h3>Update Username</h3>
     </template>
     <template #body>
-      <username-input ref="usernameInput" v-model="username" :checkAvailability="true" />
+      <h3>Current:{{current}}</h3>
+      <username-input
+        ref="usernameInput"
+        v-model="username"
+        :checkAvailability="true"
+        :label="'new username:'"
+      />
     </template>
     <template #footer>
       <button @click="updateUsername">Update</button>
@@ -34,16 +40,16 @@ export default {
     return {
       show: false,
       username: null,
+      current: null,
       message: null,
     };
   },
 
-  mounted() {
-  },
+  mounted() {},
   methods: {
     openModal(username) {
       this.show = true;
-      this.username = username;
+      this.current = username;
       this.$refs.basicModal.openModal();
     },
     modalClosed() {

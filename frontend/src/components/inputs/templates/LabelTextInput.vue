@@ -1,7 +1,7 @@
 <template>
   <div>
-    <label for="labelTextInput">{{name}}</label>
-    <input id="labelTextInput" v-bind="$attrs" @input="onInput($event)" :value="modelValue" />
+    <label :for="label">{{label}}</label>
+    <input :id="label" v-bind="$attrs" @input="onInput($event)" :value="modelValue" />
     <p v-if="message != null">{{message}}</p>
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   name: "LabelTextInput",
   props: {
-    name: null,
+    label: null,
     modelValue: null,
   },
   emits: ["update:modelValue"],

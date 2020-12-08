@@ -7,7 +7,8 @@ from .controllers.user_auth import (
     UserSignup,
     UserSignin,
     UserIsNameAvailable,
-    UserUpdateUsername
+    UserUpdateUsername,
+    UserUpdatePassword
 )
 from .controllers.request_post import (
     RequestPostFillDescription,
@@ -52,12 +53,14 @@ def create_app(test_config=None):
     api.add_resource(UserSignin, '/api/user/signin')
     api.add_resource(UserSignout, '/api/user/signout')
     api.add_resource(UserUpdateUsername, '/api/user/update-username')
+    api.add_resource(UserUpdatePassword, '/api/user/update-password')
+
     api.add_resource(UserIsNameAvailable,
                      '/api/user/check-username-availability')
 
     api.add_resource(UserProfileFetchForSettings,
                      '/api/user-profile/fetch-settings')
-    
+
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
     api.add_resource(RequestPostFetchDescription,

@@ -60,6 +60,20 @@ class UserAuthApi {
             }
         );
         return request;
+    }
+
+    static updatePassword(password) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/update-password',
+            {
+                password: password,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
 
     }
 

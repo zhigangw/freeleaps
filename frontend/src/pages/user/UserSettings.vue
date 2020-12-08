@@ -21,6 +21,7 @@
     <button @click="gotoBuyerRegister">Become Buyer</button>
     <button @click="gotoSellerRegister">Become Seller</button>
     <update-username-modal ref="updateUsernameModal" @updated="onUsernameUpdated" />
+    <update-password-modal ref="updatePasswordModal" @updated="onPasswordUpdated" />
   </div>
 </template>
 
@@ -29,6 +30,7 @@ import { userRoleEnum } from "../../types/index";
 import LabelButton from "../../components/buttons/templates/LabelButton";
 import { UserProfileApi } from "../../utils/index";
 import UpdateUsernameModal from "../../components/modals/user/UpdateUsernameModal";
+import UpdatePasswordModal from "../../components/modals/user/UpdatePasswordModal";
 
 export default {
   name: "UserSettings",
@@ -36,6 +38,7 @@ export default {
   components: {
     LabelButton,
     UpdateUsernameModal,
+    UpdatePasswordModal,
   },
 
   data() {
@@ -62,8 +65,10 @@ export default {
     },
 
     updatePassword() {
-      console.log("updatePassword clicked");
+      this.$refs.updatePasswordModal.openModal();
     },
+
+    onPasswordUpdated() {},
 
     gotoBuyerRegister() {
       this.mnx_navToUserSignup(userRoleEnum.BUYER);
