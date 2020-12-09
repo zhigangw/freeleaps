@@ -13,7 +13,7 @@ from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.utils.field_validator import FieldValidator
 
 
-class UserProfileFetchForSettings(Resource):
+class UserProfileFetchSettings(Resource):
     def __init__(self) -> None:
         pass
 
@@ -41,6 +41,61 @@ class UserProfileFetchForSettings(Resource):
             work=user.workProfile,
             personal=user.personalProfile,
             career=user.careerProfile
+        )
+
+        return make_response(resp, return_code)
+
+
+class UserProfileFetchAccount(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        user = UserDoc.objects(
+            id=userIdentity,
+        ).first()
+
+        if(user == None):
+            resp = jsonify(
+                text="user with the give credential not exists"
+            )
+            return_code = 404
+            return make_response(resp, return_code)
+
+        resp = jsonify(
+            identity=user.authProfile.identity,
+            role=user.authProfile.role
+        )
+
+        return make_response(resp, return_code)
+
+
+class UserProfileFetchWork(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        user = UserDoc.objects(
+            id=userIdentity,
+        ).first()
+
+        if(user == None):
+            resp = jsonify(
+                text="user with the give credential not exists"
+            )
+            return_code = 404
+            return make_response(resp, return_code)
+
+        resp = jsonify(
+            user.workProfile
         )
 
         return make_response(resp, return_code)

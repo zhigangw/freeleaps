@@ -28,7 +28,11 @@ from .controllers.request_quote import (
     RequestQuoteFetchQuotes,
     RequestQuoteFetchOpen
 )
-from .controllers.user_profile import UserProfileFetchForSettings
+from .controllers.user_profile import (
+    UserProfileFetchSettings, 
+    UserProfileFetchAccount,
+    UserProfileFetchWork
+)
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
     SellerProfileFetchSavedRequests
@@ -58,8 +62,12 @@ def create_app(test_config=None):
     api.add_resource(UserIsNameAvailable,
                      '/api/user/check-username-availability')
 
-    api.add_resource(UserProfileFetchForSettings,
+    api.add_resource(UserProfileFetchSettings,
                      '/api/user-profile/fetch-settings')
+    api.add_resource(UserProfileFetchAccount,
+                     '/api/user-profile/fetch-account')
+    api.add_resource(UserProfileFetchWork,
+                     '/api/user-profile/fetch-work')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
