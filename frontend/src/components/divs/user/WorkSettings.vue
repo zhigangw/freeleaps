@@ -10,7 +10,7 @@
           <label-button :name="'Code Site:'" :value="'Link'" @click="openCodeSite" />
         </td>
         <td>
-          <label-button :name="'Package:'" :value="'work.package'" @click="updatePackage" />
+          <label-button :name="'Package:'" :value="work.package" @click="updatePackage" />
         </td>
       </tr>
       <tr>
@@ -22,21 +22,21 @@
         </td>
       </tr>
     </table>
-    <package-settings-modal ref="packageSettingsModal"/>
+    <package-settings-modal ref="packageSettingsModal" @updated="packageUpdated" />
   </div>
 </template>
 
 <script>
 import LabelButton from "../../buttons/templates/LabelButton";
 import { UserProfileApi } from "../../../utils/index";
-import PackageSettingsModal from "../../modals/user/PackageSettingsModal"
+import PackageSettingsModal from "../../modals/user/PackageSettingsModal";
 
 export default {
   name: "WorkSettings",
   props: {},
   components: {
     LabelButton,
-    PackageSettingsModal
+    PackageSettingsModal,
   },
 
   data() {
@@ -67,11 +67,14 @@ export default {
     },
 
     updatePackage() {
+      console.log(this.work);
       this.$refs.packageSettingsModal.openModal(this.work.package);
     },
-
+    packageUpdated(service) {
+      this.work.package = service;
+    },
     async fetchWorkProfile() {
-      UserProfileApi.fetchSettings()
+      UserProfileApi.fetchWork()
         .then((response) => {
           this.work = response.data;
         })
