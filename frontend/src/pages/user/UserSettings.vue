@@ -2,12 +2,14 @@
   <div>
     <account-settings />
     <work-settings />
+    <personal-settings/>
   </div>
 </template>
 
 <script>
 import AccountSettings from "../../components/divs/user/AccountSettings";
 import WorkSettings from "../../components/divs/user/WorkSettings";
+import PersonalSettings from "../../components/divs/user/PersonalSettings";
 
 export default {
   name: "UserSettings",
@@ -15,6 +17,7 @@ export default {
   components: {
     AccountSettings,
     WorkSettings,
+    PersonalSettings,
   },
 
   data() {

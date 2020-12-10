@@ -101,6 +101,33 @@ class UserProfileFetchWork(Resource):
         return make_response(resp, return_code)
 
 
+class UserProfileFetchPersonal(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        user = UserDoc.objects(
+            id=userIdentity,
+        ).first()
+
+        if(user == None):
+            resp = jsonify(
+                text="user with the give credential not exists"
+            )
+            return_code = 404
+            return make_response(resp, return_code)
+
+        resp = jsonify(
+            user.personalProfile
+        )
+
+        return make_response(resp, return_code)
+
+
 class UserProfileChoosePackage(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
@@ -124,7 +151,48 @@ class UserProfileChoosePackage(Resource):
         )
         if(affected > 0):
             resp = jsonify(
-                text="succeeded."
+                package=args.package
+            )
+        else:
+            resp = jsonify(
+                text="failed."
+            )
+            return_code = 404
+
+        return make_response(resp, return_code)
+
+
+class UserProfileUpdateName(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'firstName', dest='firstName',
+            type=str, location='json',
+            required=True, help='The user\'s first name',
+        )
+        self.post_parser.add_argument(
+            'lastName', dest='lastName',
+            type=str, location='json',
+            required=True, help='The user\'s last name',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        affected = UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__personalProfile__firstName=args.firstName,
+            set__personalProfile__lastName=args.lastName
+        )
+        if(affected > 0):
+            resp = jsonify(
+                firstName=args.firstName,
+                lastName=args.lastName
             )
         else:
             resp = jsonify(

@@ -8,13 +8,11 @@ class AuthProfile(me.EmbeddedDocument):
 
 
 class PersonalProfile(me.EmbeddedDocument):
-    firstname = me.StringField()
-    lastname = me.StringField()
+    firstName = me.StringField()
+    lastName = me.StringField()
     email = me.StringField()
     mobile = me.StringField()
     photo = me.StringField()
-    resume = me.StringField()
-    linkedin_page = me.StringField()
 
 
 class WorkProfile(me.EmbeddedDocument):
@@ -36,6 +34,7 @@ class ExperiencePeriod(me.EmbeddedDocument):
 class Experience(me.EmbeddedDocument):
     topline = me.StringField()
     periods = me.EmbeddedDocumentListField(ExperiencePeriod)
+    linkedinPage = me.StringField()
 
 
 class Skill(me.EmbeddedDocument):

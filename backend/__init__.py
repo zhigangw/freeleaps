@@ -32,7 +32,9 @@ from .controllers.user_profile import (
     UserProfileFetchSettings, 
     UserProfileFetchAccount,
     UserProfileFetchWork,
-    UserProfileChoosePackage
+    UserProfileFetchPersonal,
+    UserProfileChoosePackage,
+    UserProfileUpdateName
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
@@ -69,6 +71,10 @@ def create_app(test_config=None):
                      '/api/user-profile/fetch-account')
     api.add_resource(UserProfileFetchWork,
                      '/api/user-profile/fetch-work')
+    api.add_resource(UserProfileFetchPersonal,
+                     '/api/user-profile/fetch-personal')
+    api.add_resource(UserProfileUpdateName,
+                     '/api/user-profile/update-name')
     api.add_resource(UserProfileChoosePackage,
                      '/api/user-profile/choose-package')
 

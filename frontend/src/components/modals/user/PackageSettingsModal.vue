@@ -57,7 +57,8 @@ export default {
     choosePackage() {
       UserProfileApi.choosePackage(this.service)
         .then((response) => {
-          this.message = response.data.text;
+          this.service = response.data.package;
+          this.message = "The new package is:" + this.service;
           this.$emit("updated", this.service);
         })
         .catch((error) => {

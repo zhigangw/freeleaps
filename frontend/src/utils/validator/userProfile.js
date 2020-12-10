@@ -5,7 +5,9 @@ const userNameFormatMessage =
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
 const passwordFormatMessage =
     "8 characters or more, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)";
-
+const nameFormatMessage =
+    "less than 18 letters";
+const namePattern = /^([a-zA-Z-]{1,18}$)/;
 
 class UserProfileValidator {
     static
@@ -41,7 +43,6 @@ class UserProfileValidator {
 
     static
         validatePassword(password) {
-        let passwordError = null;
         if (password == undefined || password == null || password.length == 0) {
             return "password can't be empty";
         }
@@ -53,9 +54,25 @@ class UserProfileValidator {
         }
 
         if (!passwordPattern.test(password)) {
-            passwordError = "password need have at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&) !";
+            return "password need have at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&) !";
         }
-        return passwordError;
+        return null;
+    }
+
+    static getNameFormatRequirement() {
+        return nameFormatMessage;
+    }
+
+    static validateName(name) {
+        if (name == undefined || name == null || name.length == 0) {
+            return "name can't be empty";
+        }
+        if(name.length>18){
+            return "the length of name must be less then 18";
+        }
+        if(!namePattern.test(name)){
+            return "name can only contain letters";
+        }
     }
 }
 

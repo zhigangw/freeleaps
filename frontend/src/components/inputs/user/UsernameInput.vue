@@ -30,7 +30,6 @@ export default {
 
   created() {},
   mounted() {
-    console.log(this.label);
   },
   methods: {
     async checkUsernameAvailability() {

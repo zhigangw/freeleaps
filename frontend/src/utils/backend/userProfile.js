@@ -58,6 +58,36 @@ class UserProfileApi {
 
         return request;
     }
+
+    static fetchPersonal() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/fetch-personal',
+            {
+
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
+    static updateName(firstName, lastName) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-name',
+            {
+                firstName: firstName,
+                lastName: lastName
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { UserProfileApi }
