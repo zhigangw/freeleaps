@@ -31,7 +31,8 @@ from .controllers.request_quote import (
 from .controllers.user_profile import (
     UserProfileFetchSettings, 
     UserProfileFetchAccount,
-    UserProfileFetchWork
+    UserProfileFetchWork,
+    UserProfileChoosePackage
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
@@ -68,6 +69,8 @@ def create_app(test_config=None):
                      '/api/user-profile/fetch-account')
     api.add_resource(UserProfileFetchWork,
                      '/api/user-profile/fetch-work')
+    api.add_resource(UserProfileChoosePackage,
+                     '/api/user-profile/choose-package')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')

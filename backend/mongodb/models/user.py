@@ -19,7 +19,10 @@ class PersonalProfile(me.EmbeddedDocument):
 
 class WorkProfile(me.EmbeddedDocument):
     email = me.StringField()
-    home_page = me.StringField()
+    fileSite = me.StringField()
+    codeSite = me.StringField()
+    servicesSite = me.StringField()
+    package = me.IntField()
 
 
 class ExperiencePeriod(me.EmbeddedDocument):
@@ -57,6 +60,6 @@ class UserDoc(me.Document):
     authProfile = me.EmbeddedDocumentField(AuthProfile)
     personalProfile = me.EmbeddedDocumentField(PersonalProfile)
     workProfile = me.EmbeddedDocumentField(WorkProfile)
-    careerProfile=me.EmbeddedDocumentField(CareerProfile)
+    careerProfile = me.EmbeddedDocumentField(CareerProfile)
     sellerProfile = me.EmbeddedDocumentField(SellerProfile)
     buyerProfile = me.EmbeddedDocumentField(BuyerProfile)

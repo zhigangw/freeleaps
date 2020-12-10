@@ -6,7 +6,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     jwt_required, create_access_token, get_jwt_identity
 )
-from ..mongodb.models.user import UserDoc, AuthProfile
+from ..mongodb.models.user import UserDoc, AuthProfile, WorkProfile
 
 
 def create_jwt_token(identity):
@@ -47,7 +47,13 @@ class UserSignup(Resource):
                 identity=args.username,
                 password=hashlib.md5(
                     args.password.encode('utf-8')).hexdigest(),
-                role=args.role)
+                role=args.role),
+                workProfile=WorkProfile(
+                    email=args.username+"@freeleaps.com",
+                    fileSite="file.freeleaps.com/"+args.username,
+                    codeSite="code.freeleaps.com/"+args.username,
+                    servicesSite="service.freeleaps.com/"+args.username,
+                    package=0)
             )
             user.save()
 
@@ -152,24 +158,10 @@ class UserUpdateUsername(Resource):
         resp = None
         args = self.post_parser.parse_args()
         username = args.identity
-        return_code = 200
 
-        available = False if UserDoc.objects(
-            authProfile__identity=username).count() > 0 else True
-        if(not available):
-            resp = jsonify(
-                text="username is not available any more"
-            )
-            return_code = 403
-            return make_response(resp, return_code)
-
-        UserDoc.objects(
-            id=identity
-        ).update(
-            set__authProfile__identity=username
-        )
+        return_code = 403
         resp = jsonify(
-            identity=username,
+            text="forbidden operation"
         )
 
         return make_response(resp, return_code)

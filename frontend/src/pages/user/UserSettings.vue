@@ -1,8 +1,8 @@
 <template>
   <div>
-    <account-settings/>
-    <work-settings/>
-    </div>
+    <account-settings />
+    <work-settings />
+  </div>
 </template>
 
 <script>
@@ -14,19 +14,16 @@ export default {
   props: {},
   components: {
     AccountSettings,
-    WorkSettings
+    WorkSettings,
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
   created() {},
-  mounted() {
-  },
-  methods: {
-  },
+  mounted() {},
+  methods: {},
 };
 </script>
 

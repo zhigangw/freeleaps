@@ -38,10 +38,10 @@
       </div>
 
       <input type="radio" id="buyer" value="2" v-model.number="role" />
-      <label for="male">I want to post requests</label>
+      <label for="buyer">I want to post requests</label>
       <br />
       <input type="radio" id="seller" value="1" v-model.number="role" />
-      <label for="female">I want to make money</label>
+      <label for="seller">I want to make money</label>
       <br />
       <button type="submit">Create Account</button>
       <p v-if="hasInvalidInput()">{{error}}</p>
