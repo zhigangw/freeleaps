@@ -9,10 +9,16 @@
         <td>
           <label-button :name="'Mobile:'" :value="personal.mobile" @click="updateMobile" />
         </td>
+        <td>
+          <label-button :name="'Email:'" :value="personal.email" @click="updateEmail" />
+        </td>
+      </tr>
+      <tr>
       </tr>
     </table>
     <update-name-modal ref="updateUsernameModal" @updated="onNameUpdated" />
     <update-mobile-modal ref="updateMobileModal" @updated="onMobileUpdated" />
+    <update-email-modal  ref="updateEmailModal" @updated="onEmailUpdated" />
   </div>
 </template>
 
@@ -21,6 +27,7 @@ import LabelButton from "../../buttons/templates/LabelButton";
 import { UserProfileApi } from "../../../utils/index";
 import UpdateNameModal from "../../modals/user/UpdateNameModal";
 import UpdateMobileModal from "../../modals/user/UpdateMobileModal";
+import UpdateEmailModal from "../../modals/user/UpdateEmailModal";
 
 export default {
   name: "PersonalSettings",
@@ -29,6 +36,7 @@ export default {
     LabelButton,
     UpdateNameModal,
     UpdateMobileModal,
+    UpdateEmailModal,
   },
 
   data() {
@@ -66,6 +74,14 @@ export default {
     onMobileUpdated(mobile) {
       this.personal.mobile = mobile;
     },
+
+    updateEmail() {
+      this.$refs.updateEmailModal.openModal(this.personal.email);
+    },
+    onEmailUpdated(email) {
+      this.personal.email = email;
+    },
+
     async fetchUserPersonal() {
       UserProfileApi.fetchPersonal()
         .then((response) => {

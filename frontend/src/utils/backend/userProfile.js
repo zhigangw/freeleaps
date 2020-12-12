@@ -102,6 +102,20 @@ class UserProfileApi {
         return request;
     }
 
+    static updateEmail(email) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-email',
+            {
+                email: email,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { UserProfileApi }

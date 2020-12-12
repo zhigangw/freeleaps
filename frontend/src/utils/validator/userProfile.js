@@ -13,6 +13,10 @@ const mobileFormatMessage =
     "only contains numbers length less than 15 ";
 const mobilePattern = /^([0-9]{1,15}$)/;
 
+const emailFormatMessage =
+    "need a valid email address";
+const emailPattern = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
+
 class UserProfileValidator {
     static
         getUserNameFormatRequirement() {
@@ -71,10 +75,10 @@ class UserProfileValidator {
         if (name == undefined || name == null || name.length == 0) {
             return "name can't be empty";
         }
-        if(name.length>18){
+        if (name.length > 18) {
             return "the length of name must be less then 18";
         }
-        if(!namePattern.test(name)){
+        if (!namePattern.test(name)) {
             return "name can only contain letters";
         }
     }
@@ -87,11 +91,27 @@ class UserProfileValidator {
         if (mobile == undefined || mobile == null || mobile.length == 0) {
             return "mobile can't be empty";
         }
-        if(mobile.length>18){
+        if (mobile.length > 18) {
             return "the length of mobile must be less then 18";
         }
-        if(!mobilePattern.test(mobile)){
+        if (!mobilePattern.test(mobile)) {
             return "mobile can only contain numbers";
+        }
+    }
+
+    static getEmailFormatRequirement() {
+        return emailFormatMessage;
+    }
+
+    static validateEmail(email) {
+        if (email == undefined || email == null || email.length == 0) {
+            return "email can't be empty";
+        }
+        if (email.length > 18) {
+            return "the length of mobile must be less then 18";
+        }
+        if (!emailPattern.test(email)) {
+            return "not a valid email address";
         }
     }
 }

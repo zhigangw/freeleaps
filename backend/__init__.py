@@ -35,7 +35,8 @@ from .controllers.user_profile import (
     UserProfileFetchPersonal,
     UserProfileChoosePackage,
     UserProfileUpdateName,
-    UserProfileUpdateMobile
+    UserProfileUpdateMobile,
+    UserProfileUpdateEmail
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
@@ -80,6 +81,9 @@ def create_app(test_config=None):
                      '/api/user-profile/choose-package')
     api.add_resource(UserProfileUpdateMobile,
                      '/api/user-profile/update-mobile')
+    api.add_resource(UserProfileUpdateEmail,
+                     '/api/user-profile/update-email')
+                     
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
