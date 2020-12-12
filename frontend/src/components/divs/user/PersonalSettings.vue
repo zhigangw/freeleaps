@@ -4,11 +4,15 @@
     <table>
       <tr>
         <td>
-          <label-button :name="'Name:'" :value="name" @click="updatename" />
+          <label-button :name="'Name:'" :value="name" @click="updateName" />
+        </td>
+        <td>
+          <label-button :name="'Mobile:'" :value="personal.mobile" @click="updateMobile" />
         </td>
       </tr>
     </table>
     <update-name-modal ref="updateUsernameModal" @updated="onNameUpdated" />
+    <update-mobile-modal ref="updateMobileModal" @updated="onMobileUpdated" />
   </div>
 </template>
 
@@ -16,6 +20,7 @@
 import LabelButton from "../../buttons/templates/LabelButton";
 import { UserProfileApi } from "../../../utils/index";
 import UpdateNameModal from "../../modals/user/UpdateNameModal";
+import UpdateMobileModal from "../../modals/user/UpdateMobileModal";
 
 export default {
   name: "PersonalSettings",
@@ -23,6 +28,7 @@ export default {
   components: {
     LabelButton,
     UpdateNameModal,
+    UpdateMobileModal,
   },
 
   data() {
@@ -30,6 +36,7 @@ export default {
       personal: {
         firstName: "",
         lastName: "",
+        mobile: "",
       },
       name: null,
     };
@@ -40,7 +47,7 @@ export default {
     this.fetchUserPersonal();
   },
   methods: {
-    updatename() {
+    updateName() {
       this.name = this.personal.firstName + " " + this.personal.lastName;
       this.$refs.updateUsernameModal.openModal(
         this.personal.firstName,
@@ -53,6 +60,12 @@ export default {
       this.name = this.personal.firstName + " " + this.personal.lastName;
     },
 
+    updateMobile() {
+      this.$refs.updateMobileModal.openModal(this.personal.mobile);
+    },
+    onMobileUpdated(mobile) {
+      this.personal.mobile = mobile;
+    },
     async fetchUserPersonal() {
       UserProfileApi.fetchPersonal()
         .then((response) => {

@@ -88,6 +88,20 @@ class UserProfileApi {
         return request;
     }
 
+    static updateMobile(mobile) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-mobile',
+            {
+                mobile: mobile,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { UserProfileApi }

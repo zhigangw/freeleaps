@@ -9,6 +9,10 @@ const nameFormatMessage =
     "less than 18 letters";
 const namePattern = /^([a-zA-Z-]{1,18}$)/;
 
+const mobileFormatMessage =
+    "only contains numbers length less than 15 ";
+const mobilePattern = /^([0-9]{1,15}$)/;
+
 class UserProfileValidator {
     static
         getUserNameFormatRequirement() {
@@ -72,6 +76,22 @@ class UserProfileValidator {
         }
         if(!namePattern.test(name)){
             return "name can only contain letters";
+        }
+    }
+
+    static getMobileFormatRequirement() {
+        return mobileFormatMessage;
+    }
+
+    static validateMobile(mobile) {
+        if (mobile == undefined || mobile == null || mobile.length == 0) {
+            return "mobile can't be empty";
+        }
+        if(mobile.length>18){
+            return "the length of mobile must be less then 18";
+        }
+        if(!mobilePattern.test(mobile)){
+            return "mobile can only contain numbers";
         }
     }
 }

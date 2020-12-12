@@ -201,3 +201,37 @@ class UserProfileUpdateName(Resource):
             return_code = 404
 
         return make_response(resp, return_code)
+
+
+class UserProfileUpdateMobile(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'mobile', dest='mobile',
+            type=str, location='json',
+            required=True, help='The user\'s mobile',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        affected = UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__personalProfile__mobile=args.mobile,
+        )
+        if(affected > 0):
+            resp = jsonify(
+                mobile=args.mobile,
+            )
+        else:
+            resp = jsonify(
+                text="failed."
+            )
+            return_code = 404
+
+        return make_response(resp, return_code)
