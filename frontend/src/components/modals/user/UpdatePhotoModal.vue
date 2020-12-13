@@ -1,14 +1,14 @@
 <template>
   <basic-modal ref="basicModal" v-show="show" @close="modalClosed">
     <template #header>
-      <h3>Update Mobile</h3>
+      <h3>Update Photo</h3>
     </template>
     <template #body>
       <photo-input
         ref="photoInput"
-        :imageUrl="photo"
         v-model="photo"
-        :label="'Select Your Photo:'"
+        :height="'100'"
+        :wight="'100'"
       />
     </template>
     <template #footer>

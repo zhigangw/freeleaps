@@ -1,12 +1,13 @@
 <template>
-  <div>
-    <img v-show="showPreview" :src="modelValue" />
-    <label :for="label">{{label}}</label>
+  <div @click="selectPhoto">
+    <label v-if="label" :for="label">{{label}}</label>
+    <img :src="modelValue" v-bind="$attrs" />
     <input
+      ref="fileInput"
       type="file"
       :id="label"
-      v-bind="$attrs"
       accept="image/png, image/jpeg"
+      style="display:none"
       @change="onChange($event)"
     />
     <p v-if="message != null">{{message}}</p>
@@ -24,8 +25,6 @@ export default {
   data() {
     return {
       message: null,
-      imagePreview: this.modelValue,
-      showPreview: false,
     };
   },
 
@@ -37,13 +36,15 @@ export default {
       return this.message;
     },
 
+    selectPhoto() {
+      this.$refs.fileInput.click();
+    },
     onChange(event) {
       let file = event.target.files[0];
       let reader = new FileReader();
       reader.addEventListener(
         "load",
         function () {
-          this.showPreview = true;
           this.$emit("update:modelValue", reader.result);
         }.bind(this),
         false

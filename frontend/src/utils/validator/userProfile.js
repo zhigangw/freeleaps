@@ -126,10 +126,10 @@ class UserProfileValidator {
         if (imageFile == undefined || imageFile == null || imageFile.length == 0) {
             return "image can't be empty";
         }
-        if (imageFile.length > 1024 * 1024) {
+        if (imageFile.length > 2 * 1024 * 1024) {
             return "the size of image must be less then 1 MB";
         }
-        if(!imageSrcPattern.test(imageFile)){
+        if (!imageSrcPattern.test(imageFile)) {
             return "not a valid data format. "
         }
     }
