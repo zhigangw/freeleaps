@@ -12,7 +12,7 @@ class PersonalProfile(me.EmbeddedDocument):
     lastName = me.StringField()
     email = me.StringField()
     mobile = me.StringField()
-    photo = me.StringField()
+    photo = me.FileField()
 
 
 class WorkProfile(me.EmbeddedDocument):

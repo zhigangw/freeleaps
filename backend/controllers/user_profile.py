@@ -7,11 +7,12 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     jwt_required, get_jwt_identity
 )
+from werkzeug.utils import secure_filename
 from mongoengine.queryset.transform import update
 from ..mongodb.models.user import UserDoc, AuthProfile
 from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.utils.field_validator import FieldValidator
-
+import werkzeug
 
 class UserProfileFetchSettings(Resource):
     def __init__(self) -> None:
@@ -267,5 +268,42 @@ class UserProfileUpdateEmail(Resource):
                 text="failed."
             )
             return_code = 404
+
+        return make_response(resp, return_code)
+
+
+class UserProfileUpdatePhoto(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'file',  dest='file', type=werkzeug.FileStorage, location='files',
+            required=True, help='The user\'s file')
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        user = UserDoc.objects(
+            id=userIdentity,
+        ).first()
+
+        if not user:
+            resp = jsonify(
+                text="the user dose not exists."
+            )
+            return_code = 404
+            return make_response(resp, return_code)
+
+        ctype = args.file.content_type
+        fname = secure_filename(args.file)
+        user.personalProfile.photo.put(
+            args.file, content_type=ctype, filename=fname)
+
+        resp = jsonify(
+            user.personalProfile.photo
+        )
+        return_code = 200
 
         return make_response(resp, return_code)

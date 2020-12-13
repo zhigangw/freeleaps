@@ -81,9 +81,6 @@ export default {
       } else {
         this.isInvalidPassword = false;
       }
-      console.log(this.isInvalidUsername);
-      console.log(this.isInvalidPassword);
-      console.log(this.hasInvalidInput());
     },
 
     signIn() {

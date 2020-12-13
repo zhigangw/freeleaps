@@ -116,6 +116,20 @@ class UserProfileApi {
         return request;
     }
 
+    static updatePhoto(photo) {
+        let jwt = userUtils.getJwtToken();
+        let formdata = new FormData();
+        formdata.append('file', photo);
+        const request = backendAxios.post(
+            '/api/user-profile/update-photo',
+            formdata,
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { UserProfileApi }

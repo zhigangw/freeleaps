@@ -9,16 +9,24 @@
         <td>
           <label-button :name="'Mobile:'" :value="personal.mobile" @click="updateMobile" />
         </td>
+      </tr>
+      <tr>
         <td>
           <label-button :name="'Email:'" :value="personal.email" @click="updateEmail" />
         </td>
       </tr>
       <tr>
+        <td>
+          <div @click="updatePhoto">
+            <img width="50" height="60" :src="personal.photo" />
+          </div>
+        </td>
       </tr>
     </table>
     <update-name-modal ref="updateUsernameModal" @updated="onNameUpdated" />
     <update-mobile-modal ref="updateMobileModal" @updated="onMobileUpdated" />
-    <update-email-modal  ref="updateEmailModal" @updated="onEmailUpdated" />
+    <update-email-modal ref="updateEmailModal" @updated="onEmailUpdated" />
+    <update-photo-modal ref="updatePhotoModal" @updated="onPhotoUpdated" />
   </div>
 </template>
 
@@ -28,6 +36,7 @@ import { UserProfileApi } from "../../../utils/index";
 import UpdateNameModal from "../../modals/user/UpdateNameModal";
 import UpdateMobileModal from "../../modals/user/UpdateMobileModal";
 import UpdateEmailModal from "../../modals/user/UpdateEmailModal";
+import UpdatePhotoModal from "../../modals/user/UpdatePhotoModal";
 
 export default {
   name: "PersonalSettings",
@@ -37,6 +46,7 @@ export default {
     UpdateNameModal,
     UpdateMobileModal,
     UpdateEmailModal,
+    UpdatePhotoModal,
   },
 
   data() {
@@ -80,6 +90,14 @@ export default {
     },
     onEmailUpdated(email) {
       this.personal.email = email;
+    },
+
+    updatePhoto() {
+      this.$refs.updatePhotoModal.openModal(this.personal.photo);
+    },
+
+    onPhotoUpdated(photo) {
+      this.personal.photo = photo;
     },
 
     async fetchUserPersonal() {
