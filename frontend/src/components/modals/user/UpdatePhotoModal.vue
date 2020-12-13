@@ -62,7 +62,7 @@ export default {
       } else {
         UserProfileApi.updatePhoto(this.photo)
           .then((response) => {
-            response;
+            this.photo = response.data.photo;
             this.$emit("updated", this.photo);
           })
           .catch((error) => {

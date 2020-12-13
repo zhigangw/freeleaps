@@ -38,20 +38,17 @@ export default {
     },
 
     onChange(event) {
-      console.log(event.target.files[0]);
       let file = event.target.files[0];
       let reader = new FileReader();
       reader.addEventListener(
         "load",
         function () {
           this.showPreview = true;
+          this.$emit("update:modelValue", reader.result);
         }.bind(this),
         false
       );
       reader.readAsDataURL(file);
-      console.log(file);
-      console.log(reader.result);
-      this.$emit("update:modelValue", reader.result);
     },
   },
 };

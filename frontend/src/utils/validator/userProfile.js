@@ -18,7 +18,7 @@ const emailFormatMessage =
 const emailPattern = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/;
 
 const imageFormatMessage = "png or jpg file, size less than 1 MB";
-const imageFilenamePattern = /\.(jpe?g|png)$/i;
+const imageSrcPattern = /^(data:image\/(p?jpe?g?|png|p?tif);base64)/;
 
 class UserProfileValidator {
     static
@@ -123,14 +123,14 @@ class UserProfileValidator {
     }
 
     static validateImageFile(imageFile) {
-        if (imageFile == undefined || imageFile == null || imageFile.size == 0) {
+        if (imageFile == undefined || imageFile == null || imageFile.length == 0) {
             return "image can't be empty";
         }
-        if (imageFile.size > 1024 * 1024) {
+        if (imageFile.length > 1024 * 1024) {
             return "the size of image must be less then 1 MB";
         }
-        if (!imageFilenamePattern.test(imageFile.name)) {
-            return "only accept png or jpg/jepg file type";
+        if(!imageSrcPattern.test(imageFile)){
+            return "not a valid data format. "
         }
     }
 }
