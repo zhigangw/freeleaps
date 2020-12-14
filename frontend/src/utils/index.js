@@ -4,7 +4,8 @@ export {
     RequestPostApi,
     RequestQuoteApi,
     PojectManagerApi,
-    UserProfileApi
+    UserProfileApi,
+    GeoLocationApi
 } from './backend/index'
 export { userUtils, requestPostUtils } from './store/index'
 export { ValueChecker } from './common/index'

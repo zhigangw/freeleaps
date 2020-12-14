@@ -21,22 +21,27 @@
             <img width="50" height="60" :src="personal.photo" />
           </div>
         </td>
+        <td>
+          <label-button :name="'Location:'" :value="personal.location" @click="updateLocation"></label-button>
+        </td>
       </tr>
     </table>
     <update-name-modal ref="updateUsernameModal" @updated="onNameUpdated" />
     <update-mobile-modal ref="updateMobileModal" @updated="onMobileUpdated" />
     <update-email-modal ref="updateEmailModal" @updated="onEmailUpdated" />
     <update-photo-modal ref="updatePhotoModal" @updated="onPhotoUpdated" />
+    <update-location-modal ref="updateLocationModal" @updated="onLocationUpdated" />
   </div>
 </template>
 
 <script>
 import LabelButton from "../../buttons/templates/LabelButton";
-import { UserProfileApi } from "../../../utils/index";
+import { UserProfileApi, GeoLocationApi } from "../../../utils/index";
 import UpdateNameModal from "../../modals/user/UpdateNameModal";
 import UpdateMobileModal from "../../modals/user/UpdateMobileModal";
 import UpdateEmailModal from "../../modals/user/UpdateEmailModal";
 import UpdatePhotoModal from "../../modals/user/UpdatePhotoModal";
+import UpdateLocationModal from "../../modals/user/UpdateLocationModal";
 
 export default {
   name: "PersonalSettings",
@@ -47,6 +52,7 @@ export default {
     UpdateMobileModal,
     UpdateEmailModal,
     UpdatePhotoModal,
+    UpdateLocationModal,
   },
 
   data() {
@@ -57,12 +63,15 @@ export default {
         mobile: "",
       },
       name: null,
+      locations: null,
     };
   },
 
   created() {},
   mounted() {
     this.fetchUserPersonal();
+
+    this.fetchLocations();
   },
   methods: {
     updateName() {
@@ -100,12 +109,33 @@ export default {
       this.personal.photo = photo;
     },
 
+    updateLocation() {
+      this.$refs.updateLocationModal.openModal(
+        this.personal.location,
+        this.locations
+      );
+    },
+
+    onLocationUpdated(location) {
+      this.personal.location = location;
+    },
+
     async fetchUserPersonal() {
       UserProfileApi.fetchPersonal()
         .then((response) => {
           if (response.data) {
             this.personal = response.data;
           }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    async fetchLocations() {
+      GeoLocationApi.fetchCountries()
+        .then((response) => {
+          this.locations = response.data;
         })
         .catch((error) => {
           console.log(error);

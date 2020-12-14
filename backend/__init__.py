@@ -29,7 +29,7 @@ from .controllers.request_quote import (
     RequestQuoteFetchOpen
 )
 from .controllers.user_profile import (
-    UserProfileFetchSettings, 
+    UserProfileFetchSettings,
     UserProfileFetchAccount,
     UserProfileFetchWork,
     UserProfileFetchPersonal,
@@ -37,16 +37,17 @@ from .controllers.user_profile import (
     UserProfileUpdateName,
     UserProfileUpdateMobile,
     UserProfileUpdateEmail,
-    UserProfileUpdatePhoto
+    UserProfileUpdatePhoto,
+    UserProfileUpdateLocation
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
     SellerProfileFetchSavedRequests
 )
 from .controllers.project_manage import ProjectManageFetchForProvider
+from .controllers.geo_country import GeoCountryFetchCountries
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
-
 
 def create_app(test_config=None):
     # create and configure the app
@@ -86,7 +87,8 @@ def create_app(test_config=None):
                      '/api/user-profile/update-email')
     api.add_resource(UserProfileUpdatePhoto,
                      '/api/user-profile/update-photo')
-                     
+    api.add_resource(UserProfileUpdateLocation,
+                     '/api/user-profile/update-location')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
@@ -118,9 +120,13 @@ def create_app(test_config=None):
     api.add_resource(ProjectManageFetchForProvider,
                      '/api/project-manage/fetch-for-provider')
 
+    api.add_resource(GeoCountryFetchCountries,
+                     '/api/geo-location/fetch-countries')
+
     app.register_blueprint(api_bp)
 
     db = MongoEngine(app)
+
 
     # Setup the Flask-JWT-Extended extension
     app.config['JWT_SECRET_KEY'] = 'pv5m-tAa5D2q3j8EQ7kKA4nm2W0IdmxWkdVidLdDZzCdre30I0P_cQ'

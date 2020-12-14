@@ -4,3 +4,7 @@ gunicorn
 flask-mongoengine
 flask_restful
 flask-jwt-extended
+pymongo
+mongoengine
+requests
+Flask-PyMongo

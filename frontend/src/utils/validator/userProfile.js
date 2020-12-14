@@ -20,6 +20,9 @@ const emailPattern = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`
 const imageFormatMessage = "png or jpg file, size less than 1 MB";
 const imageSrcPattern = /^(data:image\/(p?jpe?g?|png|p?tif);base64)/;
 
+const locationFormatMessage = "the name of geo locations";
+const locationNamePattern = /^[A-Z]{1,1}[A-Za-z,()' '.']{1,56}$/;
+
 class UserProfileValidator {
     static
         getUserNameFormatRequirement() {
@@ -118,6 +121,18 @@ class UserProfileValidator {
         }
     }
 
+    static getGeoLocationFormatRequirement() {
+        return locationFormatMessage;
+    }
+
+    static validateGeoLocation(location) {
+        if (location == undefined || location == null || location.length == 0) {
+            return "image can't be empty";
+        }
+        if (!locationNamePattern.test(location)) {
+            return "not a valid location name. "
+        }
+    }
     static getImageFormatRequirement() {
         return imageFormatMessage;
     }
@@ -133,6 +148,7 @@ class UserProfileValidator {
             return "not a valid data format. "
         }
     }
+
 }
 
 export { UserProfileValidator }

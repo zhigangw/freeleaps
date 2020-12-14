@@ -132,6 +132,22 @@ class UserProfileApi {
         return request;
     }
 
+    static updateLocation(location) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-location',
+            {
+                location: location,
+            },
+            {
+                headers: { 
+                    Authorization: `Bearer ${jwt}` 
+                }
+            }
+        );
+        return request;
+    }
+
 }
 
 export { UserProfileApi }

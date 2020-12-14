@@ -13,6 +13,7 @@ class PersonalProfile(me.EmbeddedDocument):
     email = me.StringField()
     mobile = me.StringField()
     photo = me.StringField()
+    location=me.StringField()
 
 
 class WorkProfile(me.EmbeddedDocument):
