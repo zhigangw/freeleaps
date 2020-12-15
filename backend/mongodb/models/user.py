@@ -13,7 +13,7 @@ class PersonalProfile(me.EmbeddedDocument):
     email = me.StringField()
     mobile = me.StringField()
     photo = me.StringField()
-    location=me.StringField()
+    location = me.StringField()
 
 
 class WorkProfile(me.EmbeddedDocument):
@@ -28,8 +28,7 @@ class ExperiencePeriod(me.EmbeddedDocument):
     startDate = me.DateTimeField()
     endDate = me.DateTimeField()
     jobTitle = me.StringField()
-    topline = me.StringField()
-    details = me.ListField(me.StringField())
+    description = me.StringField()
 
 
 class Experience(me.EmbeddedDocument):
@@ -44,7 +43,8 @@ class Skill(me.EmbeddedDocument):
 
 class CareerProfile(me.EmbeddedDocument):
     experience = me.StringField()
-    skills = me.EmbeddedDocumentListField(Skill)
+    JobRole = me.StringField()
+
 
 
 class SellerProfile(me.EmbeddedDocument):
