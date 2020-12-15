@@ -46,6 +46,8 @@ from .controllers.seller_profile import (
 )
 from .controllers.project_manage import ProjectManageFetchForProvider
 from .controllers.geo_country import GeoCountryFetchCountries
+from .controllers.job_role import JobRoleFetchRoles
+
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 
@@ -122,6 +124,7 @@ def create_app(test_config=None):
 
     api.add_resource(GeoCountryFetchCountries,
                      '/api/geo-location/fetch-countries')
+    api.add_resource(JobRoleFetchRoles,'/api/career-role/fetch-roles')
 
     app.register_blueprint(api_bp)
 
