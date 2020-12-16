@@ -298,6 +298,7 @@ class UserProfileUpdatePhoto(Resource):
 
         return make_response(resp, return_code)
 
+
 class UserProfileUpdateLocation(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
@@ -318,6 +319,59 @@ class UserProfileUpdateLocation(Resource):
         )
         resp = jsonify(
             location=args.location
+        )
+        return_code = 200
+
+        return make_response(resp, return_code)
+
+
+class UserProfileFetchCareer(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        user = UserDoc.objects(
+            id=userIdentity,
+        ).first()
+
+        if(user == None):
+            resp = jsonify(
+                text="user with the give credential not exists"
+            )
+            return_code = 404
+            return make_response(resp, return_code)
+
+        resp = jsonify(
+            user.careerProfile
+        )
+
+        return make_response(resp, return_code)
+
+
+class UserProfileUpdateJobRole(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'jobRole',  dest='jobRole', type=str, location='json',
+            required=True, help='The user\'s jobRole')
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__careerProfile__jobRole=args.jobRole,
+        )
+        resp = jsonify(
+            jobRole=args.jobRole
         )
         return_code = 200
 

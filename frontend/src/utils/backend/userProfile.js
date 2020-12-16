@@ -148,6 +148,35 @@ class UserProfileApi {
         return request;
     }
 
+    static fetchCareer() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/fetch-career',
+            {
+
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
+    static updateJobRole(jobRole) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-job-role',
+            {
+                jobRole: jobRole,
+            },
+            {
+                headers: { 
+                    Authorization: `Bearer ${jwt}` 
+                }
+            }
+        );
+        return request;
+    }
 }
 
 export { UserProfileApi }

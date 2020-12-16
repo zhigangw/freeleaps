@@ -2,6 +2,7 @@ from .replace_records import replace_records
 
 def update_job_roles():
     r = [
+        {'name': 'Data Scientist', 'description': ''},
         {'name': 'Engineering Manager', 'description': ''},
         {'name': 'Recrutier', 'description': ''},
         {'name': 'Product Engineer', 'description': ''},
@@ -9,7 +10,8 @@ def update_job_roles():
         {'name': 'Project Manager', 'description': ''},
         {'name': 'Software Developer', 'description': ''},
         {'name': 'Software Tester', 'description': ''},
+        {'name': 'Technical Writer', 'description': ''},
         {'name': 'UX Designer', 'description': ''}
     ]
 
-    replace_records('JobRoleDoc', r)
+    replace_records('job_role_doc', r)

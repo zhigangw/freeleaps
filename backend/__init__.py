@@ -29,6 +29,7 @@ from .controllers.request_quote import (
     RequestQuoteFetchOpen
 )
 from .controllers.user_profile import (
+    UserProfileFetchCareer,
     UserProfileFetchSettings,
     UserProfileFetchAccount,
     UserProfileFetchWork,
@@ -38,7 +39,8 @@ from .controllers.user_profile import (
     UserProfileUpdateMobile,
     UserProfileUpdateEmail,
     UserProfileUpdatePhoto,
-    UserProfileUpdateLocation
+    UserProfileUpdateLocation,
+    UserProfileUpdateJobRole
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
@@ -50,6 +52,7 @@ from .controllers.job_role import JobRoleFetchRoles
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -79,6 +82,8 @@ def create_app(test_config=None):
                      '/api/user-profile/fetch-work')
     api.add_resource(UserProfileFetchPersonal,
                      '/api/user-profile/fetch-personal')
+    api.add_resource(UserProfileFetchCareer,
+                     '/api/user-profile/fetch-career')
     api.add_resource(UserProfileUpdateName,
                      '/api/user-profile/update-name')
     api.add_resource(UserProfileChoosePackage,
@@ -91,6 +96,8 @@ def create_app(test_config=None):
                      '/api/user-profile/update-photo')
     api.add_resource(UserProfileUpdateLocation,
                      '/api/user-profile/update-location')
+    api.add_resource(UserProfileUpdateJobRole,
+                     '/api/user-profile/update-job-role')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')
@@ -124,12 +131,11 @@ def create_app(test_config=None):
 
     api.add_resource(GeoCountryFetchCountries,
                      '/api/geo-location/fetch-countries')
-    api.add_resource(JobRoleFetchRoles,'/api/career-role/fetch-roles')
+    api.add_resource(JobRoleFetchRoles, '/api/career-role/fetch-roles')
 
     app.register_blueprint(api_bp)
 
     db = MongoEngine(app)
-
 
     # Setup the Flask-JWT-Extended extension
     app.config['JWT_SECRET_KEY'] = 'pv5m-tAa5D2q3j8EQ7kKA4nm2W0IdmxWkdVidLdDZzCdre30I0P_cQ'

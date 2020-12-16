@@ -1,7 +1,6 @@
 <template>
   <label-select-input
     ref="labelSelectInput"
-    :type="'text'"
     :title="locationFormatMessage"
     :label="label"
     v-model="location"

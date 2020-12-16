@@ -2,7 +2,7 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class CareerApi {
-    static fetchCountries() {
+    static fetchJobRoles() {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/career-role/fetch-roles',

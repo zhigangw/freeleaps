@@ -3,6 +3,7 @@
     <account-settings />
     <work-settings />
     <personal-settings/>
+    <career-settings/>
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import AccountSettings from "../../components/divs/user/AccountSettings";
 import WorkSettings from "../../components/divs/user/WorkSettings";
 import PersonalSettings from "../../components/divs/user/PersonalSettings";
+import CareerSettings from "../../components/divs/user/CareerSettings";
 
 export default {
   name: "UserSettings",
@@ -18,6 +20,7 @@ export default {
     AccountSettings,
     WorkSettings,
     PersonalSettings,
+    CareerSettings
   },
 
   data() {
