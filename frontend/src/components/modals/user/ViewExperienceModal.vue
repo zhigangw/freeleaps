@@ -51,18 +51,23 @@ export default {
     this.experience = this.modelValue;
   },
 
+  watch: {
+    headline: function (val) {
+      this.experience.headline = val;
+    },
+    experience: function (val) {
+      this.headline = val.headline;
+    },
+  },
   methods: {
     openModal(experience) {
       this.show = true;
       this.experience = experience;
-      this.headline = this.experience.headline;
       this.$refs.basicModal.openModal();
     },
 
     modalClosed() {
       this.show = false;
-      this.experience.headline = this.headline;
-      this.$emit("update:modelValue", this.experience);
     },
 
     updateHeadline() {
