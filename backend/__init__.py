@@ -40,7 +40,8 @@ from .controllers.user_profile import (
     UserProfileUpdateEmail,
     UserProfileUpdatePhoto,
     UserProfileUpdateLocation,
-    UserProfileUpdateJobRole
+    UserProfileUpdateJobRole,
+    UserProfileUpdateExperienceHeadline
 )
 from .controllers.seller_profile import (
     SellerProfileSaveRequest,
@@ -98,6 +99,8 @@ def create_app(test_config=None):
                      '/api/user-profile/update-location')
     api.add_resource(UserProfileUpdateJobRole,
                      '/api/user-profile/update-job-role')
+    api.add_resource(UserProfileUpdateExperienceHeadline,
+                     '/api/user-profile/update-experience-headline')
 
     api.add_resource(RequestPostFillDescription,
                      '/api/request-post/fill-description')

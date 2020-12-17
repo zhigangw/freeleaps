@@ -376,3 +376,29 @@ class UserProfileUpdateJobRole(Resource):
         return_code = 200
 
         return make_response(resp, return_code)
+
+
+class UserProfileUpdateExperienceHeadline(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'headline',  dest='headline', type=str, location='json',
+            required=True, help='The user\'s headline')
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__careerProfile__experience__headline=args.headline,
+        )
+        resp = jsonify(
+            headline=args.headline
+        )
+        return_code = 200
+
+        return make_response(resp, return_code)

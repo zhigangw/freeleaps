@@ -9,13 +9,14 @@
         <td>
           <label-button
             :name="'Experience:'"
-            :value="career.experience.title"
-            @click="updateExperience"
+            :value="career.experience.headline"
+            @click="viewExperience"
           />
         </td>
       </tr>
     </table>
     <update-job-role-modal ref="updateJobRoleModal" @updated="onJobRoleUpdated" />
+    <view-experience-modal ref="viewExperienceModal" v-model="career.experience" />
   </div>
 </template>
 
@@ -23,6 +24,7 @@
 import LabelButton from "../../buttons/templates/LabelButton";
 import { UserProfileApi } from "../../../utils/index";
 import UpdateJobRoleModal from "../../modals/user/UpdateJobRoleModal";
+import ViewExperienceModal from "../../modals/user/ViewExperienceModal";
 
 export default {
   name: "CareerSettings",
@@ -30,16 +32,15 @@ export default {
   components: {
     LabelButton,
     UpdateJobRoleModal,
+    ViewExperienceModal,
   },
 
   data() {
     return {
       career: {
-        experience:{
-
-        }
+        experience: {},
       },
-    };
+    }
   },
 
   created() {},
@@ -47,8 +48,8 @@ export default {
     this.fetchUserCareer();
   },
   methods: {
-    updateExperience(){
-
+    viewExperience() {
+      this.$refs.viewExperienceModal.openModal(this.career.experience);
     },
     updateJobRole() {
       this.$refs.updateJobRoleModal.openModal(this.career.jobRole);
@@ -61,7 +62,7 @@ export default {
     async fetchUserCareer() {
       UserProfileApi.fetchCareer()
         .then((response) => {
-          this.account = response.data;
+          this.career = response.data;
         })
         .catch((error) => {
           console.log(error);

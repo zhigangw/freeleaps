@@ -7,7 +7,7 @@
       <job-role-input ref="jobRoleInput" v-model="jobRole" :label="'new first name:'" />
     </template>
     <template #footer>
-      <button @click="updateName">Update</button>
+      <button @click="updateJobRole">Update</button>
       <p v-if="message">{{message}}</p>
     </template>
   </basic-modal>
@@ -49,7 +49,7 @@ export default {
       this.show = false;
     },
 
-    updateName() {
+    updateJobRole() {
       this.message = null;
       let validateError = this.$refs.jobRoleInput.validate();
       if (validateError) {

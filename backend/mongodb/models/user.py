@@ -27,15 +27,14 @@ class WorkProfile(me.EmbeddedDocument):
 class ExperiencePeriod(me.EmbeddedDocument):
     startDate = me.DateTimeField()
     endDate = me.DateTimeField()
-    jobTitle = me.StringField()
+    headline = me.StringField()
     description = me.StringField()
 
 
 class Experience(me.EmbeddedDocument):
-    title = me.StringField()
-    topline = me.StringField()
+    headline = me.StringField()
+    highlight = me.StringField()
     periods = me.EmbeddedDocumentListField(ExperiencePeriod)
-    linkedinPage = me.StringField()
 
 
 class Skill(me.EmbeddedDocument):
@@ -45,6 +44,8 @@ class Skill(me.EmbeddedDocument):
 class CareerProfile(me.EmbeddedDocument):
     experience = me.EmbeddedDocumentField(Experience)
     jobRole = me.StringField()
+    linkedinPage = me.StringField()
+
 
 
 class SellerProfile(me.EmbeddedDocument):

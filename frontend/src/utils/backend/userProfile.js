@@ -177,6 +177,22 @@ class UserProfileApi {
         );
         return request;
     }
+    
+    static updateExperienceHeadline(headline) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-experience-headline',
+            {
+                headline: headline,
+            },
+            {
+                headers: { 
+                    Authorization: `Bearer ${jwt}` 
+                }
+            }
+        );
+        return request;
+    }
 }
 
 export { UserProfileApi }

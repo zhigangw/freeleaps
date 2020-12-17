@@ -23,6 +23,8 @@ const imageSrcPattern = /^(data:image\/(p?jpe?g?|png|p?tif);base64)/;
 const locationFormatMessage = "the name of geo locations";
 const locationNamePattern = /^[A-Z]{1,1}[A-Za-z,()' '.']{1,56}$/;
 
+const experienceHeadlineFormatMessage = "less then 128 characters";
+const experienceHeadlinePattern = /^[ -~]{10,128}$/;
 class UserProfileValidator {
     static
         getUserNameFormatRequirement() {
@@ -146,6 +148,24 @@ class UserProfileValidator {
         }
         if (!imageSrcPattern.test(imageFile)) {
             return "not a valid data format. "
+        }
+    }
+
+    static getExperienceHeadlineFormatRequirement() {
+        return experienceHeadlineFormatMessage;
+    }
+
+    static validateExperienceHeadline(experienceHeadline) {
+
+        console.log(experienceHeadline);
+        if (experienceHeadline == undefined || experienceHeadline == null || experienceHeadline.length == 0) {
+            return "can't be empty";
+        }
+        if (experienceHeadline.length > 128) {
+            return "needs to be less then 128 characters";
+        }
+        if (!experienceHeadlinePattern.test(experienceHeadline)) {
+            return "contains invalid charactors. "
         }
     }
 
