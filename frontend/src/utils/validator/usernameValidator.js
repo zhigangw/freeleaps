@@ -9,7 +9,7 @@ const userNameMaxLength = 16;
 class UsernameValidator extends TextValidator {
     constructor() {
         super(
-            "username",
+            "Username",
             userNameFormatMessage,
             [
                 {

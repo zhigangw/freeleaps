@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { UserAuthApi, userProfileValidator, UserProfileValidator } from "../../utils/index";
+import { UserAuthApi, userProfileValidator } from "../../utils/index";
 
 export default {
   name: "UserSignin",
@@ -46,7 +46,7 @@ export default {
       passwordError: null,
       inputError: null,
       userNameFormatMessage: userProfileValidator.usernameValidator.getFormatRequirement(),
-      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
+      passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
     };
   },
 
@@ -75,7 +75,7 @@ export default {
     },
 
     validatePassword() {
-      this.passwordError = UserProfileValidator.validatePassword(this.password);
+      this.passwordError = userProfileValidator.passwordValidator.validate(this.password);
       if (this.passwordError) {
         this.isInvalidPassword = true;
       } else {

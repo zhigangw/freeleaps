@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { UserAuthApi, UserProfileValidator } from "../../utils/index";
+import { UserAuthApi, userProfileValidator } from "../../utils/index";
 
 export default {
   name: "UserRegister",
@@ -74,8 +74,8 @@ export default {
       usernameError: null,
       passwordError: null,
       repeatPasswordError: null,
-      userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
-      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
+      userNameFormatMessage: userProfileValidator.usernameValidator.getFormatRequirement(),
+      passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
       repeatpasswordFormatMessage: "Must be identical to the password above",
       usernameNotAvailableError: "This username is not available",
     };
@@ -102,7 +102,7 @@ export default {
       this.isInvalidUsername = false;
     },
     validateUsername() {
-      this.usernameError = UserProfileValidator.validateUsername(this.username);
+      this.usernameError = userProfileValidator.usernameValidator.validate(this.username);
       if (this.usernameError) {
         this.isInvalidUsername = true;
       } else {
@@ -129,7 +129,7 @@ export default {
     },
 
     validatePassword() {
-      this.passwordError = UserProfileValidator.validatePassword(this.password);
+      this.passwordError = userProfileValidator.passwordValidator.validate(this.password);
       if (this.passwordError) {
         this.isInvalidPassword = true;
       } else {
