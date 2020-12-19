@@ -9,7 +9,7 @@
 </template>
 <script>
 import LabelTextInput from "../templates/LabelTextInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "EmailInput",
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       email: null,
-      emailFormatMessage: UserProfileValidator.getEmailFormatRequirement(),
+      emailFormatMessage: userProfileValidator.emailValidator.getFormatRequirement(),
     };
   },
 
@@ -31,7 +31,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        UserProfileValidator.validateEmail,
+        userProfileValidator.emailValidator.validate,
         this.email
       );
     },

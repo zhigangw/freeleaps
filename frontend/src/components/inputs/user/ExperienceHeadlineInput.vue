@@ -10,7 +10,7 @@
 </template>
 <script>
 import LabelTextInput from "../templates/LabelTextInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "ExperienceHeadlineInput",
@@ -25,7 +25,7 @@ export default {
       title: null,
       titlePlaceHolder:
         "What would you like people to call you, like, an experienced software engineer in IOT",
-      titleFormatMessage: UserProfileValidator.getExperienceHeadlineFormatRequirement(),
+      titleFormatMessage: userProfileValidator.headlineValidator.getFormatRequirement(),
     };
   },
 
@@ -34,7 +34,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        UserProfileValidator.validateExperienceHeadline,
+        userProfileValidator.headlineValidator.validate,
         this.title
       );
     },

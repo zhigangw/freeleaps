@@ -9,7 +9,7 @@
 </template>
 <script>
 import LabelTextInput from "../templates/LabelTextInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "MobileInput",
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       mobile: null,
-      mobileFormatMessage: UserProfileValidator.getMobileFormatRequirement(),
+      mobileFormatMessage: userProfileValidator.mobileValidator.getFormatRequirement(),
     };
   },
 
@@ -32,7 +32,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        UserProfileValidator.validateMobile,
+        userProfileValidator.mobileValidator.validate,
         this.mobile
       );
     },

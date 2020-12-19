@@ -9,7 +9,7 @@
 </template>
 <script>
 import LabelTextInput from "../templates/LabelTextInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "PasswordInput",
@@ -22,7 +22,7 @@ export default {
   data() {
     return {
       password: null,
-      passwordFormatMessage: UserProfileValidator.getPasswordFormatRequirement(),
+      passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
     };
   },
 
@@ -31,7 +31,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        UserProfileValidator.validatePassword,
+        userProfileValidator.passwordValidator.validate,
         this.password
       );
     },

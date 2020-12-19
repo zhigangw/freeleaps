@@ -9,7 +9,7 @@
 </template>
 <script>
 import LabelTextAreaInput from "../templates/LabelTextInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "ExperienceHighlightInput",
@@ -24,7 +24,7 @@ export default {
       highlight: null,
       highlightPlaceHolder:
         "A couple of sentences about your achievement which you think will impress people",
-      highlightFormatMessage: UserProfileValidator.getExperienceHighlightFormatRequirement(),
+      highlightFormatMessage: userProfileValidator.headlineValidator.getFormatRequirement(),
     };
   },
 
@@ -33,7 +33,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelAreaTextInput.validate(
-        UserProfileValidator.validateExperienceHighlight,
+        userProfileValidator.highlightValidator.validate,
         this.highlight
       );
     },

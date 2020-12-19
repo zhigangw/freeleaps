@@ -8,7 +8,7 @@
 </template>
 <script>
 import LabelSelectInput from "../templates/LabelSelectInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "LocationInput",
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       location: null,
-      locationFormatMessage: UserProfileValidator.getGeoLocationFormatRequirement(),
+      locationFormatMessage: userProfileValidator.countryValidator.getFormatRequirement(),
     };
   },
 
@@ -31,7 +31,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelSelectInput.validate(
-        UserProfileValidator.validateGeoLocation,
+        userProfileValidator.countryValidator.validate,
         this.location
       );
     },

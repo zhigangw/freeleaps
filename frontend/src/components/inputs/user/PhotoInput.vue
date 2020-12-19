@@ -8,7 +8,7 @@
 </template>
 <script>
 import LabelImageInput from "../templates/LabelImageInput";
-import { UserProfileValidator } from "../../../utils/index";
+import { userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "PhotoInput",
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       photo: null,
-      photoFormatMessage: UserProfileValidator.getImageFormatRequirement(),
+      photoFormatMessage: userProfileValidator.imageValidator.getFormatRequirement(),
     };
   },
 
@@ -30,7 +30,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelImageInput.validate(
-        UserProfileValidator.validateImageFile,
+        userProfileValidator.imageValidator.validate,
         this.photo
       );
     },

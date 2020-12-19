@@ -9,7 +9,7 @@
 </template>
 <script>
 import LabelSelectInput from "../templates/LabelSelectInput";
-import { /*UserProfileValidator,*/ CareerApi } from "../../../utils/index";
+import { /*userProfileValidator,*/ CareerApi } from "../../../utils/index";
 
 export default {
   name: "JobRoleInput",

@@ -43,7 +43,7 @@ export default {
   },
 
   mounted() {
-    this.headline = this.modelValue;
+    this.highlight = this.modelValue;
   },
   methods: {
     openModal() {
