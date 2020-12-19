@@ -402,3 +402,29 @@ class UserProfileUpdateExperienceHeadline(Resource):
         return_code = 200
 
         return make_response(resp, return_code)
+
+
+class UserProfileUpdateExperienceHighlight(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'highlight',  dest='highlight', type=str, location='json',
+            required=True, help='The user\'s highlight')
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__careerProfile__experience__highlight=args.highlight,
+        )
+        resp = jsonify(
+            highlight=args.highlight
+        )
+        return_code = 200
+
+        return make_response(resp, return_code)

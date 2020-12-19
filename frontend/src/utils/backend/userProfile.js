@@ -124,8 +124,8 @@ class UserProfileApi {
                 photo: photo,
             },
             {
-                headers: { 
-                    Authorization: `Bearer ${jwt}` 
+                headers: {
+                    Authorization: `Bearer ${jwt}`
                 }
             }
         );
@@ -140,8 +140,8 @@ class UserProfileApi {
                 location: location,
             },
             {
-                headers: { 
-                    Authorization: `Bearer ${jwt}` 
+                headers: {
+                    Authorization: `Bearer ${jwt}`
                 }
             }
         );
@@ -170,14 +170,14 @@ class UserProfileApi {
                 jobRole: jobRole,
             },
             {
-                headers: { 
-                    Authorization: `Bearer ${jwt}` 
+                headers: {
+                    Authorization: `Bearer ${jwt}`
                 }
             }
         );
         return request;
     }
-    
+
     static updateExperienceHeadline(headline) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
@@ -186,8 +186,24 @@ class UserProfileApi {
                 headline: headline,
             },
             {
-                headers: { 
-                    Authorization: `Bearer ${jwt}` 
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            }
+        );
+        return request;
+    }
+
+    static updateExperienceHighlight(highlight) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/update-experience-highlight',
+            {
+                highlight: highlight,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
                 }
             }
         );

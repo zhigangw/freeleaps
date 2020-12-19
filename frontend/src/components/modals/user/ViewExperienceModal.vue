@@ -4,14 +4,20 @@
       <h3>Experience</h3>
     </template>
     <template #body>
-      <label-button
+      <label-text-reader
         ref="headline"
-        :value="experience.headline"
+        v-model="headline"
         :label="'Headline:'"
-        @click="updateHeadline"
+        @edit="updateHeadline"
       />
-      <label-button ref="highlight" :value="experience.highlight" :label="'Highlight:'" />
+      <label-text-reader
+        ref="highlight"
+        v-model="highlight"
+        :label="'Highlight:'"
+        @edit="updateHighlight"
+      />
       <update-experience-headline-modal ref="updateHeadlineModal" v-model="headline" />
+      <update-experience-highlight-modal ref="updateHighlightModal" v-model="highlight" />
     </template>
     <template #footer>
       <button @click="doneView">Done</button>
@@ -22,8 +28,9 @@
 
 <script>
 import BasicModal from "../templates/BasicModal";
-import LabelButton from "../../buttons/templates/LabelButton";
+import LabelTextReader from "../../inputs/infra/LabelTextReader";
 import UpdateExperienceHeadlineModal from "./UpdateExperienceHeadlineModal";
+import UpdateExperienceHighlightModal from "./UpdateExperienceHighlightModal";
 
 export default {
   name: "ViewExperienceModal",
@@ -35,14 +42,16 @@ export default {
   emits: ["update:modelValue"],
   components: {
     BasicModal,
-    LabelButton,
+    LabelTextReader,
     UpdateExperienceHeadlineModal,
+    UpdateExperienceHighlightModal,
   },
   data() {
     return {
       message: null,
       show: false,
       headline: null,
+      highlight: null,
       experience: {},
     };
   },
@@ -55,8 +64,14 @@ export default {
     headline: function (val) {
       this.experience.headline = val;
     },
+
+    highlight: function (val) {
+      this.experience.highlight = val;
+    },
+
     experience: function (val) {
       this.headline = val.headline;
+      this.highlight = val.highlight;
     },
   },
   methods: {
@@ -72,6 +87,10 @@ export default {
 
     updateHeadline() {
       this.$refs.updateHeadlineModal.openModal();
+    },
+
+    updateHighlight() {
+      this.$refs.updateHighlightModal.openModal();
     },
 
     doneView() {

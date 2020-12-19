@@ -25,6 +25,10 @@ const locationNamePattern = /^[A-Z]{1,1}[A-Za-z,()' '.']{1,56}$/;
 
 const experienceHeadlineFormatMessage = "less then 128 characters";
 const experienceHeadlinePattern = /^[ -~]{10,128}$/;
+
+const experienceHighlightFormatMessage = "less then 1024 characters";
+const experienceHighlightPattern = /^[ -~]{50,1024}$/;
+
 class UserProfileValidator {
     static
         getUserNameFormatRequirement() {
@@ -157,14 +161,40 @@ class UserProfileValidator {
 
     static validateExperienceHeadline(experienceHeadline) {
 
-        console.log(experienceHeadline);
         if (experienceHeadline == undefined || experienceHeadline == null || experienceHeadline.length == 0) {
             return "can't be empty";
         }
+
+        if (experienceHeadline.length < 10) {
+            return "needs to be more then 10 characters";
+        }
+
         if (experienceHeadline.length > 128) {
             return "needs to be less then 128 characters";
         }
         if (!experienceHeadlinePattern.test(experienceHeadline)) {
+            return "contains invalid charactors. "
+        }
+    }
+
+    static getExperienceHighlightFormatRequirement() {
+        return experienceHighlightFormatMessage;
+    }
+
+    static validateExperienceHighlight(highlight) {
+
+        if (highlight == undefined || highlight == null || highlight.length == 0) {
+            return "can't be empty";
+        }
+
+        if (highlight.length < 50) {
+            return "needs to be more then 50 characters";
+        }
+
+        if (highlight.length > 1024) {
+            return "needs to be less then 1024 characters";
+        }
+        if (!experienceHighlightPattern.test(highlight)) {
             return "contains invalid charactors. "
         }
     }
