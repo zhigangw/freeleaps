@@ -1,7 +1,5 @@
-const userNamePattern = /^([a-zA-Z]{1,1}[a-zA-Z0-9]{5,15}$)/;
-const userNameFirstLetterPattern = /^[a-zA-Z].*$/;
-const userNameFormatMessage =
-    "6 to 18 characters, start with at least one letter and contains alphanumeric characters";
+import { UsernameValidator } from "./usernameValidator"
+
 const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
 const passwordFormatMessage =
     "8 characters or more, at least one uppercase letter, one lowercase letter, one number and one special characte(@$!%*?#&)";
@@ -29,33 +27,12 @@ const experienceHeadlinePattern = /^[ -~]{10,128}$/;
 const experienceHighlightFormatMessage = "less then 1024 characters";
 const experienceHighlightPattern = /^[ -~]{50,1024}$/;
 
+class ProfileValidator {
+    constructor() {
+        this.usernameValidator = new UsernameValidator();
+    }
+}
 class UserProfileValidator {
-    static
-        getUserNameFormatRequirement() {
-        return userNameFormatMessage;
-    }
-    static
-        validateUsername(username) {
-        if (username == undefined || username == null || username.length == 0) {
-            return "username can't be empty";
-        }
-        if (username.length < 6) {
-            return "username need have 6 or more charactoers";
-        }
-
-        if (username.length > 16) {
-            return "username need have 16 or less charactoers";
-        }
-
-        if (!userNameFirstLetterPattern.test(username)) {
-            return "username need start with a letter.";
-        }
-        if (!userNamePattern.test(username)) {
-            return "username can only contain letters and numbers";
-        }
-        return null;
-    }
-
     static
         getPasswordFormatRequirement() {
         return passwordFormatMessage;
@@ -200,5 +177,5 @@ class UserProfileValidator {
     }
 
 }
-
-export { UserProfileValidator }
+const userProfileValidator = new ProfileValidator();
+export { UserProfileValidator, userProfileValidator }

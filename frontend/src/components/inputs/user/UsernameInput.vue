@@ -10,12 +10,12 @@
 </template>
 <script>
 import LabelTextInput from "../templates/LabelTextInput";
-import { UserAuthApi, UserProfileValidator } from "../../../utils/index";
+import { UserAuthApi, userProfileValidator } from "../../../utils/index";
 
 export default {
   name: "UsernameInput",
   props: {
-    checkAvailability: false,
+    checkAvailability: Boolean,
     label: null,
   },
   components: {
@@ -24,7 +24,7 @@ export default {
   data() {
     return {
       username: null,
-      userNameFormatMessage: UserProfileValidator.getUserNameFormatRequirement(),
+      userNameFormatMessage: userProfileValidator.usernameValidator.getFormatRequirement(),
     };
   },
 
@@ -46,7 +46,7 @@ export default {
 
     validate() {
       return this.$refs.labelTextInput.validate(
-        UserProfileValidator.validateUsername,
+        userProfileValidator.usernameValidator.validate,
         this.username
       );
     },
