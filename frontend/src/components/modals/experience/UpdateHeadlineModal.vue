@@ -1,17 +1,13 @@
 <template>
   <basic-modal ref="basicModal" v-show="show" @close="modalClosed">
     <template #header>
-      <h3>Update Highlight</h3>
+      <h3>Update Headline</h3>
     </template>
     <template #body>
-      <experience-highlight-input
-        ref="highlightInput"
-        v-model="highlight"
-        :label="'new highlight:'"
-      />
+      <experience-headline-input ref="headlineInput" v-model="headline" :label="'new headline:'" />
     </template>
     <template #footer>
-      <button @click="updateHighlight">Update</button>
+      <button @click="updateHeadline">Update</button>
       <p v-if="message">{{message}}</p>
     </template>
   </basic-modal>
@@ -19,11 +15,11 @@
 
 <script>
 import BasicModal from "../templates/BasicModal";
-import ExperienceHighlightInput from "../../inputs/user/ExperienceHighlightInput";
+import ExperienceHeadlineInput from "../../inputs/experience/HeadlineInput";
 import { UserProfileApi } from "../../../utils/index";
 
 export default {
-  name: "UpdateExperienceHighlightModal",
+  name: "UpdateExperienceHeadlineModal",
   props: {
     modelValue: null,
   },
@@ -32,18 +28,18 @@ export default {
 
   components: {
     BasicModal,
-    ExperienceHighlightInput,
+    ExperienceHeadlineInput,
   },
   data() {
     return {
       show: false,
-      highlight: null,
+      headline: null,
       message: null,
     };
   },
 
   mounted() {
-    this.highlight = this.modelValue;
+    this.headline = this.modelValue;
   },
   methods: {
     openModal() {
@@ -54,16 +50,17 @@ export default {
       this.show = false;
     },
 
-    updateHighlight() {
+    updateHeadline() {
       this.message = null;
-      let validateError = this.$refs.highlightInput.validate();
+      let validateError = this.$refs.headlineInput.validate();
       if (validateError) {
         this.message = "Please fix the errors before submit";
       } else {
-        UserProfileApi.updateExperienceHighlight(this.highlight)
+        UserProfileApi.updateExperienceHeadline(this.headline)
           .then((response) => {
-            this.highlight = response.data.highlight;
-            this.$emit("update:modelValue", this.highlight);
+            this.headline = response.data.headline;
+            this.message = "new headline is:" + this.headline;
+            this.$emit("update:modelValue", this.headline);
           })
           .catch((error) => {
             console.log(error);

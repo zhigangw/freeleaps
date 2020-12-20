@@ -1,56 +1,6 @@
-import os
-
+from .controllers import controllerMap
 from flask import Flask, Blueprint
 from flask_restful import Api, Resource, url_for
-from .controllers.user_auth import (
-    UserSignout,
-    UserSignup,
-    UserSignin,
-    UserIsNameAvailable,
-    UserUpdateUsername,
-    UserUpdatePassword
-)
-from .controllers.request_post import (
-    RequestPostFillDescription,
-    RequestPostFetchDescription,
-    RequestPostFillNotes,
-    RequestPostFetchNotes,
-    RequestPostFillStatus,
-    RequestPostFetchMyAllAsSummary,
-    RequestPostFetchAllPublishedAsSummary,
-    RequestPostFetchWhole,
-
-)
-from .controllers.request_quote import (
-    RequestQuoteAcceptQuote,
-    RequestQuoteSubmit,
-    RequestQuoteMine,
-    RequestQuoteFetchQuotes,
-    RequestQuoteFetchOpen
-)
-from .controllers.user_profile import (
-    UserProfileFetchCareer,
-    UserProfileFetchSettings,
-    UserProfileFetchAccount,
-    UserProfileFetchWork,
-    UserProfileFetchPersonal,
-    UserProfileChoosePackage,
-    UserProfileUpdateName,
-    UserProfileUpdateMobile,
-    UserProfileUpdateEmail,
-    UserProfileUpdatePhoto,
-    UserProfileUpdateLocation,
-    UserProfileUpdateJobRole,
-    UserProfileUpdateExperienceHeadline,
-    UserProfileUpdateExperienceHighlight
-)
-from .controllers.seller_profile import (
-    SellerProfileSaveRequest,
-    SellerProfileFetchSavedRequests
-)
-from .controllers.project_manage import ProjectManageFetchForProvider
-from .controllers.geo_country import GeoCountryFetchCountries
-from .controllers.job_role import JobRoleFetchRoles
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
@@ -67,77 +17,8 @@ def create_app(test_config=None):
     api_bp = Blueprint('api', __name__)
 
     api = Api(api_bp)
-    api.add_resource(UserSignup, '/api/user/signup')
-    api.add_resource(UserSignin, '/api/user/signin')
-    api.add_resource(UserSignout, '/api/user/signout')
-    api.add_resource(UserUpdateUsername, '/api/user/update-username')
-    api.add_resource(UserUpdatePassword, '/api/user/update-password')
-
-    api.add_resource(UserIsNameAvailable,
-                     '/api/user/check-username-availability')
-
-    api.add_resource(UserProfileFetchSettings,
-                     '/api/user-profile/fetch-settings')
-    api.add_resource(UserProfileFetchAccount,
-                     '/api/user-profile/fetch-account')
-    api.add_resource(UserProfileFetchWork,
-                     '/api/user-profile/fetch-work')
-    api.add_resource(UserProfileFetchPersonal,
-                     '/api/user-profile/fetch-personal')
-    api.add_resource(UserProfileFetchCareer,
-                     '/api/user-profile/fetch-career')
-    api.add_resource(UserProfileUpdateName,
-                     '/api/user-profile/update-name')
-    api.add_resource(UserProfileChoosePackage,
-                     '/api/user-profile/choose-package')
-    api.add_resource(UserProfileUpdateMobile,
-                     '/api/user-profile/update-mobile')
-    api.add_resource(UserProfileUpdateEmail,
-                     '/api/user-profile/update-email')
-    api.add_resource(UserProfileUpdatePhoto,
-                     '/api/user-profile/update-photo')
-    api.add_resource(UserProfileUpdateLocation,
-                     '/api/user-profile/update-location')
-    api.add_resource(UserProfileUpdateJobRole,
-                     '/api/user-profile/update-job-role')
-    api.add_resource(UserProfileUpdateExperienceHeadline,
-                     '/api/user-profile/update-experience-headline')
-    api.add_resource(UserProfileUpdateExperienceHighlight,
-                     '/api/user-profile/update-experience-highlight')
-
-    api.add_resource(RequestPostFillDescription,
-                     '/api/request-post/fill-description')
-    api.add_resource(RequestPostFetchDescription,
-                     '/api/request-post/fetch-description')
-    api.add_resource(RequestPostFillNotes, '/api/request-post/fill-note')
-    api.add_resource(RequestPostFetchNotes, '/api/request-post/fetch-notes')
-    api.add_resource(RequestPostFillStatus, '/api/request-post/fill-status')
-    api.add_resource(RequestPostFetchMyAllAsSummary,
-                     '/api/request-post/mine-summary')
-    api.add_resource(RequestPostFetchAllPublishedAsSummary,
-                     '/api/request-post/published-summary')
-    api.add_resource(RequestPostFetchWhole, '/api/request-post/fetch-whole')
-
-    api.add_resource(RequestQuoteSubmit, '/api/request-quote/submit-quote')
-    api.add_resource(RequestQuoteMine, '/api/request-quote/fetch-mine')
-    api.add_resource(RequestQuoteFetchQuotes,
-                     '/api/request-quote/fetch-quotes')
-    api.add_resource(RequestQuoteAcceptQuote,
-                     '/api/request-quote/accept-quote')
-    api.add_resource(RequestQuoteFetchOpen,
-                     '/api/request-quote/fetch-open')
-
-    api.add_resource(SellerProfileSaveRequest,
-                     '/api/seller-profile/save-request')
-    api.add_resource(SellerProfileFetchSavedRequests,
-                     '/api/seller-profile/fetch-saved-requests')
-
-    api.add_resource(ProjectManageFetchForProvider,
-                     '/api/project-manage/fetch-for-provider')
-
-    api.add_resource(GeoCountryFetchCountries,
-                     '/api/geo-location/fetch-countries')
-    api.add_resource(JobRoleFetchRoles, '/api/career-role/fetch-roles')
+    for c in controllerMap:
+        api.add_resource(c['res'], c['url'])
 
     app.register_blueprint(api_bp)
 

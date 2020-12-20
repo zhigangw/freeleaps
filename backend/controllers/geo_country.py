@@ -24,3 +24,9 @@ class GeoCountryFetchCountries(Resource):
         )
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': GeoCountryFetchCountries,
+     'url': '/api/geo-location/fetch-countries'},
+]

@@ -8,7 +8,7 @@ from flask_jwt_extended import (
 )
 from mongoengine.fields import ImproperlyConfigured
 from mongoengine.queryset.transform import update
-from ..mongodb.models.user import UserDoc
+from ..mongodb.models.profile.user import UserDoc
 from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.utils.field_validator import FieldValidator
 
@@ -79,3 +79,12 @@ class SellerProfileFetchSavedRequests(Resource):
         resp = jsonify(requests)
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': SellerProfileSaveRequest,
+     'url': '/api/seller-profile/save-request'},
+    {'res': SellerProfileFetchSavedRequests,
+     'url': '/api/seller-profile/fetch-saved-requests'},
+
+]

@@ -129,7 +129,7 @@ class RequestQuoteFetchOpen(Resource):
 
         quotes = RequestQuoteDoc.objects(
             providerId=userIdentity,
-            status__ne =RequestQuoteStatus.ACCEPTED
+            status__ne=RequestQuoteStatus.ACCEPTED
         )
 
         resp = jsonify(quotes)
@@ -218,3 +218,15 @@ class RequestQuoteAcceptQuote(Resource):
         resp = jsonify(projectId=str(project.id))
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': RequestQuoteSubmit, 'url': '/api/request-quote/submit-quote'},
+    {'res': RequestQuoteMine, 'url': '/api/request-quote/fetch-mine'},
+    {'res': RequestQuoteFetchQuotes,
+     'url': '/api/request-quote/fetch-quotes'},
+    {'res': RequestQuoteAcceptQuote,
+     'url': '/api/request-quote/accept-quote'},
+    {'res': RequestQuoteFetchOpen,
+     'url': '/api/request-quote/fetch-open'},
+]

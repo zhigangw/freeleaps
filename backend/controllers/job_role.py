@@ -24,3 +24,8 @@ class JobRoleFetchRoles(Resource):
         )
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': JobRoleFetchRoles, 'url': '/api/career-role/fetch-roles'},
+]

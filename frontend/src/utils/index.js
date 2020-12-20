@@ -6,7 +6,7 @@ export {
     PojectManagerApi,
     UserProfileApi,
     GeoLocationApi,
-    CareerApi
+    CareerProfileApi
 } from './backend/index'
 export { userUtils, requestPostUtils } from './store/index'
 export { ValueChecker } from './common/index'

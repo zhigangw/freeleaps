@@ -28,3 +28,9 @@ class ProjectManageFetchForProvider(Resource):
         )
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': ProjectManageFetchForProvider,
+     'url': '/api/project-manage/fetch-for-provider'},
+]

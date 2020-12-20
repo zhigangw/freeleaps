@@ -1,1 +1,1 @@
-export {UserProfileValidator, userProfileValidator} from "./userProfile"
+export {userProfileValidator} from "./userProfile"

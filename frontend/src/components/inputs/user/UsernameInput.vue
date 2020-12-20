@@ -29,8 +29,7 @@ export default {
   },
 
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     async checkUsernameAvailability() {
       if (!this.checkAvailability) return;

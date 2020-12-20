@@ -321,3 +321,20 @@ class RequestPostFetchAllPublishedAsSummary(Resource):
         resp = jsonify(s)
         return_code = 200
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': RequestPostFillDescription,
+     'url': '/api/request-post/fill-description'},
+    {'res': RequestPostFetchDescription,
+     'url': '/api/request-post/fetch-description'},
+    {'res': RequestPostFillNotes, 'url': '/api/request-post/fill-note'},
+    {'res': RequestPostFetchNotes, 'url': '/api/request-post/fetch-notes'},
+    {'res': RequestPostFillStatus, 'url': '/api/request-post/fill-status'},
+    {'res': RequestPostFetchMyAllAsSummary,
+     'url': '/api/request-post/mine-summary'},
+    {'res': RequestPostFetchAllPublishedAsSummary,
+     'url': '/api/request-post/published-summary'},
+    {'res': RequestPostFetchWhole, 'url': '/api/request-post/fetch-whole'},
+
+]

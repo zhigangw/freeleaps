@@ -6,6 +6,7 @@ import {EmailValidator} from "./emailValidator"
 import {ImageValidator} from "./imageValidator"
 import {HeadlineValidator} from "./headlineValidator"
 import {HighlightValidator} from "./highlightValidator"
+import {DescriptionValidator} from "./descriptionValidator"
 
 
 class ProfileValidator {
@@ -18,6 +19,7 @@ class ProfileValidator {
         this.imageValidator = new ImageValidator();
         this.headlineValidator = new HeadlineValidator();
         this.highlightValidator = new HighlightValidator();
+        this.descriptionValidator = new DescriptionValidator();
     }
 }
 

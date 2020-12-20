@@ -6,7 +6,7 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     jwt_required, create_access_token, get_jwt_identity
 )
-from ..mongodb.models.user import UserDoc, AuthProfile, WorkProfile
+from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile
 
 
 def create_jwt_token(identity):
@@ -194,3 +194,16 @@ class UserUpdatePassword(Resource):
         )
 
         return make_response(resp, return_code)
+
+
+routeMap = [
+    {'res': UserSignup, 'url': '/api/user/signup'},
+    {'res': UserSignin, 'url': '/api/user/signin'},
+    {'res': UserSignout, 'url': '/api/user/signout'},
+    {'res': UserUpdateUsername, 'url': '/api/user/update-username'},
+    {'res': UserUpdatePassword, 'url': '/api/user/update-password'},
+
+    {'res': UserIsNameAvailable,
+     'url': '/api/user/check-username-availability'},
+
+]

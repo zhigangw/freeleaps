@@ -16,6 +16,7 @@
         :label="'Highlight:'"
         @edit="updateHighlight"
       />
+      <ExperiencePannel/>
       <update-experience-headline-modal ref="updateHeadlineModal" v-model="headline" />
       <update-experience-highlight-modal ref="updateHighlightModal" v-model="highlight" />
     </template>
@@ -29,8 +30,9 @@
 <script>
 import BasicModal from "../templates/BasicModal";
 import LabelTextReader from "../../inputs/infra/LabelTextReader";
-import UpdateExperienceHeadlineModal from "./UpdateExperienceHeadlineModal";
-import UpdateExperienceHighlightModal from "./UpdateExperienceHighlightModal";
+import UpdateExperienceHeadlineModal from "../experience/UpdateHeadlineModal";
+import UpdateExperienceHighlightModal from "../experience/UpdateHighlightModal";
+import ExperiencePannel from "../../divs/experience/ExperiencePanel"
 
 export default {
   name: "ViewExperienceModal",
@@ -45,6 +47,7 @@ export default {
     LabelTextReader,
     UpdateExperienceHeadlineModal,
     UpdateExperienceHighlightModal,
+    ExperiencePannel,
   },
   data() {
     return {

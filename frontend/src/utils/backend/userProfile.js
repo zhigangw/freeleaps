@@ -44,21 +44,6 @@ class UserProfileApi {
         return request;
     }
 
-    static choosePackage(service) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            '/api/user-profile/choose-package',
-            {
-                package: service
-            },
-            {
-                headers: { Authorization: `Bearer ${jwt}` }
-            }
-        );
-
-        return request;
-    }
-
     static fetchPersonal() {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
@@ -72,6 +57,22 @@ class UserProfileApi {
         );
         return request;
     }
+
+    static choosePackage(service) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-work/choose-package',
+            {
+                package: service
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+
+        return request;
+    }
+
 
     static updateName(firstName, lastName) {
         let jwt = userUtils.getJwtToken();
@@ -162,53 +163,7 @@ class UserProfileApi {
         return request;
     }
 
-    static updateJobRole(jobRole) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            '/api/user-profile/update-job-role',
-            {
-                jobRole: jobRole,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`
-                }
-            }
-        );
-        return request;
-    }
 
-    static updateExperienceHeadline(headline) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            '/api/user-profile/update-experience-headline',
-            {
-                headline: headline,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`
-                }
-            }
-        );
-        return request;
-    }
-
-    static updateExperienceHighlight(highlight) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            '/api/user-profile/update-experience-highlight',
-            {
-                highlight: highlight,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`
-                }
-            }
-        );
-        return request;
-    }
 }
 
 export { UserProfileApi }
