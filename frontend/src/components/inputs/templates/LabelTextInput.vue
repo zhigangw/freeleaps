@@ -24,7 +24,7 @@ export default {
   mounted() {},
   methods: {
     validate(validator, value) {
-      this.message = validator(value);
+      this.message = validator.validate(value);
       return this.message;
     },
     onInput(event) {

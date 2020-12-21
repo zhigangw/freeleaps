@@ -29,7 +29,7 @@ import ExperienceDescriptionInput from "../../inputs/experience/DescriptionInput
 import { CareerProfileApi } from "../../../utils/index";
 
 export default {
-  name: "UpdateExperienceHeadlineModal",
+  name: "UpdateExperiencePeriodModal",
   props: {
     modelValue: null,
   },
@@ -43,9 +43,10 @@ export default {
   },
   data() {
     return {
+      message: null,
       show: false,
-      period:null,
-      periodId=null,
+      period: null,
+      periodId: null,
       startDate: null,
       endDate: null,
       headline: null,
@@ -53,71 +54,78 @@ export default {
     };
   },
 
-  mounted() {
-    this.period = this.modelValue;
-  },
-    watch:{
-        period:function(val){
-            this.startDate = val.startDate;
-            this.endDate = val.endDate;
-            this.headline = val.headline;
-            this.description = val.description;
-            this.periodId=val.periodId;
-        },
-      periodId:function(val){
-          this.period.periodId = val;
-      },
-      startDate: function(val){
-          this.period.startDate=val;
-      },
-      endDate: function(val){
-          this.period.endDate=val;
-      },
-      headline: function(val){
-          this.period.headline=val;
-      },
-      description: function(val){
-          this.period.description=val;
-      },
+  mounted() {},
+  watch: {
+    period: function (val) {
+      this.startDate = val.startDate;
+      this.endDate = val.endDate;
+      this.headline = val.headline;
+      this.description = val.description;
+      this.periodId = val.oid;
+
+      this.$emit("update:modelValue", this.period);
     },
+
+    periodId: function (val) {
+      this.period.periodId = val;
+    },
+    startDate: function (val) {
+      this.period.startDate = val;
+    },
+    endDate: function (val) {
+      this.period.endDate = val;
+    },
+    headline: function (val) {
+      this.period.headline = val;
+    },
+    description: function (val) {
+      this.period.description = val;
+    },
+    modelValue: function (val) {
+      this.period = val ? val : {};
+    },
+  },
   methods: {
-    openModal() {
+    openModal(period) {
       this.show = true;
+      this.period = period;
       this.$refs.basicModal.openModal();
     },
     modalClosed() {
       this.show = false;
     },
 
+    updatePeriodByResponse(response) {
+      this.period = response.data.period;
+      CareerProfileApi.formalize(this.period);
+
+      this.$emit("update:modelValue", this.period);
+    },
+
     updatePeriod() {
       this.message = null;
       let validateError1 = this.$refs.experienceHeadline.validate();
       let validateError2 = this.$refs.experienceDescription.validate();
-      if (validateError && validateError2) {
+      if (validateError1 && validateError2) {
         this.message = "Please fix the errors before submit";
       } else {
-          if(this.periodId){
-        CareerProfileApi.updateExperiencePeriod(this.periodId, this.period)
-          .then((response) => {
-            this.headline = response.data.headline;
-            this.message = "new headline is:" + this.headline;
-            this.$emit("update:modelValue", this.headline);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          }
-          else{
-        CareerProfileApi.addExperiencePeriod(this.period)
-          .then((response) => {
-            this.headline = response.data.headline;
-            this.message = "new headline is:" + this.headline;
-            this.$emit("update:modelValue", this.headline);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-          }
+        if (this.periodId) {
+          CareerProfileApi.updateExperiencePeriod(this.periodId, this.period)
+            .then((response) => {
+              this.updatePeriodByResponse(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        } else {
+          CareerProfileApi.addExperiencePeriod(this.period)
+            .then((response) => {
+              this.updatePeriodByResponse(response);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        }
       }
     },
   },

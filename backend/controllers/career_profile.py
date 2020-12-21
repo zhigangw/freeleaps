@@ -112,7 +112,7 @@ class UpdatePeriod(Resource):
             id=userIdentity,
             careerProfile__experience__periods__id=args.id
         ).update_one(
-            set__careerProfile__experience__periods_S=args.period,
+            set__careerProfile__experience__periods__S=args.period,
         )
 
         if updated is not None:
@@ -142,12 +142,11 @@ class AddPeriod(Resource):
         updated = UserDoc.objects(
             id=userIdentity,
         ).update_one(
-            push__careerProfile__experience__periods_S=args.period,
+            push__careerProfile__experience__periods=args.period
         )
-
-        if updated > 0:
+        if updated > 0 :
             resp = jsonify(
-                period=updated
+                period=args.period
             )
         else:
             resp = jsonify(text="nothing updated")

@@ -5,7 +5,7 @@
     :title="titleFormatMessage"
     :placeholder="titlePlaceHolder"
     :label="label"
-    v-model.trim="title"
+    v-model.trim="headline"
   />
 </template>
 <script>
@@ -16,13 +16,15 @@ export default {
   name: "ExperienceHeadlineInput",
   props: {
     label: null,
+    modelValue: null,
   },
   components: {
     LabelTextInput,
   },
+  emits: ["update:modelValue"],
   data() {
     return {
-      title: null,
+      headline: null,
       titlePlaceHolder:
         "What would you like people to call you, like, an experienced software engineer in IOT",
       titleFormatMessage: userProfileValidator.headlineValidator.getFormatRequirement(),
@@ -31,11 +33,19 @@ export default {
 
   created() {},
   mounted() {},
+  watch: {
+    headline: function (val) {
+      this.$emit("update:modelValue", val);
+    },
+    modelValue: function (val) {
+      this.headline = val;
+    },
+  },
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        userProfileValidator.headlineValidator.validate,
-        this.title
+        userProfileValidator.headlineValidator,
+        this.headline
       );
     },
   },

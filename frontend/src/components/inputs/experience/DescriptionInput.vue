@@ -4,7 +4,6 @@
     :title="formatMessage"
     :placeholder="descriptionPlaceHolder"
     :label="label"
-    :input="onInput($event)"
     v-model.trim="description"
   />
 </template>
@@ -33,15 +32,18 @@ export default {
 
   created() {},
   mounted() {},
-  methods: {
-    onInput(event) {
-      event;
-      this.$emit("update:modelValue", this.description);
+  watch: {
+    description: function (val) {
+      this.$emit("update:modelValue", val);
     },
-    
+    modelValue: function (val) {
+      this.description = val;
+    },
+  },
+  methods: {
     validate() {
       return this.$refs.labelAreaTextInput.validate(
-        userProfileValidator.descriptionValidator.validate,
+        userProfileValidator.descriptionValidator,
         this.description
       );
     },

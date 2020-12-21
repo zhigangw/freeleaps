@@ -1,5 +1,7 @@
 import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
+import { ResponseFormatter } from "./responseFormatter"
+
 class CareerProfileApi {
     static baseUrl = '/api/career-profile/';
 
@@ -82,6 +84,12 @@ class CareerProfileApi {
             }
         );
         return request;
+    }
+
+    static formalize(period) {
+        period.oid = ResponseFormatter.getId(period);
+        period.startDate = Date(ResponseFormatter.getDate(period.startDate));
+        period.endDate = Date(ResponseFormatter.getDate(period.endDate));
     }
 
 }

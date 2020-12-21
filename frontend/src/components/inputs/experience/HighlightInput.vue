@@ -15,10 +15,13 @@ export default {
   name: "ExperienceHighlightInput",
   props: {
     label: null,
+    modelValue: null,
   },
   components: {
     LabelTextAreaInput,
   },
+
+  emits: ["update:modelValue"],
   data() {
     return {
       highlight: null,
@@ -30,10 +33,19 @@ export default {
 
   created() {},
   mounted() {},
+  watch: {
+    highlight: function (val) {
+      this.$emit("update:modelValue", val);
+    },
+    modelValue: function (val) {
+      this.highlight = val;
+    },
+  },
+
   methods: {
     validate() {
       return this.$refs.labelAreaTextInput.validate(
-        userProfileValidator.highlightValidator.validate,
+        userProfileValidator.highlightValidator,
         this.highlight
       );
     },

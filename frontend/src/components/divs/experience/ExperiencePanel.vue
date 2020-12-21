@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      <button @click="addPeriod">Add</button>
+      <button @click="addPeriod()">Add</button>
     </div>
     <period-pannel
       v-for="period in periods"
       :key="period.startDate"
-      :id="period.startDate"
+      :id="period.oid"
       :period="period"
-      @edit="editPeriod($event)"
+      @edit="editPeriod"
     />
   </div>
 </template>
@@ -26,8 +26,8 @@ export default {
   components: {
     PeriodPannel,
   },
-  
-  emits: ["edit"],
+
+  emits: ["add", "edit"],
 
   data() {
     return {};
@@ -39,10 +39,10 @@ export default {
   mounted() {},
   methods: {
     addPeriod() {
-      this.$emits("add", event.target.period);
+      this.$emit("add");
     },
-    editPeriod(event) {
-      this.$emits("edit", event.target.period);
+    editPeriod(period) {
+      this.$emit("edit", period);
     },
   },
 };

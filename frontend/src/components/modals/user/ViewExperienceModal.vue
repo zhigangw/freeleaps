@@ -1,7 +1,7 @@
 <template>
   <basic-modal ref="basicModal" v-show="show" @close="modalClosed">
     <template #header>
-      <h3>Experience</h3>
+      <h3>View Experience Panel</h3>
     </template>
     <template #body>
       <label-text-reader
@@ -16,9 +16,14 @@
         :label="'Highlight:'"
         @edit="updateHighlight"
       />
-      <ExperiencePannel/>
+      <ExperiencePannel
+        @add="addExperiencePeriod"
+        @edit="editExperiencePeriod"
+        :periods="periods"
+      />
       <update-experience-headline-modal ref="updateHeadlineModal" v-model="headline" />
       <update-experience-highlight-modal ref="updateHighlightModal" v-model="highlight" />
+      <update-experience-period-modal ref="updatePeriodModal" v-model="periodInEdit" />
     </template>
     <template #footer>
       <button @click="doneView">Done</button>
@@ -32,7 +37,8 @@ import BasicModal from "../templates/BasicModal";
 import LabelTextReader from "../../inputs/infra/LabelTextReader";
 import UpdateExperienceHeadlineModal from "../experience/UpdateHeadlineModal";
 import UpdateExperienceHighlightModal from "../experience/UpdateHighlightModal";
-import ExperiencePannel from "../../divs/experience/ExperiencePanel"
+import UpdateExperiencePeriodModal from "../experience/UpdatePeriodModal";
+import ExperiencePannel from "../../divs/experience/ExperiencePanel";
 
 export default {
   name: "ViewExperienceModal",
@@ -47,6 +53,7 @@ export default {
     LabelTextReader,
     UpdateExperienceHeadlineModal,
     UpdateExperienceHighlightModal,
+    UpdateExperiencePeriodModal,
     ExperiencePannel,
   },
   data() {
@@ -55,6 +62,8 @@ export default {
       show: false,
       headline: null,
       highlight: null,
+      periods: null,
+      periodInEdit: null,
       experience: {},
     };
   },
@@ -72,9 +81,13 @@ export default {
       this.experience.highlight = val;
     },
 
+    periods: function (val) {
+      this.experience.periods = val;
+    },
     experience: function (val) {
       this.headline = val.headline;
       this.highlight = val.highlight;
+      this.periods = val.periods;
     },
   },
   methods: {
@@ -94,6 +107,14 @@ export default {
 
     updateHighlight() {
       this.$refs.updateHighlightModal.openModal();
+    },
+
+    addExperiencePeriod() {
+      this.$refs.updatePeriodModal.openModal();
+    },
+
+    editExperiencePeriod(period) {
+      this.$refs.updatePeriodModal.openModal(period);
     },
 
     doneView() {

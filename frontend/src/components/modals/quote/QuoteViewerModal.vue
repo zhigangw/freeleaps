@@ -11,8 +11,7 @@
 </template>
 
 <script>
-import { RequestQuoteApi } from "../../../utils/index";
-import { ReqeustQuoteData } from "../../../types/index";
+import { RequestQuoteApi, ResponseFormatter } from "../../../utils/index";
 import BasicModal from "../templates/BasicModal";
 
 export default {
@@ -33,7 +32,7 @@ export default {
   methods: {
     acceptQuote() {
       RequestQuoteApi.acceptQuote(
-        ReqeustQuoteData.getId(this.quote),
+        ResponseFormatter.getId(this.quote),
         this.quote.requestId
       )
         .then((response) => {

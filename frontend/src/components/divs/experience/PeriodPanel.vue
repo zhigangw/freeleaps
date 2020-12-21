@@ -4,7 +4,7 @@
       <tr>
         <td>
           <p>{{headline}}</p>
-          <p>{{despription}}</p>
+          <p>{{description}}</p>
         </td>
         <td>
           <button @click="onEdit">Edit</button>
@@ -46,7 +46,7 @@ export default {
   mounted() {},
   methods: {
     onEdit() {
-      this.$emits("edit", this.period);
+      this.$emit("edit", this.period);
     },
   },
 };

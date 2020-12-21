@@ -22,7 +22,7 @@
 
 <script>
 import LabelButton from "../../buttons/templates/LabelButton";
-import { UserProfileApi } from "../../../utils/index";
+import { UserProfileApi, CareerProfileApi } from "../../../utils/index";
 import UpdateJobRoleModal from "../../modals/user/UpdateJobRoleModal";
 import ViewExperienceModal from "../../modals/user/ViewExperienceModal";
 
@@ -40,7 +40,7 @@ export default {
       career: {
         experience: {},
       },
-    }
+    };
   },
 
   created() {},
@@ -63,6 +63,9 @@ export default {
       UserProfileApi.fetchCareer()
         .then((response) => {
           this.career = response.data;
+          for (let p of this.career.experience.periods) {
+            CareerProfileApi.formalize(p);
+          }
         })
         .catch((error) => {
           console.log(error);

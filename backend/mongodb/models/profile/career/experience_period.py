@@ -1,9 +1,14 @@
 import mongoengine as me
 import json
+from bson.objectid import ObjectId
+
 
 class ExperiencePeriod(me.EmbeddedDocument):
-    startDate = me.DateTimeField()
-    endDate = me.DateTimeField()
+
+    oid = me.ObjectIdField(required=True, default=ObjectId,
+                           unique=True, primary_key=True)
+    startDate = me.DateField()
+    endDate = me.DateField()
     headline = me.StringField()
     description = me.StringField()
 
