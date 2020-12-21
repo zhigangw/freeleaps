@@ -96,9 +96,6 @@ class UpdatePeriod(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(
-            'id',  dest='id', type=str, location='json',
-            required=True, help='The user\'s period id')
-        self.post_parser.add_argument(
             'period',  dest='period', type=ExperiencePeriod.from_dic, location='json',
             required=True, help='The user\'s period')
 
@@ -110,14 +107,14 @@ class UpdatePeriod(Resource):
         userIdentity = get_jwt_identity()
         updated = UserDoc.objects(
             id=userIdentity,
-            careerProfile__experience__periods__id=args.id
         ).update_one(
-            set__careerProfile__experience__periods__S=args.period,
+            add_to_set__careerProfile__experience__periods=args.period,
+            upsert=True
         )
 
-        if updated is not None:
+        if updated > 0:
             resp = jsonify(
-                period=updated
+                period=args.period
             )
         else:
             resp = jsonify(text="nothing updated")
@@ -144,7 +141,7 @@ class AddPeriod(Resource):
         ).update_one(
             push__careerProfile__experience__periods=args.period
         )
-        if updated > 0 :
+        if updated > 0:
             resp = jsonify(
                 period=args.period
             )

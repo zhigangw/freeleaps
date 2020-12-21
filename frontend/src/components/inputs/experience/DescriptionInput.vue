@@ -36,8 +36,11 @@ export default {
     description: function (val) {
       this.$emit("update:modelValue", val);
     },
-    modelValue: function (val) {
-      this.description = val;
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.description = val;
+      },
     },
   },
   methods: {

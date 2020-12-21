@@ -53,27 +53,10 @@ class CareerProfileApi {
         return request;
     }
 
-    static updateExperiencePeriod(id, period) {
+    static updateExperiencePeriod(period) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             this.baseUrl + 'update/period',
-            {
-                id: id,
-                period: period,
-            },
-            {
-                headers: {
-                    Authorization: `Bearer ${jwt}`
-                }
-            }
-        );
-        return request;
-    }
-
-    static addExperiencePeriod(period) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            this.baseUrl + 'add/period',
             {
                 period: period,
             },
@@ -88,8 +71,8 @@ class CareerProfileApi {
 
     static formalize(period) {
         period.oid = ResponseFormatter.getId(period);
-        period.startDate = Date(ResponseFormatter.getDate(period.startDate));
-        period.endDate = Date(ResponseFormatter.getDate(period.endDate));
+        period.startDate = new Date(ResponseFormatter.getDate(period.startDate)).toISOString().split("T")[0];
+        period.endDate = new Date(ResponseFormatter.getDate(period.endDate)).toISOString().split("T")[0];
     }
 
 }

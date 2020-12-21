@@ -20,7 +20,7 @@
 <script>
 import BasicModal from "../templates/BasicModal";
 import ExperienceHighlightInput from "../../inputs/experience/HighlightInput";
-import { UserProfileApi } from "../../../utils/index";
+import { CareerProfileApi } from "../../../utils/index";
 
 export default {
   name: "UpdateExperienceHighlightModal",
@@ -41,10 +41,18 @@ export default {
       message: null,
     };
   },
-
-  mounted() {
-    this.highlight = this.modelValue;
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.highlight = val;
+      },
+    },
+    highlight: function (val) {
+      this.$emit("update:modelValue", val);
+    },
   },
+  mounted() {},
   methods: {
     openModal() {
       this.show = true;
@@ -60,10 +68,9 @@ export default {
       if (validateError) {
         this.message = "Please fix the errors before submit";
       } else {
-        UserProfileApi.updateExperienceHighlight(this.highlight)
+        CareerProfileApi.updateExperienceHighlight(this.highlight)
           .then((response) => {
             this.highlight = response.data.highlight;
-            this.$emit("update:modelValue", this.highlight);
           })
           .catch((error) => {
             console.log(error);

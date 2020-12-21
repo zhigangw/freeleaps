@@ -16,7 +16,7 @@
 <script>
 import BasicModal from "../templates/BasicModal";
 import ExperienceHeadlineInput from "../../inputs/experience/HeadlineInput";
-import { UserProfileApi } from "../../../utils/index";
+import { CareerProfileApi } from "../../../utils/index";
 
 export default {
   name: "UpdateExperienceHeadlineModal",
@@ -37,9 +37,18 @@ export default {
       message: null,
     };
   },
-
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.headline = val;
+      },
+    },
+    headline: function (val) {
+      this.$emit("update:modelValue", val);
+    },
+  },
   mounted() {
-    this.headline = this.modelValue;
   },
   methods: {
     openModal() {
@@ -56,11 +65,9 @@ export default {
       if (validateError) {
         this.message = "Please fix the errors before submit";
       } else {
-        UserProfileApi.updateExperienceHeadline(this.headline)
+        CareerProfileApi.updateExperienceHeadline(this.headline)
           .then((response) => {
             this.headline = response.data.headline;
-            this.message = "new headline is:" + this.headline;
-            this.$emit("update:modelValue", this.headline);
           })
           .catch((error) => {
             console.log(error);

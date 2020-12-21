@@ -37,8 +37,11 @@ export default {
     highlight: function (val) {
       this.$emit("update:modelValue", val);
     },
-    modelValue: function (val) {
-      this.highlight = val;
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.highlight = val;
+      },
     },
   },
 

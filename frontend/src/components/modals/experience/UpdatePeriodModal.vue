@@ -61,14 +61,10 @@ export default {
       this.endDate = val.endDate;
       this.headline = val.headline;
       this.description = val.description;
-      this.periodId = val.oid;
 
       this.$emit("update:modelValue", this.period);
     },
 
-    periodId: function (val) {
-      this.period.periodId = val;
-    },
     startDate: function (val) {
       this.period.startDate = val;
     },
@@ -81,8 +77,11 @@ export default {
     description: function (val) {
       this.period.description = val;
     },
-    modelValue: function (val) {
-      this.period = val ? val : {};
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.period = val ? val : {};
+      },
     },
   },
   methods: {
@@ -109,23 +108,13 @@ export default {
       if (validateError1 && validateError2) {
         this.message = "Please fix the errors before submit";
       } else {
-        if (this.periodId) {
-          CareerProfileApi.updateExperiencePeriod(this.periodId, this.period)
-            .then((response) => {
-              this.updatePeriodByResponse(response);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        } else {
-          CareerProfileApi.addExperiencePeriod(this.period)
-            .then((response) => {
-              this.updatePeriodByResponse(response);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
+        CareerProfileApi.updateExperiencePeriod(this.period)
+          .then((response) => {
+            this.updatePeriodByResponse(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
   },

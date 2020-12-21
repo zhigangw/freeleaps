@@ -37,8 +37,11 @@ export default {
     headline: function (val) {
       this.$emit("update:modelValue", val);
     },
-    modelValue: function (val) {
-      this.headline = val;
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.headline = val;
+      },
     },
   },
   methods: {
