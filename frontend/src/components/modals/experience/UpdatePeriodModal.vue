@@ -57,12 +57,12 @@ export default {
   mounted() {},
   watch: {
     period: function (val) {
-      this.startDate = val.startDate;
-      this.endDate = val.endDate;
-      this.headline = val.headline;
-      this.description = val.description;
-
-      this.$emit("update:modelValue", this.period);
+      if (val) {
+        this.startDate = val.startDate;
+        this.endDate = val.endDate;
+        this.headline = val.headline;
+        this.description = val.description;
+      }
     },
 
     startDate: function (val) {
@@ -85,9 +85,8 @@ export default {
     },
   },
   methods: {
-    openModal(period) {
+    openModal() {
       this.show = true;
-      this.period = period;
       this.$refs.basicModal.openModal();
     },
     modalClosed() {
@@ -103,19 +102,28 @@ export default {
 
     updatePeriod() {
       this.message = null;
+      if (!this.startDate) {
+        this.message = "Please provide start date.";
+        return;
+      }
+      if (!this.endDate) {
+        this.message = "Please provide end date.";
+        return;
+      }
       let validateError1 = this.$refs.experienceHeadline.validate();
       let validateError2 = this.$refs.experienceDescription.validate();
-      if (validateError1 && validateError2) {
+      if (validateError1 || validateError2) {
         this.message = "Please fix the errors before submit";
-      } else {
-        CareerProfileApi.updateExperiencePeriod(this.period)
-          .then((response) => {
-            this.updatePeriodByResponse(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        return;
       }
+
+      CareerProfileApi.updateExperiencePeriod(this.period)
+        .then((response) => {
+          this.updatePeriodByResponse(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
 };

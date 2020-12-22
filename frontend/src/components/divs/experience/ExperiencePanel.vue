@@ -4,8 +4,8 @@
       <button @click="addPeriod()">Add</button>
     </div>
     <period-pannel
-      v-for="period in periods"
-      :key="period.startDate"
+      v-for="(period,index) in periods"
+      :key="index"
       :id="period.oid"
       :period="period"
       @edit="editPeriod"

@@ -1,7 +1,7 @@
 import { TextValidator } from './textValidator'
 const formatMessage = "less then 1024 characters";
 const pattern = /^[ -~]{50,1024}$/;
-const minLength = 512;
+const minLength = 128;
 const maxLength = 4098;
 
 class DescriptionValidator extends TextValidator {

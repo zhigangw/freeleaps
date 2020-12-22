@@ -16,11 +16,7 @@
         :label="'Highlight:'"
         @edit="updateHighlight"
       />
-      <ExperiencePannel
-        @add="addExperiencePeriod"
-        @edit="editExperiencePeriod"
-        :periods="periods"
-      />
+      <ExperiencePannel @add="addExperiencePeriod" @edit="editExperiencePeriod" :periods="periods" />
       <update-experience-headline-modal ref="updateHeadlineModal" v-model="headline" />
       <update-experience-highlight-modal ref="updateHighlightModal" v-model="highlight" />
       <update-experience-period-modal ref="updatePeriodModal" v-model="periodInEdit" />
@@ -68,9 +64,7 @@ export default {
     };
   },
 
-  mounted() {
-    this.experience = this.modelValue;
-  },
+  mounted() {},
 
   watch: {
     headline: function (val) {
@@ -84,10 +78,22 @@ export default {
     periods: function (val) {
       this.experience.periods = val;
     },
+
     experience: function (val) {
       this.headline = val.headline;
       this.highlight = val.highlight;
       this.periods = val.periods;
+    },
+    periodInEdit: function (val, old) {
+      if (!old) {
+        this.periods.push(val);
+      }
+    },
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.experience = val ? val : {};
+      },
     },
   },
   methods: {
@@ -114,7 +120,8 @@ export default {
     },
 
     editExperiencePeriod(period) {
-      this.$refs.updatePeriodModal.openModal(period);
+      this.periodInEdit = period;
+      this.$refs.updatePeriodModal.openModal();
     },
 
     doneView() {

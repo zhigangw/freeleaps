@@ -105,10 +105,26 @@ class UpdatePeriod(Resource):
         return_code = 200
         resp = None
         userIdentity = get_jwt_identity()
+        args.period.modifiedDate = datetime.utcnow
+        added = UserDoc.objects(
+            id=userIdentity,
+            careerProfile__experience__periods__oid__ne=args.period.oid
+
+        ).update_one(
+            add_to_set__careerProfile__experience__periods=args.period
+        )
+
+        if added > 0:
+            resp = jsonify(
+                period=args.period
+            )
+            return make_response(resp, return_code)
+
         updated = UserDoc.objects(
             id=userIdentity,
+            careerProfile__experience__periods__oid=args.period.oid
         ).update_one(
-            add_to_set__careerProfile__experience__periods=args.period,
+            set__careerProfile__experience__periods__S=args.period,
             upsert=True
         )
 
@@ -116,40 +132,13 @@ class UpdatePeriod(Resource):
             resp = jsonify(
                 period=args.period
             )
-        else:
-            resp = jsonify(text="nothing updated")
-            return_code = 404
+            return make_response(resp, return_code)
+
+        resp = jsonify(text="nothing updated")
+        return_code = 404
 
         return make_response(resp, return_code)
 
-
-class AddPeriod(Resource):
-    def __init__(self) -> None:
-        self.post_parser = reqparse.RequestParser()
-        self.post_parser.add_argument(
-            'period',  dest='period', type=ExperiencePeriod.from_dic, location='json',
-            required=True, help='The user\'s period')
-
-    @jwt_required
-    def post(self):
-        args = self.post_parser.parse_args()
-        return_code = 200
-        resp = None
-        userIdentity = get_jwt_identity()
-        updated = UserDoc.objects(
-            id=userIdentity,
-        ).update_one(
-            push__careerProfile__experience__periods=args.period
-        )
-        if updated > 0:
-            resp = jsonify(
-                period=args.period
-            )
-        else:
-            resp = jsonify(text="nothing updated")
-            return_code = 404
-
-        return make_response(resp, return_code)
 
 
 baseUrl = '/api/career-profile/'
@@ -162,6 +151,4 @@ routeMap = [
      'url': baseUrl+'update/highlight'},
     {'res': UpdatePeriod,
      'url': baseUrl+'update/period'},
-    {'res': AddPeriod,
-     'url': baseUrl+'add/period'},
 ]
