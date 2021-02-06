@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { store, userRoleEnum } from '../store/index';
 
-import FrontDoor from "../../pages/user/FrontDoor";
-import UserSignin from "../../pages/user/UserSignin";
-import UserSignup from "../../pages/user/UserSignup";
-import UserSettings from "../../pages/user/UserSettings";
+import FrontDoor from "../../pages/account/FrontDoor";
+import UserSignin from "../../pages/account/UserSignin";
+import UserSignup from "../../pages/account/UserSignup";
+import UserSettings from "../../pages/account/UserSettings";
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
