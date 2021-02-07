@@ -6,23 +6,14 @@
         <li>
           <p>Welcome to freeleaps</p>
         </li>
-        <li>
-          <LoginoutButton />
-        </li>
-        <li>
-          <SignupButton />
-        </li>
       </ul>
     </nav>
   </header>
 </template>
 <script>
-import LoginoutButton from "../../buttons/user/LoginoutButton";
-import SignupButton from "../../buttons/user/SignupButton";
-
 export default {
-  name: "BuyerNavBar",
-  components: { LoginoutButton, SignupButton },
+  name: "GuestHeader",
+  components: {},
   computed: {},
   methods: {},
 };

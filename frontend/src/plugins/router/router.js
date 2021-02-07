@@ -25,7 +25,7 @@ import SellerSkill from "../../pages/seller/SellerSkill";
 import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 
 import BuyerNavBar from "../../components/bars/nav/BuyerNavBar.vue";
-import GuestBar from "../../components/bars/nav/GuestBar.vue";
+import HeaderGuest from "../../components/bars/header/HeaderGuest.vue";
 import SellerNavBar from "../../components/bars/nav/SellerNavBar.vue";
 import UserSignupBar from "../../components/bars/nav/UserSignupBar.vue";
 import UserNavBar from "../../components/bars/nav/UserNavBar.vue";
@@ -39,7 +39,7 @@ const router = createRouter({
       name: 'front-door',
       path: '/front-door',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: FrontDoor/*, footer: TeamsFooter */, header: GuestBar },
+      components: { default: FrontDoor/*, footer: TeamsFooter */, header: HeaderGuest },
       /*children: [
         {
           name: 'team-members',
@@ -54,7 +54,7 @@ const router = createRouter({
       name: 'user-signin',
       path: '/user-signin',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: UserSignin, header: GuestBar },
+      components: { default: UserSignin, header: HeaderGuest },
     },
 
     {
