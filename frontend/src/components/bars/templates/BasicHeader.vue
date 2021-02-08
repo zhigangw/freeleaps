@@ -55,14 +55,6 @@ header {
 .operation-row {
   height: 33%;
 }
-
-.shoutout-slot > .child {
-  height: 100%;
-}
-
-.logo-slot >>> .child {
-  display: block;
-}
 div {
   border: solid black 1px;
   height: 100%;
