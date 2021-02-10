@@ -3,8 +3,8 @@
     <template #logo>
       <img class="logo" alt="freeleaps logo" src="../../../assets/logo.png" />
     </template>
-    <template #shoutout>
-      <h3 class="text-wrap shoutout">Freeleaps – The leading platform for software freelancers</h3>
+    <template #panel>
+      <h3 class="align-middle text-wrap shoutout">Freeleaps – The leading platform for software freelancers</h3>
     </template>
   </basic-header>
 </template>
@@ -21,11 +21,12 @@ export default {
 
 <style scoped>
 .logo {
-    max-width: 100%;
-    max-height: 100%;
+  float: left;
+  max-width: 100%;
+  max-height: 100%;
 }
-.shoutout
-{
+.shoutout {
   font-size: 3vmin;
+  color: #fae4ab;
 }
 </style>
