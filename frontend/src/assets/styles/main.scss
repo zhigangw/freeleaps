@@ -18,7 +18,7 @@
 //
 // Import all of Bootstrap's CSS
 
-@import "bootstrap/scss/bootstrap";
+//@import "bootstrap/scss/bootstrap";
 
 // Option 2
 //
@@ -41,6 +41,7 @@
 // $body-bg: #f5f5f5;
 // $border-radius: .4rem;
 
+@import 'variables';
 // // @import "bootstrap/scss/root";
 // @import "bootstrap/scss/reboot"; // Required
 // @import "bootstrap/scss/type";
@@ -76,13 +77,13 @@
 // @import "bootstrap/scss/utilities";
 // // @import "bootstrap/scss/print";
 
-
 //
 // Custom styles
 //
-@import 'variables';
 
 // Style Bootstrap icons
 .bi {
   fill: currentColor;
 }
+
+@import "bootstrap/scss/bootstrap";

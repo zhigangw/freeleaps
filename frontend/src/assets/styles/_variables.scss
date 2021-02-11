@@ -1,5 +1,18 @@
-$default-font: "Lato", Verdana, Arial, sans-serif;
 
-$link-color: #ef899e;
-$body-bg: #f0f0f0;
-$text-color: #666;
+
+// Create your own map
+
+$flag: #02718f; //for banner and the places to show the flag of the app
+$shoutout:#f0783b; //for the shoutout texts
+
+$theme-colors: (
+  // add any additional color below
+  flag: #02718f, //for banner and the places to show the flag of the app
+  shoutout:#f0783b, //for the shoutout texts
+);
+
+// $default-font: "Lato", Verdana, Arial, sans-serif;
+
+// $link-color: #ef899e;
+// $body-bg: #f0f0f0;
+// $text-color: #666;

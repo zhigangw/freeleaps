@@ -36,6 +36,6 @@ export default {
 .slogan {
   @extend .text-start;
   padding: 1%;
-  color:#42b983;
+  color: $flag;
 }
 </style>
