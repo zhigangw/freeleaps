@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>FrontDoor</h1>
+    <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return. </h3>
     <button @click="gotoBuyerRegister">Become Buyer</button>
     <button @click="gotoSellerRegister">Become Seller</button>
   </div>
@@ -32,8 +32,10 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-a {
-  color: #42b983;
+<style scoped lang="scss">
+.slogan {
+  @extend .text-start;
+  padding: 1%;
+  color:#42b983;
 }
 </style>
