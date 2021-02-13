@@ -2,13 +2,29 @@
 
 // Create your own map
 
-$flag: #02718f; //for banner and the places to show the flag of the app
 $shoutout:#f0783b; //for the shoutout texts
+// First override some or all individual color variables
+$primary:#02718f; // #25408f;
+$secondary: #8f5325;
+$success: #3e8d63;
+$info: #13101c;
+$warning: #945707;
+$danger: #d62518;
+$light: #f8f9fa;
+$dark: #343a40;
 
+// Then add them to your custom theme-colors map, together with any additional colors you might need
 $theme-colors: (
+  primary: $primary,
+  secondary: $secondary,
+  success: $success,
+  info: $info,
+  warning: $warning,
+  danger: $danger,
+  light: $light,
+  dark: $dark,
   // add any additional color below
-  flag: #02718f, //for banner and the places to show the flag of the app
-  shoutout:#f0783b, //for the shoutout texts
+  shoutout:$shoutout, //for the shoutout texts
 );
 
 // $default-font: "Lato", Verdana, Arial, sans-serif;

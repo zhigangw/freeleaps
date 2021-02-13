@@ -1,7 +1,16 @@
 <template>
   <div>
-    <label :for="label">{{label}}</label>
-    <input :id="label" v-bind="$attrs" @input="onInput($event)" :value="modelValue" />
+    <div class="input-group">
+      <span v-if="label != null" class="input-group-text" id="basic-addon1">{{label}}</span>
+      <input
+        v-bind="$attrs"
+        @input="onInput($event)"
+        :value="modelValue"
+        class="form-control"
+        :aria-label="label"
+        aria-describedby="basic-addon1"
+      />
+    </div>
     <p v-if="message != null">{{message}}</p>
   </div>
 </template>
@@ -37,7 +46,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-a {
-  color: #42b983;
-}
 </style>
