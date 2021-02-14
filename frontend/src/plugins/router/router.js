@@ -1,9 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { store, userRoleEnum } from '../store/index';
 
+import EmailSignin from "../../pages/account/EmailSignin";
 import FrontDoor from "../../pages/account/FrontDoor";
 import UserSignin from "../../pages/account/UserSignin";
-import UserSignup from "../../pages/account/UserSignup";
+import EmailSignup from "../../pages/account/EmailSignup";
 import UserSettings from "../../pages/account/UserSettings";
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -36,6 +37,23 @@ const router = createRouter({
   routes: [
     { path: '/', redirect: '/front-door' },
     {
+      name: 'email-signin',
+      path: '/email-signin/:email',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: EmailSignin/*, footer: TeamsFooter */, header: HeaderGuest },
+      props: true,
+    },
+
+    {
+      name: 'email-signup',
+      path: '/email-signup/:email',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: EmailSignup, header: UserSignupBar },
+      props: true,
+    },
+
+
+    {
       name: 'front-door',
       path: '/front-door',
       meta: { requiredRoles: [userRoleEnum.NONE] },
@@ -55,21 +73,13 @@ const router = createRouter({
       path: '/user-signin',
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: UserSignin, header: HeaderGuest },
-    },
-
-    {
-      name: 'user-signup',
-      path: '/user-signup/:startingRole',
-      meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: UserSignup, header: UserSignupBar },
       props: true,
     },
-
 
     {
       name: 'user-settings',
       path: '/user-settings',
-      meta: { requiredRoles: [userRoleEnum.BUYER,userRoleEnum.SELLER] },
+      meta: { requiredRoles: [userRoleEnum.BUYER, userRoleEnum.SELLER] },
       components: { default: UserSettings, header: UserNavBar },
       props: true,
     },

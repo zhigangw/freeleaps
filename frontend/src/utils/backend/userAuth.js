@@ -2,6 +2,14 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class UserAuthApi {
+    static signupByEmail(email, password) {
+        const request = backendAxios.post('/api/user/email-signup', {
+            email: email,
+            password: password
+        });
+        return request;
+    }
+
     static signup(username, password, role) {
         const request = backendAxios.post('/api/user/signup', {
             username: username,

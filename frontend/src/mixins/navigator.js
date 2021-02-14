@@ -1,5 +1,11 @@
 export default {
     methods: {
+        mnx_navToEmailSignin(email) {
+            this.$router.push("/email-signin/" + email);
+        },
+        mnx_navToEmailSignup(email) {
+            this.$router.push("/email-signup/" + email);
+        },
         mnx_navToFrontDoor() {
             this.$router.push("/front-door");
         },
@@ -28,9 +34,6 @@ export default {
             }
         },
 
-        mnx_navToUserSignup(startingRole) {
-            this.$router.push("/user-signup/" + startingRole);
-        },
 
         mnx_navToUserSettings() {
             this.$router.push("/user-settings")
@@ -56,7 +59,7 @@ export default {
         mnx_navToPostRequestReview(requestId) {
             this.$router.push("/post-request-review/" + requestId)
         },
-        
+
         mnx_navToSellerDashboard() {
             this.$router.push("/seller-dashboard");
         },

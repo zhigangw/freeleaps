@@ -15,10 +15,24 @@ export default {
   name: "EmailInput",
   props: {
     label: null,
+    modelValue: null,
   },
+  emits: ["update:modelValue"],
   components: {
     LabelTextInput,
   },
+
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+      this.email = val;
+    }},
+    email: function (val) {
+      this.$emit("update:modelValue", val);
+    },
+  },
+
   data() {
     return {
       email: null,
@@ -27,11 +41,13 @@ export default {
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    
+  },
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        userProfileValidator.emailValidator.validate,
+        userProfileValidator.emailValidator,
         this.email
       );
     },

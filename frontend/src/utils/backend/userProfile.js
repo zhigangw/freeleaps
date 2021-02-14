@@ -163,6 +163,18 @@ class UserProfileApi {
         return request;
     }
 
+    static checkUserExistanceByEmail(email) {
+        const request = backendAxios.post(
+            '/api/user-profile/check-existance-by-email',
+            {
+                email:email
+            },
+            {
+               
+            }
+        );
+        return request;
+    }
 
 }
 

@@ -15,9 +15,21 @@ export default {
   name: "PasswordInput",
   props: {
     label: null,
+    modelValue: null,
   },
   components: {
     LabelTextInput,
+  },
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.password = val;
+      },
+    },
+    password: function (val) {
+      this.$emit("update:modelValue", val);
+    },
   },
   data() {
     return {
@@ -31,7 +43,7 @@ export default {
   methods: {
     validate() {
       return this.$refs.labelTextInput.validate(
-        userProfileValidator.passwordValidator.validate,
+        userProfileValidator.passwordValidator,
         this.password
       );
     },
