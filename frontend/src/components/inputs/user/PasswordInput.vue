@@ -17,6 +17,7 @@ export default {
     label: null,
     modelValue: null,
   },
+  emits: ["update:modelValue"],
   components: {
     LabelTextInput,
   },

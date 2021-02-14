@@ -1,28 +1,20 @@
 <template>
   <div>
-    <h1>UserSignin</h1>
+    <h3>You have an account already, please use freeleaps username to log in</h3>
     <form @submit.prevent="signIn">
-      <div class="form-control">
-        <label for="username">Username</label>
-        <input
-          type="username"
-          id="username"
+      <div class="input-group mb-3">
+        <UsernameInput
+          ref="usernameInput"
           v-model.trim="username"
-          placeholder="type in your username"
-          :title="userNameFormatMessage"
+          placeholder="Your freeleaps username"
+          :suppressMessage="true"
         />
-        <p v-if="isInvalidUsername">{{usernameError}}</p>
-      </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
+        <PasswordInput
+          ref="passwordInput"
           v-model.trim="password"
-          placeholder="type in your password"
-          :title="passwordFormatMessage"
+          placeholder="Your password"
+          :suppressMessage="true"
         />
-        <p v-if="isInvalidPassword">{{passwordError}}</p>
       </div>
       <button type="submit">Sign In</button>
       <p v-if="hasInvalidInput()">{{inputError}}</p>
@@ -32,6 +24,8 @@
 
 <script>
 import { UserAuthApi, userProfileValidator } from "../../utils/index";
+import UsernameInput from "../../components/inputs/user/UsernameInput";
+import PasswordInput from "../../components/inputs/user/PasswordInput";
 
 export default {
   name: "UserSignin",
@@ -49,52 +43,45 @@ export default {
       passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
     };
   },
-
+  components: {
+    UsernameInput,
+    PasswordInput,
+  },
   created() {},
   mounted() {},
   methods: {
-    clearUsernameError() {
-      this.isInvalidUsername = false;
-    },
-
-    clearPasswordError() {
-      this.isInvalidPassword = false;
-    },
-
     hasInvalidInput() {
       return this.isInvalidUsername || this.isInvalidPassword;
     },
 
-    validateUsername() {
-      this.usernameError = userProfileValidator.usernameValidator.validate(this.username);
+    validateInput() {
+      this.isInvalidUsername = false;
+      this.isInvalidPassword = false;
+
+      this.usernameError = this.$refs.usernameInput.validate();
       if (this.usernameError) {
         this.isInvalidUsername = true;
-      } else {
-        this.isInvalidUsername = false;
+        this.inputError = this.usernameError;
+        return false;
       }
-    },
 
-    validatePassword() {
-      this.passwordError = userProfileValidator.passwordValidator.validate(this.password);
+      this.passwordError = this.$refs.passwordInput.validate();
       if (this.passwordError) {
         this.isInvalidPassword = true;
-      } else {
-        this.isInvalidPassword = false;
+        this.inputError = this.passwordError;
+        return false;
       }
+      return true;
     },
 
     signIn() {
-      this.validateUsername();
-      this.validatePassword();
-      if (this.hasInvalidInput()) {
-        this.inputError = "Please fix erros before submit.";
+      if (!this.validateInput()) {
         return;
       }
 
       UserAuthApi.signin(this.username, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
-          this.mnx_setUserRole(response.data.role);
           this.mnx_navAfterSignedin();
         })
         .catch((error) => {

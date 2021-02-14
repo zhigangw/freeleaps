@@ -17,10 +17,24 @@ export default {
   props: {
     checkAvailability: Boolean,
     label: null,
+    modelValue: null,
   },
+  emits: ["update:modelValue"],
   components: {
     LabelTextInput,
   },
+  watch: {
+    modelValue: {
+      immediate: true,
+      handler: function (val) {
+        this.username = val;
+      },
+    },
+    username: function (val) {
+      this.$emit("update:modelValue", val);
+    },
+  },
+
   data() {
     return {
       username: null,
@@ -45,7 +59,7 @@ export default {
 
     validate() {
       return this.$refs.labelTextInput.validate(
-        userProfileValidator.usernameValidator.validate,
+        userProfileValidator.usernameValidator,
         this.username
       );
     },

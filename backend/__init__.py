@@ -4,7 +4,8 @@ from flask_restful import Api, Resource, url_for
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
-
+from flask_mail import Mail, Message
+import os
 
 def create_app(test_config=None):
     # create and configure the app
@@ -30,4 +31,17 @@ def create_app(test_config=None):
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = 900  # in seconds
     jwt = JWTManager(app)
 
-    return app
+
+    mail_settings = {
+    "MAIL_SERVER": 'smtp.office365.com',
+    "MAIL_PORT": 587,
+    "MAIL_USE_TLS": True,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": os.environ['EMAIL_USER'],,
+    "MAIL_PASSWORD": os.environ['EMAIL_PASSWORD']
+    }
+
+    app.config.update(mail_settings)
+    mail = Mail(app)
+
+return app

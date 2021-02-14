@@ -2,7 +2,7 @@
   <div>
     <h1>EmailSignin</h1>
     <form @submit.prevent="signIn">
-      <div class="form-control">
+      <div class="input-group mb-3">
         <label for="username">Username</label>
         <input
           type="username"

@@ -8,3 +8,4 @@ pymongo
 mongoengine
 requests
 Flask-PyMongo
+Flask-Mail
