@@ -2,40 +2,25 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class UserAuthApi {
-    static signupByEmail(email, password) {
-        const request = backendAxios.post('/api/user/email-signup', {
-            email: email,
-            password: password
-        });
-        return request;
-    }
-
-    static signup(username, password, role) {
-        const request = backendAxios.post('/api/user/signup', {
-            username: username,
-            password: password,
-            role: role,
-        });
-        return request;
-    }
-
-    static signin(username, password) {
-        const request = backendAxios.post('/api/user/signin', {
-            username: username,
-            password: password
-        });
-        return request;
-    }
-
-    static signout(identity) {
-        let jwt = userUtils.getJwtToken();
+    static sendUsernameToEmail(email) {
         const request = backendAxios.post(
-            '/api/user/signout',
+            '/api/user/send-username-to-email',
             {
-                identity: identity,
+                email: email,
             },
             {
-                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
+    static sendTempPasswordToEmail(email) {
+        const request = backendAxios.post(
+            '/api/user/send-temp-password-to-email',
+            {
+                email: email,
+            },
+            {
             }
         );
         return request;
@@ -55,12 +40,36 @@ class UserAuthApi {
         return request;
     }
 
-    static updateUsername(identity) {
+    static signin(username, password) {
+        const request = backendAxios.post('/api/user/signin', {
+            username: username,
+            password: password
+        });
+        return request;
+    }
+
+    static signup(username, password, role) {
+        const request = backendAxios.post('/api/user/signup', {
+            username: username,
+            password: password,
+            role: role,
+        });
+        return request;
+    }
+
+    static signupByEmail(email, password) {
+        const request = backendAxios.post('/api/user/email-signup', {
+            email: email,
+            password: password
+        });
+        return request;
+    }
+
+    static signout(identity) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
-            '/api/user/update-username',
+            '/api/user/signout',
             {
-
                 identity: identity,
             },
             {
@@ -84,6 +93,22 @@ class UserAuthApi {
         return request;
 
     }
+
+    static updateUsername(identity) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/update-username',
+            {
+
+                identity: identity,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
 
 }
 

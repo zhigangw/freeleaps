@@ -9,19 +9,21 @@ export default {
         mnx_navToFrontDoor() {
             this.$router.push("/front-door");
         },
+        mnx_navToTempPasswordSent(email) {
+            this.$router.push("/temp-password-sent/" + email);
+        },
 
-        mnx_navToSignin() {
-            this.$router.push("/user-signin");
+        mnx_navToUsernameSent(email) {
+            this.$router.push("/username-sent/" + email);
+        },
+
+        mnx_navToSignin(email) {
+            this.$router.push("/user-signin/" + email);
         },
 
         mnx_navAfterSignedin() {
             if (this.mnx_isUserAuthenticated()) {
-                if (this.mnx_isUserBuyer()) {
-                    this.mnx_navToBuyerDashboard();
-                }
-                if (this.mnx_isUserSeller()) {
-                    this.mnx_navToSellerDashboard();
-                }
+                this.mnx_navToWorkplace();
             }
         },
 
@@ -39,8 +41,8 @@ export default {
             this.$router.push("/user-settings")
         },
 
-        mnx_navToBuyerDashboard() {
-            this.$router.push("/buyer-dashboard")
+        mnx_navToWorkplace() {
+            this.$router.push("/workplace")
         },
 
         mnx_navToBuyerProjectView(requestId) {

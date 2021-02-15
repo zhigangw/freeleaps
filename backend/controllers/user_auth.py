@@ -6,7 +6,10 @@ from flask_restful import Resource, reqparse
 from flask_jwt_extended import (
     jwt_required, create_access_token, get_jwt_identity
 )
-from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile,PersonalProfile
+from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile, PersonalProfile
+from flask_mail import Message
+from ..utils.mail import SendMail
+from ..utils.stringUtils import GenerateRandomPassword, GenerateHash
 
 
 def create_jwt_token(identity):
@@ -14,6 +17,73 @@ def create_jwt_token(identity):
     expiresIn = datetime.utcnow() + timedelta(minutes=10)
     return access_token, expiresIn
 
+
+class SendTempPasswordToEmail(Resource):
+    def __init__(self) -> None:
+        self.user_signup_post_parser = reqparse.RequestParser()
+        self.user_signup_post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    def post(self):
+        args = self.user_signup_post_parser.parse_args()
+        return_code = 200
+        resp = None
+
+        users = UserDoc.objects(personalProfile__email=args.email)
+        if users.count() <= 0:
+            resp = jsonify(text="email does not exist")
+            return_code = 401
+            return make_response(resp, return_code)
+
+        user = users.first()
+        tempPwd = GenerateRandomPassword()
+        hash = GenerateHash(tempPwd)
+
+        user.authProfile.password = hash
+        user.save()
+
+        SendMail(user.personalProfile.email, "Freeleaps Support",
+                 tempPwd)
+        resp = jsonify(text="sent temp password to mailbox")
+        return_code = 200
+
+        return make_response(resp, return_code)
+
+
+class SendUsernameToEmail(Resource):
+    def __init__(self) -> None:
+        self.user_signup_post_parser = reqparse.RequestParser()
+        self.user_signup_post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    def post(self):
+        args = self.user_signup_post_parser.parse_args()
+        return_code = 200
+        resp = None
+
+        users = UserDoc.objects(personalProfile__email=args.email)
+        if users.count() <= 0:
+            resp = jsonify(text="email does not exist")
+            return_code = 401
+            return make_response(resp, return_code)
+
+        user = users.first()
+        if user.authProfile.identity is not None:
+            SendMail(user.personalProfile.email, "Freeleaps Support",
+                     user.authProfile.identity)
+            resp = jsonify(text="sent username to mailbox")
+            return_code = 200
+        else:
+            resp = jsonify(text="username does not exist")
+            return_code = 401
+
+        return make_response(resp, return_code)
 
 
 class EmailSignup(Resource):
@@ -42,6 +112,7 @@ class EmailSignup(Resource):
             user = UserDoc(authProfile=AuthProfile(
                 password=hashlib.md5(
                     args.password.encode('utf-8')).hexdigest()),
+                role=1,  # 1 -- USER
                 personalProfile=PersonalProfile(
                     email=args.email)
             )
@@ -51,8 +122,11 @@ class EmailSignup(Resource):
             resp = jsonify(
                 access_token=access_token,
                 identity=user.id,
-                expiresIn=expiresIn)
+                expiresIn=expiresIn,
+                role=user.authProfile.role
+                )
         return make_response(resp, return_code)
+
 
 class UserSignup(Resource):
     def __init__(self) -> None:
@@ -95,7 +169,8 @@ class UserSignup(Resource):
                 access_token=access_token,
                 identity=user.id,
                 expiresIn=expiresIn,
-                role=user.authProfile.role)
+                role=user.authProfile.role
+                )
         return make_response(resp, return_code)
 
 
@@ -116,7 +191,7 @@ class UserSignin(Resource):
     def post(self):
         args = self.post_parser.parse_args()
         identity = args.username
-        queryset = UserDoc.objects(authProfile__identity=identity,
+        queryset = UserDoc.objects(authProfile__identity__iexact=identity,
                                    authProfile__password=hashlib.md5(
                                        args.password.encode('utf-8')).hexdigest()
                                    )
@@ -130,7 +205,7 @@ class UserSignin(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=user.id,
+                identity=str(user.id),
                 expiresIn=expiresIn,
                 role=user.authProfile.role)
         return make_response(resp, return_code)
@@ -230,6 +305,8 @@ class UserUpdatePassword(Resource):
 
 
 routeMap = [
+    {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
+    {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
     {'res': EmailSignup, 'url': '/api/user/email-signup'},
     {'res': UserSignup, 'url': '/api/user/signup'},
     {'res': UserSignin, 'url': '/api/user/signin'},
@@ -238,5 +315,4 @@ routeMap = [
     {'res': UserUpdatePassword, 'url': '/api/user/update-password'},
     {'res': UserIsNameAvailable,
      'url': '/api/user/check-username-availability'},
-
 ]

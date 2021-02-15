@@ -19,17 +19,24 @@
       <button type="submit">Sign In</button>
       <p v-if="hasInvalidInput()">{{inputError}}</p>
     </form>
+    <button class="btn" @click="forgetUsername">forgetUsername</button>
+    <button class="btn" @click="forgetPassword">forgetPassword</button>
   </div>
 </template>
 
 <script>
-import { UserAuthApi, userProfileValidator } from "../../utils/index";
+import { UserAuthApi } from "../../utils/index";
 import UsernameInput from "../../components/inputs/user/UsernameInput";
 import PasswordInput from "../../components/inputs/user/PasswordInput";
 
 export default {
   name: "UserSignin",
-  props: {},
+  props: {
+    email: {
+      required: true,
+      type: String,
+    },
+  },
   data() {
     return {
       username: "",
@@ -39,8 +46,6 @@ export default {
       usernameError: null,
       passwordError: null,
       inputError: null,
-      userNameFormatMessage: userProfileValidator.usernameValidator.getFormatRequirement(),
-      passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
     };
   },
   components: {
@@ -82,7 +87,28 @@ export default {
       UserAuthApi.signin(this.username, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
+          this.mnx_setUserRole(response.data.role);
           this.mnx_navAfterSignedin();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    forgetUsername() {
+      UserAuthApi.sendUsernameToEmail(this.email)
+        .then((response) => {
+          response;
+          this.mnx_navToUsernameSent(this.email);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    forgetPassword() {
+      UserAuthApi.sendTempPasswordToEmail(this.email)
+        .then((response) => {
+          response;
+          this.mnx_navToTempPasswordSent(this.email);
         })
         .catch((error) => {
           console.log(error);

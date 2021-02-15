@@ -1,7 +1,7 @@
 const userRoleEnum = Object.freeze({
     NONE: 0,
-    SELLER: 1,
-    BUYER: 2,
+    USER: 1,
+    ADMIN: 2,
 });
 const convertIntoToUserRole = function (i) {
     for (var p in userRoleEnum) {

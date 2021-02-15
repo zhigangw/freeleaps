@@ -90,6 +90,7 @@ export default {
 
     signedUserIn(response) {
       this.mnx_authenticatedUser(response);
+      this.mnx_setUserRole(response.data.role);
       this.mnx_navAfterSignedup();
     },
 

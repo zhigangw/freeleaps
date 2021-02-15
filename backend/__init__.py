@@ -1,11 +1,11 @@
 from .controllers import controllerMap
+from .utils.mail import mail_settings, InitMail
 from flask import Flask, Blueprint
 from flask_restful import Api, Resource, url_for
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
-from flask_mail import Mail, Message
-import os
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,16 +32,7 @@ def create_app(test_config=None):
     jwt = JWTManager(app)
 
 
-    mail_settings = {
-    "MAIL_SERVER": 'smtp.office365.com',
-    "MAIL_PORT": 587,
-    "MAIL_USE_TLS": True,
-    "MAIL_USE_SSL": True,
-    "MAIL_USERNAME": os.environ['EMAIL_USER'],,
-    "MAIL_PASSWORD": os.environ['EMAIL_PASSWORD']
-    }
-
     app.config.update(mail_settings)
-    mail = Mail(app)
-
-return app
+    InitMail(app)
+    
+    return app

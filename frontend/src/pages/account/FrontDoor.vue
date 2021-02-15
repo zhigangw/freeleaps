@@ -47,7 +47,7 @@ export default {
               let userNameExists = response.data.userNameExists;
               if (userNameExists) {
                 // go to use username to login
-                this.mnx_navToSignin();
+                this.mnx_navToSignin(this.email);
               } else {
                 // go to user email to login
                 this.mnx_navToEmailSignin(this.email);

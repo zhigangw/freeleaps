@@ -20,10 +20,10 @@ const userProfileStore = {
             context.commit('setRole', { role: userRoleEnum.NONE })
         },
         useBuyerRole(context) {
-            context.commit('setRole', { role: userRoleEnum.BUYER })
+            context.commit('setRole', { role: userRoleEnum.ADMIN })
         },
         useSellerRole(context) {
-            context.commit('setRole', { role: userRoleEnum.SELLER })
+            context.commit('setRole', { role: userRoleEnum.USER })
         },
     },
     getters: {
@@ -31,10 +31,10 @@ const userProfileStore = {
             return state.role;
         },
         userIsBuyer(state) {
-            return state.role === userRoleEnum.BUYER;
+            return state.role === userRoleEnum.ADMIN;
         },
         userIsSeller(state) {
-            return state.role === userRoleEnum.SELLER;
+            return state.role === userRoleEnum.USER;
         },
     }
 };

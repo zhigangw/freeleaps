@@ -1,11 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { store, userRoleEnum } from '../store/index';
 
-import EmailSignin from "../../pages/account/EmailSignin";
 import FrontDoor from "../../pages/account/FrontDoor";
-import UserSignin from "../../pages/account/UserSignin";
+import EmailSignin from "../../pages/account/EmailSignin";
 import EmailSignup from "../../pages/account/EmailSignup";
+import TempPasswordSent from "../../pages/account/TempPasswordSent"
+import UsernameSent from "../../pages/account/UsernameSent"
 import UserSettings from "../../pages/account/UserSettings";
+import UserSignin from "../../pages/account/UserSignin";
+
+import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
@@ -67,10 +71,26 @@ const router = createRouter({
         } // /teams/t1
       ]*/
     },
+    
+    {
+      name: 'temp-password-sent',
+      path: '/temp-password-sent/:email',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: TempPasswordSent, header: HeaderGuest },
+      props: true,
+    },
+    {
+      name: 'username-sent',
+      path: '/username-sent/:email',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UsernameSent, header: HeaderGuest },
+      props: true,
+    },
+
 
     {
       name: 'user-signin',
-      path: '/user-signin',
+      path: '/user-signin/:email',
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: UserSignin, header: HeaderGuest },
       props: true,
@@ -82,6 +102,14 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.BUYER, userRoleEnum.SELLER] },
       components: { default: UserSettings, header: UserNavBar },
       props: true,
+    },
+
+    
+    {
+      name: 'workplace',
+      path: '/workplace',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: Workplace, header: BuyerNavBar },
     },
 
     {
@@ -239,9 +267,6 @@ const router = createRouter({
 
 
 router.beforeEach(function (to, from, next) {
-
-  console.log(to, from, store.getters["userProfile/userRole"]);
-
   if (to.name == 'front-door') {
     next();
   }
@@ -254,7 +279,7 @@ router.beforeEach(function (to, from, next) {
   else if (to.meta.requiredRoles.includes(store.getters["userProfile/userRole"])) {
     next();
   } else {
-    next('/user-signin');
+    next('/front-door');
   }
 });
 
