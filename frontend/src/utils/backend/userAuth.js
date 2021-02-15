@@ -2,6 +2,21 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class UserAuthApi {
+
+    static checkUsernameAvailability(identity) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/check-username-availability',
+            {
+                identity: identity,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
     static sendUsernameToEmail(email) {
         const request = backendAxios.post(
             '/api/user/send-username-to-email',
@@ -21,20 +36,6 @@ class UserAuthApi {
                 email: email,
             },
             {
-            }
-        );
-        return request;
-    }
-
-    static checkUsernameAvailability(identity) {
-        let jwt = userUtils.getJwtToken();
-        const request = backendAxios.post(
-            '/api/user/check-username-availability',
-            {
-                identity: identity,
-            },
-            {
-                headers: { Authorization: `Bearer ${jwt}` }
             }
         );
         return request;

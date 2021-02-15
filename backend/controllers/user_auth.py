@@ -111,8 +111,9 @@ class EmailSignup(Resource):
         else:
             user = UserDoc(authProfile=AuthProfile(
                 password=hashlib.md5(
-                    args.password.encode('utf-8')).hexdigest()),
-                role=1,  # 1 -- USER
+                    args.password.encode('utf-8')).hexdigest(),
+                role=1  # 1 -- USER
+            ),
                 personalProfile=PersonalProfile(
                     email=args.email)
             )
@@ -121,10 +122,10 @@ class EmailSignup(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=user.id,
+                identity=str(user.id),
                 expiresIn=expiresIn,
                 role=user.authProfile.role
-                )
+            )
         return make_response(resp, return_code)
 
 
@@ -170,7 +171,7 @@ class UserSignup(Resource):
                 identity=user.id,
                 expiresIn=expiresIn,
                 role=user.authProfile.role
-                )
+            )
         return make_response(resp, return_code)
 
 

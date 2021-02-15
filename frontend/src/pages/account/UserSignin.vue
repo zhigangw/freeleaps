@@ -32,13 +32,14 @@ import PasswordInput from "../../components/inputs/user/PasswordInput";
 export default {
   name: "UserSignin",
   props: {
-    email: {
+    emailOrUsername: {
       required: true,
       type: String,
     },
   },
   data() {
     return {
+      email: "",
       username: "",
       password: "",
       isInvalidUsername: false,
@@ -53,7 +54,16 @@ export default {
     PasswordInput,
   },
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.emailOrUsername != null) {
+      if (this.emailOrUsername.includes("@")) {
+        this.email = this.emailOrUsername;
+      }
+      else{
+        this.username = this.emailOrUsername;
+      }
+    }
+  },
   methods: {
     hasInvalidInput() {
       return this.isInvalidUsername || this.isInvalidPassword;

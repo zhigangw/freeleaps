@@ -1,28 +1,12 @@
 <template>
   <div>
-    <h1>EmailSignin</h1>
+    <h1>Please type your password</h1>
     <form @submit.prevent="signIn">
       <div class="input-group mb-3">
-        <label for="username">Username</label>
-        <input
-          type="username"
-          id="username"
-          v-model.trim="username"
-          placeholder="type in your username"
-          :title="userNameFormatMessage"
-        />
-        <p v-if="isInvalidUsername">{{usernameError}}</p>
+        <input class="form-control" type="text" :value="email" readonly />
       </div>
-      <div class="form-control">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          v-model.trim="password"
-          placeholder="type in your password"
-          :title="passwordFormatMessage"
-        />
-        <p v-if="isInvalidPassword">{{passwordError}}</p>
+      <div class="input-group mb-3">
+        <password-input v-model.trim="password" placeholder="type in your password" />
       </div>
       <button type="submit">Sign In</button>
       <p v-if="hasInvalidInput()">{{inputError}}</p>
@@ -32,6 +16,7 @@
 
 <script>
 import { UserAuthApi, userProfileValidator } from "../../utils/index";
+import PasswordInput from "../../components/inputs/user/PasswordInput";
 
 export default {
   name: "EmailSignin",
@@ -50,35 +35,20 @@ export default {
       usernameError: null,
       passwordError: null,
       inputError: null,
-      userNameFormatMessage: userProfileValidator.usernameValidator.getFormatRequirement(),
-      passwordFormatMessage: userProfileValidator.passwordValidator.getFormatRequirement(),
     };
   },
-
+  components: {
+    PasswordInput,
+  },
   created() {},
   mounted() {},
   methods: {
-    clearUsernameError() {
-      this.isInvalidUsername = false;
-    },
-
     clearPasswordError() {
       this.isInvalidPassword = false;
     },
 
     hasInvalidInput() {
-      return this.isInvalidUsername || this.isInvalidPassword;
-    },
-
-    validateUsername() {
-      this.usernameError = userProfileValidator.usernameValidator.validate(
-        this.username
-      );
-      if (this.usernameError) {
-        this.isInvalidUsername = true;
-      } else {
-        this.isInvalidUsername = false;
-      }
+      return this.isInvalidPassword;
     },
 
     validatePassword() {
@@ -93,7 +63,6 @@ export default {
     },
 
     signIn() {
-      this.validateUsername();
       this.validatePassword();
       if (this.hasInvalidInput()) {
         this.inputError = "Please fix erros before submit.";

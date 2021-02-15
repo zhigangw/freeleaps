@@ -90,7 +90,7 @@ const router = createRouter({
 
     {
       name: 'user-signin',
-      path: '/user-signin/:email',
+      path: '/user-signin/:emailOrUsername',
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: UserSignin, header: HeaderGuest },
       props: true,
