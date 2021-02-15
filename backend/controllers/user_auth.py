@@ -86,6 +86,43 @@ class SendUsernameToEmail(Resource):
         return make_response(resp, return_code)
 
 
+class EmailSignin(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s username',
+        )
+        self.post_parser.add_argument(
+            'password', dest='password',
+            location='json', required=True,
+            help='The user\'s password',
+        )
+
+    def post(self):
+        args = self.post_parser.parse_args()
+        email = args.email
+        queryset = UserDoc.objects(personalProfile__email__iexact=email,
+                                   authProfile__password=hashlib.md5(
+                                       args.password.encode('utf-8')).hexdigest()
+                                   )
+        return_code = 200
+        resp = None
+        if(queryset.count() == 0):
+            resp = jsonify(text="user doesn't exist")
+            return_code = 401
+        else:
+            user = queryset.first()
+            access_token, expiresIn = create_jwt_token(identity=str(user.id))
+            resp = jsonify(
+                access_token=access_token,
+                identity=str(user.id),
+                expiresIn=expiresIn,
+                role=user.authProfile.role)
+        return make_response(resp, return_code)
+
+
 class EmailSignup(Resource):
     def __init__(self) -> None:
         self.user_signup_post_parser = reqparse.RequestParser()
@@ -308,6 +345,7 @@ class UserUpdatePassword(Resource):
 routeMap = [
     {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
+    {'res': EmailSignin, 'url': '/api/user/email-signin'},
     {'res': EmailSignup, 'url': '/api/user/email-signup'},
     {'res': UserSignup, 'url': '/api/user/signup'},
     {'res': UserSignin, 'url': '/api/user/signin'},

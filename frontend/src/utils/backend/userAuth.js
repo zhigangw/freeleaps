@@ -58,6 +58,14 @@ class UserAuthApi {
         return request;
     }
 
+    static signinByEmail(email, password) {
+        const request = backendAxios.post('/api/user/email-signin', {
+            email: email,
+            password: password
+        });
+        return request;
+    }
+
     static signupByEmail(email, password) {
         const request = backendAxios.post('/api/user/email-signup', {
             email: email,

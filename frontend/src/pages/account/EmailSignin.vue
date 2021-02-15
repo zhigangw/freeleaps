@@ -6,7 +6,12 @@
         <input class="form-control" type="text" :value="email" readonly />
       </div>
       <div class="input-group mb-3">
-        <password-input v-model.trim="password" placeholder="type in your password" />
+        <password-input
+          :suppressMessage="true"
+          ref="passwordInput"
+          v-model.trim="password"
+          placeholder="type in your password"
+        />
       </div>
       <button type="submit">Sign In</button>
       <p v-if="hasInvalidInput()">{{inputError}}</p>
@@ -15,7 +20,7 @@
 </template>
 
 <script>
-import { UserAuthApi, userProfileValidator } from "../../utils/index";
+import { UserAuthApi } from "../../utils/index";
 import PasswordInput from "../../components/inputs/user/PasswordInput";
 
 export default {
@@ -28,12 +33,7 @@ export default {
   },
   data() {
     return {
-      username: "",
       password: "",
-      isInvalidUsername: false,
-      isInvalidPassword: false,
-      usernameError: null,
-      passwordError: null,
       inputError: null,
     };
   },
@@ -48,28 +48,16 @@ export default {
     },
 
     hasInvalidInput() {
-      return this.isInvalidPassword;
-    },
-
-    validatePassword() {
-      this.passwordError = userProfileValidator.passwordValidator.validate(
-        this.password
-      );
-      if (this.passwordError) {
-        this.isInvalidPassword = true;
-      } else {
-        this.isInvalidPassword = false;
-      }
+      return this.inputError !== null && this.inputError.length > 0;
     },
 
     signIn() {
-      this.validatePassword();
+      this.inputError = this.$refs.passwordInput.validate();
       if (this.hasInvalidInput()) {
-        this.inputError = "Please fix erros before submit.";
         return;
       }
 
-      UserAuthApi.signin(this.username, this.password)
+      UserAuthApi.signinByEmail(this.email, this.password)
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
           this.mnx_setUserRole(response.data.role);
