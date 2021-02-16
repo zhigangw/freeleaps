@@ -9,7 +9,11 @@
 // `$body-color` or write more CSS that override's Bootstrap's CSS like so:
 // `body { color: red; }`.
 
-
+html, body {
+  /* To make use of full height of page*/
+  height: 100%;
+  margin: 0;
+}
 //
 // Bring in Bootstrap
 //

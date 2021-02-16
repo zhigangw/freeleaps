@@ -1,23 +1,31 @@
 <template>
   <div>
-    <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return.</h3>
-    <form @submit.prevent="checkRegister">
-      <div class="input-group mb-3">
-        <input
-          class="form-control mb-3"
-          type="text"
-          :placeholder="'Email or Username'"
-          v-model="emailOrUsername"
-        />
-        <button type="submit" class="form-control btn btn-primary mb-3">Start</button>
+    <div class="contianer1">
+      <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return.</h3>
+      <div class="contianer2">
+        <form @submit.prevent="checkRegister">
+          <div class="input-group">
+            <input
+              class="form-control"
+              type="text"
+              :placeholder="'Email or Username'"
+              v-model="emailOrUsername"
+            />
+            <button type="submit" class="form-control btn btn-primary">Start</button>
+          </div>
+        </form>
+        <p v-if="message != null">{{message}}</p>
       </div>
-    </form>
-    <p v-if="message != null">{{message}}</p>
+    </div>
   </div>
 </template>
 
 <script>
-import {UserAuthApi, UserProfileApi, userProfileValidator } from "../../utils/index";
+import {
+  UserAuthApi,
+  UserProfileApi,
+  userProfileValidator,
+} from "../../utils/index";
 export default {
   name: "FrontDoor",
   props: {},
@@ -103,12 +111,20 @@ export default {
 <style scoped lang="scss">
 .slogan {
   @extend .text-start;
-  padding: 2%;
   color: $info;
 }
-.contian-div {
-  @extend .container;
-  padding: 2%;
-  /*border: solid black 1px;*/
+
+.contianer1 {
+  @extend .border;
+  @extend .m-5;
+  @extend .w-50;
+  @extend .h-25;
+  position:relative;
+  left:25%;
+  }
+
+.contianer2 {
+  @extend .border;
+  @extend .m-5;
 }
 </style>
