@@ -1,5 +1,3 @@
-
-
 // Create your own map
 
 $shoutout:#f0783b; //for the shoutout texts
@@ -14,8 +12,7 @@ $light: #f8f9fa;
 $dark: #343a40;
 
 // Then add them to your custom theme-colors map, together with any additional colors you might need
-$theme-colors: (
-  primary: $primary,
+$theme-colors: (primary: $primary,
   secondary: $secondary,
   success: $success,
   info: $info,

@@ -117,7 +117,7 @@ export default {
 .contianer1 {
   @extend .border;
   @extend .m-5;
-  @extend .w-50;
+  @extend .w-sm-50;
   @extend .h-25;
   position:relative;
   left:25%;
