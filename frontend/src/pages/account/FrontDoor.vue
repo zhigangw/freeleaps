@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div contianer0>
     <div class="contianer1">
-      <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return.</h3>
+      <p class="slogan">Find a trustworthy partner, simplify the work, secure your return.</p>
       <div class="contianer2">
         <form @submit.prevent="checkRegister">
           <div class="input-group">
@@ -114,17 +114,27 @@ export default {
   color: $info;
 }
 
+.contianer0 {
+  @extend .border;
+}
 .contianer1 {
   @extend .border;
-  @extend .m-5;
-  @extend .w-sm-50;
-  @extend .h-25;
-  position:relative;
-  left:25%;
-  }
+  @extend .mx-auto;
+  @extend .my-5;
+  @extend .pt-1;
+  @extend .px-2;
+  @extend .pb-5;
+  @extend .w-100;
+  @extend .w-md-75;
+  @extend .w-xl-50;
+  @extend .w-xxl-50;
+}
 
 .contianer2 {
   @extend .border;
-  @extend .m-5;
+  @extend .mx-auto;
+  @extend .mt-5;
+  @extend .w-100;
+  @extend .w-md-75;
 }
 </style>
