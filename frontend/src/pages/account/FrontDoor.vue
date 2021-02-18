@@ -1,20 +1,23 @@
 <template>
-  <div contianer0>
-    <div class="contianer1">
-      <p class="slogan">Find a trustworthy partner, simplify the work, secure your return.</p>
-      <div class="contianer2">
-        <form @submit.prevent="checkRegister">
-          <div class="input-group">
-            <input
-              class="form-control"
-              type="text"
-              :placeholder="'Email or Username'"
-              v-model="emailOrUsername"
-            />
-            <button type="submit" class="form-control btn btn-primary">Start</button>
-          </div>
-        </form>
-        <p v-if="message != null">{{message}}</p>
+  <div>
+    <div class="story-board">
+      <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return.</h3>
+      <div class="focus-area">
+        <h5 class="slogan">Type in your email or freeleaps username to start</h5>
+        <div class="form-group">
+          <form @submit.prevent="checkRegister">
+            <div class="input-group  flex-wrap">
+              <input
+                class="form-control"
+                type="text"
+                :placeholder="'Email or Username'"
+                v-model="emailOrUsername"
+              />
+              <button type="submit" class="form-control btn btn-primary">Start</button>
+            </div>
+          </form>
+          <p v-if="message != null">{{message}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -114,10 +117,14 @@ export default {
   color: $info;
 }
 
-.contianer0 {
+.story-board {
   @extend .border;
+  @extend .mx-1;
+  @extend .mx-lg-3;
+  @extend .mt-3;
+  @extend .pt-1;
 }
-.contianer1 {
+.focus-area {
   @extend .border;
   @extend .mx-auto;
   @extend .my-5;
@@ -130,7 +137,7 @@ export default {
   @extend .w-xxl-50;
 }
 
-.contianer2 {
+.form-group {
   @extend .border;
   @extend .mx-auto;
   @extend .mt-5;
