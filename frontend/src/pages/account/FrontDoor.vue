@@ -1,9 +1,8 @@
 <template>
   <div>
     <div class="story-board">
-      <h3 class="slogan">Find a trustworthy partner, simplify the work, secure your return.</h3>
       <div class="focus-area">
-        <h5 class="slogan">Type in your email or freeleaps username to start</h5>
+        <h5 class="callout">Find a trustworthy partner, simplify the work, secure your return.</h5>
         <div class="form-group">
           <form @submit.prevent="checkRegister">
             <div class="input-group  flex-wrap">
@@ -112,8 +111,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.slogan {
+.callout {
   @extend .text-start;
+  @extend .rfs-3;
   color: $info;
 }
 
@@ -121,6 +121,7 @@ export default {
   @extend .border;
   @extend .mx-1;
   @extend .mx-lg-3;
+  @extend .mx-xxl-5;
   @extend .mt-3;
   @extend .pt-1;
 }

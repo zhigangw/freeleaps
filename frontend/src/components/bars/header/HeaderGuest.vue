@@ -19,14 +19,14 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .logo {
   float: left;
   max-width: 100%;
   max-height: 100%;
 }
 .shoutout {
-  font-size: 3vmin;
+  @extend .rfs-4;
   color: #fae4ab;
 }
 </style>
