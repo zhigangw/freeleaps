@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <main>
+  <div class="app-body">
+    <header>
       <router-view name="header"></router-view>
+    </header>
+    <main>
       <router-view></router-view>
     </main>
   </div>
@@ -10,15 +12,13 @@
 <script>
 export default {
   name: "App",
-  components: {
-    
-  },
+  components: {},
   computed: {},
   methods: {},
 };
 </script>
 <style lang="scss">
-@import './assets/styles/main.scss';
+@import "./assets/styles/main.scss";
 </style>
 <style>
 #app {
@@ -28,5 +28,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
+  height: 100%;
+}
+</style>
+<style scoped lang="scss">
+header {
+  width: 100%;
+  height: 5vmax;
+  background: $primary;
+}
+main {
+  margin-top: 0px;
+  height: calc(100% - 5vmax);
+}
+.app-body {
+  height: 100%;
 }
 </style>

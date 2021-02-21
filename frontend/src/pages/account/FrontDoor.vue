@@ -1,22 +1,20 @@
 <template>
-  <div>
-    <div class="story-board">
-      <div class="focus-area">
-        <h5 class="callout">Find a trustworthy partner, simplify the work, secure your return.</h5>
-        <div class="form-group">
-          <form @submit.prevent="checkRegister">
-            <div class="input-group  flex-wrap">
-              <input
-                class="form-control"
-                type="text"
-                :placeholder="'Email or Username'"
-                v-model="emailOrUsername"
-              />
-              <button type="submit" class="form-control btn btn-primary">Start</button>
-            </div>
-          </form>
-          <p v-if="message != null">{{message}}</p>
-        </div>
+  <div class="story-board">
+    <div class="focus-area">
+      <h5 class="callout">Find a trustworthy partner, simplify the work, secure your return.</h5>
+      <div class="form-group">
+        <form @submit.prevent="checkRegister">
+          <div class="input-group">
+            <input
+              class="form-control w-75"
+              type="text"
+              :placeholder="'Email or Username'"
+              v-model="emailOrUsername"
+            />
+            <button type="submit" class="form-control btn btn-primary">Start</button>
+          </div>
+        </form>
+        <p v-if="message != null">{{message}}</p>
       </div>
     </div>
   </div>
@@ -113,7 +111,7 @@ export default {
 <style scoped lang="scss">
 .callout {
   @extend .text-start;
-  @extend .rfs-3;
+  @include font-size(1.25rem);
   color: $info;
 }
 
@@ -124,24 +122,27 @@ export default {
   @extend .mx-xxl-5;
   @extend .mt-3;
   @extend .pt-1;
+  @extend .h-75;
 }
 .focus-area {
   @extend .border;
   @extend .mx-auto;
   @extend .my-5;
-  @extend .pt-1;
+  @extend .pt-2;
   @extend .px-2;
   @extend .pb-5;
   @extend .w-100;
   @extend .w-md-75;
   @extend .w-xl-50;
   @extend .w-xxl-50;
+  @extend .h-50;
 }
 
 .form-group {
   @extend .border;
   @extend .mx-auto;
-  @extend .mt-5;
+  @extend .my-5;
+  @extend .pt-5;
   @extend .w-100;
   @extend .w-md-75;
 }
