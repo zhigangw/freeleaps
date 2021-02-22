@@ -22,7 +22,7 @@ export default {
       error;
       this.mnx_unauthenticatedUser();
       this.mnx_logoutRole();
-      this.mnx_navToFrontdoor();
+      this.mnx_navToFrontDoor();
     },
     signin() {
       this.mnx_navToSignin();

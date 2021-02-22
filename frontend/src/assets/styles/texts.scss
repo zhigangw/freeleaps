@@ -1,0 +1,12 @@
+.callout {
+    @extend .text-start;
+    @include font-size(1.25rem);
+    color: $callout;
+}
+
+.errorInput {
+    @extend .text-start;
+    @include font-size(1em);
+    color: $error;
+
+}

@@ -71,10 +71,10 @@ const router = createRouter({
         } // /teams/t1
       ]*/
     },
-    
+
     {
       name: 'temp-password-sent',
-      path: '/temp-password-sent/:email',
+      path: '/temp-password-sent/:email/:username',
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: TempPasswordSent, header: HeaderGuest },
       props: true,
@@ -104,7 +104,7 @@ const router = createRouter({
       props: true,
     },
 
-    
+
     {
       name: 'workplace',
       path: '/workplace',
@@ -268,9 +268,6 @@ const router = createRouter({
 
 router.beforeEach(function (to, from, next) {
   if (to.name == 'front-door') {
-    next();
-  }
-  else if (to.name == 'user-signin') {
     next();
   }
   else if (to.meta.requiredRoles.includes(userRoleEnum.NONE)) {

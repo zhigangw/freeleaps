@@ -10,10 +10,15 @@
 import { UserAuthApi } from "../../utils/index";
 
 export default {
-  name: "FrontDoor",
+  name: "TempPasswoardSent",
   props: {
     email: {
       required: true,
+      type: String,
+    },
+    username: {
+      required: false,
+      default: null,
       type: String,
     },
   },
@@ -28,7 +33,11 @@ export default {
   mounted() {},
   methods: {
     backToUserSignin() {
-      this.mnx_navToSignin(this.email);
+      if (this.username !== null && this.username !== "null") {
+        this.mnx_navToSignin(this.username);
+      } else {
+        this.mnx_navToEmailSignin(this.email);
+      }
     },
     resentUsername() {
       UserAuthApi.sendTempPasswordToEmail(this.email)

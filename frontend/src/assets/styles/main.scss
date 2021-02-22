@@ -28,9 +28,9 @@ html, body {
 //
 // Import just the styles you need. Note that some stylesheets are required no matter what.
 
-// @import "bootstrap/scss/functions"; // Required
-// @import "bootstrap/scss/variables"; // Required
-// @import "bootstrap/scss/mixins"; // Required
+@import "bootstrap/scss/functions"; // Required
+@import "bootstrap/scss/variables"; // Required
+@import "bootstrap/scss/mixins"; // Required
 
 //
 // Override Bootstrap here
@@ -94,3 +94,5 @@ html, body {
 @import "utilities";
 @import "bootstrap/scss/bootstrap";
 //@import 'sizing';
+@import "components";
+@import "texts";

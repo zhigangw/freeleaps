@@ -9,8 +9,8 @@ export default {
         mnx_navToFrontDoor() {
             this.$router.push("/front-door");
         },
-        mnx_navToTempPasswordSent(email) {
-            this.$router.push("/temp-password-sent/" + email);
+        mnx_navToTempPasswordSent(email, username = null) {
+            this.$router.push("/temp-password-sent/" + email + "/" + username);
         },
 
         mnx_navToUsernameSent(email) {

@@ -42,6 +42,8 @@ main {
   height: calc(100% - 5vmax);
 }
 .app-body {
+  margin-top: 0px;
+  width: 100%;
   height: 100%;
 }
 </style>

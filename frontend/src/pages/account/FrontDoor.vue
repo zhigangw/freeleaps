@@ -1,20 +1,22 @@
 <template>
-  <div class="story-board">
-    <div class="focus-area">
-      <h5 class="callout">Find a trustworthy partner, simplify the work, secure your return.</h5>
-      <div class="form-group">
-        <form @submit.prevent="checkRegister">
-          <div class="input-group">
-            <input
-              class="form-control w-75"
-              type="text"
-              :placeholder="'Email or Username'"
-              v-model="emailOrUsername"
-            />
-            <button type="submit" class="form-control btn btn-primary">Start</button>
-          </div>
-        </form>
-        <p v-if="message != null">{{message}}</p>
+  <div class="main-body">
+    <div class="story-board">
+      <div class="focus-area">
+        <p class="callout">Find a trustworthy partner, simplify the work, secure your return.</p>
+        <div class="form-group">
+          <form @submit.prevent="checkRegister">
+            <div class="input-group">
+              <input
+                class="form-control w-75"
+                type="text"
+                :placeholder="'Email or Username'"
+                v-model="emailOrUsername"
+              />
+              <button type="submit" class="form-control btn btn-primary">Start</button>
+            </div>
+          </form>
+          <p v-if="message != null">{{message}}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -109,41 +111,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.callout {
-  @extend .text-start;
-  @include font-size(1.25rem);
-  color: $info;
-}
-
-.story-board {
-  @extend .border;
-  @extend .mx-1;
-  @extend .mx-lg-3;
-  @extend .mx-xxl-5;
-  @extend .mt-3;
-  @extend .pt-1;
-  @extend .h-75;
-}
-.focus-area {
-  @extend .border;
-  @extend .mx-auto;
-  @extend .my-5;
-  @extend .pt-2;
-  @extend .px-2;
-  @extend .pb-5;
-  @extend .w-100;
-  @extend .w-md-75;
-  @extend .w-xl-50;
-  @extend .w-xxl-50;
-  @extend .h-50;
-}
-
-.form-group {
-  @extend .border;
-  @extend .mx-auto;
-  @extend .my-5;
-  @extend .pt-5;
-  @extend .w-100;
-  @extend .w-md-75;
-}
 </style>

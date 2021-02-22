@@ -1,27 +1,41 @@
 <template>
-  <div>
-    <h1>Please type your password</h1>
-    <form @submit.prevent="signIn">
-      <div class="input-group mb-3">
-        <input class="form-control" type="text" :value="email" readonly />
+  <div class="main-body">
+    <div class="story-board">
+      <div class="focus-area">
+        <p class="callout">Please type your password to sign in</p>
+        <div class="form-group">
+          <form @submit.prevent="signIn">
+            <input class="form-group-item" type="text" :value="email" readonly />
+            <input
+              type="password"
+              class="form-group-item"
+              v-model.trim="password"
+              placeholder="type in your password"
+            />
+            <div class="form-group-item mt-1 mb-3 d-flex">
+              <div class="form-check me-auto">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value
+                  id="keep-signed-in"
+                  v-model="keepMeSignedin"
+                />
+                <label class="form-check-label" for="keep-signed-in">Keep me signed in</label>
+              </div>
+              <button class="btn btn-link m-0 p-0" @click="forgetPassword">Forget password ?</button>
+            </div>
+            <button type="submit" class="form-group-item btn btn-primary">Sign In</button>
+            <p class="form-group-item errorInput" v-if="hasInvalidInput()">{{inputError}}</p>
+          </form>
+        </div>
       </div>
-      <div class="input-group mb-3">
-        <password-input
-          :suppressMessage="true"
-          ref="passwordInput"
-          v-model.trim="password"
-          placeholder="type in your password"
-        />
-      </div>
-      <button type="submit">Sign In</button>
-      <p v-if="hasInvalidInput()">{{inputError}}</p>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
-import { UserAuthApi } from "../../utils/index";
-import PasswordInput from "../../components/inputs/user/PasswordInput";
+import { UserAuthApi, userProfileValidator } from "../../utils/index";
 
 export default {
   name: "EmailSignin",
@@ -35,24 +49,21 @@ export default {
     return {
       password: "",
       inputError: null,
+      keepMeSignedin: true,
     };
   },
-  components: {
-    PasswordInput,
-  },
+  components: {},
   created() {},
   mounted() {},
   methods: {
-    clearPasswordError() {
-      this.isInvalidPassword = false;
-    },
-
     hasInvalidInput() {
       return this.inputError !== null && this.inputError.length > 0;
     },
 
-    signIn() {
-      this.inputError = this.$refs.passwordInput.validate();
+    async signIn() {
+      this.inputError = userProfileValidator.passwordValidator.validate(
+        this.password
+      );
       if (this.hasInvalidInput()) {
         return;
       }
@@ -67,13 +78,28 @@ export default {
           console.log(error);
         });
     },
+    
+    async forgetPassword() {
+      UserAuthApi.sendTempPasswordToEmail(this.email)
+        .then((response) => {
+          response;
+          this.mnx_navToTempPasswordSent(this.email);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-a {
-  color: #42b983;
+<style scoped lang="scss">
+.form-group-item {
+  @extend .form-control;
+  @extend .mx-auto;
+  @extend .w-sm-90;
+  @extend .w-100;
+  @extend .my-2;
 }
 </style>
