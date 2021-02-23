@@ -10,7 +10,13 @@ const userProfileStore = {
     mutations: {
         setRole(state, payload) {
             state.role = (payload.role);
+            localStorage.role = state.role;
         },
+        loadRole(state) {
+            if (localStorage.role) {
+                state.role = Number(localStorage.role);
+            }
+        }
     },
     actions: {
         setUserRole(context, payload) {
@@ -25,6 +31,9 @@ const userProfileStore = {
         useSellerRole(context) {
             context.commit('setRole', { role: userRoleEnum.USER })
         },
+        loadRoleLocal(context) {
+            context.commit('loadRole')
+        }
     },
     getters: {
         userRole(state) {

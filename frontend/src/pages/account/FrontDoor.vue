@@ -7,12 +7,12 @@
           <form @submit.prevent="checkRegister">
             <div class="input-group">
               <input
-                class="form-control w-75"
+                class="form-control w-70 me-1"
                 type="text"
                 :placeholder="'Email or Username'"
                 v-model="emailOrUsername"
               />
-              <button type="submit" class="form-control btn btn-primary">Start</button>
+              <button type="submit" class="form-control btn btn-primary ms-1">Start</button>
             </div>
           </form>
           <p v-if="message != null">{{message}}</p>
@@ -42,7 +42,11 @@ export default {
   components: {},
 
   created() {},
-  mounted() {},
+  mounted() {
+    if (this.mnx_IsKeepUserSignedIn() && this.mnx_isUserAuthenticated()) {
+      this.mnx_navAfterSignedin();
+    }
+  },
   methods: {
     checkByEmail() {
       UserProfileApi.checkUserExistanceByEmail(this.emailOrUsername)

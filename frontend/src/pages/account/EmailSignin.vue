@@ -23,7 +23,11 @@
                 />
                 <label class="form-check-label" for="keep-signed-in">Keep me signed in</label>
               </div>
-              <button class="btn btn-link m-0 p-0" @click="forgetPassword">Forget password ?</button>
+              <button
+                type="button"
+                class="btn btn-link m-0 p-0"
+                @click="forgetPassword"
+              >Forget password ?</button>
             </div>
             <button type="submit" class="form-group-item btn btn-primary">Sign In</button>
             <p class="form-group-item errorInput" v-if="hasInvalidInput()">{{inputError}}</p>
@@ -72,13 +76,14 @@ export default {
         .then((response) => {
           this.mnx_authenticatedUser(response.data);
           this.mnx_setUserRole(response.data.role);
+          this.mnx_setKeepUserSignedIn(this.keepMeSignedin);
           this.mnx_navAfterSignedin();
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    
+
     async forgetPassword() {
       UserAuthApi.sendTempPasswordToEmail(this.email)
         .then((response) => {

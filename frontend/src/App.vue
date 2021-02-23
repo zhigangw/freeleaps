@@ -15,6 +15,10 @@ export default {
   components: {},
   computed: {},
   methods: {},
+  created() {
+    this.mnx_loadAuthLocal();
+    this.mnx_loadRoleLocal();
+  }
 };
 </script>
 <style lang="scss">
