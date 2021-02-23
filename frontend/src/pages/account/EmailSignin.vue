@@ -100,11 +100,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.form-group-item {
-  @extend .form-control;
-  @extend .mx-auto;
-  @extend .w-sm-90;
-  @extend .w-100;
-  @extend .my-2;
-}
 </style>

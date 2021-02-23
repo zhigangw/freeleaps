@@ -4,7 +4,7 @@ const userNameFirstLetterPattern = /^[a-zA-Z].*$/;
 const userNameFormatMessage =
     "6 to 18 characters, start with at least one letter and contains alphanumeric characters";
 const userNameMinLength = 6;
-const userNameMaxLength = 16;
+const userNameMaxLength = 64;
 
 class UsernameValidator extends TextValidator {
     constructor() {

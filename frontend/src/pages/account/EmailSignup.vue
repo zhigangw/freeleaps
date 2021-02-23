@@ -1,34 +1,34 @@
 <template>
-  <div>
-    <form @submit.prevent="submitForm">
-      <div class="input-group mb-3">
-        <email-input v-model="emailValue" readonly />
+  <div class="main-body">
+    <div class="story-board">
+      <div class="focus-area">
+        <p class="callout">Create account with just a couple steps.</p>
+        <div class="form-group">
+          <form @submit.prevent="submitForm">
+            <input class="form-group-item" type="text" :value="email" readonly />
+            <input
+              class="form-group-item"
+              type="password"
+              v-model.trim="password"
+              placeholder="password"
+            />
+            <input
+              class="form-group-item"
+              type="password"
+              v-model.trim="repeat_password"
+              placeholder="confirm"
+            />
+            <button class="form-group-item btn btn-primary" type="submit">Create Account</button>
+            <p class="form-group-item errorInput border-0" v-if="hasInvalidInput()">{{error}}</p>
+          </form>
+        </div>
       </div>
-      <div class="input-group mb-3">
-        <password-input
-          ref="passwordInput1"
-          :suppressMessage="true"
-          v-model.trim="password"
-          placeholder="password"
-        />
-        <password-input
-          ref="passwordInput2"
-          :suppressMessage="true"
-          v-model.trim="repeat_password"
-          placeholder="confirm"
-        />
-      </div>
-      <p v-if="isInvalidPassword">{{passwordError}}</p>
-      <button type="submit">Create Account</button>
-      <p v-if="hasInvalidInput()">{{error}}</p>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
-import { UserAuthApi } from "../../utils/index";
-import PasswordInput from "../../components/inputs/user/PasswordInput";
-import EmailInput from "../../components/inputs/user/EmailInput";
+import { UserAuthApi, userProfileValidator } from "../../utils/index";
 export default {
   name: "EmailSignup",
   props: {
@@ -37,10 +37,7 @@ export default {
       type: String,
     },
   },
-  components: {
-    PasswordInput,
-    EmailInput,
-  },
+  components: {},
   watch: {
     email: {
       immediate: true,
@@ -53,12 +50,9 @@ export default {
   data() {
     return {
       role: null,
-      emailValue: "",
       password: "",
       repeat_password: "",
       error: null,
-      isInvalidPassword: false,
-      passwordError: null,
       repeatPasswordError: null,
     };
   },
@@ -67,24 +61,22 @@ export default {
   mounted() {},
   methods: {
     hasInvalidInput() {
-      return this.isInvalidPassword;
+      return this.error != null;
     },
 
     clearPasswordError() {
-      this.isInvalidPassword = false;
+      this.error = null;
     },
 
     validatePassword() {
-      this.passwordError = this.$refs.passwordInput1.validate();
-      if (this.passwordError) {
-        this.isInvalidPassword = true;
-      } else {
-        if (this.password != this.repeat_password) {
-          this.isInvalidPassword = true;
-          this.passwordError = "Two typed in password must be identical";
-        } else {
-          this.isInvalidPassword = false;
-        }
+      this.error = userProfileValidator.passwordValidator.validate(
+        this.password
+      );
+      if (this.error != null) {
+        return;
+      }
+      if (this.password != this.repeat_password) {
+        this.error = "Two password input must be identical";
       }
     },
 
@@ -97,7 +89,6 @@ export default {
     async submitForm() {
       this.validatePassword();
       if (this.hasInvalidInput()) {
-        this.error = "Please fix erros before submit";
         return;
       }
       UserAuthApi.signupByEmail(this.email, this.password)

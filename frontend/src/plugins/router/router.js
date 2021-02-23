@@ -32,7 +32,6 @@ import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 import BuyerNavBar from "../../components/bars/nav/BuyerNavBar.vue";
 import HeaderGuest from "../../components/bars/header/HeaderGuest.vue";
 import SellerNavBar from "../../components/bars/nav/SellerNavBar.vue";
-import UserSignupBar from "../../components/bars/nav/UserSignupBar.vue";
 import UserNavBar from "../../components/bars/nav/UserNavBar.vue";
 
 
@@ -52,7 +51,7 @@ const router = createRouter({
       name: 'email-signup',
       path: '/email-signup/:email',
       meta: { requiredRoles: [userRoleEnum.NONE] },
-      components: { default: EmailSignup, header: UserSignupBar },
+      components: { default: EmailSignup, header: HeaderGuest },
       props: true,
     },
 

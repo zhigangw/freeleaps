@@ -15,7 +15,7 @@
               <button type="submit" class="form-control btn btn-primary ms-1">Start</button>
             </div>
           </form>
-          <p v-if="message != null">{{message}}</p>
+          <p class="errorInput" v-if="message != null">{{message}}</p>
         </div>
       </div>
     </div>

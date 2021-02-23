@@ -30,6 +30,14 @@
   @extend .border;
 }
 
+.form-group-item {
+  @extend .form-control;
+  @extend .mx-auto;
+  @extend .w-sm-90;
+  @extend .w-100;
+  @extend .my-2;
+}
+
 .main-body {
   margin-top: 0px;
   width: 100%;
