@@ -1,16 +1,16 @@
 <template>
-  <nav class="navbar navbar-expand navbar-light bg-light m-0 p-0 h-100">
+  <nav class="navbar navbar-expand navbar-light  m-0 p-0 h-100">
     <div class="container-fluid h-100">
       <a class="navbar-brand h-100 m-0 p-0" href="#">
         <img class="logo" alt="freeleaps logo" src="../../../assets/logo.png" />
       </a>
-      <div class="navbar-nav nav-pills nav-fill mx-auto h-100 w-50 flex-wrap">
-        <button class="nav-link btn btn-link w-20 active 0 shoutout" aria-current="page">Home</button>
-        <button class="nav-link btn btn-link w-20 shoutout" href="#">Link</button>
-        <button class="nav-link btn btn-link w-20 shoutout" href="#">Disabled</button>
-        <button class="nav-link btn btn-link w-20 shoutout" href="#">Disabled</button>
+      <div class="nav-bar-container">
+        <button class="nav-bar-button" aria-current="page">Workplace</button>
+        <button class="nav-bar-button" href="#">Requests</button>
+        <button class="nav-bar-button" href="#">Network</button>
+        <button class="nav-bar-button" href="#">Post</button>
       </div>
-      <button class="btn btn-outline-success h-100" type="submit">Search</button>
+      <button class="btn btn-outline-success h-100" type="submit">Account</button>
     </div>
   </nav>
 </template>
@@ -30,27 +30,41 @@ export default {
   max-height: 100%;
 }
 
-.shoutout {
+.nav-bar-container {
+  @extend .navbar-nav;
+  @extend .nav-fill;
+  @extend .mx-auto;
+  @extend .h-80;
+  @extend .w-50;
+
+}
+
+.nav-bar-button {
   @include media-breakpoint-up(xs) {
-    font-size: rfs-fluid-value(0.7rem);
+    font-size: rfs-fluid-value(0.5rem);
   }
   @include media-breakpoint-up(sm) {
-    font-size: rfs-fluid-value(1.125rem);
+    font-size: rfs-fluid-value(1rem);
   }
   @include media-breakpoint-up(md) {
-    font-size: rfs-fluid-value(1.5rem);
+    font-size: rfs-fluid-value(1rem);
   }
   @include media-breakpoint-up(lg) {
-    font-size: rfs-fluid-value(2rem);
+    font-size: rfs-fluid-value(1rem);
   }
   @include media-breakpoint-up(xl) {
-    font-size: rfs-fluid-value(2rem);
+    font-size: rfs-fluid-value(1rem);
   }
   @include media-breakpoint-up(xxl) {
-    font-size: rfs-fluid-value(2.5rem);
+    font-size: rfs-fluid-value(1rem);
   }
   @extend .align-middle;
   @extend .text-wrap;
+  @extend .nav-link;
+  @extend .btn;
+  @extend .btn-outline-info;
+  @extend .border-0;
+  @extend .w-20;
   color: #fae4ab;
   height: 100%;
 }
