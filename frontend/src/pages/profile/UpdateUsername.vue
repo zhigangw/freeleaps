@@ -39,7 +39,7 @@ import {
 } from "../../utils/index";
 
 export default {
-  name: "UserAccount",
+  name: "UpdateUsername",
   props: {
     username: null,
   },
@@ -120,8 +120,5 @@ export default {
   @extend .form-control;
   @extend .btn;
   @extend .btn-primary;
-  @extend .my-0;
-  @extend .py-0;
-  @extend .text-center;
 }
 </style>

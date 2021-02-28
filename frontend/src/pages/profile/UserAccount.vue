@@ -21,6 +21,7 @@
               type="button"
               aria-label="Password"
               aria-describedby="password-input"
+              @click="gotoUpdatePassword"
             >{{password}}</button>
           </div>
           <div class="input-group-div">
@@ -95,6 +96,9 @@ export default {
 
     gotoUpdateUsername() {
       this.mnx_navToUpdateUsername(this.username);
+    },
+    gotoUpdatePassword() {
+      this.mnx_navToUpdatePassword();
     },
   },
 };

@@ -11,6 +11,7 @@ import UserSignin from "../../pages/account/UserSignin";
 
 import UserAccount from "../../pages/profile/UserAccount";
 import UpdateUsername from "../../pages/profile/UpdateUsername";
+import UpdatePassword from "../../pages/profile/UpdatePassword";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -112,6 +113,14 @@ const router = createRouter({
       path: '/update-username/:username',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: UpdateUsername, header: HeaderUser },
+      props: true,
+    },
+
+    {
+      name: 'update-password',
+      path: '/update-password/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdatePassword, header: HeaderUser },
       props: true,
     },
 

@@ -1,33 +1,54 @@
 <template>
-  <div>
-    <h3>You have an account already, please use freeleaps username to log in</h3>
-    <form @submit.prevent="signIn">
-      <div class="input-group mb-3">
-        <UsernameInput
-          ref="usernameInput"
-          v-model.trim="username"
-          placeholder="Your freeleaps username"
-          :suppressMessage="true"
-        />
-        <PasswordInput
-          ref="passwordInput"
-          v-model.trim="password"
-          placeholder="Your password"
-          :suppressMessage="true"
-        />
+  <div class="main-body">
+    <div class="story-board">
+      <div class="focus-area">
+        <p class="callout">You have an account already, please use username to log in</p>
+        <div class="form-group">
+          <form @submit.prevent="signIn">
+            <input
+              class="form-group-item"
+              type="text"
+              :value="username"
+              placeholder="type username"
+            />
+            <input
+              type="password"
+              class="form-group-item mb-3"
+              v-model.trim="password"
+              placeholder="type password"
+            />
+            <div class="auxilliary-containter justify-content-between">
+              <div class="form-check me-auto">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value
+                  id="keep-signed-in"
+                  v-model="keepMeSignedin"
+                />
+                <label class="form-check-label" for="keep-signed-in">Keep me signed in</label>
+              </div>
+              <button class="btn btn-link m-0 p-0" @click="forgetUsername">Forget Username?</button>
+            </div>
+
+            <div class="auxilliary-containter justify-content-end">
+              <button
+                type="button"
+                class="btn btn-link m-0 p-0"
+                @click="forgetPassword"
+              >Forget password ?</button>
+            </div>
+            <button class="input-signin-submit" type="submit">Sign In</button>
+            <p v-if="hasInvalidInput()">{{inputError}}</p>
+          </form>
+        </div>
       </div>
-      <button type="submit">Sign In</button>
-      <p v-if="hasInvalidInput()">{{inputError}}</p>
-    </form>
-    <button class="btn" @click="forgetUsername">forgetUsername</button>
-    <button class="btn" @click="forgetPassword">forgetPassword</button>
+    </div>
   </div>
 </template>
 
 <script>
 import { UserAuthApi } from "../../utils/index";
-import UsernameInput from "../../components/inputs/user/UsernameInput";
-import PasswordInput from "../../components/inputs/user/PasswordInput";
 
 export default {
   name: "UserSignin",
@@ -39,9 +60,9 @@ export default {
   },
   data() {
     return {
-      email: "",
       username: "",
       password: "",
+      keepMeSignedin: false,
       isInvalidUsername: false,
       isInvalidPassword: false,
       usernameError: null,
@@ -49,17 +70,13 @@ export default {
       inputError: null,
     };
   },
-  components: {
-    UsernameInput,
-    PasswordInput,
-  },
+  components: {},
   created() {},
   mounted() {
     if (this.emailOrUsername != null) {
       if (this.emailOrUsername.includes("@")) {
         this.email = this.emailOrUsername;
-      }
-      else{
+      } else {
         this.username = this.emailOrUsername;
       }
     }
@@ -129,8 +146,18 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-a {
-  color: #42b983;
+<style scoped lang="scss">
+.auxilliary-containter {
+  @extend .form-group-item;
+  @extend .d-flex;
+  @extend .border-0;
+  @extend .m-0;
+  @extend .p-0;
+}
+
+.input-signin-submit {
+  @extend .form-control;
+  @extend .btn;
+  @extend .btn-primary;
 }
 </style>

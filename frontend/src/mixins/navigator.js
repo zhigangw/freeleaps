@@ -45,6 +45,9 @@ export default {
         mnx_navToUpdateUsername(username) {
             this.$router.push("/update-username/"+ username)
         },
+        mnx_navToUpdatePassword() {
+            this.$router.push("/update-password/")
+        },
 
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
