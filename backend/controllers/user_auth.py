@@ -103,7 +103,7 @@ class EmailSignin(Resource):
     def post(self):
         args = self.post_parser.parse_args()
         email = args.email
-        queryset = UserDoc.objects(personalProfile__email__iexact=email,
+        queryset = UserDoc.objects(authProfile__email__iexact=email,
                                    authProfile__password=hashlib.md5(
                                        args.password.encode('utf-8')).hexdigest()
                                    )
@@ -142,17 +142,16 @@ class EmailSignup(Resource):
         return_code = 200
         resp = None
 
-        if(UserDoc.objects(personalProfile__email=args.email).count() > 0):
+        if(UserDoc.objects(authProfile__email=args.email).count() > 0):
             resp = jsonify(text="uesr exists")
             return_code = 401
         else:
             user = UserDoc(authProfile=AuthProfile(
                 password=hashlib.md5(
                     args.password.encode('utf-8')).hexdigest(),
-                role=1  # 1 -- USER
+                role=1,  # 1 -- USER
+                email=args.email
             ),
-                personalProfile=PersonalProfile(
-                    email=args.email)
             )
             user.save()
 
@@ -305,9 +304,14 @@ class UserUpdateUsername(Resource):
         args = self.post_parser.parse_args()
         username = args.identity
 
-        return_code = 403
+        UserDoc.objects(
+            id=identity
+        ).update(
+            authProfile__identity=username)
+
+        return_code = 200
         resp = jsonify(
-            text="forbidden operation"
+            identity=username
         )
 
         return make_response(resp, return_code)
@@ -342,6 +346,103 @@ class UserUpdatePassword(Resource):
         return make_response(resp, return_code)
 
 
+class UserProfileUpdateMobile(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'mobile', dest='mobile',
+            type=str, location='json',
+            required=True, help='The user\'s mobile',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        affected = UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__authProfile__mobile=args.mobile,
+        )
+        if(affected > 0):
+            resp = jsonify(
+                mobile=args.mobile,
+            )
+        else:
+            resp = jsonify(
+                text="failed."
+            )
+            return_code = 404
+
+        return make_response(resp, return_code)
+
+
+class UserProfileUpdateEmail(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        affected = UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__authProfile__email=args.email,
+        )
+        if(affected > 0):
+            resp = jsonify(
+                email=args.email,
+            )
+        else:
+            resp = jsonify(
+                text="failed."
+            )
+            return_code = 404
+
+        return make_response(resp, return_code)
+
+
+class CheckUserExistanceByEmail(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    def post(self):
+        resp = None
+        args = self.post_parser.parse_args()
+        return_code = 200
+
+        email = args.email
+        users = UserDoc.objects(authProfile__email=email)
+
+        userNameExists = False
+        userExists = True if users.count() > 0 else False
+        if userExists:
+            userNameExists = users.first().authProfile.identity is not None
+
+        resp = jsonify(
+            userNameExists=userNameExists,
+            userExists=userExists
+        )
+        return make_response(resp, return_code)
+
+
 routeMap = [
     {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
@@ -354,4 +455,11 @@ routeMap = [
     {'res': UserUpdatePassword, 'url': '/api/user/update-password'},
     {'res': UserIsNameAvailable,
      'url': '/api/user/check-username-availability'},
+    {'res': UserProfileUpdateMobile,
+     'url': '/api/user-profile/update-mobile'},
+    {'res': UserProfileUpdateEmail,
+     'url': '/api/user-profile/update-email'},
+    {'res': CheckUserExistanceByEmail,
+     'url': '/api/user-profile/check-existance-by-email'},
+
 ]

@@ -69,8 +69,7 @@ class UserProfileFetchAccount(Resource):
             return make_response(resp, return_code)
 
         resp = jsonify(
-            identity=user.authProfile.identity,
-            role=user.authProfile.role
+            user.authProfile
         )
 
         return make_response(resp, return_code)
@@ -158,7 +157,7 @@ class UserProfileFetchCareer(Resource):
 
 
 routeMap = [
-        {'res': UserProfileFetchSettings,
+    {'res': UserProfileFetchSettings,
      'url': '/api/user-profile/fetch-settings'},
     {'res': UserProfileFetchAccount,
      'url': '/api/user-profile/fetch-account'},

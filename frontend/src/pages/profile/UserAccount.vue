@@ -11,6 +11,7 @@
               type="button"
               aria-label="Username"
               aria-describedby="username-input"
+              @click="gotoUpdateUsername"
             >{{username}}</button>
           </div>
           <div class="input-group-div">
@@ -47,6 +48,8 @@
 </template>
 
 <script>
+import { UserProfileApi } from "../../utils/index";
+
 export default {
   name: "UserAccount",
   props: {},
@@ -57,14 +60,41 @@ export default {
       password: "********",
       email: "not set",
       mobile: "not set",
+      authProfile: {},
     };
   },
 
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchUserAccount();
+  },
   methods: {
-    gotoNext() {
-      this.mnx_navToSellerPhoto();
+    populateAuthData() {
+      if (this.authProfile) {
+        if ("identity" in this.authProfile && this.authProfile.identity) {
+          this.username = this.authProfile.identity;
+        }
+        if ("email" in this.authProfile && this.authProfile.email) {
+          this.email = this.authProfile.email;
+        }
+        if ("mobile" in this.authProfile && this.authProfile.mobile) {
+          this.mobile = this.authProfile.mobile;
+        }
+      }
+    },
+    async fetchUserAccount() {
+      UserProfileApi.fetchAccount()
+        .then((response) => {
+          this.authProfile = response.data;
+          this.populateAuthData();
+        })
+        .catch((error) => {
+          this.mnx_backendErrorHandler(error);
+        });
+    },
+
+    gotoUpdateUsername() {
+      this.mnx_navToUpdateUsername(this.username);
     },
   },
 };
