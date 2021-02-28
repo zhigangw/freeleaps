@@ -6,8 +6,10 @@ import EmailSignin from "../../pages/account/EmailSignin";
 import EmailSignup from "../../pages/account/EmailSignup";
 import TempPasswordSent from "../../pages/account/TempPasswordSent"
 import UsernameSent from "../../pages/account/UsernameSent"
-import UserSettings from "../../pages/account/UserSettings";
 import UserSignin from "../../pages/account/UserSignin";
+
+
+import UserAccount from "../../pages/profile/UserAccount";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -76,6 +78,8 @@ const router = createRouter({
       components: { default: TempPasswordSent, header: HeaderGuest },
       props: true,
     },
+
+    
     {
       name: 'username-sent',
       path: '/username-sent/:email',
@@ -94,10 +98,10 @@ const router = createRouter({
     },
 
     {
-      name: 'user-settings',
-      path: '/user-settings',
-      meta: { requiredRoles: [userRoleEnum.BUYER, userRoleEnum.SELLER] },
-      components: { default: UserSettings, header: HeaderUser },
+      name: 'user-account',
+      path: '/user-account',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UserAccount, header: HeaderUser },
       props: true,
     },
 

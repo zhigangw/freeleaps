@@ -37,8 +37,8 @@ export default {
         },
 
 
-        mnx_navToUserSettings() {
-            this.$router.push("/user-settings")
+        mnx_navToUserAccount() {
+            this.$router.push("/user-account")
         },
 
         mnx_navToWorkplace() {

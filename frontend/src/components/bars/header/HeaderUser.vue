@@ -19,13 +19,16 @@
       </button>
       <ul class="dropdown-menu" aria-labelledby="accountButton">
         <li>
-          <button class="account-menu-button" href="#">Action</button>
+          <button class="account-menu-button" @click="gotoAccount">Account</button>
         </li>
         <li>
-          <button class="account-menu-button" href="#">Another action</button>
+          <button class="account-menu-button" @click="gotoPersonal">Personal</button>
         </li>
         <li>
-          <button class="account-menu-button" href="#">Something else here</button>
+          <button class="account-menu-button" @click="gotoProfile">Profile</button>
+        </li>
+        <li>
+          <button class="account-menu-button" @click="gotoExperience">Experience</button>
         </li>
       </ul>
     </div>
@@ -36,7 +39,14 @@ export default {
   name: "HeaderGuest",
   components: {},
   computed: {},
-  methods: {},
+  methods: {
+    gotoAccount() {
+      this.mnx_navToUserAccount();
+    },
+    gotoPersonal() {},
+    gotoProfile() {},
+    gotoExperience() {},
+  },
 };
 </script>
 
