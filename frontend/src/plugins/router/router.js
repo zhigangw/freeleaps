@@ -15,7 +15,7 @@ import UserSignin from "../../pages/account/UserSignin";
 import UserAccount from "../../pages/profile/UserAccount";
 import UpdateUsername from "../../pages/profile/UpdateUsername";
 import UpdatePassword from "../../pages/profile/UpdatePassword";
-
+import UsernameUpdated from "../../pages/profile/UsernameUpdated";
 import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -132,6 +132,13 @@ const router = createRouter({
       components: { default: UpdateUsername, header: HeaderUser },
       props: true,
     },
+    {
+      name: 'username-updated',
+      path: '/username-updated/:username',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UsernameUpdated, header: HeaderUser },
+      props: true,
+    },
 
     {
       name: 'update-password',
@@ -141,7 +148,7 @@ const router = createRouter({
       props: true,
     },
 
-
+    
     {
       name: 'workplace',
       path: '/workplace',

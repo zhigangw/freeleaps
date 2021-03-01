@@ -8,7 +8,7 @@
             <input
               class="form-group-item"
               type="text"
-              :value="username"
+              v-model.trim="username"
               placeholder="type username"
               :readonly="knownUsername == true"
             />
@@ -40,7 +40,7 @@
               <button class="auxilliary-button" @click="forgetUsername" type="button">Forget Username?</button>
             </div>
             <button class="input-signin-submit" type="submit">Sign In</button>
-            <p v-if="hasInvalidInput()">{{inputError}}</p>
+            <p class="errorInput" v-if="hasInvalidInput()">{{inputError}}</p>
           </form>
         </div>
       </div>
@@ -83,7 +83,7 @@ export default {
   },
   methods: {
     hasInvalidInput() {
-      return this.inputError !== null;
+      return (this.inputError) && (this.inputError.length > 0);
     },
 
     signIn() {

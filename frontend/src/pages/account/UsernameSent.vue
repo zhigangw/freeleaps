@@ -10,7 +10,7 @@
 import { UserAuthApi } from "../../utils/index";
 
 export default {
-  name: "FrontDoor",
+  name: "UsernameSent",
   props: {
     email: {
       required: true,

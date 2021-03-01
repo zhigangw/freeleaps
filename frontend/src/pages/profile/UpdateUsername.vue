@@ -23,7 +23,10 @@
                 v-model="newUsername"
               />
             </div>
-            <button class="input-username-submit" type="submit">Submit</button>
+            <div class="input-group-div">
+              <button class="input-username-cancel" type="button" @click="goBack">Cancel</button>
+              <button class="input-username-submit" type="submit">Submit</button>
+            </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
         </div>
@@ -33,10 +36,7 @@
 </template>
 
 <script>
-import {
-  userProfileValidator,
-  UserAuthApi,
-} from "../../utils/index";
+import { userProfileValidator, UserAuthApi } from "../../utils/index";
 
 export default {
   name: "UpdateUsername",
@@ -72,20 +72,22 @@ export default {
           if (response.data && response.data.available == true) {
             UserAuthApi.updateUsername(this.newUsername)
               .then((response) => {
-                this.currentUsername = response.data.identity;
-                this.newUsername = null;
+                this.mnx_navToUsernameUpdated(response.data.identity);
               })
               .catch((error) => {
                 this.mnx_backendErrorHandler(error);
               });
-          }
-          else{
-              this.errorMessage = "The username has been taken."
+          } else {
+            this.errorMessage = "The username has been taken.";
           }
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
+    },
+
+    goBack() {
+      this.mnx_goBack();
     },
   },
 };
@@ -117,8 +119,15 @@ export default {
   @extend .text-center;
 }
 .input-username-submit {
-  @extend .form-control;
   @extend .btn;
   @extend .btn-primary;
+  @extend .w-30;
+  @extend .mx-auto;
+}
+.input-username-cancel {
+  @extend .btn;
+  @extend .btn-secondary;
+  @extend .w-30;
+  @extend .mx-auto;
 }
 </style>
