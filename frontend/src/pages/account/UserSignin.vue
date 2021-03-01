@@ -37,7 +37,7 @@
             </div>
 
             <div v-if="knownUsername != true" class="auxilliary-containter justify-content-end">
-              <button class="auxilliary-button" @click="forgetUsername">Forget Username?</button>
+              <button class="auxilliary-button" @click="forgetUsername" type="button">Forget Username?</button>
             </div>
             <button class="input-signin-submit" type="submit">Sign In</button>
             <p v-if="hasInvalidInput()">{{inputError}}</p>
@@ -111,14 +111,7 @@ export default {
     },
 
     forgetUsername() {
-      UserAuthApi.sendUsernameToEmail(this.email)
-        .then((response) => {
-          response;
-          this.mnx_navToUsernameSent(this.email);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.mnx_navToUserForgetUsername();
     },
 
     forgetPassword() {

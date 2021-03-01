@@ -5,9 +5,11 @@ import FrontDoor from "../../pages/account/FrontDoor";
 import EmailSignin from "../../pages/account/EmailSignin";
 import EmailSignup from "../../pages/account/EmailSignup";
 import UserForgetPassword from "../../pages/account/UserForgetPassword"
+import UserForgetUsername from "../../pages/account/UserForgetUsername"
 import TempPasswordSent from "../../pages/account/TempPasswordSent"
 import UsernameSent from "../../pages/account/UsernameSent"
 import UserSignin from "../../pages/account/UserSignin";
+
 
 
 import UserAccount from "../../pages/profile/UserAccount";
@@ -73,13 +75,20 @@ const router = createRouter({
         } // /teams/t1
       ]*/
     },
-
+    
     {
       name: 'user-forget-password',
       path: '/user-forget-password/:username',
       meta: { requiredRoles: [userRoleEnum.NONE] },
       components: { default: UserForgetPassword, header: HeaderGuest },
       props: true,
+    },
+    {
+      name: 'user-forget-username',
+      path: '/user-forget-username/',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UserForgetUsername, header: HeaderGuest },
+      props: false,
     },
     {
       name: 'temp-password-sent',

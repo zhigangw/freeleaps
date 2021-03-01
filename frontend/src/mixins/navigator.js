@@ -14,6 +14,10 @@ export default {
             this.$router.push("/user-forget-password/" + username);
         },
 
+        mnx_navToUserForgetUsername() {
+            this.$router.push("/user-forget-username/");
+        },
+
         mnx_navToTempPasswordSent(email, username = null) {
             this.$router.push("/temp-password-sent/" + email + "/" + username);
         },

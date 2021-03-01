@@ -67,7 +67,7 @@ class SendUsernameToEmail(Resource):
         return_code = 200
         resp = None
 
-        users = UserDoc.objects(personalProfile__email=args.email)
+        users = UserDoc.objects(authProfile__email=args.email)
         if users.count() <= 0:
             resp = jsonify(text="email does not exist")
             return_code = 401
@@ -75,7 +75,7 @@ class SendUsernameToEmail(Resource):
 
         user = users.first()
         if user.authProfile.identity is not None:
-            SendMail(user.personalProfile.email, "Freeleaps Support",
+            SendMail(user.authProfile.email, "Freeleaps Support",
                      user.authProfile.identity)
             resp = jsonify(text="sent username to mailbox")
             return_code = 200
