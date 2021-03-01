@@ -32,7 +32,7 @@ class SendTempPasswordToEmail(Resource):
         return_code = 200
         resp = None
 
-        users = UserDoc.objects(personalProfile__email=args.email)
+        users = UserDoc.objects(authProfile__email=args.email)
         if users.count() <= 0:
             resp = jsonify(text="email does not exist")
             return_code = 401
@@ -45,7 +45,7 @@ class SendTempPasswordToEmail(Resource):
         user.authProfile.password = hash
         user.save()
 
-        SendMail(user.personalProfile.email, "Freeleaps Support",
+        SendMail(user.authProfile.email, "Freeleaps Support",
                  tempPwd)
         resp = jsonify(text="sent temp password to mailbox")
         return_code = 200
@@ -443,6 +443,40 @@ class CheckUserExistanceByEmail(Resource):
         return make_response(resp, return_code)
 
 
+class CheckUsernameAndEmail(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+
+        self.post_parser.add_argument(
+            'identity', dest='identity',
+            type=str, location='json',
+            required=True, help='The user\'s identity',
+        )
+
+        self.post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    def post(self):
+        resp = None
+        args = self.post_parser.parse_args()
+        return_code = 200
+
+        email = args.email
+        identity = args.identity
+        users = UserDoc.objects(
+            authProfile__identity=identity,
+            authProfile__email=email)
+
+        userExists = True if users.count() > 0 else False
+        resp = jsonify(
+            userExists=userExists
+        )
+        return make_response(resp, return_code)
+
+
 routeMap = [
     {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
@@ -461,5 +495,6 @@ routeMap = [
      'url': '/api/user-profile/update-email'},
     {'res': CheckUserExistanceByEmail,
      'url': '/api/user-profile/check-existance-by-email'},
-
+    {'res': CheckUsernameAndEmail,
+     'url': '/api/user-profile/check-username-and-email'},
 ]

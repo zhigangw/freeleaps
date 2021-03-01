@@ -4,6 +4,7 @@ import { store, userRoleEnum } from '../store/index';
 import FrontDoor from "../../pages/account/FrontDoor";
 import EmailSignin from "../../pages/account/EmailSignin";
 import EmailSignup from "../../pages/account/EmailSignup";
+import UserForgetPassword from "../../pages/account/UserForgetPassword"
 import TempPasswordSent from "../../pages/account/TempPasswordSent"
 import UsernameSent from "../../pages/account/UsernameSent"
 import UserSignin from "../../pages/account/UserSignin";
@@ -73,6 +74,13 @@ const router = createRouter({
       ]*/
     },
 
+    {
+      name: 'user-forget-password',
+      path: '/user-forget-password/:username',
+      meta: { requiredRoles: [userRoleEnum.NONE] },
+      components: { default: UserForgetPassword, header: HeaderGuest },
+      props: true,
+    },
     {
       name: 'temp-password-sent',
       path: '/temp-password-sent/:email/:username',

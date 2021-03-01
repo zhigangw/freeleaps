@@ -3,15 +3,27 @@ import { userUtils } from '../store/index'
 
 class UserAuthApi {
 
+
+    static checkUsernameAndEmail(identity, email) {
+        const request = backendAxios.post(
+            '/api/user-profile/check-username-and-email',
+            {
+                identity: identity,
+                email: email
+            },
+            {
+            }
+        );
+        return request;
+    }
+
     static checkUsernameAvailability(identity) {
-        let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/user/check-username-availability',
             {
                 identity: identity,
             },
             {
-                headers: { Authorization: `Bearer ${jwt}` }
             }
         );
         return request;

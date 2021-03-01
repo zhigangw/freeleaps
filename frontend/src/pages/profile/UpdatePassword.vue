@@ -54,6 +54,8 @@ export default {
       UserAuthApi.updatePassword(this.password)
         .then((response) => {
           response;
+          this.password = null;
+          this.repeatdPassword = null;
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);

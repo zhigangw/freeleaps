@@ -10,6 +10,7 @@
               type="text"
               :value="username"
               placeholder="type username"
+              :readonly="knownUsername == true"
             />
             <input
               type="password"
@@ -28,15 +29,15 @@
                 />
                 <label class="form-check-label" for="keep-signed-in">Keep me signed in</label>
               </div>
-              <button class="btn btn-link m-0 p-0" @click="forgetUsername">Forget Username?</button>
-            </div>
-
-            <div class="auxilliary-containter justify-content-end">
               <button
                 type="button"
-                class="btn btn-link m-0 p-0"
+                class="auxilliary-button"
                 @click="forgetPassword"
               >Forget password ?</button>
+            </div>
+
+            <div v-if="knownUsername != true" class="auxilliary-containter justify-content-end">
+              <button class="auxilliary-button" @click="forgetUsername">Forget Username?</button>
             </div>
             <button class="input-signin-submit" type="submit">Sign In</button>
             <p v-if="hasInvalidInput()">{{inputError}}</p>
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-import { UserAuthApi } from "../../utils/index";
+import { UserAuthApi, userProfileValidator } from "../../utils/index";
 
 export default {
   name: "UserSignin",
@@ -60,13 +61,11 @@ export default {
   },
   data() {
     return {
+      email: "",
       username: "",
       password: "",
       keepMeSignedin: false,
-      isInvalidUsername: false,
-      isInvalidPassword: false,
-      usernameError: null,
-      passwordError: null,
+      knownUsername: false,
       inputError: null,
     };
   },
@@ -78,49 +77,39 @@ export default {
         this.email = this.emailOrUsername;
       } else {
         this.username = this.emailOrUsername;
+        this.knownUsername = true;
       }
     }
   },
   methods: {
     hasInvalidInput() {
-      return this.isInvalidUsername || this.isInvalidPassword;
-    },
-
-    validateInput() {
-      this.isInvalidUsername = false;
-      this.isInvalidPassword = false;
-
-      this.usernameError = this.$refs.usernameInput.validate();
-      if (this.usernameError) {
-        this.isInvalidUsername = true;
-        this.inputError = this.usernameError;
-        return false;
-      }
-
-      this.passwordError = this.$refs.passwordInput.validate();
-      if (this.passwordError) {
-        this.isInvalidPassword = true;
-        this.inputError = this.passwordError;
-        return false;
-      }
-      return true;
+      return this.inputError !== null;
     },
 
     signIn() {
-      if (!this.validateInput()) {
+      this.inputError = userProfileValidator.usernameValidator.validate(
+        this.username
+      );
+      if (this.hasInvalidInput()) {
+        return;
+      }
+
+      this.inputError = userProfileValidator.passwordValidator.validate(
+        this.password
+      );
+      if (this.hasInvalidInput()) {
         return;
       }
 
       UserAuthApi.signin(this.username, this.password)
         .then((response) => {
-          this.mnx_authenticatedUser(response.data);
-          this.mnx_setUserRole(response.data.role);
-          this.mnx_navAfterSignedin();
+          this.mnx_userSignedin(response.data, this.keepMeSignedin);
         })
         .catch((error) => {
           console.log(error);
         });
     },
+
     forgetUsername() {
       UserAuthApi.sendUsernameToEmail(this.email)
         .then((response) => {
@@ -131,15 +120,9 @@ export default {
           console.log(error);
         });
     },
+
     forgetPassword() {
-      UserAuthApi.sendTempPasswordToEmail(this.email)
-        .then((response) => {
-          response;
-          this.mnx_navToTempPasswordSent(this.email);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.mnx_navToUserForgetPassword(this.username);
     },
   },
 };
@@ -154,7 +137,12 @@ export default {
   @extend .m-0;
   @extend .p-0;
 }
-
+.auxilliary-button {
+  @extend .btn;
+  @extend .btn-link;
+  @extend .m-0;
+  @extend .p-0;
+}
 .input-signin-submit {
   @extend .form-control;
   @extend .btn;

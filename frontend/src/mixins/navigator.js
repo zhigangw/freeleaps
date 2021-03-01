@@ -10,6 +10,10 @@ export default {
             this.$router.push("/front-door");
         },
 
+        mnx_navToUserForgetPassword(username) {
+            this.$router.push("/user-forget-password/" + username);
+        },
+
         mnx_navToTempPasswordSent(email, username = null) {
             this.$router.push("/temp-password-sent/" + email + "/" + username);
         },
@@ -43,7 +47,7 @@ export default {
         },
 
         mnx_navToUpdateUsername(username) {
-            this.$router.push("/update-username/"+ username)
+            this.$router.push("/update-username/" + username)
         },
         mnx_navToUpdatePassword() {
             this.$router.push("/update-password/")

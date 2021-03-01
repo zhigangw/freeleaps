@@ -74,10 +74,7 @@ export default {
 
       UserAuthApi.signinByEmail(this.email, this.password)
         .then((response) => {
-          this.mnx_authenticatedUser(response.data);
-          this.mnx_setUserRole(response.data.role);
-          this.mnx_setKeepUserSignedIn(this.keepMeSignedin);
-          this.mnx_navAfterSignedin();
+          this.mnx_userSignedin(response.data, this.keepMeSignedin);
         })
         .catch((error) => {
           console.log(error);
