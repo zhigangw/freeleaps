@@ -17,12 +17,17 @@ class TextValidator extends Validator {
     validate(val) {
         let message = super.validate(val);
         if (message) return message;
+        if(val.length === 0){
+            message = this.valueName + " can't be empty.";
+            return message;
+
+        }
         if (val.length < this.minLength) {
-            message = this.valueName + " has " + (this.minLength) + " or more characters.";
+            message = this.valueName + "need have " + (this.minLength) + " or more characters.";
             return message;
         }
         if (val.length > this.maxLength) {
-            message = this.valueName + " has " + (this.maxLength) + " or less characters.";
+            message = this.valueName + "need have " + (this.maxLength) + " or less characters.";
             return message;
         }
         if (this.rules != undefined && this.rules != null) {

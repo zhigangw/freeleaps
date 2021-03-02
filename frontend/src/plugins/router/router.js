@@ -14,8 +14,14 @@ import UserSignin from "../../pages/account/UserSignin";
 
 import UserAccount from "../../pages/profile/UserAccount";
 import UpdateUsername from "../../pages/profile/UpdateUsername";
-import UpdatePassword from "../../pages/profile/UpdatePassword";
 import UsernameUpdated from "../../pages/profile/UsernameUpdated";
+import UpdatePassword from "../../pages/profile/UpdatePassword";
+import PasswordUpdated from "../../pages/profile/PasswordUpdated";
+import UpdateEmail from "../../pages/profile/UpdateEmail";
+import EmailUpdated from "../../pages/profile/EmailUpdated";
+import UpdateMobile from "../../pages/profile/UpdateMobile";
+import MobileUpdated from "../../pages/profile/MobileUpdated";
+
 import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -132,6 +138,7 @@ const router = createRouter({
       components: { default: UpdateUsername, header: HeaderUser },
       props: true,
     },
+
     {
       name: 'username-updated',
       path: '/username-updated/:username',
@@ -149,6 +156,46 @@ const router = createRouter({
     },
 
     
+    {
+      name: 'password-updated',
+      path: '/password-updated',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: PasswordUpdated, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'update-email',
+      path: '/update-email/:email',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateEmail, header: HeaderUser },
+      props: true,
+    },
+
+    {
+      name: 'email-updated',
+      path: '/email-updated/:email',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: EmailUpdated, header: HeaderUser },
+      props: true,
+    },
+
+    {
+      name: 'update-mobile',
+      path: '/update-mobile/:mobile',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateMobile, header: HeaderUser },
+      props: true,
+    },
+
+    {
+      name: 'mobile-updated',
+      path: '/mobile-updated/:mobile',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: MobileUpdated, header: HeaderUser },
+      props: true,
+    },
+
     {
       name: 'workplace',
       path: '/workplace',

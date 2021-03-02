@@ -31,6 +31,7 @@
               type="button"
               aria-label="Email"
               aria-describedby="email-input"
+              @click="gotoUpdateEmail"
             >{{email}}</button>
           </div>
           <div class="input-group-div">
@@ -40,6 +41,7 @@
               type="button"
               aria-label="Mobile"
               aria-describedby="mobile-input"
+              @click="gotoUpdateMobile"
             >{{mobile}}</button>
           </div>
         </div>
@@ -97,8 +99,17 @@ export default {
     gotoUpdateUsername() {
       this.mnx_navToUpdateUsername(this.username);
     },
+
     gotoUpdatePassword() {
       this.mnx_navToUpdatePassword();
+    },
+
+    gotoUpdateEmail() {
+      this.mnx_navToUpdateUsername(this.email);
+    },
+
+    gotoUpdateMobile() {
+      this.mnx_navToUpdateUsername(this.mobile);
     },
   },
 };

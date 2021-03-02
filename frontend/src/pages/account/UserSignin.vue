@@ -37,10 +37,15 @@
             </div>
 
             <div v-if="knownUsername != true" class="auxilliary-containter justify-content-end">
-              <button class="auxilliary-button" @click="forgetUsername" type="button">Forget Username?</button>
+              <button
+                class="auxilliary-button"
+                @click="forgetUsername"
+                type="button"
+              >Forget Username?</button>
             </div>
+
             <button class="input-signin-submit" type="submit">Sign In</button>
-            <p class="errorInput" v-if="hasInvalidInput()">{{inputError}}</p>
+            <p class="errorInput m-3" v-if="hasInvalidInput()">{{inputError}}</p>
           </form>
         </div>
       </div>
@@ -83,7 +88,7 @@ export default {
   },
   methods: {
     hasInvalidInput() {
-      return (this.inputError) && (this.inputError.length > 0);
+      return this.inputError && this.inputError.length > 0;
     },
 
     signIn() {
@@ -106,7 +111,16 @@ export default {
           this.mnx_userSignedin(response.data, this.keepMeSignedin);
         })
         .catch((error) => {
-          console.log(error);
+          var authFailedErrors = [401, 403, 422];
+          if (
+            error.response &&
+            authFailedErrors.includes(error.response.status)
+          ) {
+            this.inputError =
+              "The username and password don't match our record.";
+          } else {
+            console.log(error);
+          }
         });
     },
 
@@ -115,6 +129,12 @@ export default {
     },
 
     forgetPassword() {
+      this.inputError = userProfileValidator.usernameValidator.validate(
+        this.username
+      );
+      if (this.hasInvalidInput()) {
+        return;
+      }
       this.mnx_navToUserForgetPassword(this.username);
     },
   },
@@ -140,5 +160,7 @@ export default {
   @extend .form-control;
   @extend .btn;
   @extend .btn-primary;
+
+  @extend .my-3;
 }
 </style>

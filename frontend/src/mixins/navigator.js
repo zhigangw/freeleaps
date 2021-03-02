@@ -62,6 +62,10 @@ export default {
             this.$router.push("/update-password/")
         },
 
+        mnx_navToPasswordUpdated() {
+            this.$router.push("/password-updated/");
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },

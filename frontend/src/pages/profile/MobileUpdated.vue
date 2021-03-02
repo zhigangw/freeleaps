@@ -2,7 +2,7 @@
   <div class="main-body">
     <div class="story-board">
       <div class="focus-area">
-        <p class="callout text-center">Your username has been updated as <span class="fw-bold"> {{username}}</span></p>
+        <p class="callout text-center">Your mobile has been updated as <span class="fw-bold"> {{mobile}}</span></p>
         <button class="btn btn-primary my-5" @click="backToAccount">Continue to Account</button>
       </div>
     </div>
@@ -13,7 +13,7 @@
 export default {
   name: "UsernameUpdated",
   props: {
-    username: {
+    mobile: {
       required: true,
       type: String,
     },

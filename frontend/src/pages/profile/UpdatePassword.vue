@@ -5,7 +5,6 @@
         <p class="callout">Update password</p>
         <div class="form-group border-0">
           <form @submit.prevent="updatePassword">
-            <div class="input-group-div">
               <input
                 class="input-password-input"
                 type="password"
@@ -18,7 +17,6 @@
                 v-model="repeatdPassword"
                 placeholder="confirm"
               />
-            </div>
 
             <div class="input-group-div">
               <button class="input-password-cancel" type="button" @click="goBack">Cancel</button>
@@ -70,6 +68,7 @@ export default {
           response;
           this.password = null;
           this.repeatdPassword = null;
+          this.mnx_navToPasswordUpdated();
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
@@ -91,10 +90,9 @@ export default {
 }
 
 .input-password-input {
-  @extend .form-control;
-  @extend .my-0;
+  @extend .form-group-item;
+  @extend .my-3;
   @extend .py-0;
-  @extend .text-center;
 }
 .input-password-cancel {
   @extend .btn;
