@@ -9,7 +9,7 @@ from flask_jwt_extended import (
 from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile, PersonalProfile
 from flask_mail import Message
 from ..utils.mail import SendMail
-from ..utils.stringUtils import GenerateRandomPassword, GenerateHash
+from ..utils.stringUtils import GenerateRandomPassword, GenerateHash, GenerateAuthCode
 
 
 def create_jwt_token(identity):
@@ -85,6 +85,39 @@ class SendUsernameToEmail(Resource):
 
         return make_response(resp, return_code)
 
+class SendAuthCodeToEmail(Resource):
+    def __init__(self) -> None:
+        self.user_signup_post_parser = reqparse.RequestParser()
+        self.user_signup_post_parser.add_argument(
+            'email', dest='email',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    @jwt_required
+    def post(self):
+        identity = get_jwt_identity()
+        
+        args = self.user_signup_post_parser.parse_args()
+        return_code = 200
+        resp = None
+
+        authCode = GenerateAuthCode()
+        updatedDoc = UserDoc.objects(
+            id = identity
+        ).update(set__authProfile__emailAuthCode = authCode)
+
+        if updatedDoc <= 0:
+            resp = jsonify(text="user does not exist")
+            return_code = 401
+            return make_response(resp, return_code)
+
+        SendMail(args.email, "Freeleaps Support", authCode)
+
+        resp = jsonify(text="sent auth code to mailbox")
+        return_code = 200
+
+        return make_response(resp, return_code)
 
 class EmailSignin(Resource):
     def __init__(self) -> None:
@@ -204,7 +237,7 @@ class UserSignup(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=user.id,
+                identity=str(user.id),
                 expiresIn=expiresIn,
                 role=user.authProfile.role
             )
@@ -388,6 +421,11 @@ class UserProfileUpdateEmail(Resource):
             type=str, location='json',
             required=True, help='The user\'s email',
         )
+        self.post_parser.add_argument(
+            'code', dest='code',
+            type=str, location='json',
+            required=True, help='The user\'s code',
+        )
 
     @jwt_required
     def post(self):
@@ -398,6 +436,7 @@ class UserProfileUpdateEmail(Resource):
 
         affected = UserDoc.objects(
             id=userIdentity,
+            authProfile__emailAuthCode=args.code
         ).update(
             set__authProfile__email=args.email,
         )
@@ -409,7 +448,7 @@ class UserProfileUpdateEmail(Resource):
             resp = jsonify(
                 text="failed."
             )
-            return_code = 404
+            return_code = 403
 
         return make_response(resp, return_code)
 
@@ -480,6 +519,7 @@ class CheckUsernameAndEmail(Resource):
 routeMap = [
     {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
+    {'res': SendAuthCodeToEmail, 'url': '/api/user/send-authcode-to-email'},
     {'res': EmailSignin, 'url': '/api/user/email-signin'},
     {'res': EmailSignup, 'url': '/api/user/email-signup'},
     {'res': UserSignup, 'url': '/api/user/signup'},

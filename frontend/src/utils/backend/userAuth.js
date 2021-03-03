@@ -53,6 +53,20 @@ class UserAuthApi {
         return request;
     }
 
+    static sendAuthCodeToEmail(email) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/send-authcode-to-email',
+            {
+                email: email,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
     static signin(username, password) {
         const request = backendAxios.post('/api/user/signin', {
             username: username,

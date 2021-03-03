@@ -21,3 +21,10 @@ def GenerateRandomPassword():
 
 def GenerateHash(string):
     return hashlib.md5(string.encode('utf-8')).hexdigest()
+
+
+def GenerateAuthCode():
+
+    filtered = '0123456789'
+    code = ''.join(random.choice(filtered) for i in range(6))
+    return code

@@ -105,11 +105,11 @@ export default {
     },
 
     gotoUpdateEmail() {
-      this.mnx_navToUpdateUsername(this.email);
+      this.mnx_navToUpdateEmail(this.email);
     },
 
     gotoUpdateMobile() {
-      this.mnx_navToUpdateUsername(this.mobile);
+      this.mnx_navToUpdateMobile(this.mobile);
     },
   },
 };

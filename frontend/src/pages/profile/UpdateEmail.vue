@@ -4,12 +4,12 @@
       <div class="focus-area">
         <p class="callout">Update Email</p>
         <div class="form-group border-0">
-          <form @submit.prevent="updateEmail">
+          <form @submit.prevent="sendCodeToEmail">
             <div class="input-group-div">
               <input
                 class="input-email-input"
                 type="text"
-                v-model="newUsername"
+                v-model="newEmail"
                 placeholder="Your new email"
               />
             </div>
@@ -50,23 +50,23 @@ export default {
     hasError() {
       return this.errorMessage !== null;
     },
-    async updateEmail() {
+    sendCodeToEmail(){
       this.errorMessage = userProfileValidator.emailValidator.validate(
         this.newEmail
       );
       if (this.hasError()) {
         return;
       }
-      UserAuthApi.updateEmail(this.newEmail)
+      
+      UserAuthApi.sendAuthCodeToEmail(this.newEmail)
         .then((response) => {
           response;
-          this.newEmail = null;
+          this.mnx_navToEmailUpdateRequireCode(this.newEmail);
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
     },
-
     goBack() {
       this.mnx_goBack();
     },
@@ -97,7 +97,7 @@ export default {
   @extend .form-control;
   @extend .my-0;
   @extend .py-0;
-  @extend .text-center;
+  @extend .text-start;
 }
 .input-email-submit {
   @extend .btn;
@@ -107,7 +107,7 @@ export default {
 }
 .input-email-cancel {
   @extend .btn;
-  @extend .btn-primary;
+  @extend .btn-secondary;
   @extend .w-30;
   @extend .mx-auto;
 }

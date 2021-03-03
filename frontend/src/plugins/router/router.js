@@ -4,10 +4,10 @@ import { store, userRoleEnum } from '../store/index';
 import FrontDoor from "../../pages/account/FrontDoor";
 import EmailSignin from "../../pages/account/EmailSignin";
 import EmailSignup from "../../pages/account/EmailSignup";
-import UserForgetPassword from "../../pages/account/UserForgetPassword"
-import UserForgetUsername from "../../pages/account/UserForgetUsername"
-import TempPasswordSent from "../../pages/account/TempPasswordSent"
-import UsernameSent from "../../pages/account/UsernameSent"
+import UserForgetPassword from "../../pages/account/UserForgetPassword";
+import UserForgetUsername from "../../pages/account/UserForgetUsername";
+import TempPasswordSent from "../../pages/account/TempPasswordSent";
+import UsernameSent from "../../pages/account/UsernameSent";
 import UserSignin from "../../pages/account/UserSignin";
 
 
@@ -18,6 +18,7 @@ import UsernameUpdated from "../../pages/profile/UsernameUpdated";
 import UpdatePassword from "../../pages/profile/UpdatePassword";
 import PasswordUpdated from "../../pages/profile/PasswordUpdated";
 import UpdateEmail from "../../pages/profile/UpdateEmail";
+import EmailUpdateRequireCode from "../../pages/profile/EmailUpdateRequireCode";
 import EmailUpdated from "../../pages/profile/EmailUpdated";
 import UpdateMobile from "../../pages/profile/UpdateMobile";
 import MobileUpdated from "../../pages/profile/MobileUpdated";
@@ -171,7 +172,14 @@ const router = createRouter({
       components: { default: UpdateEmail, header: HeaderUser },
       props: true,
     },
-
+    {
+      name: 'email-update--require-code',
+      path: '/email-update--require-code/:email',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: EmailUpdateRequireCode, header: HeaderUser },
+      props: true,
+    },
+    
     {
       name: 'email-updated',
       path: '/email-updated/:email',

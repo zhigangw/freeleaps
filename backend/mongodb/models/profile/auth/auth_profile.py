@@ -6,4 +6,6 @@ class AuthProfile(me.EmbeddedDocument):
     password = me.StringField()
     role = me.IntField()
     email = me.StringField()
+    emailAuthCode=me.StringField()
     mobile = me.StringField()
+    mobileAuthCode=me.StringField()
