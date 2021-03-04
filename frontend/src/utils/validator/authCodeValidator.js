@@ -8,7 +8,7 @@ const AuthCodeMaxLength = 6;
 class AuthCodeValidator extends TextValidator {
     constructor() {
         super(
-            "Password",
+            "Auth Code",
             authCodeFormatMessage,
             [
                 {

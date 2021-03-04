@@ -82,6 +82,9 @@ export default {
         mnx_navToUpdateMobile(mobile) {
             this.$router.push("/update-mobile/" + mobile)
         },
+        mnx_navToMobileUpdateRequireCode(mobile) {
+            this.$router.push("/mobile-update--require-code/" + mobile)
+        },
         
         mnx_navToMobileUpdated(mobile) {
             this.$router.push("/mobile-updated/" + mobile);

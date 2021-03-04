@@ -9,6 +9,7 @@ from flask_jwt_extended import (
 from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile, PersonalProfile
 from flask_mail import Message
 from ..utils.mail import SendMail
+from ..utils.sms import SendSms
 from ..utils.stringUtils import GenerateRandomPassword, GenerateHash, GenerateAuthCode
 
 
@@ -115,6 +116,40 @@ class SendAuthCodeToEmail(Resource):
         SendMail(args.email, "Freeleaps Support", authCode)
 
         resp = jsonify(text="sent auth code to mailbox")
+        return_code = 200
+
+        return make_response(resp, return_code)
+
+class SendAuthCodeToMobile(Resource):
+    def __init__(self) -> None:
+        self.user_signup_post_parser = reqparse.RequestParser()
+        self.user_signup_post_parser.add_argument(
+            'mobile', dest='mobile',
+            type=str, location='json',
+            required=True, help='The user\'s email',
+        )
+
+    @jwt_required
+    def post(self):
+        identity = get_jwt_identity()
+        
+        args = self.user_signup_post_parser.parse_args()
+        return_code = 200
+        resp = None
+
+        authCode = GenerateAuthCode()
+        updatedDoc = UserDoc.objects(
+            id = identity
+        ).update(set__authProfile__mobileAuthCode = authCode)
+
+        if updatedDoc <= 0:
+            resp = jsonify(text="user does not exist")
+            return_code = 401
+            return make_response(resp, return_code)
+
+        SendSms(authCode, args.mobile)
+
+        resp = jsonify(text="sent auth code to mobile")
         return_code = 200
 
         return make_response(resp, return_code)
@@ -387,6 +422,11 @@ class UserProfileUpdateMobile(Resource):
             type=str, location='json',
             required=True, help='The user\'s mobile',
         )
+        self.post_parser.add_argument(
+            'code', dest='code',
+            type=str, location='json',
+            required=True, help='The user\'s code',
+        )
 
     @jwt_required
     def post(self):
@@ -397,6 +437,7 @@ class UserProfileUpdateMobile(Resource):
 
         affected = UserDoc.objects(
             id=userIdentity,
+            authProfile__mobileAuthCode=args.code
         ).update(
             set__authProfile__mobile=args.mobile,
         )
@@ -408,7 +449,7 @@ class UserProfileUpdateMobile(Resource):
             resp = jsonify(
                 text="failed."
             )
-            return_code = 404
+            return_code = 403
 
         return make_response(resp, return_code)
 
@@ -520,6 +561,8 @@ routeMap = [
     {'res': SendTempPasswordToEmail, 'url': '/api/user/send-temp-password-to-email'},
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
     {'res': SendAuthCodeToEmail, 'url': '/api/user/send-authcode-to-email'},
+    {'res': SendAuthCodeToMobile, 'url': '/api/user/send-authcode-to-mobile'},
+    
     {'res': EmailSignin, 'url': '/api/user/email-signin'},
     {'res': EmailSignup, 'url': '/api/user/email-signup'},
     {'res': UserSignup, 'url': '/api/user/signup'},
