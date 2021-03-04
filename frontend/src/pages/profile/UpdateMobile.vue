@@ -42,24 +42,27 @@ export default {
   },
 
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
     hasError() {
       return this.errorMessage !== null;
     },
-    sendCodeToMobile(){
+    sendCodeToMobile() {
       this.errorMessage = userProfileValidator.mobileValidator.validate(
         this.newMobile
       );
       if (this.hasError()) {
         return;
       }
-      
+
       UserAuthApi.sendAuthCodeToMobile(this.newMobile)
         .then((response) => {
-          response;
-          this.mnx_navToMobileUpdateRequireCode(this.newMobile);
+          if (response.data && response.data.status == "accepted") {
+            this.mnx_navToMobileUpdateRequireCode(this.newMobile);
+          } else {
+            this.errorMessage =
+              "something is wrong, please check the mobile number.";
+          }
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);

@@ -86,6 +86,7 @@ class SendUsernameToEmail(Resource):
 
         return make_response(resp, return_code)
 
+
 class SendAuthCodeToEmail(Resource):
     def __init__(self) -> None:
         self.user_signup_post_parser = reqparse.RequestParser()
@@ -98,15 +99,15 @@ class SendAuthCodeToEmail(Resource):
     @jwt_required
     def post(self):
         identity = get_jwt_identity()
-        
+
         args = self.user_signup_post_parser.parse_args()
         return_code = 200
         resp = None
 
         authCode = GenerateAuthCode()
         updatedDoc = UserDoc.objects(
-            id = identity
-        ).update(set__authProfile__emailAuthCode = authCode)
+            id=identity
+        ).update(set__authProfile__emailAuthCode=authCode)
 
         if updatedDoc <= 0:
             resp = jsonify(text="user does not exist")
@@ -120,6 +121,7 @@ class SendAuthCodeToEmail(Resource):
 
         return make_response(resp, return_code)
 
+
 class SendAuthCodeToMobile(Resource):
     def __init__(self) -> None:
         self.user_signup_post_parser = reqparse.RequestParser()
@@ -132,27 +134,27 @@ class SendAuthCodeToMobile(Resource):
     @jwt_required
     def post(self):
         identity = get_jwt_identity()
-        
+
         args = self.user_signup_post_parser.parse_args()
         return_code = 200
         resp = None
 
         authCode = GenerateAuthCode()
         updatedDoc = UserDoc.objects(
-            id = identity
-        ).update(set__authProfile__mobileAuthCode = authCode)
+            id=identity
+        ).update(set__authProfile__mobileAuthCode=authCode)
 
         if updatedDoc <= 0:
             resp = jsonify(text="user does not exist")
             return_code = 401
             return make_response(resp, return_code)
 
-        SendSms(authCode, args.mobile)
-
-        resp = jsonify(text="sent auth code to mobile")
+        status = SendSms(authCode, args.mobile)
+        resp = jsonify(status=status)
         return_code = 200
 
         return make_response(resp, return_code)
+
 
 class EmailSignin(Resource):
     def __init__(self) -> None:
@@ -562,7 +564,7 @@ routeMap = [
     {'res': SendUsernameToEmail, 'url': '/api/user/send-username-to-email'},
     {'res': SendAuthCodeToEmail, 'url': '/api/user/send-authcode-to-email'},
     {'res': SendAuthCodeToMobile, 'url': '/api/user/send-authcode-to-mobile'},
-    
+
     {'res': EmailSignin, 'url': '/api/user/email-signin'},
     {'res': EmailSignup, 'url': '/api/user/email-signup'},
     {'res': UserSignup, 'url': '/api/user/signup'},

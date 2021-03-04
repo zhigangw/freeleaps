@@ -12,8 +12,11 @@ def SendSms(body, to):
     message = client.messages \
     .create(
          body=body,
-         from_='MG55c36834afca2a2ff19b09370c48ceb6',
+         from_="+16898887156",
+         messaging_service_sid='MG55c36834afca2a2ff19b09370c48ceb6',
          to=to
      )
-    print(body, to, message.sid)
-    return message.sid
+    return message.status
+
+def SendTestSms():
+    SendSms("hello", "+14252099984")
