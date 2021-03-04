@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import { UserProfileApi } from "../../utils/index";
+import { UserProfileApi } from "../../../utils/index";
 
 export default {
   name: "UserAccount",

@@ -2,20 +2,23 @@
   <div class="main-body">
     <div class="story-board">
       <div class="focus-area">
-        <p class="callout">Update Email</p>
-        <div class="form-group border-0">
-          <form @submit.prevent="sendCodeToEmail">
+        <p class="callout">
+          Please type in the code we sent to
+          <span class="fw-bold">{{mobile}}</span>
+        </p>
+        <div class="form-group">
+          <form @submit.prevent="updateMobile">
             <div class="input-group-div">
               <input
-                class="input-email-input"
+                class="input-code-input"
                 type="text"
-                v-model="newEmail"
-                placeholder="Your new email"
+                v-model="code"
+                placeholder="Code sent to your mobile"
               />
             </div>
             <div class="input-group-div">
-              <button class="input-email-cancel" type="button" @click="goBack">Cancel</button>
-              <button class="input-email-submit" type="submit">Submit</button>
+              <button class="input-code-cancel" type="button" @click="goBack">Back</button>
+              <button class="input-code-submit" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
@@ -26,47 +29,49 @@
 </template>
 
 <script>
-import { userProfileValidator, UserAuthApi } from "../../utils/index";
+import { userProfileValidator, UserProfileApi } from "../../../utils/index";
 
 export default {
-  name: "UpdateEmail",
+  name: "MobileUpdateRequireCode",
   props: {
-    email: null,
+    mobile: {
+      required: true,
+      type: String,
+    },
   },
 
   data() {
     return {
-      currentEmail: "",
-      newEmail: null,
       errorMessage: null,
+      code: null,
     };
   },
 
+  components: {},
+
   created() {},
-  mounted() {
-    this.currentEmail = this.email;
-  },
+  mounted() {},
   methods: {
     hasError() {
       return this.errorMessage !== null;
     },
-    sendCodeToEmail(){
-      this.errorMessage = userProfileValidator.emailValidator.validate(
-        this.newEmail
+    async updateMobile() {
+      this.errorMessage = userProfileValidator.authCodeValidator.validate(
+        this.code
       );
       if (this.hasError()) {
         return;
       }
-      
-      UserAuthApi.sendAuthCodeToEmail(this.newEmail)
+      UserProfileApi.updateMobile(this.mobile, this.code)
         .then((response) => {
           response;
-          this.mnx_navToEmailUpdateRequireCode(this.newEmail);
+          this.mnx_navToMobileUpdated(this.mobile);
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
     },
+
     goBack() {
       this.mnx_goBack();
     },
@@ -81,31 +86,21 @@ export default {
   @extend .my-3;
 }
 
-.input-label {
-  @extend .h-90;
-  @extend .w-25;
-  @extend .text-start;
+.input-code-input {
+  @extend .form-control;
+  @extend .my-3;
+  @extend .mx-5;
+  @extend .p-1;
 }
 
-.input-email-text {
-  @extend .form-control;
-  @extend .my-0;
-  @extend .py-0;
-  @extend .text-center;
-}
-.input-email-input {
-  @extend .form-control;
-  @extend .my-0;
-  @extend .py-0;
-  @extend .text-start;
-}
-.input-email-submit {
+.input-code-submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .w-30;
   @extend .mx-auto;
 }
-.input-email-cancel {
+
+.input-code-cancel {
   @extend .btn;
   @extend .btn-secondary;
   @extend .w-30;

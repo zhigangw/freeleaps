@@ -2,23 +2,20 @@
   <div class="main-body">
     <div class="story-board">
       <div class="focus-area">
-        <p class="callout">
-          Please type in the code we sent to
-          <span class="fw-bold">{{email}}</span>
-        </p>
-        <div class="form-group">
-          <form @submit.prevent="updateEmail">
+        <p class="callout">Update Mobile</p>
+        <div class="form-group border-0">
+          <form @submit.prevent="sendCodeToMobile">
             <div class="input-group-div">
               <input
-                class="input-code-input"
+                class="input-mobile-input"
                 type="text"
-                v-model="code"
-                placeholder="Code sent to your email"
+                v-model="newMobile"
+                placeholder="Your new mobile"
               />
             </div>
             <div class="input-group-div">
-              <button class="input-code-cancel" type="button" @click="goBack">Back</button>
-              <button class="input-code-submit" type="submit">Submit</button>
+              <button class="input-mobile-cancel" type="button" @click="goBack">Cancel</button>
+              <button class="input-mobile-submit" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
@@ -29,25 +26,20 @@
 </template>
 
 <script>
-import { userProfileValidator, UserProfileApi } from "../../utils/index";
+import { userProfileValidator, UserAuthApi } from "../../../utils/index";
 
 export default {
-  name: "EmailUpdateRequireCode",
+  name: "UpdateMobile",
   props: {
-    email: {
-      required: true,
-      type: String,
-    },
+    mobile: null,
   },
 
   data() {
     return {
+      newMobile: null,
       errorMessage: null,
-      code: null,
     };
   },
-
-  components: {},
 
   created() {},
   mounted() {},
@@ -55,23 +47,27 @@ export default {
     hasError() {
       return this.errorMessage !== null;
     },
-    async updateEmail() {
-      this.errorMessage = userProfileValidator.authCodeValidator.validate(
-        this.code
+    sendCodeToMobile() {
+      this.errorMessage = userProfileValidator.mobileValidator.validate(
+        this.newMobile
       );
       if (this.hasError()) {
         return;
       }
-      UserProfileApi.updateEmail(this.email, this.code)
+
+      UserAuthApi.sendAuthCodeToMobile(this.newMobile)
         .then((response) => {
-          response;
-          this.mnx_navToEmailUpdated(this.email);
+          if (response.data && response.data.status == "accepted") {
+            this.mnx_navToMobileUpdateRequireCode(this.newMobile);
+          } else {
+            this.errorMessage =
+              "something is wrong, please check the mobile number.";
+          }
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
     },
-
     goBack() {
       this.mnx_goBack();
     },
@@ -86,19 +82,28 @@ export default {
   @extend .my-3;
 }
 
-.input-code-input {
-  @extend .form-control;
-  @extend .my-3;
-  @extend .mx-5;
-  @extend .p-1;
+.input-label {
+  @extend .h-90;
+  @extend .w-25;
+  @extend .text-start;
 }
-.input-code-submit {
+
+.input-mobile-input {
+  @extend .form-control;
+  @extend .mx-3;
+  @extend .my-3;
+  @extend .py-3;
+  @extend .text-start;
+}
+
+.input-mobile-submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .w-30;
   @extend .mx-auto;
 }
-.input-code-cancel {
+
+.input-mobile-cancel {
   @extend .btn;
   @extend .btn-secondary;
   @extend .w-30;

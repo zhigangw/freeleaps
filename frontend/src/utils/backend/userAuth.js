@@ -67,6 +67,20 @@ class UserAuthApi {
         return request;
     }
 
+    static sendAuthCodeToMobile(mobile) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user/send-authcode-to-mobile',
+            {
+                mobile: mobile,
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
     static signin(username, password) {
         const request = backendAxios.post('/api/user/signin', {
             username: username,

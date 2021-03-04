@@ -12,16 +12,17 @@ import UserSignin from "../../pages/account/UserSignin";
 
 
 
-import UserAccount from "../../pages/profile/UserAccount";
-import UpdateUsername from "../../pages/profile/UpdateUsername";
-import UsernameUpdated from "../../pages/profile/UsernameUpdated";
-import UpdatePassword from "../../pages/profile/UpdatePassword";
-import PasswordUpdated from "../../pages/profile/PasswordUpdated";
-import UpdateEmail from "../../pages/profile/UpdateEmail";
-import EmailUpdateRequireCode from "../../pages/profile/EmailUpdateRequireCode";
-import EmailUpdated from "../../pages/profile/EmailUpdated";
-import UpdateMobile from "../../pages/profile/UpdateMobile";
-import MobileUpdated from "../../pages/profile/MobileUpdated";
+import UserAccount from "../../pages/profile/account/UserAccount";
+import UpdateUsername from "../../pages/profile/account/UpdateUsername";
+import UsernameUpdated from "../../pages/profile/account/UsernameUpdated";
+import UpdatePassword from "../../pages/profile/account/UpdatePassword";
+import PasswordUpdated from "../../pages/profile/account/PasswordUpdated";
+import UpdateEmail from "../../pages/profile/account/UpdateEmail";
+import EmailUpdateRequireCode from "../../pages/profile/account/EmailUpdateRequireCode";
+import EmailUpdated from "../../pages/profile/account/EmailUpdated";
+import UpdateMobile from "../../pages/profile/account/UpdateMobile";
+import MobileUpdateRequireCode from "../../pages/profile/account/MobileUpdateRequireCode";
+import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -82,7 +83,7 @@ const router = createRouter({
         } // /teams/t1
       ]*/
     },
-    
+
     {
       name: 'user-forget-password',
       path: '/user-forget-password/:username',
@@ -105,7 +106,7 @@ const router = createRouter({
       props: true,
     },
 
-    
+
     {
       name: 'username-sent',
       path: '/username-sent/:email',
@@ -156,7 +157,7 @@ const router = createRouter({
       props: true,
     },
 
-    
+
     {
       name: 'password-updated',
       path: '/password-updated',
@@ -172,6 +173,7 @@ const router = createRouter({
       components: { default: UpdateEmail, header: HeaderUser },
       props: true,
     },
+
     {
       name: 'email-update--require-code',
       path: '/email-update--require-code/:email',
@@ -179,7 +181,7 @@ const router = createRouter({
       components: { default: EmailUpdateRequireCode, header: HeaderUser },
       props: true,
     },
-    
+
     {
       name: 'email-updated',
       path: '/email-updated/:email',
@@ -193,6 +195,13 @@ const router = createRouter({
       path: '/update-mobile/:mobile',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: UpdateMobile, header: HeaderUser },
+      props: true,
+    },
+    {
+      name: 'mobile-update--require-code',
+      path: '/mobile-update--require-code/:mobile',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: MobileUpdateRequireCode, header: HeaderUser },
       props: true,
     },
 
