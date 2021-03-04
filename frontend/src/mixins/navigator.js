@@ -69,6 +69,7 @@ export default {
         mnx_navToUpdateEmail(email) {
             this.$router.push("/update-email/" + email)
         },
+
         mnx_navToEmailUpdateRequireCode(email) {
             this.$router.push("/email-update--require-code/" + email)
         },
@@ -77,17 +78,20 @@ export default {
             this.$router.push("/email-updated/" + email);
         },
 
-
-
         mnx_navToUpdateMobile(mobile) {
             this.$router.push("/update-mobile/" + mobile)
         },
+
         mnx_navToMobileUpdateRequireCode(mobile) {
             this.$router.push("/mobile-update--require-code/" + mobile)
         },
         
         mnx_navToMobileUpdated(mobile) {
             this.$router.push("/mobile-updated/" + mobile);
+        },
+
+        mnx_navToUserPersonal() {
+            this.$router.push("/user-personal")
         },
 
         mnx_navToWorkplace() {

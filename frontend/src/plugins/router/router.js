@@ -24,6 +24,9 @@ import UpdateMobile from "../../pages/profile/account/UpdateMobile";
 import MobileUpdateRequireCode from "../../pages/profile/account/MobileUpdateRequireCode";
 import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
+
+
+import UserPersonal from "../../pages/profile/personal/UserPersonal";
 import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -210,6 +213,14 @@ const router = createRouter({
       path: '/mobile-updated/:mobile',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: MobileUpdated, header: HeaderUser },
+      props: true,
+    },
+
+    {
+      name: 'user-personal',
+      path: '/user-personal',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UserPersonal, header: HeaderUser },
       props: true,
     },
 

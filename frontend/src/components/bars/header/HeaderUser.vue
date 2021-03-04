@@ -43,7 +43,9 @@ export default {
     gotoAccount() {
       this.mnx_navToUserAccount();
     },
-    gotoPersonal() {},
+    gotoPersonal() {
+      this.mnx_navToUserPersonal();
+      },
     gotoProfile() {},
     gotoExperience() {},
   },
