@@ -2,23 +2,20 @@
   <div class="main-body">
     <div class="story-board">
       <div class="focus-area">
-        <p class="callout">
-          Please type in the code we sent to
-          <span class="fw-bold">{{email}}</span>
-        </p>
-        <div class="form-group">
-          <form @submit.prevent="updateEmail">
+        <p class="callout">Update Email</p>
+        <div class="form-group border-0">
+          <form @submit.prevent="sendCodeToEmail">
             <div class="input-group-div">
               <input
-                class="input-code-input"
+                class="input-email-input"
                 type="text"
-                v-model="code"
-                placeholder="Code sent to your email"
+                v-model="newEmail"
+                placeholder="Your new email"
               />
             </div>
             <div class="input-group-div">
-              <button class="input-code-cancel" type="button" @click="goBack">Back</button>
-              <button class="input-code-submit" type="submit">Submit</button>
+              <button class="input-email-cancel" type="button" @click="goBack">Cancel</button>
+              <button class="input-email-submit" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
@@ -29,49 +26,45 @@
 </template>
 
 <script>
-import { userProfileValidator, UserProfileApi } from "../../utils/index";
+import { userProfileValidator, UserAuthApi } from "../../../utils/index";
 
 export default {
-  name: "EmailUpdateRequireCode",
+  name: "UpdateEmail",
   props: {
-    email: {
-      required: true,
-      type: String,
-    },
+    email: null,
   },
 
   data() {
     return {
+      newEmail: null,
       errorMessage: null,
-      code: null,
     };
   },
 
-  components: {},
-
   created() {},
-  mounted() {},
+  mounted() {
+  },
   methods: {
     hasError() {
       return this.errorMessage !== null;
     },
-    async updateEmail() {
-      this.errorMessage = userProfileValidator.authCodeValidator.validate(
-        this.code
+    sendCodeToEmail(){
+      this.errorMessage = userProfileValidator.emailValidator.validate(
+        this.newEmail
       );
       if (this.hasError()) {
         return;
       }
-      UserProfileApi.updateEmail(this.email, this.code)
+      
+      UserAuthApi.sendAuthCodeToEmail(this.newEmail)
         .then((response) => {
           response;
-          this.mnx_navToEmailUpdated(this.email);
+          this.mnx_navToEmailUpdateRequireCode(this.newEmail);
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
     },
-
     goBack() {
       this.mnx_goBack();
     },
@@ -86,19 +79,31 @@ export default {
   @extend .my-3;
 }
 
-.input-code-input {
-  @extend .form-control;
-  @extend .my-3;
-  @extend .mx-5;
-  @extend .p-1;
+.input-label {
+  @extend .h-90;
+  @extend .w-25;
+  @extend .text-start;
 }
-.input-code-submit {
+
+.input-email-text {
+  @extend .form-control;
+  @extend .my-0;
+  @extend .py-0;
+  @extend .text-center;
+}
+.input-email-input {
+  @extend .form-control;
+  @extend .my-0;
+  @extend .py-0;
+  @extend .text-start;
+}
+.input-email-submit {
   @extend .btn;
   @extend .btn-primary;
   @extend .w-30;
   @extend .mx-auto;
 }
-.input-code-cancel {
+.input-email-cancel {
   @extend .btn;
   @extend .btn-secondary;
   @extend .w-30;

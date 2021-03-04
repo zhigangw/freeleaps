@@ -12,17 +12,17 @@ import UserSignin from "../../pages/account/UserSignin";
 
 
 
-import UserAccount from "../../pages/profile/UserAccount";
-import UpdateUsername from "../../pages/profile/UpdateUsername";
-import UsernameUpdated from "../../pages/profile/UsernameUpdated";
-import UpdatePassword from "../../pages/profile/UpdatePassword";
-import PasswordUpdated from "../../pages/profile/PasswordUpdated";
-import UpdateEmail from "../../pages/profile/UpdateEmail";
-import EmailUpdateRequireCode from "../../pages/profile/EmailUpdateRequireCode";
-import EmailUpdated from "../../pages/profile/EmailUpdated";
-import UpdateMobile from "../../pages/profile/UpdateMobile";
-import MobileUpdateRequireCode from "../../pages/profile/MobileUpdateRequireCode";
-import MobileUpdated from "../../pages/profile/MobileUpdated";
+import UserAccount from "../../pages/profile/account/UserAccount";
+import UpdateUsername from "../../pages/profile/account/UpdateUsername";
+import UsernameUpdated from "../../pages/profile/account/UsernameUpdated";
+import UpdatePassword from "../../pages/profile/account/UpdatePassword";
+import PasswordUpdated from "../../pages/profile/account/PasswordUpdated";
+import UpdateEmail from "../../pages/profile/account/UpdateEmail";
+import EmailUpdateRequireCode from "../../pages/profile/account/EmailUpdateRequireCode";
+import EmailUpdated from "../../pages/profile/account/EmailUpdated";
+import UpdateMobile from "../../pages/profile/account/UpdateMobile";
+import MobileUpdateRequireCode from "../../pages/profile/account/MobileUpdateRequireCode";
+import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
 import Workplace from "../../pages/dashboard/Workplace"
 

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { userProfileValidator, UserAuthApi } from "../../utils/index";
+import { userProfileValidator, UserAuthApi } from "../../../utils/index";
 
 export default {
   name: "UpdateUsername",
