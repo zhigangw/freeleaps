@@ -17,8 +17,8 @@
               />
             </div>
             <div class="input-group-div">
-              <button class="input-email-cancel" type="button" @click="goBack">Back</button>
-              <button class="input-email-submit" type="submit">Submit</button>
+              <button class="input-code-cancel" type="button" @click="goBack">Back</button>
+              <button class="input-code-submit" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
@@ -81,4 +81,27 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+.input-group-div {
+  @extend .input-group;
+  @extend .my-3;
+}
+
+.input-code-input {
+  @extend .form-control;
+  @extend .my-3;
+  @extend .mx-5;
+  @extend .p-1;
+}
+.input-code-submit {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .w-30;
+  @extend .mx-auto;
+}
+.input-code-cancel {
+  @extend .btn;
+  @extend .btn-secondary;
+  @extend .w-30;
+  @extend .mx-auto;
+}
 </style>
