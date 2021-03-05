@@ -26,6 +26,9 @@ import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
 
 
+
+import UpdatePhoto from "../../pages/profile/personal/UpdatePhoto";
+import PhotoUpdated from "../../pages/profile/personal/PhotoUpdated";
 import UserPersonal from "../../pages/profile/personal/UserPersonal";
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -214,6 +217,22 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: MobileUpdated, header: HeaderUser },
       props: true,
+    },
+
+    {
+      name: 'update-photo',
+      path: '/update-photo/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdatePhoto, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'photo-updated',
+      path: '/photo-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: PhotoUpdated, header: HeaderUser },
+      props: false,
     },
 
     {

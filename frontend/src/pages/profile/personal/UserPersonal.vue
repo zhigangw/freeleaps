@@ -12,7 +12,9 @@
               aria-label="photo"
               aria-describedby="photo-input"
               @click="gotoUpdatePhoto"
-            ><img class="user-photo" :src="photo"/></button>
+            >
+              <img class="user-photo" :src="photo" />
+            </button>
           </div>
           <div class="input-group-div">
             <span class="input-label" id="name-input">Name</span>
@@ -32,7 +34,7 @@
               aria-label="location"
               aria-describedby="location-input"
               @click="gotoUpdateLocation"
-            >{{email}}</button>
+            >{{location}}</button>
           </div>
         </div>
       </div>
@@ -41,7 +43,7 @@
 </template>
 
 <script>
-import { UserProfileApi } from "../../../utils/index";
+import { UserProfileApi,userProfileUtils } from "../../../utils/index";
 
 export default {
   name: "UserPersonal",
@@ -51,7 +53,7 @@ export default {
     return {
       firstName: "not",
       lastName: "set",
-      photo: require('@/assets/default-user-photo.svg'),
+      photo: require("@/assets/default-user-photo.svg"),
       location: "not set",
       personalProfile: {},
     };
@@ -64,16 +66,25 @@ export default {
   methods: {
     populatePersonalData() {
       if (this.personalProfile) {
-        if ("firstName" in this.personalProfile && this.personalProfile.firstName) {
+        if (
+          "firstName" in this.personalProfile &&
+          this.personalProfile.firstName
+        ) {
           this.firstName = this.personalProfile.firstName;
         }
-        if ("lastName" in this.personalProfile && this.personalProfile.lastName) {
+        if (
+          "lastName" in this.personalProfile &&
+          this.personalProfile.lastName
+        ) {
           this.lastName = this.personalProfile.lastName;
         }
         if ("photo" in this.personalProfile && this.personalProfile.photo) {
           this.photo = this.personalProfile.photo;
         }
-        if ("location" in this.personalProfile && this.personalProfile.location) {
+        if (
+          "location" in this.personalProfile &&
+          this.personalProfile.location
+        ) {
           this.location = this.personalProfile.location;
         }
       }
@@ -94,13 +105,13 @@ export default {
     },
 
     gotoUpdatePhoto() {
+      userProfileUtils.fillPhoto(this.photo);
       this.mnx_navToUpdatePhoto();
     },
 
     gotoUpdateLocation() {
       this.mnx_navToUpdateLocation(this.email);
     },
-
   },
 };
 </script>
@@ -109,7 +120,8 @@ export default {
 <style scoped lang="scss">
 .input-group-div {
   @extend .input-group;
-  @extend .my-3;
+  @extend .my-5;
+  @extend .align-items-center;
 }
 
 .input-label {
@@ -121,7 +133,6 @@ export default {
 .input-link-button {
   @extend .btn;
   @extend .btn-link;
-  @extend .form-control;
   @extend .my-0;
   @extend .py-0;
   @extend .text-center;
@@ -130,11 +141,32 @@ export default {
 .input-img-button {
   @extend .btn;
   @extend .btn-link;
-  @extend .form-control;
 }
 
-.user-photo{
-    max-width: 64px;
-    max-height: 64px;
+.user-photo {
+  @include media-breakpoint-up(xs) {
+    width: 12vw;
+    height: 12vw;
+  }
+  @include media-breakpoint-up(sm) {
+    width: 11vw;
+    height: 11vw;
+  }
+  @include media-breakpoint-up(md) {
+    width: 10vw;
+    height: 10vw;
+  }
+  @include media-breakpoint-up(lg) {
+    width: 9vw;
+    height: 9vw;
+  }
+  @include media-breakpoint-up(xl) {
+    width: 7.5vw;
+    height: 7.5vw;
+  }
+  @include media-breakpoint-up(xxl) {
+    width: 6vw;
+    height: 6vw;
+  }
 }
 </style>

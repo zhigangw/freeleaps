@@ -53,7 +53,7 @@ export default {
         mnx_navToUpdateUsername(username) {
             this.$router.push("/update-username/" + username)
         },
-        
+
         mnx_navToUsernameUpdated(username) {
             this.$router.push("/username-updated/" + username);
         },
@@ -73,7 +73,7 @@ export default {
         mnx_navToEmailUpdateRequireCode(email) {
             this.$router.push("/email-update--require-code/" + email)
         },
-        
+
         mnx_navToEmailUpdated(email) {
             this.$router.push("/email-updated/" + email);
         },
@@ -85,13 +85,21 @@ export default {
         mnx_navToMobileUpdateRequireCode(mobile) {
             this.$router.push("/mobile-update--require-code/" + mobile)
         },
-        
+
         mnx_navToMobileUpdated(mobile) {
             this.$router.push("/mobile-updated/" + mobile);
         },
 
         mnx_navToUserPersonal() {
             this.$router.push("/user-personal")
+        },
+
+        mnx_navToUpdatePhoto() {
+            this.$router.push("/update-photo/")
+        },
+
+        mnx_navToPhotoUpdated() {
+            this.$router.push("/photo-updated/");
         },
 
         mnx_navToWorkplace() {
