@@ -101,7 +101,8 @@ export default {
     },
 
     gotoUpdateName() {
-      this.mnx_navToUpdateName(this.firstName, this.lastName);
+      userProfileUtils.fillName(this.firstName, this.lastName);
+      this.mnx_navToUpdateName();
     },
 
     gotoUpdatePhoto() {

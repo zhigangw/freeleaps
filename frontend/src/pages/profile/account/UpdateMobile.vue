@@ -6,11 +6,12 @@
         <div class="form-group border-0">
           <form @submit.prevent="sendCodeToMobile">
             <div class="input-group-div">
+              <span class="input-label">+</span>
               <input
                 class="input-mobile-input"
                 type="text"
                 v-model="newMobile"
-                placeholder="Your new mobile"
+                placeholder="mobile (number only with country code)"
               />
             </div>
             <div class="input-group-div">
@@ -83,16 +84,13 @@ export default {
 }
 
 .input-label {
-  @extend .h-90;
-  @extend .w-25;
+  @extend .input-group-text;
   @extend .text-start;
+  @include font-size(0.5rem);
 }
 
 .input-mobile-input {
   @extend .form-control;
-  @extend .mx-3;
-  @extend .my-3;
-  @extend .py-3;
   @extend .text-start;
 }
 

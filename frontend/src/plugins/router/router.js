@@ -29,7 +29,10 @@ import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
 import UpdatePhoto from "../../pages/profile/personal/UpdatePhoto";
 import PhotoUpdated from "../../pages/profile/personal/PhotoUpdated";
+import UpdateName from "../../pages/profile/personal/UpdateName";
+import NameUpdated from "../../pages/profile/personal/NameUpdated";
 import UserPersonal from "../../pages/profile/personal/UserPersonal";
+
 import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -234,6 +237,23 @@ const router = createRouter({
       components: { default: PhotoUpdated, header: HeaderUser },
       props: false,
     },
+
+    {
+      name: 'update-name',
+      path: '/update-name/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateName, header: HeaderUser },
+      props: false ,
+    },
+
+    {
+      name: 'name-updated',
+      path: '/name-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: NameUpdated, header: HeaderUser },
+      props: false,
+    },
+
 
     {
       name: 'user-personal',

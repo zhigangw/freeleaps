@@ -13,10 +13,6 @@
 export default {
   name: "ProfileUpdated",
   props: {
-    email: {
-      required: true,
-      type: String,
-    },
   },
 
   data() {
@@ -28,7 +24,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    backToAccount() {
+    backToPersonal() {
       this.mnx_navToUserPersonal();
     },
   },

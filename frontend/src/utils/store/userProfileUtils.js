@@ -9,8 +9,17 @@ class UserProfileUtils {
         this.photo = photo;
     }
 
-    fetchPhoto(){
+    fetchPhoto() {
         return this.photo;
+    }
+
+    fillName(first, last) {
+        this.firstName = first;
+        this.lastName = last;
+    }
+
+    fetchName() {
+        return [this.firstName, this.lastName];
     }
 }
 

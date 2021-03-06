@@ -54,7 +54,6 @@ export default {
   created() {},
   mounted() {
     this.newPhoto = userProfileUtils.fetchPhoto();
-    console.log(this.newPhoto);
   },
 
   methods: {

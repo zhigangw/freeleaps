@@ -102,6 +102,14 @@ export default {
             this.$router.push("/photo-updated/");
         },
 
+        mnx_navToUpdateName() {
+            this.$router.push("/update-name/")
+        },
+
+        mnx_navToNameUpdated() {
+            this.$router.push("/name-updated/");
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },
