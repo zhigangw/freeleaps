@@ -1,13 +1,13 @@
 <template>
-  <profile-updated class="focus-area">
+  <personal-updated class="focus-area">
     <template #result>
       <p class="callout text-center">Your photo has been updated</p>
     </template>
-  </profile-updated>
+  </personal-updated>
 </template>
 
 <script>
-import ProfileUpdated from "../templates/ProfileUpdated";
+import PersonalUpdated from "../templates/PersonalUpdated";
 export default {
   name: "PhotoUpdated",
   props: {
@@ -19,7 +19,7 @@ export default {
   },
 
   components: {
-    ProfileUpdated,
+    PersonalUpdated,
   },
 
   created() {},

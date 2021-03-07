@@ -3,5 +3,5 @@ from .experience import Experience
 
 class CareerProfile(me.EmbeddedDocument):
     experience = me.EmbeddedDocumentField(Experience)
-    jobRole = me.StringField()
-    linkedinPage = me.StringField()
+    preferredRoles = me.ListField(me.StringField())
+    tags = me.ListField(me.StringField())

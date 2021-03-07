@@ -1,18 +1,18 @@
 <template>
-  <profile-updated class="focus-area">
+  <personal-updated class="focus-area">
     <template #result>
       <p class="callout text-center">
         Your location has been updated as
         <span class="fw-bold">{{location}}</span>
       </p>
     </template>
-  </profile-updated>
+  </personal-updated>
 </template>
 
 <script>
 import { userProfileUtils } from "../../../utils/index";
 
-import ProfileUpdated from "../templates/ProfileUpdated";
+import PersonalUpdated from "../templates/PersonalUpdated";
 export default {
   name: "LocationUpdated",
   props: {},
@@ -24,7 +24,7 @@ export default {
   },
 
   components: {
-    ProfileUpdated,
+    PersonalUpdated,
   },
 
   created() {},
