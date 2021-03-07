@@ -8,7 +8,7 @@ import {HeadlineValidator} from "./headlineValidator"
 import {HighlightValidator} from "./highlightValidator"
 import {DescriptionValidator} from "./descriptionValidator"
 import {AuthCodeValidator} from "./authCodeValidator"
-
+import {CountryNameValidator} from "./countryNameValidator"
 
 class ProfileValidator {
     constructor() {
@@ -22,6 +22,7 @@ class ProfileValidator {
         this.highlightValidator = new HighlightValidator();
         this.descriptionValidator = new DescriptionValidator();
         this.authCodeValidator = new AuthCodeValidator();
+        this.countryNameValidator = new CountryNameValidator();
     }
 }
 

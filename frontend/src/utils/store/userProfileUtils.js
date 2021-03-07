@@ -21,6 +21,14 @@ class UserProfileUtils {
     fetchName() {
         return [this.firstName, this.lastName];
     }
+
+    fillLocation(location) {
+        this.location = location;
+    }
+
+    fetchLocation() {
+        return this.location;
+    }
 }
 
 const userProfileUtils = new UserProfileUtils(store);

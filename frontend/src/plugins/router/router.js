@@ -31,6 +31,8 @@ import UpdatePhoto from "../../pages/profile/personal/UpdatePhoto";
 import PhotoUpdated from "../../pages/profile/personal/PhotoUpdated";
 import UpdateName from "../../pages/profile/personal/UpdateName";
 import NameUpdated from "../../pages/profile/personal/NameUpdated";
+import UpdateLocation from "../../pages/profile/personal/UpdateLocation";
+import LocationUpdated from "../../pages/profile/personal/LocationUpdated";
 import UserPersonal from "../../pages/profile/personal/UserPersonal";
 
 import Workplace from "../../pages/dashboard/Workplace"
@@ -254,6 +256,21 @@ const router = createRouter({
       props: false,
     },
 
+    {
+      name: 'update-location',
+      path: '/update-location/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateLocation, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'location-updated',
+      path: '/location-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: LocationUpdated, header: HeaderUser },
+      props: false,
+    },
 
     {
       name: 'user-personal',

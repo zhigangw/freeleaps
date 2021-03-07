@@ -19,7 +19,7 @@ import LocationInput from "../../inputs/user/LocationInput";
 import { UserProfileApi } from "../../../utils/index";
 
 export default {
-  name: "UpdateEmailModal",
+  name: "UpdateLocationModal",
   props: {},
   emits: {
     updated: function (location) {

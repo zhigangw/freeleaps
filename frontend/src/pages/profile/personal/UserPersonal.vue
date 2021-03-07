@@ -54,7 +54,7 @@ export default {
       firstName: "not",
       lastName: "set",
       photo: require("@/assets/default-user-photo.svg"),
-      location: "not set",
+      location: "United States of America",
       personalProfile: {},
     };
   },
@@ -111,7 +111,8 @@ export default {
     },
 
     gotoUpdateLocation() {
-      this.mnx_navToUpdateLocation(this.email);
+      userProfileUtils.fillLocation(this.location);
+      this.mnx_navToUpdateLocation();
     },
   },
 };

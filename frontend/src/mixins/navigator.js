@@ -110,6 +110,14 @@ export default {
             this.$router.push("/name-updated/");
         },
 
+        mnx_navToUpdateLocation() {
+            this.$router.push("/update-location/")
+        },
+
+        mnx_navToLocationUpdated() {
+            this.$router.push("/location-updated/");
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },
