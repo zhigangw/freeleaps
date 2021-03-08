@@ -122,6 +122,13 @@ export default {
   @extend .btn-link;
 }
 
+.input-code-submit {
+  @extend .form-submit;
+}
+.input-code-cancel {
+  @extend .form-cancel;
+}
+
 .user-photo {
   @include media-breakpoint-up(xs) {
     width: 12vw;

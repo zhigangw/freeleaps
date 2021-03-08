@@ -117,15 +117,9 @@ export default {
   @extend .text-center;
 }
 .input-username-submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-submit;
 }
 .input-username-cancel {
-  @extend .btn;
-  @extend .btn-secondary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-cancel;
 }
 </style>

@@ -95,16 +95,10 @@ export default {
   @extend .py-0;
 }
 .input-password-cancel {
-  @extend .btn;
-  @extend .btn-secondary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-cancel;
 }
 
 .input-password-submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-submit;
 }
 </style>

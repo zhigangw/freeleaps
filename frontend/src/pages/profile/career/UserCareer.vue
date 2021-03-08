@@ -25,6 +25,7 @@
               readonly
               aria-label="headline"
               aria-describedby="headline-input"
+              @click="updateHighlight"
             />
           </div>
           <div class="input-group-div">
@@ -127,9 +128,9 @@ export default {
       this.mnx_navToUpdateHeadline();
     },
 
-    gotoUpdatePhoto() {
-      userProfileUtils.fillPhoto(this.photo);
-      this.mnx_navToUpdatePhoto();
+    updateHighlight() {
+      userProfileUtils.fillHighlight(this.highlight);
+      this.mnx_navToUpdateHighlight();
     },
 
     gotoUpdateLocation() {

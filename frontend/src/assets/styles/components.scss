@@ -38,6 +38,20 @@
   @extend .my-2;
 }
 
+.form-submit {
+  @extend .btn;
+  @extend .btn-primary;
+  @extend .w-30;
+  @extend .mx-auto;
+}
+
+.form-cancel {
+  @extend .btn;
+  @extend .btn-secondary;
+  @extend .w-30;
+  @extend .mx-auto;
+}
+
 .main-body {
   margin-top: 0px;
   width: 100%;

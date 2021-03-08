@@ -2,21 +2,21 @@
   <div class="main-body">
     <div class="story-board">
       <div class="focus-area">
-        <p class="callout">Update Headline</p>
+        <p class="callout">Update Highlight</p>
         <div class="form-group border-0">
-          <form @submit.prevent="updateHeadline">
+          <form @submit.prevent="updateHighlight">
             <div class="input-group-div">
               <textarea
                 class="control-text"
-                v-model="headline"
-                placeholder="What would you like people to call you, like, an experienced software engineer in IOT"
-                aria-label="headline"
-                aria-describedby="headline-input"
+                v-model="highlight"
+                placeholder="A couple of sentences about your achievement which you think will impress people"
+                aria-label="highlight"
+                aria-describedby="highlight-input"
               />
             </div>
             <div class="input-group-div">
-              <button class="input-headline-cancel" type="button" @click="goBack">Cancel</button>
-              <button class="input-headline-submit" type="submit">Submit</button>
+              <button class="input-highlight-cancel" type="button" @click="goBack">Cancel</button>
+              <button class="input-highlight-submit" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
@@ -34,38 +34,38 @@ import {
 } from "../../../utils/index";
 
 export default {
-  name: "UpdateHeadline",
+  name: "UpdateHighlight",
   props: {},
 
   data() {
     return {
-      headline: null,
+      highlight: null,
       errorMessage: null,
     };
   },
 
   created() {},
   mounted() {
-    this.headline = userProfileUtils.fetchHeadline();
+    this.highlight = userProfileUtils.fetchHighlight();
   },
   methods: {
     hasError() {
       return this.errorMessage !== null;
     },
-    async updateHeadline() {
-      this.errorMessage = userProfileValidator.headlineValidator.validate(
-        this.headline
+    async updateHighlight() {
+      this.errorMessage = userProfileValidator.highlightValidator.validate(
+        this.highlight
       );
 
       if (this.hasError()) {
         return;
       }
 
-      CareerProfileApi.updateExperienceHeadline(this.headline)
+      CareerProfileApi.updateExperienceHighlight(this.highlight)
         .then((response) => {
           response;
-          userProfileUtils.fillHeadline(this.headline);
-          this.mnx_navToHeadlineUpdated();
+          userProfileUtils.fillHighlight(this.highlight);
+          this.mnx_navToHighlightUpdated();
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
@@ -91,10 +91,10 @@ export default {
   @extend .text-wrap;
 }
 
-.input-headline-submit {
+.input-highlight-submit {
   @extend .form-submit;
 }
-.input-headline-cancel {
+.input-highlight-cancel {
   @extend .form-cancel;
 }
 </style>

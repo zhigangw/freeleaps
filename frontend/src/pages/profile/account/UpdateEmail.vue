@@ -98,15 +98,9 @@ export default {
   @extend .text-start;
 }
 .input-email-submit {
-  @extend .btn;
-  @extend .btn-primary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-submit;
 }
 .input-email-cancel {
-  @extend .btn;
-  @extend .btn-secondary;
-  @extend .w-30;
-  @extend .mx-auto;
+  @extend .form-cancel;
 }
 </style>

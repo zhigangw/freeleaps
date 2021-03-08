@@ -131,6 +131,14 @@ export default {
             this.$router.push("/headline-updated/");
         },
 
+        mnx_navToUpdateHighlight() {
+            this.$router.push("/update-highlight")
+        },
+
+        mnx_navToHighlightUpdated() {
+            this.$router.push("/highlight-updated/");
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },

@@ -37,6 +37,14 @@ class UserProfileUtils {
     fetchHeadline() {
         return this.headline;
     }
+    
+    fillHighlight(highlight) {
+        this.highlight = highlight;
+    }
+
+    fetchHighlight() {
+        return this.highlight;
+    }
 }
 
 const userProfileUtils = new UserProfileUtils(store);
