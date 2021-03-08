@@ -29,6 +29,14 @@ class UserProfileUtils {
     fetchLocation() {
         return this.location;
     }
+
+    fillHeadline(headline) {
+        this.headline = headline;
+    }
+
+    fetchHeadline() {
+        return this.headline;
+    }
 }
 
 const userProfileUtils = new UserProfileUtils(store);

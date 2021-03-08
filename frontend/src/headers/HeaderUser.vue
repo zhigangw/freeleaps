@@ -1,6 +1,6 @@
 <template>
   <div class="container-div">
-    <img class="company-logo" alt="freeleaps logo" src="../../../assets/logo.png" />
+    <img class="company-logo" alt="freeleaps logo" src="@/assets/logo.png" />
     <div class="nav-bar-container" role="navigation">
       <button class="nav-bar-button" aria-current="page">Workplace</button>
       <button class="nav-bar-button" href="#">Requests</button>
@@ -15,7 +15,7 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        <img class="account-logo" alt="Account" src="../../../assets/account.png" />
+        <img class="account-logo" alt="Account" src="@/assets/account.png" />
       </button>
       <ul class="dropdown-menu" aria-labelledby="accountButton">
         <li>
@@ -25,7 +25,7 @@
           <button class="account-menu-button" @click="gotoPersonal">Personal</button>
         </li>
         <li>
-          <button class="account-menu-button" @click="gotoProfile">Profile</button>
+          <button class="account-menu-button" @click="gotoCareer">Career</button>
         </li>
         <li>
           <button class="account-menu-button" @click="gotoExperience">Experience</button>
@@ -46,7 +46,10 @@ export default {
     gotoPersonal() {
       this.mnx_navToUserPersonal();
       },
-    gotoProfile() {},
+      
+    gotoCareer() {
+      this.mnx_navToUserCareer();
+    },
     gotoExperience() {},
   },
 };

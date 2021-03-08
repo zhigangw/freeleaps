@@ -1,6 +1,6 @@
 <template>
   <div class="container-div">
-    <img class="logo" alt="freeleaps logo" src="../../../assets/logo.png" />
+    <img class="logo" alt="freeleaps logo" src="@/assets/logo.png" />
     <span class="shoutout">Freeleaps – The leading platform for software freelancers</span>
   </div>
 </template>

@@ -27,13 +27,18 @@ import MobileUpdated from "../../pages/profile/account/MobileUpdated";
 
 
 
+import UserPersonal from "../../pages/profile/personal/UserPersonal";
 import UpdatePhoto from "../../pages/profile/personal/UpdatePhoto";
 import PhotoUpdated from "../../pages/profile/personal/PhotoUpdated";
 import UpdateName from "../../pages/profile/personal/UpdateName";
 import NameUpdated from "../../pages/profile/personal/NameUpdated";
 import UpdateLocation from "../../pages/profile/personal/UpdateLocation";
 import LocationUpdated from "../../pages/profile/personal/LocationUpdated";
-import UserPersonal from "../../pages/profile/personal/UserPersonal";
+
+
+import UserCareer from "../../pages/profile/career/UserCareer";
+import UpdateHeadline from "../../pages/profile/career/UpdateHeadline";
+import HeadlineUpdated from "../../pages/profile/career/HeadlineUpdated";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -55,8 +60,8 @@ import SellerServiceCreate from "../../pages/seller/SellerServiceCreate";
 import SellerSkill from "../../pages/seller/SellerSkill";
 import SellerTransferMoney from "../../pages/seller/SellerTransferMoney";
 
-import HeaderGuest from "../../components/bars/header/HeaderGuest.vue";
-import HeaderUser from "../../components/bars/header/HeaderUser.vue";
+import HeaderGuest from "../../headers/HeaderGuest.vue";
+import HeaderUser from "../../headers/HeaderUser.vue";
 
 
 const router = createRouter({
@@ -225,6 +230,14 @@ const router = createRouter({
     },
 
     {
+      name: 'user-personal',
+      path: '/user-personal',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UserPersonal, header: HeaderUser },
+      props: true,
+    },
+
+    {
       name: 'update-photo',
       path: '/update-photo/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
@@ -273,11 +286,27 @@ const router = createRouter({
     },
 
     {
-      name: 'user-personal',
-      path: '/user-personal',
+      name: 'user-career',
+      path: '/user-career',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
-      components: { default: UserPersonal, header: HeaderUser },
+      components: { default: UserCareer, header: HeaderUser },
       props: true,
+    },
+
+    {
+      name: 'update-headline',
+      path: '/update-headline/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateHeadline, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'headline-updated',
+      path: '/headline-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: HeadlineUpdated, header: HeaderUser },
+      props: false,
     },
 
     {

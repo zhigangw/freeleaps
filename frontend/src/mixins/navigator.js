@@ -118,6 +118,19 @@ export default {
             this.$router.push("/location-updated/");
         },
 
+
+        mnx_navToUserCareer() {
+            this.$router.push("/user-career")
+        },
+
+        mnx_navToUpdateHeadline() {
+            this.$router.push("/update-headline")
+        },
+
+        mnx_navToHeadlineUpdated() {
+            this.$router.push("/headline-updated/");
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },
