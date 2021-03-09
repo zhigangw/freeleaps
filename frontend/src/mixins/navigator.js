@@ -139,6 +139,10 @@ export default {
             this.$router.push("/highlight-updated/");
         },
 
+        mnx_navToUpdatePeriod() {
+            this.$router.push("/update-Period")
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },

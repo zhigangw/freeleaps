@@ -41,6 +41,7 @@ import UpdateHeadline from "../../pages/profile/career/UpdateHeadline";
 import HeadlineUpdated from "../../pages/profile/career/HeadlineUpdated";
 import UpdateHighlight from "../../pages/profile/career/UpdateHighlight";
 import HighlightUpdated from "../../pages/profile/career/HighlightUpdated";
+import UpdatePeriod from "../../pages/profile/career/UpdatePeriod";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -324,6 +325,14 @@ const router = createRouter({
       path: '/highlight-updated/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: HighlightUpdated, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'update-period',
+      path: '/update-period/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdatePeriod, header: HeaderUser },
       props: false,
     },
 

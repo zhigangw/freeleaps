@@ -45,6 +45,14 @@ class UserProfileUtils {
     fetchHighlight() {
         return this.highlight;
     }
+    
+    fillPeriod(period) {
+        this.period = period;
+    }
+
+    fetchPeriod() {
+        return this.period;
+    }
 }
 
 const userProfileUtils = new UserProfileUtils(store);

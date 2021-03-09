@@ -31,7 +31,7 @@
           <div class="input-group-div">
             <span class="input-label" id="experience-input">Experience</span>
             <div>
-              <div v-for="period in periods" :key="period.id">
+              <div v-for="period in periods" :key="period.id" @click="updatePeriod($event,period)">
                 <span>From:</span>
                 <span>{{period.startDate}}</span>
                 <span>to:</span>
@@ -48,9 +48,7 @@
         <div class="input-group-div">
           <span class="input-label" id="tags-input">Tags</span>
           <div>
-            <span
-              class="tag"
-            >new</span>
+            <span class="tag">new</span>
           </div>
         </div>
       </div>
@@ -132,9 +130,9 @@ export default {
       userProfileUtils.fillHighlight(this.highlight);
       this.mnx_navToUpdateHighlight();
     },
-
-    gotoUpdateLocation() {
-      userProfileUtils.fillLocation(this.location);
+    updatePeriod(event, period) {
+      event;
+      userProfileUtils.fillPeriod(period);
       this.mnx_navToUpdateLocation();
     },
   },
