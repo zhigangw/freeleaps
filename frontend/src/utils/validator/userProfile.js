@@ -9,6 +9,7 @@ import {HighlightValidator} from "./highlightValidator"
 import {DescriptionValidator} from "./descriptionValidator"
 import {AuthCodeValidator} from "./authCodeValidator"
 import {CountryNameValidator} from "./countryNameValidator"
+import {DetailsValidator} from "./detailsValidator"
 
 class ProfileValidator {
     constructor() {
@@ -23,6 +24,7 @@ class ProfileValidator {
         this.descriptionValidator = new DescriptionValidator();
         this.authCodeValidator = new AuthCodeValidator();
         this.countryNameValidator = new CountryNameValidator();
+        this.detailsValidator = new DetailsValidator();
     }
 }
 

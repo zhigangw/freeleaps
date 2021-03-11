@@ -140,7 +140,11 @@ export default {
         },
 
         mnx_navToUpdatePeriod() {
-            this.$router.push("/update-Period")
+            this.$router.push("/update-period")
+        },
+
+        mnx_navToPeriodUpdated() {
+            this.$router.push("/period-updated")
         },
 
         mnx_navToWorkplace() {

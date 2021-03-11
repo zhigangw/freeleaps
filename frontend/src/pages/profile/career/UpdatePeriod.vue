@@ -7,16 +7,16 @@
           <form @submit.prevent="updatePeriod">
             <div class="input-group-div">
               <span class="input-label">From</span>
-              <input type="date" v-model="startDate" />
+              <input type="date" class="input-item" v-model="startDate" />
             </div>
             <div class="input-group-div">
               <span class="input-label">To</span>
-              <input type="date" v-model="endDate" />
+              <input type="date" class="input-item" v-model="endDate" />
             </div>
             <div class="input-group-div">
               <span class="input-label" id="jobtitle-input">Headline</span>
               <textarea
-                class="control-text"
+                class="input-item"
                 v-model="headline"
                 placeholder="Your job title,e.g."
                 aria-label="headline"
@@ -24,16 +24,16 @@
               />
             </div>
             <div class="input-group-div">
-              <span class="input-label">Details</span>
+              <span class="input-label">Description</span>
               <textarea
-                class="control-text"
-                v-model="details"
+                class="input-detail"
+                v-model="description"
                 placeholder="Your experience in details"
                 aria-label="details"
                 aria-describedby="details-input"
               />
             </div>
-            <div class="input-group-div">
+            <div class="input-group-div mt-5 mb-1">
               <button class="input-headline-cancel" type="button" @click="goBack">Cancel</button>
               <button class="input-headline-submit" type="submit">Submit</button>
             </div>
@@ -61,20 +61,30 @@ export default {
       startDate: null,
       endDate: null,
       headline: null,
-      details: null,
+      description: null,
+      period:{},
       errorMessage: null,
     };
   },
 
   created() {},
   mounted() {
-    this.headline = userProfileUtils.fetchHeadline();
+    this.period = userProfileUtils.fetchPeriod();
+    if (this.period) {
+      this.startDate = this.period.startDate;
+      this.endDate = this.period.endDate;
+      this.headline = this.period.headline;
+      this.description = this.period.description;
+    }
+    else{
+      this.period = {};
+    }
   },
   methods: {
     hasError() {
       return this.errorMessage !== null;
     },
-    async updateHeadline() {
+    async updatePeriod() {
       this.errorMessage = userProfileValidator.headlineValidator.validate(
         this.headline
       );
@@ -82,12 +92,24 @@ export default {
       if (this.hasError()) {
         return;
       }
+      this.errorMessage = userProfileValidator.descriptionValidator.validate(
+        this.description
+      );
 
-      CareerProfileApi.updateExperienceHeadline(this.headline)
+      if (this.hasError()) {
+        return;
+      }
+
+      this.period.startDate = this.startDate;
+      this.period.endDate = this.endDate;
+      this.period.headline = this.headline;
+      this.period.description = this.description;
+
+      CareerProfileApi.updateExperiencePeriod(this.period)
         .then((response) => {
           response;
-          userProfileUtils.fillHeadline(this.headline);
-          this.mnx_navToHeadlineUpdated();
+          userProfileUtils.fillPeriod(this.period);
+          this.mnx_navToPeriodUpdated();
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
@@ -105,17 +127,25 @@ export default {
 <style scoped lang="scss">
 .input-group-div {
   @extend .input-group;
-  @extend .my-5;
+  @extend .my-3;
 }
 
 .input-label {
   @extend .input-group-text;
+  @extend .w-25;
   @extend .mx-3;
+  @extend .bg-body;
+  @extend .border-0;
 }
 
-.control-text {
+.input-item {
+  @extend .form-control;
+}
+
+.input-detail {
   @extend .form-control;
   @extend .text-wrap;
+  height: 96pt;
 }
 
 .input-headline-submit {
