@@ -32,12 +32,8 @@
             <span class="input-label" id="experience-input">Experience</span>
             <div>
               <div v-for="period in periods" :key="period.id" @click="clickOnPeriod($event,period)">
-                <span>From:</span>
-                <span>{{period.startDate}}</span>
-                <span>to:</span>
-                <span>{{period.endDate}}</span>
-                <span></span>
-                <span>{{period.headline}}</span>
+                <p>{{formPeriodHeadlinePeriod(period)}}</p>
+                <p>{{period.headline}}</p>
               </div>
               <div>
                 <button class="add-experience-button" @click="clickOnAdd">Add</button>
@@ -57,7 +53,11 @@
 </template>
 
 <script>
-import { UserProfileApi, userProfileUtils } from "../../../utils/index";
+import {
+  UserProfileApi,
+  userProfileUtils,
+  DateUtils,
+} from "../../../utils/index";
 
 export default {
   name: "UserPersonal",
@@ -97,6 +97,10 @@ export default {
             this.careerProfile.experience.periods
           ) {
             this.periods = this.careerProfile.experience.periods;
+            this.periods.forEach((period) => {
+              period.startDate = DateUtils.FromJson(period.startDate);
+              period.endDate = DateUtils.FromJson(period.endDate);
+            });
           }
         }
         if (
@@ -110,6 +114,24 @@ export default {
         }
       }
     },
+
+    formDate(date){
+      if(date){
+        return date.getMonth() + 1+ " / "+ date.getFullYear();
+      }
+      else{
+        return "-- / ----";
+      }
+    },
+    formPeriodHeadlinePeriod(perioid) {
+      return (
+        "From " +
+        this.formDate(perioid.startDate) + 
+        " to " +
+         this.formDate(perioid.endDate)
+      );
+    },
+
     async fetchCareer() {
       UserProfileApi.fetchCareer()
         .then((response) => {

@@ -11,5 +11,5 @@ export {
     ResponseFormatter
 } from './backend/index'
 export { userUtils, requestPostUtils, userProfileUtils } from './store/index'
-export { ValueChecker } from './common/index'
+export { ValueChecker, DateUtils } from './common/index'
 export { userProfileValidator } from './validator/index'
