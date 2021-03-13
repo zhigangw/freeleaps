@@ -1,45 +1,43 @@
 <template>
   <div class="main-body">
     <div class="story-board">
-      <div class="focus-area">
-        <p class="callout">Experience Period</p>
-        <div class="form-group border-0">
-          <form @submit.prevent="updatePeriod">
-            <div class="input-group-div">
-              <span class="input-label">From</span>
-              <input type="date" class="input-item" v-model="startDate" />
-            </div>
-            <div class="input-group-div">
-              <span class="input-label">To</span>
-              <input type="date" class="input-item" v-model="endDate" />
-            </div>
-            <div class="input-group-div">
-              <span class="input-label" id="jobtitle-input">Headline</span>
-              <textarea
-                class="input-item"
-                v-model="headline"
-                placeholder="Your job title,e.g."
-                aria-label="headline"
-                aria-describedby="title-input"
-              />
-            </div>
-            <div class="input-group-div">
-              <span class="input-label">Description</span>
-              <textarea
-                class="input-detail"
-                v-model="description"
-                placeholder="Your experience in details"
-                aria-label="details"
-                aria-describedby="details-input"
-              />
-            </div>
-            <div class="input-group-div mt-5 mb-1">
-              <button class="input-headline-cancel" type="button" @click="goBack">Cancel</button>
-              <button class="input-headline-submit" type="submit">Submit</button>
-            </div>
-            <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
-          </form>
-        </div>
+      <p class="callout">Experience Period</p>
+      <div class="form-group border-0">
+        <form @submit.prevent="updatePeriod">
+          <div class="input-group-div">
+            <span class="input-label">From</span>
+            <date-input class="input-item" v-model="startDate" />
+          </div>
+          <div class="input-group-div">
+            <span class="input-label">To</span>
+            <date-input class="input-item" v-model="endDate" />
+          </div>
+          <div class="input-group-div">
+            <span class="input-label" id="jobtitle-input">Headline</span>
+            <textarea
+              class="input-item"
+              v-model="headline"
+              placeholder="Your job title,e.g."
+              aria-label="headline"
+              aria-describedby="title-input"
+            />
+          </div>
+          <div class="input-group-div">
+            <span class="input-label">Description</span>
+            <textarea
+              class="input-detail"
+              v-model="description"
+              placeholder="Your experience in details"
+              aria-label="details"
+              aria-describedby="details-input"
+            />
+          </div>
+          <div class="input-group-div mt-5 mb-1">
+            <button class="input-headline-cancel" type="button" @click="goBack">Cancel</button>
+            <button class="input-headline-submit" type="submit">Submit</button>
+          </div>
+          <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
+        </form>
       </div>
     </div>
   </div>
@@ -51,9 +49,13 @@ import {
   CareerProfileApi,
   userProfileUtils,
 } from "../../../utils/index";
-
+import DateInput from "../../../components/inputs/infra/DateInput";
 export default {
   name: "UpdateHeadline",
+  components: {
+    DateInput,
+  },
+
   props: {},
 
   data() {
@@ -62,24 +64,24 @@ export default {
       endDate: null,
       headline: null,
       description: null,
-      period:{},
+      period: {},
       errorMessage: null,
     };
   },
 
-  created() {},
-  mounted() {
+  created() {
     this.period = userProfileUtils.fetchPeriod();
     if (this.period) {
       this.startDate = this.period.startDate;
       this.endDate = this.period.endDate;
+
       this.headline = this.period.headline;
       this.description = this.period.description;
-    }
-    else{
+    } else {
       this.period = {};
     }
   },
+  mounted() {},
   methods: {
     hasError() {
       return this.errorMessage !== null;

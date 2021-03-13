@@ -1,50 +1,53 @@
 <template>
   <div class="main-body">
     <div class="story-board">
-      <div class="focus-area">
-        <p class="callout">Fill the career to gain more exposure and trust</p>
-        <div class="form-group border-0">
-          <div class="input-group-div">
-            <span class="input-label" id="headline-input">Headline</span>
-            <textarea
-              class="control-text"
-              v-model="headline"
-              placeholder="What would you like people to call you, like, an experienced software engineer in IOT"
-              readonly
-              aria-label="headline"
-              aria-describedby="headline-input"
-              @click="updateHeadline"
-            />
-          </div>
-          <div class="input-group-div">
-            <span class="input-label" id="highlight-input">Highlight</span>
-            <textarea
-              class="control-text"
-              v-model="highlight"
-              placeholder="A couple of sentences about your achievement impress people"
-              readonly
-              aria-label="headline"
-              aria-describedby="headline-input"
-              @click="updateHighlight"
-            />
-          </div>
-          <div class="input-group-div">
-            <span class="input-label" id="experience-input">Experience</span>
-            <div>
-              <div v-for="period in periods" :key="period.id" @click="clickOnPeriod($event,period)">
-                <p>{{formPeriodHeadlinePeriod(period)}}</p>
-                <p>{{period.headline}}</p>
-              </div>
-              <div>
-                <button class="add-experience-button" @click="clickOnAdd">Add</button>
-              </div>
-            </div>
-          </div>
+      <p class="callout">Fill the career to gain more exposure and trust</p>
+      <div class="form-group">
+        <div class="input-group-div">
+          <span class="input-label" id="headline-input">Headline</span>
+          <textarea
+            class="control-text"
+            v-model="headline"
+            placeholder="What would you like people to call you, like, an experienced software engineer in IOT"
+            readonly
+            aria-label="headline"
+            aria-describedby="headline-input"
+            @click="updateHeadline"
+          />
         </div>
         <div class="input-group-div">
-          <span class="input-label" id="tags-input">Tags</span>
-          <div>
-            <span class="tag">new</span>
+          <span class="input-label" id="highlight-input">Highlight</span>
+          <textarea
+            class="control-text"
+            v-model="highlight"
+            placeholder="A couple of sentences about your achievement impress people"
+            readonly
+            aria-label="headline"
+            aria-describedby="headline-input"
+            @click="updateHighlight"
+          />
+        </div>
+        <div class="input-group-div">
+          <span class="input-label" id="experience-input">Experience</span>
+          <div class="control-div">
+            <div
+              class="period-div"
+              v-for="period in periods"
+              :key="period.id"
+              @click="clickOnPeriod($event,period)"
+            >
+              <p class="period-headline">{{formPeriodHeadline(period)}}</p>
+              <textarea
+                class="period-description"
+                v-model="period.description"
+                readonly
+                aria-label="description"
+                aria-describedby="description-input"
+              />
+            </div>
+            <div>
+              <button class="period-add" @click="clickOnAdd">Add</button>
+            </div>
           </div>
         </div>
       </div>
@@ -98,8 +101,8 @@ export default {
           ) {
             this.periods = this.careerProfile.experience.periods;
             this.periods.forEach((period) => {
-              period.startDate = DateUtils.FromJson(period.startDate);
-              period.endDate = DateUtils.FromJson(period.endDate);
+              period.startDate = DateUtils.FromJsonToString(period.startDate);
+              period.endDate = DateUtils.FromJsonToString(period.endDate);
             });
           }
         }
@@ -115,21 +118,25 @@ export default {
       }
     },
 
-    formDate(date){
-      if(date){
-        return date.getMonth() + 1+ " / "+ date.getFullYear();
-      }
-      else{
-        return "-- / ----";
+    formDate(date) {
+      if (date) {
+        return date.getMonth() + 1 + "/" + date.getFullYear();
+      } else {
+        return "n/a";
       }
     },
+
     formPeriodHeadlinePeriod(perioid) {
       return (
         "From " +
-        this.formDate(perioid.startDate) + 
+        this.formDate(new Date(perioid.startDate)) +
         " to " +
-         this.formDate(perioid.endDate)
+        this.formDate(new Date(perioid.endDate))
       );
+    },
+
+    formPeriodHeadline(perioid) {
+      return this.formPeriodHeadlinePeriod(perioid) + "  " + perioid.headline;
     },
 
     async fetchCareer() {
@@ -174,13 +181,18 @@ export default {
 <style scoped lang="scss">
 .input-group-div {
   @extend .input-group;
-  @extend .my-5;
-  @extend .align-items-center;
+  @extend .my-1;
+  @extend .px-1;
+  @extend .align-items-start;
 }
 
 .input-label {
   @extend .input-group-text;
-  @extend .mx-3;
+  @extend .me-1;
+  @extend .bg-body;
+  @extend .border-0;
+  @extend .w-30;
+  @extend .w-lg-20;
 }
 
 .add-experience-button {
@@ -194,11 +206,41 @@ export default {
 .control-text {
   @extend .form-control;
   @extend .text-wrap;
+  @extend .bg-body;
   cursor: pointer;
 }
 
-.highlight {
+.control-div {
   @extend .form-control;
-  @extend .text-wrap;
+  @extend .align-items-start;
+}
+
+.period-div {
+  @extend .form-control;
+  @extend .w-100;
+  @extend .align-items-start;
+  cursor: pointer;
+}
+
+.period-headline {
+  @extend .form-control;
+  @extend .w-100;
+  @extend .text-start;
+  @extend .border-0;
+}
+
+.period-description {
+  @extend .form-control;
+  @extend .bg-body;
+  @extend .w-100;
+  @extend .border-0;
+  @extend .text-start;
+  cursor: pointer;
+  height: 96pt;
+}
+
+.period-add {
+  @extend .form-submit;
+  @extend .mt-5;
 }
 </style>
