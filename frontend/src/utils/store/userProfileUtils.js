@@ -45,6 +45,22 @@ class UserProfileUtils {
     fetchHighlight() {
         return this.highlight;
     }
+
+    fillPreferredRoles(perferredRoles) {
+        this.perferredRoles = perferredRoles;
+    }
+
+    fetchPerferredRoles() {
+        return this.perferredRoles;
+    }
+    
+    fillPreferredTags(preferredTags) {
+        this.preferredTags = preferredTags;
+    }
+
+    fetchPreferredTags() {
+        return this.preferredTags;
+    }
     
     fillPeriod(period) {
         this.period = period;

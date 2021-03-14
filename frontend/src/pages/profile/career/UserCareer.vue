@@ -12,6 +12,18 @@
           <p class="highlight-text" @click="updateHighlight">{{highlight}}</p>
         </div>
         <div class="input-group-div">
+          <p class="input-label">Preferred Roles:</p>
+          <div class="roles-container" @click="updateJobRole">
+            <p v-for="(role, index) in preferredRoles" :key="index" class="role-text">{{role}}</p>
+          </div>
+        </div>
+        <div class="input-group-div">
+          <p class="input-label">Preferred Tags:</p>
+          <div class="tags-container" @click="updatePreferredTags">
+            <span v-for="(tag, index) in preferredTags" :key="index" class="tag-text">{{tag}}</span>
+          </div>
+        </div>
+        <div class="input-group-div">
           <p class="input-label">Experience:</p>
           <div class="periods-div">
             <div class="period-div" v-for="(period, index)  in periods" :key="index">
@@ -57,6 +69,8 @@ export default {
     return {
       headline: "",
       highlight: "",
+      preferredRoles: [],
+      preferredTags: [],
       periods: [],
       careerProfile: {},
     };
@@ -99,8 +113,11 @@ export default {
         ) {
           this.preferredRoles = this.careerProfile.preferredRoles;
         }
-        if ("tags" in this.careerProfile && this.careerProfile.tags) {
-          this.tags = this.careerProfile.tags;
+        if (
+          "preferredTags" in this.careerProfile &&
+          this.careerProfile.preferredTags
+        ) {
+          this.preferredTags = this.careerProfile.preferredTags;
         }
       }
     },
@@ -152,6 +169,16 @@ export default {
       this.mnx_navToUpdateHighlight();
     },
 
+    updateJobRoles() {
+      userProfileUtils.fillPreferredRoles(this.preferredRoles);
+      this.mnx_navToUpdatePreferredRoles();
+    },
+
+    updateTags() {
+      userProfileUtils.fillPreferredTags(this.preferredTags);
+      this.mnx_navToUpdatePreferredTags();
+    },
+
     updatePeriod(period) {
       userProfileUtils.fillPeriod(period);
       this.mnx_navToUpdatePeriod();
@@ -195,13 +222,40 @@ export default {
   @extend .my-1;
   cursor: pointer;
 }
+
 .headline-text {
   @extend .content-text;
 }
+
 .highlight-text {
   @extend .content-text;
 }
 
+.role-text {
+  @extend .text-start;
+  @extend .mx-1;
+  @extend .px-1;
+}
+
+.tag-text {
+  @extend .text-start;
+  @extend .mx-1;
+  @extend .px-1;
+}
+
+.roles-container {
+  @extend .container;
+  @extend .d-flex;
+  @extend .flex-wrap;
+  cursor: pointer;
+}
+
+.tags-container {
+  @extend .container;
+  @extend .d-flex;
+  @extend .flex-wrap;
+  cursor: pointer;
+}
 .periods-div {
   @extend .accordion!optional;
   @extend .align-items-start;
