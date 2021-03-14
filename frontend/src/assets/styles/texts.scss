@@ -10,3 +10,12 @@
     color: $error;
 
 }
+
+.lableText {
+    @extend .fs-6;
+    @extend .fw-bold;
+    @extend .text-start;
+    @extend .m-0;
+    @extend .p-0;
+    font-size: 0.8em;
+}

@@ -1,29 +1,41 @@
 <template>
   <div class="main-body">
     <div class="story-board">
-      <p class="callout">Experience Period</p>
-      <div class="form-group border-0">
+      <p class="callout">Add/Update Experience Period</p>
+      <div class="form-group border-0 mt-0">
         <form @submit.prevent="updatePeriod">
           <div class="input-group-div">
-            <span class="input-label">From</span>
-            <date-input class="input-item" v-model="startDate" />
-          </div>
-          <div class="input-group-div">
-            <span class="input-label">To</span>
-            <date-input class="input-item" v-model="endDate" />
-          </div>
-          <div class="input-group-div">
-            <span class="input-label" id="jobtitle-input">Headline</span>
-            <textarea
+            <p class="input-label" id="jobtitle-input">Job Title: *</p>
+            <input
+              type="text"
               class="input-item"
               v-model="headline"
-              placeholder="Your job title,e.g."
+              placeholder="Ex: Senior Software Engineer"
               aria-label="headline"
               aria-describedby="title-input"
             />
           </div>
           <div class="input-group-div">
-            <span class="input-label">Description</span>
+            <p class="input-label" id="jobtitle-input">Company/Orgnization: *</p>
+            <input
+              type="text"
+              class="input-item"
+              v-model="orgnization"
+              placeholder="Ex: Freeleaps"
+              aria-label="orgnization"
+              aria-describedby="orgnization-input"
+            />
+          </div>
+          <div class="input-group-div">
+            <p class="input-label">From:</p>
+            <date-input class="input-item" v-model="startDate" />
+          </div>
+          <div class="input-group-div">
+            <p class="input-label">To:</p>
+            <date-input class="input-item" v-model="endDate" />
+          </div>
+          <div class="input-group-div">
+            <p class="input-label">Description:</p>
             <textarea
               class="input-detail"
               v-model="description"
@@ -32,7 +44,7 @@
               aria-describedby="details-input"
             />
           </div>
-          <div class="input-group-div mt-5 mb-1">
+          <div class="submit-group-div ">
             <button class="input-headline-cancel" type="button" @click="goBack">Cancel</button>
             <button class="input-headline-submit" type="submit">Submit</button>
           </div>
@@ -64,6 +76,7 @@ export default {
       endDate: null,
       headline: null,
       description: null,
+      orgnization:null,
       period: {},
       errorMessage: null,
     };
@@ -77,6 +90,7 @@ export default {
 
       this.headline = this.period.headline;
       this.description = this.period.description;
+      this.orgnization = this.period.orgnization;
     } else {
       this.period = {};
     }
@@ -106,6 +120,7 @@ export default {
       this.period.endDate = this.endDate;
       this.period.headline = this.headline;
       this.period.description = this.description;
+      this.period.orgnization = this.orgnization;
 
       CareerProfileApi.updateExperiencePeriod(this.period)
         .then((response) => {
@@ -128,16 +143,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .input-group-div {
-  @extend .input-group;
-  @extend .my-3;
+  @extend .mb-3;
 }
 
 .input-label {
-  @extend .input-group-text;
-  @extend .w-25;
-  @extend .mx-3;
-  @extend .bg-body;
-  @extend .border-0;
+  @extend .lableText;
 }
 
 .input-item {
@@ -153,7 +163,15 @@ export default {
 .input-headline-submit {
   @extend .form-submit;
 }
+
 .input-headline-cancel {
   @extend .form-cancel;
+}
+
+.submit-group-div {
+  @extend .input-group;
+  @extend .my-3;
+  @extend .mt-5;
+  @extend .mb-1;
 }
 </style>

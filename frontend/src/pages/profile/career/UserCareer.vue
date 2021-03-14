@@ -1,34 +1,18 @@
 <template>
   <div class="main-body">
     <div class="story-board">
-      <p class="callout">Fill the career to gain more exposure and trust</p>
-      <div class="form-group">
+      <p class="callout">Career Profile</p>
+      <div class="form-group border-0">
         <div class="input-group-div">
-          <span class="input-label" id="headline-input">Headline</span>
-          <textarea
-            class="control-text"
-            v-model="headline"
-            placeholder="What would you like people to call you, like, an experienced software engineer in IOT"
-            readonly
-            aria-label="headline"
-            aria-describedby="headline-input"
-            @click="updateHeadline"
-          />
+          <p class="input-label">Headline:</p>
+          <p class="headline-text" @click="updateHeadline">{{headline}}</p>
         </div>
         <div class="input-group-div">
-          <span class="input-label" id="highlight-input">Highlight</span>
-          <textarea
-            class="control-text"
-            v-model="highlight"
-            placeholder="A couple of sentences about your achievement impress people"
-            readonly
-            aria-label="headline"
-            aria-describedby="headline-input"
-            @click="updateHighlight"
-          />
+          <p class="input-label">Highlight:</p>
+          <p class="highlight-text" @click="updateHighlight">{{highlight}}</p>
         </div>
         <div class="input-group-div">
-          <span class="input-label" id="experience-input">Experience</span>
+          <p class="input-label">Experience:</p>
           <div class="periods-div">
             <div class="period-div" v-for="(period, index)  in periods" :key="index">
               <p class="period-headline">
@@ -138,7 +122,13 @@ export default {
     },
 
     formPeriodHeadline(perioid) {
-      return perioid.headline + "  " + this.formPeriodHeadlinePeriod(perioid);
+      return (
+        perioid.headline +
+        "@" +
+        perioid.orgnization +
+        "  " +
+        this.formPeriodHeadlinePeriod(perioid)
+      );
     },
 
     async fetchCareer() {
@@ -182,19 +172,13 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .input-group-div {
-  @extend .input-group;
-  @extend .my-1;
+  @extend .my-3;
   @extend .px-1;
-  @extend .align-items-start;
+  @extend .border;
 }
 
 .input-label {
-  @extend .input-group-text;
-  @extend .me-1;
-  @extend .bg-body;
-  @extend .border-0;
-  @extend .w-30;
-  @extend .w-lg-20;
+  @extend .lableText;
 }
 
 .add-experience-button {
@@ -205,30 +189,35 @@ export default {
   @extend .text-center;
 }
 
-.control-text {
-  @extend .form-control;
+.content-text {
   @extend .text-wrap;
-  @extend .bg-body;
+  @extend .text-start;
+  @extend .my-1;
   cursor: pointer;
+}
+.headline-text {
+  @extend .content-text;
+}
+.highlight-text {
+  @extend .content-text;
 }
 
 .periods-div {
   @extend .accordion!optional;
-  @extend .form-control;
   @extend .align-items-start;
 }
 
 .period-div {
   @extend .accordion-item;
-  @extend .form-control;
   @extend .w-100;
   @extend .align-items-start;
+  @extend .border;
+  @extend .my-3;
   cursor: pointer;
 }
 
 .period-headline {
   @extend .accordion-header;
-  @extend .form-control;
   @extend .w-100;
   @extend .text-start;
   @extend .border-0;

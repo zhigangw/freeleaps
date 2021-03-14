@@ -12,6 +12,7 @@ class ExperiencePeriod(me.EmbeddedDocument):
     endDate = me.DateField()
     headline = me.StringField()
     description = me.StringField()
+    orgnization = me.StringField()
     createdDate = me.DateTimeField(
         default=datetime.datetime.utcnow, required=True)
     modifiedDate = me.DateTimeField(
