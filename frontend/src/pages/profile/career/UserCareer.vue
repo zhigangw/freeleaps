@@ -29,21 +29,24 @@
         </div>
         <div class="input-group-div">
           <span class="input-label" id="experience-input">Experience</span>
-          <div class="control-div">
-            <div
-              class="period-div"
-              v-for="period in periods"
-              :key="period.id"
-              @click="clickOnPeriod($event,period)"
-            >
-              <p class="period-headline">{{formPeriodHeadline(period)}}</p>
-              <textarea
-                class="period-description"
-                v-model="period.description"
-                readonly
-                aria-label="description"
-                aria-describedby="description-input"
-              />
+          <div class="periods-div">
+            <div class="period-div" v-for="(period, index)  in periods" :key="index">
+              <p class="period-headline">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  :data-bs-target="'#collapse'+index"
+                  aria-expanded="false"
+                  :aria-controls="'collapse'+index"
+                >{{formPeriodHeadline(period)}}</button>
+              </p>
+              <div :id="'collapse'+index" class="accordion-collapse collapse">
+                <p
+                  class="period-description"
+                  @click="clickOnPeriod($event,period)"
+                >{{period.description}}</p>
+              </div>
             </div>
             <div>
               <button class="period-add" @click="clickOnAdd">Add</button>
@@ -128,15 +131,14 @@ export default {
 
     formPeriodHeadlinePeriod(perioid) {
       return (
-        "From " +
         this.formDate(new Date(perioid.startDate)) +
-        " to " +
+        " - " +
         this.formDate(new Date(perioid.endDate))
       );
     },
 
     formPeriodHeadline(perioid) {
-      return this.formPeriodHeadlinePeriod(perioid) + "  " + perioid.headline;
+      return perioid.headline + "  " + this.formPeriodHeadlinePeriod(perioid);
     },
 
     async fetchCareer() {
@@ -210,12 +212,14 @@ export default {
   cursor: pointer;
 }
 
-.control-div {
+.periods-div {
+  @extend .accordion!optional;
   @extend .form-control;
   @extend .align-items-start;
 }
 
 .period-div {
+  @extend .accordion-item;
   @extend .form-control;
   @extend .w-100;
   @extend .align-items-start;
@@ -223,6 +227,7 @@ export default {
 }
 
 .period-headline {
+  @extend .accordion-header;
   @extend .form-control;
   @extend .w-100;
   @extend .text-start;
@@ -230,13 +235,12 @@ export default {
 }
 
 .period-description {
-  @extend .form-control;
-  @extend .bg-body;
+  @extend .accordion-body;
   @extend .w-100;
   @extend .border-0;
   @extend .text-start;
   cursor: pointer;
-  height: 96pt;
+  white-space: pre-wrap;
 }
 
 .period-add {
