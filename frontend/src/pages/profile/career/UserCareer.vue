@@ -2,24 +2,24 @@
   <div class="main-body">
     <div class="story-board">
       <p class="callout">Career Profile</p>
-      <div class="form-group border-0">
-        <div class="input-group-div">
+      <div class="form-group border-0" >
+        <div class="headline-group" @click="updateHeadline">
           <p class="input-label">Headline:</p>
-          <p class="headline-text" @click="updateHeadline">{{headline}}</p>
+          <p class="headline-text">{{headline}}</p>
         </div>
-        <div class="input-group-div">
+        <div class="highlight-group" @click="updateHighlight">
           <p class="input-label">Highlight:</p>
-          <p class="highlight-text" @click="updateHighlight">{{highlight}}</p>
+          <p class="highlight-text">{{highlight}}</p>
         </div>
-        <div class="input-group-div">
+        <div class="role-group" @click="updateJobRoles">
           <p class="input-label">Preferred Roles:</p>
-          <div class="roles-container" @click="updateJobRole">
+          <div class="roles-container">
             <p v-for="(role, index) in preferredRoles" :key="index" class="role-text">{{role}}</p>
           </div>
         </div>
-        <div class="input-group-div">
+        <div class="tags-group" @click="updatePreferredTags">
           <p class="input-label">Preferred Tags:</p>
-          <div class="tags-container" @click="updatePreferredTags">
+          <div class="tags-container">
             <span v-for="(tag, index) in preferredTags" :key="index" class="tag-text">{{tag}}</span>
           </div>
         </div>
@@ -223,18 +223,39 @@ export default {
   cursor: pointer;
 }
 
+.headline-group {
+  @extend .input-group-div;
+  cursor: pointer;
+}
+
 .headline-text {
   @extend .content-text;
+}
+
+.highlight-group {
+  @extend .input-group-div;
+  cursor: pointer;
 }
 
 .highlight-text {
   @extend .content-text;
 }
 
+
+.role-group {
+  @extend .input-group-div;
+  cursor: pointer;
+}
+
 .role-text {
   @extend .text-start;
   @extend .mx-1;
   @extend .px-1;
+}
+
+.tags-group {
+  @extend .input-group-div;
+  cursor: pointer;
 }
 
 .tag-text {

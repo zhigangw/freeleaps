@@ -50,7 +50,7 @@ class UserProfileUtils {
         this.perferredRoles = perferredRoles;
     }
 
-    fetchPerferredRoles() {
+    fetchPreferredRoles() {
         return this.perferredRoles;
     }
     

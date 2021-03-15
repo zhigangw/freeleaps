@@ -43,6 +43,8 @@ import UpdateHighlight from "../../pages/profile/career/UpdateHighlight";
 import HighlightUpdated from "../../pages/profile/career/HighlightUpdated";
 import UpdatePeriod from "../../pages/profile/career/UpdatePeriod";
 import PeriodUpdated from "../../pages/profile/career/PeriodUpdated";
+import UpdatePreferredRoles from "../../pages/profile/career/UpdatePreferredRoles";
+import PreferredRolesUpdated from "../../pages/profile/career/PreferredRolesUpdated";
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -344,6 +346,23 @@ const router = createRouter({
       components: { default: PeriodUpdated, header: HeaderUser },
       props: false,
     },
+
+    {
+      name: 'update-preferred-roles',
+      path: '/update-preferred-roles/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdatePreferredRoles, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'preferred-roles-updated',
+      path: '/preferred-roles-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: PreferredRolesUpdated, header: HeaderUser },
+      props: false,
+    },
+
 
     {
       name: 'workplace',

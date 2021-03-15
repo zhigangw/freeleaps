@@ -3,6 +3,7 @@ import json
 from ..models.request_notes import RequestNotes
 from ..models.requests_description import RequestDescription
 
+
 class FieldValidator():
     @staticmethod
     def is_valid_oid(oid):
@@ -16,7 +17,7 @@ class FieldValidator():
             return ObjectId(oid)
         else:
             raise ValueError('{} is not a valid object id'.format(oid))
-    
+
     @staticmethod
     def notes(jnote):
         try:
@@ -25,7 +26,15 @@ class FieldValidator():
             print(e)
             raise
 
-
+    @staticmethod
     def description(jdesc):
         return RequestDescription.from_json(json.dumps(jdesc))
+
+    @staticmethod
+    def stringList(jdesc):
+        try:
+            return json.loads(json.dumps(jdesc))
+        except Exception as e:
+            print(e)
+            raise
 

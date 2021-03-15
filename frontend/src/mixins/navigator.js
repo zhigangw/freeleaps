@@ -147,6 +147,14 @@ export default {
             this.$router.push("/period-updated")
         },
 
+        mnx_navToUpdatePreferredRoles() {
+            this.$router.push("/update-preferred-roles")
+        },
+
+        mnx_navToPreferredRolesUpdated() {
+            this.$router.push("/preferred-roles-updated")
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },

@@ -18,7 +18,7 @@ class UpdateJobRole(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(
-            'jobRole',  dest='jobRole', type=str, location='json',
+            'jobRole',  dest='jobRole', type=FieldValidator.stringList, location='json',
             required=True, help='The user\'s jobRole')
 
     @jwt_required
@@ -30,7 +30,7 @@ class UpdateJobRole(Resource):
         UserDoc.objects(
             id=userIdentity,
         ).update(
-            set__careerProfile__jobRole=args.jobRole,
+            set__careerProfile__preferredRoles=args.jobRole,
         )
         resp = jsonify(
             jobRole=args.jobRole
