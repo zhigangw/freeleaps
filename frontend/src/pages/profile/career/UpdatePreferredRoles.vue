@@ -17,7 +17,7 @@
                 />
                 <label
                   class="check-label"
-                  for="role"
+                  :for="role"
                   :style="{ width: widthOfCheckItem + 'em' }"
                 >{{role}}</label>
               </div>
@@ -70,7 +70,6 @@ export default {
     async fetchJobRoles() {
       CareerApi.fetchJobRoles()
         .then((response) => {
-          console.log(this.preferredRoles);
           let max_length = 0;
           response.data.forEach((role) => {
             max_length = Math.max(max_length, role.name.length);
