@@ -2,7 +2,7 @@
   <div class="main-body">
     <div class="story-board">
       <p class="callout">Career Profile</p>
-      <div class="form-group border-0" >
+      <div class="form-group border-0">
         <div class="headline-group" @click="updateHeadline">
           <p class="input-label">Headline:</p>
           <p class="headline-text">{{headline}}</p>
@@ -17,12 +17,15 @@
             <p v-for="(role, index) in preferredRoles" :key="index" class="role-text">{{role}}</p>
           </div>
         </div>
-        <div class="tags-group" @click="updatePreferredTags">
+
+        <!-- TODO: implement tags later  -->
+        <div v-if="false" class="tags-group" @click="updatePreferredTags">
           <p class="input-label">Preferred Tags:</p>
           <div class="tags-container">
             <span v-for="(tag, index) in preferredTags" :key="index" class="tag-text">{{tag}}</span>
           </div>
         </div>
+
         <div class="input-group-div">
           <p class="input-label">Experience:</p>
           <div class="periods-div">
@@ -240,7 +243,6 @@ export default {
 .highlight-text {
   @extend .content-text;
 }
-
 
 .role-group {
   @extend .input-group-div;
