@@ -8,6 +8,7 @@ export {
     GeoLocationApi,
     CareerProfileApi,
     CareerApi,
+    SubscriptionApi,
     ResponseFormatter
 } from './backend/index'
 export { userUtils, requestPostUtils, userProfileUtils } from './store/index'

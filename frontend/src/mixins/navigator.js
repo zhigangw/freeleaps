@@ -155,6 +155,14 @@ export default {
             this.$router.push("/preferred-roles-updated")
         },
 
+        mnx_navToChoosePlan() {
+            this.$router.push("/choose-plan")
+        },
+
+        mnx_navToUserWork() {
+            this.$router.push("/user-work")
+        },
+
         mnx_navToWorkplace() {
             this.$router.push("/workplace")
         },

@@ -46,6 +46,10 @@ import PeriodUpdated from "../../pages/profile/career/PeriodUpdated";
 import UpdatePreferredRoles from "../../pages/profile/career/UpdatePreferredRoles";
 import PreferredRolesUpdated from "../../pages/profile/career/PreferredRolesUpdated";
 
+
+import ChoosePlan from "../../pages/profile/work/ChoosePlan";
+import UserWork from "../../pages/profile/work/UserWork";
+
 import Workplace from "../../pages/dashboard/Workplace"
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
@@ -360,6 +364,24 @@ const router = createRouter({
       path: '/preferred-roles-updated/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: PreferredRolesUpdated, header: HeaderUser },
+      props: false,
+    },
+
+
+
+    {
+      name: 'choose-plan',
+      path: '/choose-plan/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: ChoosePlan, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'user-work',
+      path: '/user-work/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UserWork, header: HeaderUser },
       props: false,
     },
 
