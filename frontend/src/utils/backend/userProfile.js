@@ -58,12 +58,12 @@ class UserProfileApi {
         return request;
     }
 
-    static choosePackage(service) {
+    static choosePackage(plan_id) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/user-work/choose-package',
             {
-                package: service
+                plan_id: plan_id
             },
             {
                 headers: { Authorization: `Bearer ${jwt}` }

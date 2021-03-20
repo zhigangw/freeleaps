@@ -69,6 +69,15 @@ class UserProfileUtils {
     fetchPeriod() {
         return this.period;
     }
+
+    fillSubscriptionPlan(plan) {
+        this.plan = plan;
+    }
+
+    fetchSubscriptionPlan() {
+        return this.plan;
+    }
+    
 }
 
 const userProfileUtils = new UserProfileUtils(store);

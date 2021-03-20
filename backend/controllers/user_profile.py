@@ -10,7 +10,7 @@ from flask_jwt_extended import (
 from werkzeug.utils import secure_filename
 from mongoengine.queryset.transform import update
 from ..mongodb.models.profile.user import UserDoc, AuthProfile
-from ..mongodb.models.service_plans import ServicePlanDoc
+from ..mongodb.models.service_plans import ServicePlansDoc
 from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.utils.field_validator import FieldValidator
 import werkzeug
@@ -96,8 +96,8 @@ class UserProfileFetchWork(Resource):
             return_code = 404
             return make_response(resp, return_code)
         plan = None
-        if user.workProfile.package and user.workProfile.package.plan_id:
-            plan = ServicePlanDoc.objects(
+        if user.workProfile and user.workProfile.package and user.workProfile.package.plan_id:
+            plan = ServicePlansDoc.objects(
                 id=user.workProfile.package.plan_id
             ).first()
 

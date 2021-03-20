@@ -3,7 +3,7 @@
     <div class="story-board">
       <div class="focus-area">
         <slot name="result" />
-        <button class="btn btn-primary my-5" @click="backToPersonal">Continue to Personal</button>
+        <button class="btn btn-primary my-5" @click="backToSubscription">Continue to Subscription</button>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "PersonalProfileUpdated",
+  name: "WorkProfileUpdated",
   props: {
   },
 
@@ -24,8 +24,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    backToPersonal() {
-      this.mnx_navToUserPersonal();
+    backToSubscription() {
+      this.mnx_navToUserWork();
     },
   },
 };

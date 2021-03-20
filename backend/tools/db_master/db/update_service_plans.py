@@ -6,28 +6,33 @@ def update_service_plans():
         {
             'name': 'Basic',
             'description': 'Enable all features needed for your work in freeleaps',
-            'limitOfPostRequests': -1,
-            'limitOfQuoteRequests': -1,
-            'limitOfReachout': -1,
             'codeMangagement': {
                 'name': 'github',
                 'description': 'githut team plan',
-                'serviceProvider': 'github.com',
+                'serviceProvider': 'github',
+                'entryUrl':'https://github.com/',
             },
             'collabration': {
                 'name': 'Microsoft 365 Basic',
                 'description': 'githut team plan',
-                'serviceProvider': 'github.com',
+                'serviceProvider': 'Microsoft',
+                'entryUrl':'https://login.microsoftonline.com/?whr=freeleaps.com'
             },
             'priceTag': {
-                'name': 'base',
+                'name': '$11.99',
                 'price': 11.99,
                 'currency': 'USD'
             },
-            'paymentPlan':{
-                'name': 'month',
+            'paymentPlan': {
+                'name': 'monthly',
                 'recurring': 'monthly',
                 'renew': 'auto'
+            },
+            'reachoutPlan': {
+                'name': 'Unlimited',
+                'limitOfPostRequests': -1,
+                'limitOfQuoteRequests': -1,
+                'limitOfReachout': -1,
             }
         },
     ]

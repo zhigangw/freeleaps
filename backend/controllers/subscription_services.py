@@ -7,7 +7,7 @@ from flask_jwt_extended import (
     jwt_required, get_jwt_identity
 )
 
-from ..mongodb.models.service_plans import ServicePlanDoc
+from ..mongodb.models.service_plans import ServicePlansDoc
 
 
 class SubscriptionFetchPlan(Resource):
@@ -18,7 +18,7 @@ class SubscriptionFetchPlan(Resource):
     def post(self):
         return_code = 200
         resp = None
-        plans = ServicePlanDoc.objects()
+        plans = ServicePlansDoc.objects()
         resp = jsonify(
             plans
         )

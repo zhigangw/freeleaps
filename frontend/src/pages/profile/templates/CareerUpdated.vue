@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: "CareerUpdated",
+  name: "CareerProfileUpdated",
   props: {
   },
 

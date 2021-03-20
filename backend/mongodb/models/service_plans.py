@@ -6,34 +6,39 @@ class Collabration(me.EmbeddedDocument):
     name = me.StringField()
     description = me.StringField()
     serviceProvider = me.StringField()
-    url = me.URLField()
-    email = me.EmailField()
+    entryUrl = me.URLField()
+    username = me.StringField()
 
 
 class CodeManagement(me.EmbeddedDocument):
     name = me.StringField()
     description = me.StringField()
     serviceProvider = me.StringField()
-    url = me.URLField()
+    entryUrl = me.URLField()
+    username = me.StringField()
 
-class PriceTag(me.EmbeddedDocumentField):
+class PriceTag(me.EmbeddedDocument):
     name = me.StringField()
     price = me.DecimalField()
     currency = me.StringField()
 
 
-class PaymentPlan(me.Document):
+class PaymentPlan(me.EmbeddedDocument):
     name = me.StringField()
     recurring = me.StringField()
     renew=me.StringField()
 
-class ServicePlanDoc(me.Document):
+class ReachoutPlan(me.EmbeddedDocument):
     name = me.StringField()
-    description = me.StringField()
     limitOfPostRequests = me.DecimalField()
     limitOfQuoteRequests = me.DecimalField()
     limitOfReachout = me.DecimalField()
+
+class ServicePlansDoc(me.Document):
+    name = me.StringField()
+    description = me.StringField()
     codeMangagement = me.EmbeddedDocumentField(CodeManagement)
     collabration = me.EmbeddedDocumentField(Collabration)
     priceTag = me.EmbeddedDocumentField(PriceTag)
     paymentPlan = me.EmbeddedDocumentField(PaymentPlan)
+    reachoutPlan = me.EmbeddedDocumentField(ReachoutPlan)

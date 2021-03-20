@@ -28,7 +28,7 @@
           <button class="account-menu-button" @click="gotoCareer">Career</button>
         </li>
         <li>
-          <button class="account-menu-button" @click="gotoExperience">Experience</button>
+          <button class="account-menu-button" @click="gotoSubscripton">Subscripton</button>
         </li>
       </ul>
     </div>
@@ -50,7 +50,9 @@ export default {
     gotoCareer() {
       this.mnx_navToUserCareer();
     },
-    gotoExperience() {},
+    gotoSubscripton() {
+      this.mnx_navToUserWork();
+    },
   },
 };
 </script>

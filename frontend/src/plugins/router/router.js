@@ -48,6 +48,7 @@ import PreferredRolesUpdated from "../../pages/profile/career/PreferredRolesUpda
 
 
 import ChoosePlan from "../../pages/profile/work/ChoosePlan";
+import PlanUpdated from "../../pages/profile/work/PlanUpdated";
 import UserWork from "../../pages/profile/work/UserWork";
 
 import Workplace from "../../pages/dashboard/Workplace"
@@ -374,6 +375,14 @@ const router = createRouter({
       path: '/choose-plan/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: ChoosePlan, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'plan-updated',
+      path: '/plan-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: PlanUpdated, header: HeaderUser },
       props: false,
     },
 
