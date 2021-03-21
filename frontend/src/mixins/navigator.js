@@ -158,6 +158,10 @@ export default {
         mnx_navToChoosePlan() {
             this.$router.push("/choose-plan")
         },
+
+        mnx_navToChooseUsername() {
+            this.$router.push("/choose-username")
+        },
         
         mnx_navToPlanUpdated() {
             this.$router.push("/plan-updated")

@@ -51,6 +51,7 @@ export default {
     return {
       workProfile: {},
       plan: null,
+      username:null,
     };
   },
 
@@ -71,8 +72,14 @@ export default {
         .then((response) => {
           this.workProfile = response.data.workProfile;
           this.plan = response.data.plan;
+          this.username = response.data.username;
+          if(!this.username){
+            this.mnx_navToChooseUsername();
+            return;
+          }
           if (!this.plan) {
             this.mnx_navToChoosePlan();
+            return;
           }
         })
         .catch((error) => {

@@ -103,7 +103,8 @@ class UserProfileFetchWork(Resource):
 
         resp = jsonify(
             workProfile=user.workProfile,
-            plan=plan
+            plan=plan,
+            username=user.authProfile.identity
         )
 
         return make_response(resp, return_code)
