@@ -1,0 +1,73 @@
+.lf-board-container {
+    @extend .w-100;
+}
+
+.lf-head-container {
+    @extend .p-1;
+    @extend .p-lg-3;
+    @extend .w-100;
+    @extend .d-flex;
+}
+
+.lf-head-title {
+    @extend .fs-3;
+    @extend .fw-bold;
+    @extend .text-start;
+}
+
+.lf-head-subtitle {
+    @extend .fs-6;
+    @extend .text-start;
+}
+
+.lf-head-left {
+    @extend .w-40;
+    @extend .w-lg-30;
+    @extend .w-xl-20;
+}
+
+.lf-head-right {
+    @extend .w-70;
+    @extend .p-1;
+    @extend .p-lg-3;
+    @extend .d-flex;
+    @extend .justify-content-start;
+}
+.lf-head-notes{
+    @extend .text-start;
+    @include font-size(0.8rem);
+}
+
+.lf-body-container {
+    @extend .w-100;
+    @extend .d-flex;
+    @extend .justify-content-center;
+}
+
+.lf-body-content {
+    @extend .mw-100;
+}
+
+.lf-body-item {
+    @extend .mw-100;
+}
+
+.lf-body-item-label {
+    @extend .text-start;
+    @extend .fs-4;
+}
+
+.lf-body-item-label-note {
+    @extend .text-start;
+    @extend .fs-6;
+}
+
+.lf-body-item-textarea {
+    @extend .border;
+    @extend .w-100;
+    height: 160pt;
+}
+
+.lf-submit-container {
+    @extend .w-100;
+}

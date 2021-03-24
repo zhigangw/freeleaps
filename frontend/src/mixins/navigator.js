@@ -175,23 +175,23 @@ export default {
             this.$router.push("/workplace")
         },
 
+        mnx_navToPostRequestDescription() {
+            this.$router.push("/post-request-description/");
+        },
+        mnx_navToPostRequestNote() {
+            this.$router.push("/post-request-note/" );
+        },
+        mnx_navToPostRequestReview() {
+            this.$router.push("/post-request-review/" )
+        },
+
+
         mnx_navToBuyerProjectView(requestId) {
             this.$router.push("/buyer-project-view/" + requestId);
         },
         mnx_navToBuyerRequestView(requestId) {
             this.$router.push("/buyer-request-view/" + requestId);
         },
-
-        mnx_navToPostRequestDescription(requestId) {
-            this.$router.push("/post-request-description/" + requestId);
-        },
-        mnx_navToPostRequestNote(requestId) {
-            this.$router.push("/post-request-note/" + requestId);
-        },
-        mnx_navToPostRequestReview(requestId) {
-            this.$router.push("/post-request-review/" + requestId)
-        },
-
         mnx_navToSellerDashboard() {
             this.$router.push("/seller-dashboard");
         },

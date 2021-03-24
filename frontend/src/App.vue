@@ -1,9 +1,9 @@
 <template>
   <div class="app-body">
-    <header>
+    <header class="body-header">
       <router-view name="header"></router-view>
     </header>
-    <main>
+    <main class="body-main">
       <router-view></router-view>
     </main>
   </div>
@@ -31,22 +31,20 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 0px;
-  height: 100%;
 }
 </style>
 <style scoped lang="scss">
-header {
+.body-header {
   width: 100%;
   height: 5vmax;
   background: $primary;
 }
-main {
+.body-main {
   margin-top: 0px;
-  height: calc(100% - 5vmax);
+  min-height: calc(100vh - 5vmax);
 }
 .app-body {
   margin-top: 0px;
   width: 100%;
-  height: 100%;
 }
 </style>

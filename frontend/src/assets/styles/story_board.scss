@@ -1,0 +1,54 @@
+.story-board {
+    @extend .border-0;
+    @extend .mx-1;
+    @extend .mx-lg-3;
+    @extend .mx-xxl-5;
+    @extend .my-3;
+    @extend .pt-1;
+  }
+  
+  .focus-area {
+    @extend .border;
+    @extend .mx-auto;
+    @extend .my-5;
+    @extend .pt-2;
+    @extend .px-0;
+    @extend .px-lg-2;
+    @extend .pb-5;
+    @extend .w-100;
+    @extend .w-md-75;
+    @extend .w-xl-50;
+    @extend .w-xxl-50;
+  }
+  
+  .form-group {
+    @extend .mx-auto;
+    @extend .my-5;
+    @extend .w-100;
+    @extend .w-md-75;
+    @extend .border;
+  }
+  
+  .form-group-item {
+    @extend .form-control;
+    @extend .mx-auto;
+    @extend .w-sm-90;
+    @extend .w-100;
+    @extend .my-2;
+  }
+  
+  .form-submit {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .w-30;
+    @extend .mx-auto;
+  }
+  
+  .form-cancel {
+    @extend .btn;
+    @extend .btn-secondary;
+    @extend .w-30;
+    @extend .mx-auto;
+  }
+  
+  

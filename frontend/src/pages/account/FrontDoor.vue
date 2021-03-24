@@ -1,22 +1,20 @@
 <template>
-  <div class="main-body">
-    <div class="story-board">
-      <div class="focus-area">
-        <p class="callout">Find a trustworthy partner, simplify the work, secure your return.</p>
-        <div class="form-group">
-          <form @submit.prevent="checkRegister">
-            <div class="input-group">
-              <input
-                class="form-control w-70 me-1"
-                type="text"
-                :placeholder="'Email or Username'"
-                v-model="emailOrUsername"
-              />
-              <button type="submit" class="form-control btn btn-primary ms-1">Start</button>
-            </div>
-          </form>
-          <p class="errorInput" v-if="message != null">{{message}}</p>
-        </div>
+  <div class="story-board">
+    <div class="focus-area">
+      <p class="callout">Find a trustworthy partner, simplify the work, secure your return.</p>
+      <div class="form-group">
+        <form @submit.prevent="checkRegister">
+          <div class="input-group">
+            <input
+              class="form-control w-70 me-1"
+              type="text"
+              :placeholder="'Email or Username'"
+              v-model="emailOrUsername"
+            />
+            <button type="submit" class="form-control btn btn-primary ms-1">Start</button>
+          </div>
+        </form>
+        <p class="errorInput" v-if="message != null">{{message}}</p>
       </div>
     </div>
   </div>

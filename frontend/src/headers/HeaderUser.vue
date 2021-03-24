@@ -2,10 +2,10 @@
   <div class="container-div">
     <img class="company-logo" alt="freeleaps logo" src="@/assets/logo.png" />
     <div class="nav-bar-container" role="navigation">
-      <button class="nav-bar-button" aria-current="page">Workplace</button>
-      <button class="nav-bar-button" href="#">Requests</button>
-      <button class="nav-bar-button" href="#">Network</button>
-      <button class="nav-bar-button" href="#">Post</button>
+      <button class="nav-bar-button" @click="gotoWorkplace">Workplace</button>
+      <button class="nav-bar-button" @click="gotoRequests">Requests</button>
+      <button class="nav-bar-button" @click="gotoNetwork">Network</button>
+      <button class="nav-bar-button" @click="gotoPost">Post</button>
     </div>
     <div class="dropdown">
       <button
@@ -40,13 +40,25 @@ export default {
   components: {},
   computed: {},
   methods: {
+    gotoWorkplace() {
+      this.mnx_navToWorkplace();
+    },
+    gotoRequests() {
+      this.mnx_navToRequests();
+    },
+    gotoNetwork() {
+      this.mnx_navToNetwork();
+    },
+    gotoPost() {
+      this.mnx_navToPost();
+    },
     gotoAccount() {
       this.mnx_navToUserAccount();
     },
     gotoPersonal() {
       this.mnx_navToUserPersonal();
-      },
-      
+    },
+
     gotoCareer() {
       this.mnx_navToUserCareer();
     },

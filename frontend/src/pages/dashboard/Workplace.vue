@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     postProject() {
-      this.mnx_navToPostRequestDescription(null);
+      this.mnx_navToPostRequestDescription();
     },
     viewProject(event) {
       let requestId = event.currentTarget.id;

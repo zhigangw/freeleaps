@@ -52,16 +52,20 @@ import ChoosePlan from "../../pages/profile/work/ChoosePlan";
 import PlanUpdated from "../../pages/profile/work/PlanUpdated";
 import UserWork from "../../pages/profile/work/UserWork";
 
+
+import PostRequestDescription from "../../pages/request/PostRequestDescription";
+import PostRequestNote from "../../pages/request/PostRequestNote";
+import PostRequestReview from "../../pages/request/PostRequestReview";
+
 import Workplace from "../../pages/dashboard/Workplace"
+
+
 
 import BuyerDashboard from "../../pages/buyer/BuyerDashboard";
 import BuyerInviteSeller from "../../pages/buyer/BuyerInviteSeller";
 import BuyerProjectView from "../../pages/buyer/BuyerProjectView";
 import BuyerRequestView from "../../pages/buyer/BuyerRequestView";
 import BuyerQuoteView from "../../pages/buyer/BuyerQuoteView";
-import PostRequestDescription from "../../pages/buyer/PostRequestDescription";
-import PostRequestNote from "../../pages/buyer/PostRequestNote";
-import PostRequestReview from "../../pages/buyer/PostRequestReview";
 import SellerDashboard from "../../pages/seller/SellerDashboard";
 import SellerBuyerRequestView from "../../pages/seller/SellerBuyerRequestView";
 import SellerEarnings from "../../pages/seller/SellerEarnings";
@@ -405,6 +409,32 @@ const router = createRouter({
     },
 
 
+
+    {
+      name: 'post-request-description',
+      path: '/post-request-description',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: PostRequestDescription, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'post-request-note',
+      path: '/post-request-note',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: PostRequestNote, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'post-request-review',
+      path: '/post-request-review',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: PostRequestReview, header: HeaderUser },
+      props: false,
+    },
+
+
     {
       name: 'workplace',
       path: '/workplace',
@@ -447,31 +477,6 @@ const router = createRouter({
       components: { default: BuyerProjectView, header: HeaderUser },
       props: true,
     },
-
-    {
-      name: 'post-request-description',
-      path: '/post-request-description/:requestId',
-      meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostRequestDescription, header: HeaderUser },
-      props: true,
-    },
-
-    {
-      name: 'post-request-note',
-      path: '/post-request-note/:requestId',
-      meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostRequestNote, header: HeaderUser },
-      props: true,
-    },
-
-    {
-      name: 'post-request-review',
-      path: '/post-request-review/:requestId',
-      meta: { requiredRoles: [userRoleEnum.BUYER] },
-      components: { default: PostRequestReview, header: HeaderUser },
-      props: true,
-    },
-
     {
       name: 'seller-dashboard',
       path: '/seller-dashboard',
