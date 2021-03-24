@@ -27,13 +27,16 @@
 }
 
 .lf-head-right {
-    @extend .w-70;
+    @extend .w-60;
+    @extend .w-lg-70;
+    @extend .w-xl-80;
     @extend .p-1;
     @extend .p-lg-3;
     @extend .d-flex;
     @extend .justify-content-start;
 }
-.lf-head-notes{
+
+.lf-head-notes {
     @extend .text-start;
     @include font-size(0.8rem);
 }
@@ -69,5 +72,25 @@
 }
 
 .lf-submit-container {
+    @extend .d-flex;
     @extend .w-100;
+    @extend .w-lg-80;
+    @extend .w-xl-60;
+    @extend .justify-content-center;
+    @extend .my-3;
+    @extend .mx-auto;
+}
+
+.if-submit {
+    @extend .btn;
+    @extend .btn-primary;
+    @extend .w-30;
+    @extend .mx-auto;
+}
+
+.if-cancel {
+    @extend .btn;
+    @extend .btn-secondary;
+    @extend .w-30;
+    @extend .mx-auto;
 }

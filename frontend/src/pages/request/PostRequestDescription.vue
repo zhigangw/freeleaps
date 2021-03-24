@@ -59,13 +59,17 @@
               v-model.trim="description.criteria"
             />
           </div>
-          <div class="lf-body-item">
+          <!-- <div class="lf-body-item">
             <h5 class="lf-body-item-label" for="appendix">Appendix</h5>
             <p class="lf-body-item-label-note">Upload your appendix</p>
-          </div>
+          </div>-->
         </div>
       </div>
-      <button type="submit">Next</button>
+      <div class="lf-submit-container">
+        <button class="if-cancel" type="button" @click="goBack">Cancel</button>
+        <button class="if-submit" type="submit">Next</button>
+      </div>
+      <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
     </form>
   </div>
 </template>
@@ -84,6 +88,7 @@ export default {
     return {
       localRequestId: null,
       description: requestPostSkeleton.description,
+      errorMessage: null,
     };
   },
 
@@ -93,6 +98,9 @@ export default {
     this.fetchLocalStoredDescription();
   },
   methods: {
+    hasError(){
+      return (this.errorMessage);
+    },
     goNext() {
       this.mnx_navToPostRequestNote(this.localRequestId);
     },

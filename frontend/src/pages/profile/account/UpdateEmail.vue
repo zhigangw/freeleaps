@@ -13,9 +13,9 @@
                 placeholder="Your new email"
               />
             </div>
-            <div class="input-group-div">
-              <button class="input-email-cancel" type="button" @click="goBack">Cancel</button>
-              <button class="input-email-submit" type="submit">Submit</button>
+            <div class="lf-submit-container">
+              <button class="if-submit" type="button" @click="goBack">Cancel</button>
+              <button class="if-cancel" type="submit">Submit</button>
             </div>
             <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
           </form>
