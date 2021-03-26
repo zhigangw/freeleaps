@@ -13,4 +13,4 @@ export {
 } from './backend/index'
 export { userUtils, requestPostUtils, userProfileUtils } from './store/index'
 export { ValueChecker, DateUtils, OIDUtils } from './common/index'
-export { userProfileValidator } from './validator/index'
+export { userProfileValidator, requestValidator } from './validator/index'

@@ -19,7 +19,7 @@
             <h5 class="lf-body-item-label" for="problem-statement">Problem Statement(as the title)</h5>
             <p
               class="lf-body-item-label-note"
-            >A couple of sentences about the problem the project is about to resolve. (50~200 words)</p>
+            >A couple of sentences about the problem the project is about to resolve. (50~5000 characters)</p>
             <textarea
               class="lf-body-item-textarea"
               id="problem-statement"
@@ -34,7 +34,7 @@
             <h5 class="lf-body-item-label" for="deliverables">Deliverables</h5>
             <p
               class="lf-body-item-label-note"
-            >What are the deliverables of the project. (50~200 words)</p>
+            >What are the deliverables of the project. (50~5000 characters)</p>
             <textarea
               class="lf-body-item-textarea"
               id="deliverables"
@@ -48,7 +48,7 @@
 
           <div class="lf-body-item">
             <h5 class="lf-body-item-label" for="criteria">Criteria</h5>
-            <p class="lf-body-item-label-note">The exit criteria of the project (50~200 words)</p>
+            <p class="lf-body-item-label-note">The exit criteria of the project (50~5000 characters)</p>
             <textarea
               class="lf-body-item-textarea"
               id="criteria"
@@ -69,24 +69,26 @@
         <button class="if-cancel" type="button" @click="goBack">Cancel</button>
         <button class="if-submit" type="submit">Next</button>
       </div>
-      <p v-if="hasError()" class="errorInput">{{errorMessage}}</p>
+      <p v-if="hasError()" class="if-errorInput">{{errorMessage}}</p>
     </form>
   </div>
 </template>
 
 <script>
-import { RequestPostApi, requestPostUtils } from "../../utils/index";
+import {
+  RequestPostApi,
+  requestPostUtils,
+  requestValidator,
+} from "../../utils/index";
 import { requestPostSkeleton } from "../../types/index";
 
 export default {
   name: "PostRequestDescription",
-  props: {
-    requestId: null,
-  },
+  props: {},
 
   data() {
     return {
-      localRequestId: null,
+      requestId: null,
       description: requestPostSkeleton.description,
       errorMessage: null,
     };
@@ -94,44 +96,46 @@ export default {
 
   created() {},
   mounted() {
-    this.localRequestId = this.requestId;
     this.fetchLocalStoredDescription();
   },
   methods: {
-    hasError(){
-      return (this.errorMessage);
+    hasError() {
+      return this.errorMessage;
     },
-    goNext() {
-      this.mnx_navToPostRequestNote(this.localRequestId);
-    },
+
     async fetchLocalStoredDescription() {
-      if (
-        this.localRequestId != null &&
-        this.localRequestId != "null" &&
-        this.localRequestId == requestPostUtils.fetchRequestId()
-      ) {
+      this.requestId = requestPostUtils.fetchRequestId();
+      if (this.requestId != null) {
         this.description = requestPostUtils.fetchDescription();
       }
     },
 
-    async fetchDescription() {
-      if (this.localRequestId != null) {
-        RequestPostApi.fetchDescription(this.localRequestId)
-          .then((response) => {
-            this.description = response.data;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-    },
     async submitForm() {
-      RequestPostApi.fillDescription(this.localRequestId, this.description)
+      this.errorMessage = requestValidator.problemStatementValidator.validate(
+        this.description.problemStatement
+      );
+      if (this.hasError()) {
+        return;
+      }
+      this.errorMessage = requestValidator.requestDeliverablesValidator.validate(
+        this.description.deliverables
+      );
+      if (this.hasError()) {
+        return;
+      }
+      this.errorMessage = requestValidator.requestCriteriaValidator.validate(
+        this.description.criteria
+      );
+      if (this.hasError()) {
+        return;
+      }
+
+      RequestPostApi.fillDescription(this.requestId, this.description)
         .then((response) => {
-          this.localRequestId = response.data.requestId;
-          requestPostUtils.fillRequestId(this.localRequestId);
+          this.requestId = response.data.requestId;
+          requestPostUtils.fillRequestId(this.requestId);
           requestPostUtils.fillDescription(this.description);
-          this.goNext();
+          this.mnx_navToPostRequestNote();
         })
         .catch((error) => {
           console.log(error);
