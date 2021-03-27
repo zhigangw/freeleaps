@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor"></div>
+  <div v-bind="$attrs" ref="editor"></div>
 </template>
 <script>
 import Quill from "quill";
@@ -7,19 +7,18 @@ import Quill from "quill";
 export default {
   name: "RichTextEditor",
   props: {
-    value: {
-      type: String,
-      default: "",
-    },
+    modelValue: null,
+    placeholder: null,
   },
 
+  emits: ["update:modelValue", "edit"],
   data() {
     return {
       editor: null,
     };
   },
   mounted() {
-    this.editor = new Quill(this.$refs.editor, {
+    let editorConfiguration = {
       modules: {
         toolbar: [
           [{ header: [1, 2, 3, 4, false] }],
@@ -28,9 +27,12 @@ export default {
       },
       theme: "bubble",
       formats: ["bold", "underline", "header", "italic"],
-    });
+      placeholder: this.placeholder,
+    };
 
-    this.editor.root.innerHTML = this.value;
+    this.editor = new Quill(this.$refs.editor, editorConfiguration);
+
+    this.editor.root.innerHTML = this.modelValue;
 
     this.editor.on("text-change", () => this.update());
   },
@@ -38,10 +40,11 @@ export default {
   methods: {
     update() {
       this.$emit(
-        "input",
+        "edit",
         this.editor.getText() ? this.editor.root.innerHTML : ""
       );
     },
   },
 };
 </script>
+
