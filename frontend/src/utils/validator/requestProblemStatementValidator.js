@@ -2,7 +2,7 @@ import { TextValidator } from './textValidator'
 const formatMessage = "less then 4098 characters";
 const pattern = /^[ -~|\n]{128,4098}$/;
 const minLength = 128;
-const maxLength = 4098;
+const maxLength = 1024;
 
 class RequestProblemStatementValidator extends TextValidator {
     constructor() {

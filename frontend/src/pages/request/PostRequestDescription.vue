@@ -19,33 +19,42 @@
             <h5 class="lf-body-item-label" for="problem-statement">Problem Statement(as the title)</h5>
             <p
               class="lf-body-item-label-note"
-            >A couple of sentences about the problem the project is about to resolve. (128~4098 characters)</p>
-            <rich-text-editor class="lf-body-item-textarea"
+            >A couple of sentences about the problem the project is about to resolve. (64~512 characters)</p>
+            <textarea
+              class="problem-statement-textarea"
               id="problem-statement"
-              :placeholder="placeholderDescription"
-              v-model.trim="description.problemStatement"></rich-text-editor>
+              placeholder="Examples: Build a e-commerce website following the spec and UI design."
+              v-model.trim="description.problemStatement"
+            />
           </div>
           <div class="lf-body-item">
             <h5 class="lf-body-item-label" for="deliverables">Deliverables</h5>
             <p
               class="lf-body-item-label-note"
             >What are the deliverables of the project. (128~4098 characters)</p>
-            <rich-text-editor class="lf-body-item-textarea"
+            <textarea
+              class="lf-body-item-textarea"
               id="deliverables"
-              :placeholder="placeholderDeliverables"
-              v-model.trim="description.deliverables"></rich-text-editor>
+              placeholder="Examples: 
+1) A log with decryptions on how it means
+2) A uprunning website hosted in a cloud platform, along with the Java source code and design docs for the website.
+3) A product spec for a e-commerce website"
+              v-model.trim="description.deliverables"
+            />
           </div>
 
           <div class="lf-body-item">
             <h5 class="lf-body-item-label" for="criteria">Criteria</h5>
-            <p
-              class="lf-body-item-label-note"
-            >The exit criteria of the project (128~4098 characters)</p>
-            <rich-text-editor class="lf-body-item-textarea"
+            <p class="lf-body-item-label-note">The exit criteria of the project (128~4098 characters)</p>
+            <textarea
+              class="lf-body-item-textarea"
               id="criteria"
-              :placeholder="placeholderCriteria"
-              v-model.trim="description.criteria"></rich-text-editor>
-
+              placeholder="Examples: 
+1) The log needs to meet our requirement
+2) The website need to pass our test; The source code need to meet the guidance. 
+3)The product spec need to passed our review and get signed off by us"
+              v-model.trim="description.criteria"
+            />
           </div>
           <!-- <div class="lf-body-item">
             <h5 class="lf-body-item-label" for="appendix">Appendix</h5>
@@ -69,7 +78,6 @@ import {
   requestValidator,
 } from "../../utils/index";
 import { requestPostSkeleton } from "../../types/index";
-import RichTextEditor from "../../components/inputs/infra/RichTextEditor";
 
 export default {
   name: "PostRequestDescription",
@@ -80,24 +88,9 @@ export default {
       requestId: null,
       description: requestPostSkeleton.description,
       errorMessage: null,
-      placeholderDescription:"Examples: \n\
-1) Build a e-commerce website following the spec and UI design.\n\
-2) Design a logo for my new mobile app.\n\
-3) Write a product spec for a e-commerce website",
-      placeholderDeliverables:"Examples: \n\
-1) A log with decryptions on how it means \n\
-2) A uprunning website hosted in a cloud platform, along with the Java source code and design docs for the website. \n\
-3) A product spec for a e-commerce website",
-      placeholderCriteria:"Examples: \n\
-1) The log needs to meet our requirement\n\
-2) The website need to pass our test; The source code need to meet the guidance. \n\
-3)The product spec need to passed our review and get signed off by us"
     };
   },
 
-  components: {
-    RichTextEditor,
-  },
   created() {},
   mounted() {
     this.fetchLocalStoredDescription();
@@ -153,5 +146,9 @@ export default {
 <style scoped lang="scss">
 .comp-body {
   @extend .lf-board-container;
+}
+.problem-statement-textarea{
+  @extend .lf-body-item-textarea;
+  height: 32pt;
 }
 </style>
