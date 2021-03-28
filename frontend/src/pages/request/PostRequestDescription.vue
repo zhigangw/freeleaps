@@ -16,50 +16,30 @@
       <div class="lf-body-container">
         <div class="lf-body-content">
           <div class="lf-body-item">
-            <h5 class="lf-body-item-label" for="problem-statement">Problem Statement(as the title)</h5>
+            <h5 class="lf-body-item-label" for="headline">Headline</h5>
             <p
               class="lf-body-item-label-note"
-            >A couple of sentences about the problem the project is about to resolve. (64~512 characters)</p>
-            <textarea
-              class="problem-statement-textarea"
-              id="problem-statement"
+            >A phrase or sentence about the project is. (32~256 words)</p>
+            <input
+              type="text"
+              class="headline-text"
+              id="headline"
               placeholder="Examples: Build a e-commerce website following the spec and UI design."
-              v-model.trim="description.problemStatement"
+              v-model.trim="headline"
             />
           </div>
           <div class="lf-body-item">
-            <h5 class="lf-body-item-label" for="deliverables">Deliverables</h5>
+            <h5 class="lf-body-item-label" for="details">Details</h5>
             <p
               class="lf-body-item-label-note"
-            >What are the deliverables of the project. (128~4098 characters)</p>
-            <textarea
-              class="lf-body-item-textarea"
-              id="deliverables"
-              placeholder="Examples: 
-1) A log with decryptions on how it means
-2) A uprunning website hosted in a cloud platform, along with the Java source code and design docs for the website.
-3) A product spec for a e-commerce website"
-              v-model.trim="description.deliverables"
+            >What are the details of the project. (128~4098 characters)</p>
+            <rich-text-editor
+              class="lf-body-item-rich-text"
+              id="details"
+              :placeholder="placeholderDetails"
+              v-model.trim="details"
             />
           </div>
-
-          <div class="lf-body-item">
-            <h5 class="lf-body-item-label" for="criteria">Criteria</h5>
-            <p class="lf-body-item-label-note">The exit criteria of the project (128~4098 characters)</p>
-            <textarea
-              class="lf-body-item-textarea"
-              id="criteria"
-              placeholder="Examples: 
-1) The log needs to meet our requirement
-2) The website need to pass our test; The source code need to meet the guidance. 
-3)The product spec need to passed our review and get signed off by us"
-              v-model.trim="description.criteria"
-            />
-          </div>
-          <!-- <div class="lf-body-item">
-            <h5 class="lf-body-item-label" for="appendix">Appendix</h5>
-            <p class="lf-body-item-label-note">Upload your appendix</p>
-          </div>-->
         </div>
       </div>
       <div class="lf-submit-container">
@@ -77,7 +57,7 @@ import {
   requestPostUtils,
   requestValidator,
 } from "../../utils/index";
-import { requestPostSkeleton } from "../../types/index";
+import RichTextEditor from "../../components/inputs/infra/RichTextEditor";
 
 export default {
   name: "PostRequestDescription",
@@ -86,12 +66,17 @@ export default {
   data() {
     return {
       requestId: null,
-      description: requestPostSkeleton.description,
+      headline: null,
+      details: 
+      "<h3>Problem Statement</h3><p>[We want to build a e-commerce website where our customers can exchange their used games. The website need to have a complete list features including user account management, payment, etc.]</p><h3>Deliverables</h3><p>[A uprunning website hosted in a cloud platform, with java source code and design docs.]</p><h3>Ship Criteria</h3><p>[The website need to pass our test; The source code need to meet the guidance.The product spec need to passed our review and get signed off by us.]</p><h3>Qualification</h3><p>[1) 5+ years on Java programming2) Top company experience3) Can speak Chinese]</p><h3>Appendix</h3><p><a href='#'>Link to product spec</a><a href='#'> Links to test plan</a></p>",
+      placeholderDetails:
+        "Provide detailed description about the request, usually including problem statement, deliverables, qualification and other informations",
       errorMessage: null,
     };
   },
 
   created() {},
+  components: { RichTextEditor },
   mounted() {
     this.fetchLocalStoredDescription();
   },
@@ -147,8 +132,7 @@ export default {
 .comp-body {
   @extend .lf-board-container;
 }
-.problem-statement-textarea{
-  @extend .lf-body-item-textarea;
-  height: 32pt;
+.headline-text {
+  @extend .lf-body-item-text-input;
 }
 </style>

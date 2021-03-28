@@ -48,27 +48,42 @@
 }
 
 .lf-body-content {
-    @extend .mw-100;
+    @extend .w-100;
+    @extend .w-sm-90;
+    @extend .w-lg-80;
+    @extend .w-xl-70;
+    @extend .mx-auto;
+    @extend .border;
+    @extend .p-1;
 }
 
 .lf-body-item {
-    @extend .mw-100;
+    @extend .w-100;
 }
 
 .lf-body-item-label {
     @extend .text-start;
-    @extend .fs-4;
+    @extend .fs-5;
+    @extend .fw-bold;
 }
 
 .lf-body-item-label-note {
     @extend .text-start;
-    @extend .fs-6;
+    @include font-size(0.5rem);
+    @extend .my-0;
+    @extend .py-0;
 }
 
-.lf-body-item-textarea {
+.lf-body-item-rich-text {
     @extend .border;
     @extend .w-100;
-    height: 128pt;
+}
+
+.lf-body-item-text-input {
+    @extend .border;
+    @extend .w-100;
+    height: 5vh;
+    @extend .mb-3;
 }
 
 .lf-submit-container {
