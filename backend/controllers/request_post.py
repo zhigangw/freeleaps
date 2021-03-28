@@ -42,7 +42,6 @@ class RequestPostFillDescription(Resource):
                 id=args.requestId,
                 posterId=userIdentity,
             ).update(
-                set__posterIdentity=userIdentity,
                 set__updatedDate=datetime.utcnow(),
                 set__description=args.description,
             )

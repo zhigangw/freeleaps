@@ -4,11 +4,6 @@ const requestPostStatusEnum = Object.freeze({
 });
 
 const requestPostSkeleton ={
-    description:{
-      problemStatement:null,
-      deliverables:null,
-      criteria:null
-    },
     notes:{
   
     }

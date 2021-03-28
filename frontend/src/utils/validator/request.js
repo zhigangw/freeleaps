@@ -1,12 +1,10 @@
-import { RequestProblemStatementValidator } from "./requestProblemStatementValidator"
-import { RequestDeliverablesValidator } from "./requestDeliverablesValidator"
-import { RequestCriteriaValidator } from "./requestCriteriaValidator"
+import { RequestHeadlineValidator } from "./requestHeadlineValidator"
+import { RequestDetailsValidator } from "./requestDetailsValidator"
 
 class RequestValidator {
     constructor() {
-        this.problemStatementValidator = new RequestProblemStatementValidator();
-        this.requestDeliverablesValidator = new RequestDeliverablesValidator();
-        this.requestCriteriaValidator = new RequestCriteriaValidator();
+        this.requestHeadlineValidator = new RequestHeadlineValidator();
+        this.requestDetailsValidator = new RequestDetailsValidator();
     }
 }
 

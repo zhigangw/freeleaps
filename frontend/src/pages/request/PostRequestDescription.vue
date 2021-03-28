@@ -19,13 +19,13 @@
             <h5 class="lf-body-item-label" for="headline">Headline</h5>
             <p
               class="lf-body-item-label-note"
-            >A phrase or sentence about the project is. (32~256 words)</p>
+            >A phrase or sentence about the project is. (16~256 words)</p>
             <input
               type="text"
               class="headline-text"
               id="headline"
               placeholder="Examples: Build a e-commerce website following the spec and UI design."
-              v-model.trim="headline"
+              v-model.trim="description.headline"
             />
           </div>
           <div class="lf-body-item">
@@ -37,16 +37,16 @@
               class="lf-body-item-rich-text"
               id="details"
               :placeholder="placeholderDetails"
-              v-model.trim="details"
+              v-model.trim="description.details"
             />
           </div>
         </div>
       </div>
+      <p v-show="hasError()" class="if-errorInput">{{errorMessage}}</p>
       <div class="lf-submit-container">
         <button class="if-cancel" type="button" @click="goBack">Cancel</button>
         <button class="if-submit" type="submit">Next</button>
       </div>
-      <p v-if="hasError()" class="if-errorInput">{{errorMessage}}</p>
     </form>
   </div>
 </template>
@@ -58,7 +58,6 @@ import {
   requestValidator,
 } from "../../utils/index";
 import RichTextEditor from "../../components/inputs/infra/RichTextEditor";
-
 export default {
   name: "PostRequestDescription",
   props: {},
@@ -66,9 +65,11 @@ export default {
   data() {
     return {
       requestId: null,
-      headline: null,
-      details: 
-      "<h3>Problem Statement</h3><p>[We want to build a e-commerce website where our customers can exchange their used games. The website need to have a complete list features including user account management, payment, etc.]</p><h3>Deliverables</h3><p>[A uprunning website hosted in a cloud platform, with java source code and design docs.]</p><h3>Ship Criteria</h3><p>[The website need to pass our test; The source code need to meet the guidance.The product spec need to passed our review and get signed off by us.]</p><h3>Qualification</h3><p>[1) 5+ years on Java programming2) Top company experience3) Can speak Chinese]</p><h3>Appendix</h3><p><a href='#'>Link to product spec</a><a href='#'> Links to test plan</a></p>",
+      description: {
+        headline: null,
+        details:
+          "<h3>Problem Statement</h3><p>[We want to build a e-commerce website where our customers can exchange their used games. The website need to have a complete list features including user account management, payment, etc.]</p><h3>Deliverables</h3><p>[A uprunning website hosted in a cloud platform, with java source code and design docs.]</p><h3>Ship Criteria</h3><p>[The website need to pass our test; The source code need to meet the guidance.The product spec need to passed our review and get signed off by us.]</p><h3>Qualification</h3><p>[1) 5+ years on Java programming2) Top company experience3) Can speak Chinese]</p><h3>Appendix</h3><p><a href='#'>Link to product spec</a><a href='#'> Links to test plan</a></p>",
+      },
       placeholderDetails:
         "Provide detailed description about the request, usually including problem statement, deliverables, qualification and other informations",
       errorMessage: null,
@@ -93,21 +94,17 @@ export default {
     },
 
     async submitForm() {
-      this.errorMessage = requestValidator.problemStatementValidator.validate(
-        this.description.problemStatement
+      this.errorMessage = requestValidator.requestHeadlineValidator.validate(
+        this.description.headline
       );
+
       if (this.hasError()) {
         return;
       }
-      this.errorMessage = requestValidator.requestDeliverablesValidator.validate(
-        this.description.deliverables
+      this.errorMessage = requestValidator.requestDetailsValidator.validate(
+        this.description.details
       );
-      if (this.hasError()) {
-        return;
-      }
-      this.errorMessage = requestValidator.requestCriteriaValidator.validate(
-        this.description.criteria
-      );
+
       if (this.hasError()) {
         return;
       }
@@ -120,7 +117,7 @@ export default {
           this.mnx_navToPostRequestNote();
         })
         .catch((error) => {
-          console.log(error);
+          this.mnx_backendErrorHandler(error);
         });
     },
   },
