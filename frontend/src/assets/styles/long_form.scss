@@ -67,11 +67,61 @@
     @extend .fw-bold;
 }
 
+.lf-body-block-container {
+    @extend .w-100;
+    @extend .mb-1;
+    @extend .border;
+}
+
+.lf-body-block-container-title {
+    @extend .text-start;
+    @extend .fs-5;
+    @extend .fw-bold;
+}
+
+.lf-body-block-container-body {
+    @extend .w-100;
+    @extend .d-flex,
+    .flex-wrap;
+    @extend .justify-content-center;
+}
+
+.lf-body-item-block {
+    @extend .w-100;
+    @extend .w-sm-80;
+    @extend .w-lg-40;
+    @extend .w-xxl-30;
+    @extend .mx-auto;
+    @extend .p-1;
+    @extend .d-flex,
+    .flex-wrap;
+    @extend .justify-content-center;
+}
+
+.lf-body-item-block-label {
+    @extend .text-start;
+    @extend .fs-6;
+    @extend .fw-bold;
+    @extend .w-90;
+}
+
+.lf-body-item-block-notes {
+    @extend .text-start;
+    @include font-size(0.75rem);
+    @extend .my-0;
+    @extend .py-0;
+    @extend .w-90;
+}
+
+.lf-body-item--block-input {
+    @extend .w-90;
+    @extend .mt-1;
+    @extend .mb-3;
+}
+
 .lf-body-item-label-note {
     @extend .text-start;
     @include font-size(0.5rem);
-    @extend .my-0;
-    @extend .py-0;
 }
 
 .lf-body-item-rich-text {
@@ -111,7 +161,7 @@
     @extend .mx-auto;
 }
 
-.if-errorInput{
+.if-errorInput {
     @extend .text-center;
     @include font-size(1.5rem);
     color: $error;
