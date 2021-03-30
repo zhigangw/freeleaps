@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { RequestPostApi } from "../../utils/index";
+import { RequestPostApi, requestPostUtils } from "../../utils/index";
 import { requestPostStatusEnum } from "../../types/index";
 
 export default {
@@ -40,12 +40,14 @@ export default {
       let request = this.postList.filter(function (x) {
         return x.requestId == requestId;
       })[0];
+
+      requestPostUtils.fillRequest(request);
       if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestReview(requestId);
+        this.mnx_navToPostRequestReview();
       } else if (request.status === requestPostStatusEnum.PUBLISHED) {
-        this.mnx_navToBuyerRequestView(requestId);
+        this.mnx_navToBuyerRequestView();
       } else {
-        this.mnx_navToBuyerProjectView(requestId);
+        this.mnx_navToBuyerProjectView();
       }
     },
     async fetchMyAllPostSummary() {

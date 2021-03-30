@@ -117,40 +117,28 @@ export default {
   components: { BootStrapAccordionItem },
   data() {
     return {
-      plan: null,
-      requestId: null,
-      notes: requestPostSkeleton.notes,
+      request: requestPostSkeleton,
       errorMessage: null,
     };
   },
 
   created() {},
   mounted() {
-    this.localRequestId = this.requestId;
-    this.fetchLocalStoredNotes();
+    if (requestPostUtils.fetchRequest()) {
+      this.request = requestPostUtils.fetchRequest();
+    }
   },
   methods: {
     hasError() {
       return this.errorMessage;
     },
     gotoNext() {
-      this.mnx_navToPostRequestReview(this.localRequestId);
+      requestPostUtils.fillRequest(this.request);
+      this.mnx_navToPostRequestReview();
     },
     goBack() {
-      this.mnx_navToPostRequestDescription(this.localRequestId);
-    },
-
-    async fetchLocalStoredNotes() {
-      if (
-        this.localRequestId != null &&
-        this.localRequestId != "null" &&
-        this.localRequestId == requestPostUtils.fetchRequestId()
-      ) {
-        let notes = requestPostUtils.fetchNotes();
-        if (notes != undefined) {
-          this.notes = notes;
-        }
-      }
+      requestPostUtils.fillRequest(this.request);
+      this.mnx_navToPostRequestDescription();
     },
 
     async fetchNotes() {

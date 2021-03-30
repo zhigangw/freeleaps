@@ -25,7 +25,7 @@
               class="headline-text"
               id="headline"
               placeholder="Examples: Build a e-commerce website following the spec and UI design."
-              v-model.trim="description.headline"
+              v-model.trim="request.description.headline"
             />
           </div>
           <div class="lf-body-item">
@@ -37,7 +37,7 @@
               class="lf-body-item-rich-text"
               id="details"
               :placeholder="placeholderDetails"
-              v-model.trim="description.details"
+              v-model.trim="request.description.details"
             />
           </div>
         </div>
@@ -57,6 +57,7 @@ import {
   requestPostUtils,
   requestValidator,
 } from "../../utils/index";
+import { requestPostSkeleton } from "../../types/index";
 import RichTextEditor from "../../components/inputs/infra/RichTextEditor";
 export default {
   name: "PostRequestDescription",
@@ -64,56 +65,50 @@ export default {
 
   data() {
     return {
-      requestId: null,
-      description: {
-        headline: null,
-        details:
-          "<h3>Problem Statement</h3><p>[We want to build a e-commerce website where our customers can exchange their used games. The website need to have a complete list features including user account management, payment, etc.]</p><h3>Deliverables</h3><p>[A uprunning website hosted in a cloud platform, with java source code and design docs.]</p><h3>Ship Criteria</h3><p>[The website need to pass our test; The source code need to meet the guidance.The product spec need to passed our review and get signed off by us.]</p><h3>Qualification</h3><p>[1) 5+ years on Java programming2) Top company experience3) Can speak Chinese]</p><h3>Appendix</h3><p><a href='#'>Link to product spec</a><a href='#'> Links to test plan</a></p>",
-      },
+      request: requestPostSkeleton,
       placeholderDetails:
         "Provide detailed description about the request, usually including problem statement, deliverables, qualification and other informations",
       errorMessage: null,
     };
   },
 
-  created() {},
+  created() {
+    
+  },
   components: { RichTextEditor },
   mounted() {
-    this.fetchLocalStoredDescription();
+    if (requestPostUtils.fetchRequest()) {
+      this.request = requestPostUtils.fetchRequest();
+    }
   },
   methods: {
     hasError() {
       return this.errorMessage;
     },
 
-    async fetchLocalStoredDescription() {
-      this.requestId = requestPostUtils.fetchRequestId();
-      if (this.requestId != null) {
-        this.description = requestPostUtils.fetchDescription();
-      }
-    },
-
     async submitForm() {
       this.errorMessage = requestValidator.requestHeadlineValidator.validate(
-        this.description.headline
+        this.request.description.headline
       );
 
       if (this.hasError()) {
         return;
       }
       this.errorMessage = requestValidator.requestDetailsValidator.validate(
-        this.description.details
+        this.request.description.details
       );
 
       if (this.hasError()) {
         return;
       }
 
-      RequestPostApi.fillDescription(this.requestId, this.description)
+      RequestPostApi.fillDescription(
+        this.request.requestId,
+        this.request.description
+      )
         .then((response) => {
-          this.requestId = response.data.requestId;
-          requestPostUtils.fillRequestId(this.requestId);
-          requestPostUtils.fillDescription(this.description);
+          this.request.requestId = response.data.requestId;
+          requestPostUtils.fillRequest(this.request);
           this.mnx_navToPostRequestNote();
         })
         .catch((error) => {

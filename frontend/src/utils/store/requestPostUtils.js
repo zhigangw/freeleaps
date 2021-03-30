@@ -5,36 +5,12 @@ class RequestPostUtils {
         this.store = store;
     }
 
-    fillDescription(description) {
-        this.description = description;
+    fillRequest(request) {
+        this.request = request;
     }
 
-    fetchDescription() {
-        return this.description;
-    }
-
-    fillNotes(notes) {
-        this.notes = notes;
-    }
-
-    fetchNotes() {
-        return this.notes;
-    }
-
-    fillRequestId(requestId) {
-        this.requestId = requestId;
-    }
-
-    fetchRequestId() {
-        return this.requestId;
-    }
-
-    fillStatus(status) {
-        this.status = status;
-    }
-
-    fetchStatus() {
-        return this.status;
+    fetchRequest() {
+        return this.request;
     }
 }
 
