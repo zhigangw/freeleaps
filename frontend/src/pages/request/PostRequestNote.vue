@@ -25,7 +25,7 @@
                   class="lf-body-item--block-input"
                   type="number"
                   id="total-budget"
-                  v-model.trim="notes.totalBudget"
+                  v-model.trim="request.notes.payment.totalBudget"
                 />
               </div>
               <div class="lf-body-item-block">
@@ -35,7 +35,7 @@
                   class="lf-body-item--block-input"
                   type="number"
                   id="escorted-deposit"
-                  v-model.trim="notes.escortedDeposit"
+                  v-model.trim="request.notes.payment.escortedDeposit"
                 />
               </div>
             </div>
@@ -78,23 +78,15 @@
           </div>
           <div class="form-control">
             <label for="estimated-time">Estimated Time</label>
-            <input type="number" id="estimated-time" v-model.trim="notes.estimatedHours" />
-          </div>
-          <div class="form-control">
-            <label for="estimated-time">Estimated Start Date</label>
-            <input type="date" id="estimated-start-date" v-model.trim="notes.startDate" />
+            <input type="number" id="estimated-time" v-model.trim="request.notes.period.periodInDays" />
           </div>
           <div class="form-control">
             <label for="estimated-time">Estimated Deliver Date</label>
-            <input type="date" id="estimated-deliver-date" v-model.trim="notes.deliverDate" />
-          </div>
-          <div class="form-control">
-            <label for="qualification">Qualification</label>
-            <input type="text" id="qualification" v-model.trim="notes.qualification" />
+            <input type="date" id="estimated-deliver-date" v-model.trim="request.notes.period.deliverDate" />
           </div>
           <div class="form-control">
             <label for="notes">Notes</label>
-            <input type="text" id="notes" v-model.trim="notes.notes" />
+            <input type="text" id="notes" v-model.trim="request.notes.notes" />
           </div>
         </div>
       </div>
@@ -118,6 +110,7 @@ export default {
   data() {
     return {
       request: requestPostSkeleton,
+      plan:null,
       errorMessage: null,
     };
   },
