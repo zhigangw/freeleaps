@@ -49,18 +49,70 @@
                   <label class="w-100" for="one-time-radio">One time</label>
                 </template>
                 <template #body>
-                  <p>A paragraph for the main content.</p>
-                  <p>And another one.</p>
+                  <div class="lf-body-block-container-body">
+                    <div class="lf-body-item-block">
+                      <h5 class="lf-body-item-block-label" for="down-pay">Down Pay (USD)</h5>
+                      <p class="lf-body-item-block-notes">Pay once the pakcage is accepted</p>
+                      <input
+                        class="lf-body-item--block-input"
+                        type="number"
+                        id="down-pay"
+                        v-model.trim="request.notes.plan.onetime.downPay"
+                      />
+                    </div>
+                    <div class="lf-body-item-block">
+                      <h5 class="lf-body-item-block-label" for="acceptance-pay">Acceptance Pay (USD)</h5>
+                      <p class="lf-body-item-block-notes">Pay when the deliverables is accepted</p>
+                      <input
+                        class="lf-body-item--block-input"
+                        type="number"
+                        id="acceptance-pay"
+                        v-model.trim="request.notes.plan.onetime.acceptancePay"
+                      />
+                    </div>
+                    <div class="lf-body-item-block">
+                      <h5 class="lf-body-item-block-label" for="pay-off">Pay Off (USD)</h5>
+                      <p
+                        class="lf-body-item-block-notes"
+                      >Pay in 30 days after the deliverables is accepted</p>
+                      <input
+                        class="lf-body-item--block-input"
+                        type="number"
+                        id="pay-off"
+                        v-model.trim="request.notes.plan.onetime.payOff"
+                      />
+                    </div>
+                  </div>
                 </template>
               </boot-strap-accordion-item>
               <boot-strap-accordion-item>
                 <template #header>
                   <input id="periodic-radio" type="radio" value="periodic" v-model="plan" />
-                  <label class="w-100" for="periodic-radio">Periodic</label>
+                  <label class="w-100" for="periodic-radio">Free form</label>
                 </template>
                 <template #body>
-                  <p>A paragraph for the main content.</p>
-                  <p>And another one.</p>
+                  <div class="lf-body-block-container-body">
+                    <div class="lf-body-item-block">
+                      <h5 class="lf-body-item-block-label" for="down-pay">Down Pay (USD)</h5>
+                      <p class="lf-body-item-block-notes">Pay once the pakcage is accepted</p>
+                      <input
+                        class="lf-body-item--block-input"
+                        type="number"
+                        id="down-pay"
+                        v-model.trim="request.notes.plan.periodic.downPay"
+                      />
+                    </div>
+                    <div class="lf-body-item-block">
+                      <h5 class="lf-body-item-block-label" for="periodic-pay">Monthly Pay (USD)</h5>
+                      <p class="lf-body-item-block-notes">Pay every month until pay off</p>
+                      <input
+                        class="lf-body-item--block-input"
+                        type="number"
+                        id="periodic-pay"
+                        v-model.trim="request.notes.plan.periodic.perodicPay"
+                      />
+                    </div>
+                  </div>
                 </template>
               </boot-strap-accordion-item>
               <boot-strap-accordion-item>
@@ -69,24 +121,44 @@
                   <label class="w-100" for="free-form-radio">Free form</label>
                 </template>
                 <template #body>
-                  <p>A paragraph for the main content.</p>
-                  <p>And another one.</p>
+                  <div class="w-100">
+                    <h5 class="lf-body-item-block-label" for="free-form-notes">Notes</h5>
+                    <p class="lf-body-item-block-notes">Describ how you want to make the payment</p>
+                    <rich-text-editor
+                      class="lf-body-item--block-input"
+                      id="free-form-notes"
+                      v-model.trim="request.notes.plan.freeform.notes"
+                    />
+                  </div>
                 </template>
               </boot-strap-accordion-item>
               <div class="lf-body-item-block"></div>
             </div>
           </div>
-          <div class="form-control">
-            <label for="estimated-time">Estimated Time</label>
-            <input type="number" id="estimated-time" v-model.trim="request.notes.period.periodInDays" />
+          <div class="lf-body-block-container">
+            <h4 class="lf-body-block-container-title">Period</h4>
+            <div class="lf-body-block-container-body">
+              <div class="lf-body-item-block">
+                <label class="lf-body-item-block-label" for="days-to-deliver-radio">Days to deliver</label>
+                <p class="lf-body-item-block-notes">The amount of days to take to deliver</p>
+                <input
+                  class="lf-body-item--block-input"
+                  type="number"
+                  id="days-to-deliver"
+                  v-model.trim="request.notes.period.periodInDays"
+                />
+              </div>
+            </div>
           </div>
-          <div class="form-control">
-            <label for="estimated-time">Estimated Deliver Date</label>
-            <input type="date" id="estimated-deliver-date" v-model.trim="request.notes.period.deliverDate" />
-          </div>
-          <div class="form-control">
-            <label for="notes">Notes</label>
-            <input type="text" id="notes" v-model.trim="request.notes.notes" />
+          <div class="lf-body-block-container">
+            <h4 class="lf-body-block-container-title">Notes</h4>
+            <div class="lf-body-block-container-body">
+              <rich-text-editor
+                class="lf-body-item--block-input"
+                id="package-notes"
+                v-model.trim="request.notes.notes"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -103,14 +175,15 @@
 import { RequestPostApi, requestPostUtils } from "../../utils/index";
 import { requestPostSkeleton } from "../../types/index";
 import BootStrapAccordionItem from "../../components/accordions/templates/BootStrapAccordionItem";
+import RichTextEditor from "../../components/inputs/infra/RichTextEditor";
 export default {
   name: "PostRequestNote",
   props: {},
-  components: { BootStrapAccordionItem },
+  components: { BootStrapAccordionItem, RichTextEditor },
   data() {
     return {
       request: requestPostSkeleton,
-      plan:null,
+      plan: null,
       errorMessage: null,
     };
   },
