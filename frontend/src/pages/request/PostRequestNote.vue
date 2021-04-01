@@ -88,7 +88,7 @@
               <boot-strap-accordion-item>
                 <template #header>
                   <input id="periodic-radio" type="radio" value="periodic" v-model="plan" />
-                  <label class="w-100" for="periodic-radio">Free form</label>
+                  <label class="w-100" for="periodic-radio">Periodic</label>
                 </template>
                 <template #body>
                   <div class="lf-body-block-container-body">
@@ -192,6 +192,9 @@ export default {
   mounted() {
     if (requestPostUtils.fetchRequest()) {
       this.request = requestPostUtils.fetchRequest();
+      if (!("notes" in this.request) || !(this.request.notes)) {
+        this.request.notes = requestPostSkeleton.notes;
+      }
     }
   },
   methods: {

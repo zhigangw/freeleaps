@@ -82,6 +82,9 @@ export default {
     }
   },
   methods: {
+    goBack(){
+      this.mnx_goBack();
+    },
     hasError() {
       return this.errorMessage;
     },

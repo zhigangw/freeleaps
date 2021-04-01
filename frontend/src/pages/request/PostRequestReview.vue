@@ -3,16 +3,7 @@
     <h1>PostProjectReview</h1>
     <div class="form-control">
       <label>Description</label>
-      <p>{{description.problemStatement}}</p>
-      <p>{{description.deliverables}}</p>
-      <p>{{description.criteria}}</p>
       <label>Notes</label>
-      <p>{{notes.totalBudget}}</p>
-      <p>{{notes.currency}}</p>
-      <p>{{notes.escortedDeposit}}</p>
-      <p>{{notes.estimatedHours}}</p>
-      <p>{{notes.qualification}}</p>
-      <p>{{notes.notes}}</p>
     </div>
 
     <button type="button" @click="modifyDescription">Description</button>
@@ -27,33 +18,24 @@ import { requestPostStatusEnum } from "../../types/index";
 
 export default {
   name: "PostRequestReview",
-  props: {
-    requestId: null,
-  },
+  props: {},
 
   data() {
     return {
-      localRequestId: null,
-      description: {
-
-      },
-      notes: {
-
-      },
+      request: null,
     };
   },
 
   created() {},
   mounted() {
-    this.localRequestId = this.requestId;
     this.fetchLocalStoredRequest();
   },
   methods: {
     async postRequest() {
       RequestPostApi.fillStatus(this.requestId, requestPostStatusEnum.PUBLISHED)
         .then((response) => {
-          this.localRequestId = response.data.requestId;
-          requestPostUtils.fillRequestId(this.localRequestId);
+          response;
+          requestPostUtils.fillRequest(this.request);
           this.mnx_navToBuyerDashboard();
         })
         .catch((error) => {
@@ -62,21 +44,19 @@ export default {
     },
 
     async fetchLocalStoredRequest() {
-      if (this.localRequestId != null && this.localRequestId != "null") {
-        this.description = requestPostUtils.fetchDescription();
-        this.notes = requestPostUtils.fetchNotes();
-
-        console.log(this.description);
-        console.log(this.notes);
+      if (requestPostUtils.fetchRequest()) {
+        this.request = requestPostUtils.fetchRequest();
       }
     },
 
     modifyDescription() {
-      this.mnx_navToPostRequestDescription(this.localRequestId);
+      requestPostUtils.fillRequest(this.request);
+      this.mnx_navToPostRequestDescription();
     },
 
     modifyNotes() {
-      this.mnx_navToPostRequestNote(this.localRequestId);
+      requestPostUtils.fillRequest(this.request);
+      this.mnx_navToPostRequestNote();
     },
   },
 };

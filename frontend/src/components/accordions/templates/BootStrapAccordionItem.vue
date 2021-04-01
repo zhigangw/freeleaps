@@ -2,7 +2,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" :id="addId">
       <button
-        class="accordion-button"
+        class="accordion-button p-0"
         type="button"
         data-bs-toggle="collapse"
         :data-bs-target="'#'+collapseId"
