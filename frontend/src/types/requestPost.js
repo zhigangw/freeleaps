@@ -17,23 +17,23 @@ const requestPostSkeleton = {
       escortedDeposit: 0
     },
     plan: {
+      plan:null,
       onetime: {
-        downPay: 0.20,
-        acceptancePay: 0.70,
-        payOff: 0.10
+        downPay: 20,
+        acceptancePay: 70,
+        payOff: 10
       },
       periodic: {
-        downPay: 0.20,
-        perodic: "monthly",
-        PerodicPay: 0.10
+        downPay: 20,
+        periodic: "monthly",
+        periodicPay: 10
       },
       freeform: {
         notes: ""
       }
     },
     period: {
-      periodInDays: null,
-      deliverDate: null
+      periodInDays: 30,
     },
     notes: "",
   }

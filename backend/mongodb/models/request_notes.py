@@ -15,23 +15,23 @@ class PaymentPlanOnetime(me.EmbeddedDocument):
 
 class PaymentPlanPeriodic(me.EmbeddedDocument):
     downPay = me.DecimalField()
-    perodicDays = me.DecimalField()
-    PerodicPay = me.DecimalField()
+    periodic = me.StringField()
+    periodicPay = me.DecimalField()
 
 
 class PaymentPlanFreeform(me.EmbeddedDocument):
-    note = me.StringField()
+    notes = me.StringField()
 
 
 class PaymentPlan(me.EmbeddedDocument):
+    plan = me.StringField()
     onetime = me.EmbeddedDocumentField(PaymentPlanOnetime)
     periodic = me.EmbeddedDocumentField(PaymentPlanPeriodic)
     freeform = me.EmbeddedDocumentField(PaymentPlanFreeform)
 
 
 class DeliverPeriod(me.EmbeddedDocument):
-    startDate = me.DateTimeField()
-    deliverDate = me.DateTimeField()
+    periodInDays = me.DecimalField()
 
 
 class RequestNotes(me.EmbeddedDocument):

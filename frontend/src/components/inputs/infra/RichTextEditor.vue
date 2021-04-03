@@ -1,5 +1,7 @@
 <template>
-  <div v-bind="$attrs" ref="editor"></div>
+  <div v-bind="$attrs">
+    <div ref="editor"></div>
+  </div>
 </template>
 <script>
 import Quill from "quill";
@@ -24,7 +26,7 @@ export default {
           ["bold", "italic", "strike", "underline", "link"], // toggled buttons
           ["blockquote", "code-block"],
 
-         // [{ header: 1 }, { header: 2 }], // custom button values
+          // [{ header: 1 }, { header: 2 }], // custom button values
           [{ list: "ordered" }, { list: "bullet" }],
           //[{ script: "sub" }, { script: "super" }], // superscript/subscript
           //[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
@@ -36,7 +38,7 @@ export default {
           [{ color: [] }, { background: [] }], // dropdown with defaults from theme
           [{ font: [] }],
           [{ align: [] }],
-          
+
           ["clean"],
         ],
       },

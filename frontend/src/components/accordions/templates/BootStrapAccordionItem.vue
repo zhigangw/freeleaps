@@ -1,7 +1,7 @@
 <template>
   <div class="accordion-item">
     <h2 class="accordion-header" :id="addId">
-      <button
+      <div
         class="accordion-button p-0"
         type="button"
         data-bs-toggle="collapse"
@@ -10,7 +10,7 @@
         :aria-controls="collapseId"
       >
         <slot name="header" />
-      </button>
+      </div>
     </h2>
     <div
       :id="collapseId"
