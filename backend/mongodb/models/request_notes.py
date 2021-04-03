@@ -1,41 +1,39 @@
 import mongoengine as me
 
 
-class PaymentAmount(me.EmbeddedDocument):
+class Pay(me.EmbeddedDocument):
     totalBudget = me.DecimalField()
     currency = me.StringField()
     escortedDeposit = me.DecimalField()
 
 
-class PaymentPlanOnetime(me.EmbeddedDocument):
-    downPay = me.DecimalField()
-    acceptancePay = me.DecimalField()
-    payOff = me.DecimalField()
+# class PaymentPlanOnetime(me.EmbeddedDocument):
+#     downPay = me.DecimalField()
+#     acceptancePay = me.DecimalField()
+#     payOff = me.DecimalField()
 
 
-class PaymentPlanPeriodic(me.EmbeddedDocument):
-    downPay = me.DecimalField()
-    periodic = me.StringField()
-    periodicPay = me.DecimalField()
+# class PaymentPlanPeriodic(me.EmbeddedDocument):
+#     downPay = me.DecimalField()
+#     periodic = me.StringField()
+#     periodicPay = me.DecimalField()
 
 
-class PaymentPlanFreeform(me.EmbeddedDocument):
-    notes = me.StringField()
+# class PaymentPlanFreeform(me.EmbeddedDocument):
+#     notes = me.StringField()
 
 
-class PaymentPlan(me.EmbeddedDocument):
-    plan = me.StringField()
-    onetime = me.EmbeddedDocumentField(PaymentPlanOnetime)
-    periodic = me.EmbeddedDocumentField(PaymentPlanPeriodic)
-    freeform = me.EmbeddedDocumentField(PaymentPlanFreeform)
+# class PaymentPlan(me.EmbeddedDocument):
+#     plan = me.StringField()
+#     onetime = me.EmbeddedDocumentField(PaymentPlanOnetime)
+#     periodic = me.EmbeddedDocumentField(PaymentPlanPeriodic)
+#     freeform = me.EmbeddedDocumentField(PaymentPlanFreeform)
 
 
-class DeliverPeriod(me.EmbeddedDocument):
-    periodInDays = me.DecimalField()
+# class DeliverPeriod(me.EmbeddedDocument):
+#     periodInDays = me.DecimalField()
 
 
 class RequestNotes(me.EmbeddedDocument):
-    payment = me.EmbeddedDocumentField(PaymentAmount)
-    plan = me.EmbeddedDocumentField(PaymentPlan)
-    period = me.EmbeddedDocumentField(DeliverPeriod)
+    pay = me.EmbeddedDocumentField(Pay)
     notes = me.StringField()

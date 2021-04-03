@@ -72,9 +72,7 @@ export default {
     };
   },
 
-  created() {
-    
-  },
+  created() {},
   components: { RichTextEditor },
   mounted() {
     if (requestPostUtils.fetchRequest()) {
@@ -82,7 +80,7 @@ export default {
     }
   },
   methods: {
-    goBack(){
+    goBack() {
       this.mnx_goBack();
     },
     hasError() {
