@@ -65,7 +65,7 @@ export default {
 
   data() {
     return {
-      request: requestPostSkeleton,
+      request: requestPostUtils.fetchRequest()?  requestPostUtils.fetchRequest(): requestPostSkeleton,
       placeholderDetails:
         "Provide detailed description about the request, usually including problem statement, deliverables, qualification and other informations",
       errorMessage: null,
@@ -75,9 +75,6 @@ export default {
   created() {},
   components: { RichTextEditor },
   mounted() {
-    if (requestPostUtils.fetchRequest()) {
-      this.request = requestPostUtils.fetchRequest();
-    }
   },
   methods: {
     goBack() {
@@ -98,7 +95,6 @@ export default {
       this.errorMessage = requestValidator.requestDetailsValidator.validate(
         this.request.description.details
       );
-
       if (this.hasError()) {
         return;
       }

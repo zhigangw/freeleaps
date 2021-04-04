@@ -129,7 +129,11 @@
     @extend .w-100;
     min-height: 40vh;
 }
-
+.lf-body-item-text{
+    @extend .border;
+    @extend .w-100;
+    @extend .text-start;
+}
 .lf-body-item-text-input {
     @extend .border;
     @extend .w-100;

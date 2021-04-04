@@ -32,6 +32,11 @@ export default {
     this.fetchMyAllPostSummary();
   },
   methods: {
+    goBack() {
+      requestPostUtils.fillRequest(this.request);
+      this.mnx_navToPostRequestDescription();
+    },
+
     postProject() {
       this.mnx_navToPostRequestDescription();
     },
@@ -43,7 +48,7 @@ export default {
 
       requestPostUtils.fillRequest(request);
       if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestReview();
+        this.mnx_navToPostRequestDescription();
       } else if (request.status === requestPostStatusEnum.PUBLISHED) {
         this.mnx_navToBuyerRequestView();
       } else {

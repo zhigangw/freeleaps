@@ -84,19 +84,18 @@ export default {
   components: { RichTextEditor },
   data() {
     return {
-      request: requestPostSkeleton,
+      request: requestPostUtils.fetchRequest()
+        ? requestPostUtils.fetchRequest()
+        : requestPostSkeleton,
       errorMessage: null,
     };
   },
 
-  created() {},
+  created() {
+    if (!("notes" in this.request) || !this.request.notes) {
+      this.request.notes = requestPostSkeleton.notes;
+    }},
   mounted() {
-    if (requestPostUtils.fetchRequest()) {
-      this.request = requestPostUtils.fetchRequest();
-      if (!("notes" in this.request) || !this.request.notes) {
-        this.request.notes = requestPostSkeleton.notes;
-      }
-    }
   },
   methods: {
     hasError() {
@@ -110,7 +109,7 @@ export default {
 
     goBack() {
       requestPostUtils.fillRequest(this.request);
-      this.mnx_navToPostRequestDescription();
+      this.mnx_goBack();
     },
 
     async submitForm() {
