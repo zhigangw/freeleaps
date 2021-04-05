@@ -98,6 +98,21 @@
     @extend .justify-content-center;
 }
 
+.lf-item-flex-box {
+    @extend .w-100;
+    @extend .p-1;
+    @extend .d-flex,
+    .flex-wrap;
+    @extend .justify-content-start;
+}
+
+.lf-item-flex-box-block {
+    @extend .w-100;
+    @extend .w-sm-80;
+    @extend .w-lg-40;
+    @extend .w-xxl-30;
+}
+
 .lf-body-item-block-label {
     @extend .text-start;
     @extend .fs-6;

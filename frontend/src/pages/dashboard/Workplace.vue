@@ -3,7 +3,7 @@
     <h1>BuyerDashboard</h1>
     <table>
       <tr v-for="post in postList" :key="post.requestId">
-        <td>{{post.description.problemStatement}}</td>
+        <td>{{post.description.headline}}</td>
         <td>
           <button :id="post.requestId" @click="viewProject($event)">Details</button>
         </td>
@@ -32,12 +32,8 @@ export default {
     this.fetchMyAllPostSummary();
   },
   methods: {
-    goBack() {
-      requestPostUtils.fillRequest(this.request);
-      this.mnx_navToPostRequestDescription();
-    },
-
     postProject() {
+      requestPostUtils.fillRequest(null);
       this.mnx_navToPostRequestDescription();
     },
     viewProject(event) {

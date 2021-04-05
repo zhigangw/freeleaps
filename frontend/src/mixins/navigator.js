@@ -184,7 +184,9 @@ export default {
         mnx_navToPostRequestReview() {
             this.$router.push("/post-request-review/" )
         },
-
+        mnx_navToRequests(){
+            this.$router.push("/browse-requests/" )
+        },
 
         mnx_navToBuyerProjectView(requestId) {
             this.$router.push("/buyer-project-view/" + requestId);

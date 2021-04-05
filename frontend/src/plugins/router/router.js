@@ -56,6 +56,7 @@ import UserWork from "../../pages/profile/work/UserWork";
 import PostRequestDescription from "../../pages/request/PostRequestDescription";
 import PostRequestNote from "../../pages/request/PostRequestNote";
 import PostRequestReview from "../../pages/request/PostRequestReview";
+import BrowseRequests from "../../pages/request/BrowseRequests"
 
 import Workplace from "../../pages/dashboard/Workplace"
 
@@ -434,6 +435,15 @@ const router = createRouter({
       props: false,
     },
 
+    {
+      name: 'browse-requests',
+      path: '/browse-requests',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: BrowseRequests, header: HeaderUser },
+      props: false,
+    },
+
+    
 
     {
       name: 'workplace',

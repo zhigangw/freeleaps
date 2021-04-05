@@ -9,18 +9,18 @@ from mongoengine.queryset.transform import update
 from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.models.request_post import RequestPostDoc, RequestDescription, RequestNotes
 from ..mongodb.utils.field_validator import FieldValidator
-
+from ..mongodb.models.profile.user import UserDoc, AuthProfile, WorkProfile, PersonalProfile
 
 class RequestPostFillDescription(Resource):
     def __init__(self) -> None:
-        self.post_parser = reqparse.RequestParser()
+        self.post_parser=reqparse.RequestParser()
         self.post_parser.add_argument(
             'requestId',
-            dest='requestId',
-            type=FieldValidator.objectid,
-            location='json',
-            required=False,
-            help='The request post\'s requestId',
+            dest = 'requestId',
+            type = FieldValidator.objectid,
+            location = 'json',
+            required = False,
+            help = 'The request post\'s requestId',
         )
         self.post_parser.add_argument(
             'description',
@@ -307,13 +307,23 @@ class RequestPostFetchAllPublishedAsSummary(Resource):
         )
         s = []
         for q in querySet:
+            user = UserDoc.objects(
+                id=q.posterId
+            ).first()
+            td = datetime.now() - q.statueUpdatedDate
             r = {
                 'requestId': str(q.id),
                 'status': q.status,
                 'createdDate': q.createdDate,
                 'updatedDate': q.updatedDate,
                 'statueUpdatedDate': q.statueUpdatedDate,
-                'description': q.description
+                'postedTimeDelta': td.days * 24 + int(td.seconds / 3600),
+                'description': q.description,
+                'notes': q.notes,
+                'poster':{
+                    "personal":user.personalProfile,
+                    "work":user.workProfile,
+                }
             }
             s.append(r)
 
