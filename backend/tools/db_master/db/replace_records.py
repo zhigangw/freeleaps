@@ -19,6 +19,9 @@ def replace_records(collection, r):
         elif "id" in c:
             result = doc.replace_one(
                 {"id": c['id']}, c, upsert=True, bypass_document_validation=True)
+        else:
+            result = doc.insertOne(
+                c, upsert=True, bypass_document_validation=True)
 
         processed += 1
         modified += result.modified_count

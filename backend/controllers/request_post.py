@@ -274,6 +274,7 @@ class RequestPostFetchMyAllAsSummary(Resource):
         return_code = 200
         resp = None
         userIdentity = get_jwt_identity()
+        print(userIdentity)
         querySet = RequestPostDoc.objects(
             posterId=userIdentity
         )

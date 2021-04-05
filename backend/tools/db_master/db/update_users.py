@@ -6,9 +6,8 @@ from bson.objectid import ObjectId
 
 def update_users():
     r = [
-        {   
-            "id": "603bf1e9d684fd4b7b94ed91",
-            'authProfile': {
+        {       
+                'authProfile': {
                 'identity': 'wzg1973',
                 'password': 'f7640437662616371e81edab24079579',
                 'role': 1,
