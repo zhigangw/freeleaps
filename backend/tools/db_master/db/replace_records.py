@@ -15,17 +15,20 @@ def replace_records(collection, r):
     for c in r:
         if "name" in c:
             result = doc.replace_one(
-                {"name": c['name']}, c, upsert=True, bypass_document_validation=True)
+                {"name": c['name']}, c, upsert=True, bypass_document_validation=True)   
+                
+            matched += result.matched_count     
+            modified += result.modified_count
         elif "id" in c:
             result = doc.replace_one(
-                {"id": c['id']}, c, upsert=True, bypass_document_validation=True)
+                {"id": c['id']}, c, upsert=True, bypass_document_validation=True)      
+                
+            matched += result.matched_count          
+            modified += result.modified_count
         else:
-            result = doc.insertOne(
-                c, upsert=True, bypass_document_validation=True)
+            result = doc.insert_one(c)
 
         processed += 1
-        modified += result.modified_count
-        matched += result.matched_count
         acknowledged += 1 if result.acknowledged else 0
 
     current_num_records = doc.count_documents({})
