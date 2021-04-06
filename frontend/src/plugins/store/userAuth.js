@@ -75,6 +75,9 @@ const userAuthStore = {
         userAuthToken(state) {
             return state.access_token;
         },
+        userIdentity(state){
+            return state.identity;
+        },
         keepUserSignedin(state) {
             return state.keepUserSignedin === true || state.keepUserSignedin == "true";
         }

@@ -187,7 +187,7 @@ class EmailSignin(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=str(user.id),
+                identity=email,
                 expiresIn=expiresIn,
                 role=user.authProfile.role)
         return make_response(resp, return_code)
@@ -228,7 +228,7 @@ class EmailSignup(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=str(user.id),
+                identity=args.email,
                 expiresIn=expiresIn,
                 role=user.authProfile.role
             )
@@ -274,7 +274,7 @@ class UserSignup(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=str(user.id),
+                identity=args.username,
                 expiresIn=expiresIn,
                 role=user.authProfile.role
             )
@@ -312,7 +312,7 @@ class UserSignin(Resource):
             access_token, expiresIn = create_jwt_token(identity=str(user.id))
             resp = jsonify(
                 access_token=access_token,
-                identity=str(user.id),
+                identity=args.username,
                 expiresIn=expiresIn,
                 role=user.authProfile.role)
         return make_response(resp, return_code)

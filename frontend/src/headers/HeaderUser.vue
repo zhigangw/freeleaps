@@ -30,15 +30,31 @@
         <li>
           <button class="account-menu-button" @click="gotoSubscripton">Subscripton</button>
         </li>
+        <hr />
+        <li>
+          <button class="account-menu-button" @click="signout">Log out ({{userIdentityNote}})</button>
+        </li>
       </ul>
     </div>
   </div>
 </template>
 <script>
+import { UserAuthApi } from "../utils/backend/index";
+
 export default {
   name: "HeaderGuest",
   components: {},
   computed: {},
+  created() {
+    if (this.userIdentityNote.length > 8) {
+      this.userIdentityNote = this.userIdentityNote.slice(0, 5) + "...";
+    }
+  },
+  data() {
+    return {
+      userIdentityNote: this.mnx_getUserIdentity(),
+    };
+  },
   methods: {
     gotoWorkplace() {
       this.mnx_navToWorkplace();
@@ -64,6 +80,27 @@ export default {
     },
     gotoSubscripton() {
       this.mnx_navToUserWork();
+    },
+    logout(response, error) {
+      response;
+      error;
+      this.mnx_unauthenticatedUser();
+      this.mnx_logoutRole();
+      this.mnx_navToFrontDoor();
+    },
+
+    signout() {
+      UserAuthApi.signout(
+        this.mnx_getUserIdentity(),
+        this.mnx_getUserAuthToken()
+      )
+        .then((response) => {
+          this.logout(response, null);
+        })
+        .catch((error) => {
+          // continue to logout with errors
+          this.logout(null, error);
+        });
     },
   },
 };
@@ -139,5 +176,13 @@ export default {
   @extend .btn;
   @extend .btn-link;
   @extend .dropdown-item;
+}
+.account-menu-item {
+  @extend .dropdown-item;
+}
+.account-note {
+  max-width: 100%;
+  @include font-size(0.5rem);
+  color: #fae4ab;
 }
 </style>
