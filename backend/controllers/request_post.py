@@ -274,7 +274,6 @@ class RequestPostFetchMyAllAsSummary(Resource):
         return_code = 200
         resp = None
         userIdentity = get_jwt_identity()
-        print(userIdentity)
         querySet = RequestPostDoc.objects(
             posterId=userIdentity
         )
@@ -303,8 +302,10 @@ class RequestPostFetchAllPublishedAsSummary(Resource):
     def post(self):
         return_code = 200
         resp = None
+        userIdentity = get_jwt_identity()
         querySet = RequestPostDoc.objects(
-            status=RequestPostStatus.PUBLISHED
+            status=RequestPostStatus.PUBLISHED,
+            posterId__ne=userIdentity
         )
         s = []
         for q in querySet:
