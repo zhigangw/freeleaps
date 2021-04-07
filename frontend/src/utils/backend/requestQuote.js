@@ -2,11 +2,13 @@ import { backendAxios } from './axios'
 import { userUtils } from '../store/index'
 
 class RequestQuoteApi {
-    static submitQuote(quote) {
+    static submitQuote(notes) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
             '/api/request-quote/submit-quote',
-            quote,
+            {
+                notes: notes
+            },
             {
                 headers: { Authorization: `Bearer ${jwt}` }
             }

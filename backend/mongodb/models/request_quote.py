@@ -1,11 +1,21 @@
 from flask.globals import request
 import mongoengine as me
-from .request_notes import RequestNotes 
+
+
+class Pay(me.EmbeddedDocument):
+    totalBudget = me.DecimalField()
+    currency = me.StringField()
+    escortedDeposit = me.DecimalField()
+
+class QuoteNotes(me.EmbeddedDocument):
+    requestId = me.StringField()
+    status = me.IntField() #0 -- drafted 1 -- sent 2 -- rejected 3 -- accepted
+    pay = me.EmbeddedDocumentField(Pay)
+    notes = me.StringField()
 
 
 class RequestQuoteDoc(me.Document):
-    requestId = me.StringField()
     providerId = me.StringField()
+    createdDate = me.DateTimeField()
     updatedDate = me.DateTimeField()
-    status = me.IntField() #RequestQuoteStatus
-    notes = me.EmbeddedDocumentField(RequestNotes)
+    notes = me.EmbeddedDocumentField(QuoteNotes)

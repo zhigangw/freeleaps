@@ -1,3 +1,4 @@
+from contextlib import nullcontext
 from functools import wraps
 from datetime import datetime, timedelta
 from flask import jsonify, make_response
@@ -22,20 +23,12 @@ class RequestQuoteSubmit(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(
-            'requestId',
-            dest='requestId',
-            type=str,
-            location='json',
-            required=True,
-            help='The request post\'s requestId',
-        )
-        self.post_parser.add_argument(
             'notes',
             dest='notes',
-            type=FieldValidator.notes,
+            type=FieldValidator.quoteNotes,
             location='json',
             required=True,
-            help='The request post\'s notes',
+            help='The request quote\'s notes',
         )
 
     @jwt_required
@@ -45,17 +38,28 @@ class RequestQuoteSubmit(Resource):
         return_code = 200
         resp = None
 
-        RequestQuoteDoc.objects(
-            requestId=args.requestId,
+        updated = RequestQuoteDoc.objects(
             providerId=userIdentity,
         ).update(
             set__updatedDate=datetime.utcnow(),
             set__notes=args.notes,
             upsert=True
         )
-        resp = jsonify(
-            requestId=args.requestId
-        )
+
+        if updated > 0:
+            resp = jsonify(
+                quoteId=None
+            )
+        else:
+            quote = RequestQuoteDoc(
+                providerId=userIdentity,
+                updatedDate=datetime.utcnow(),
+                createdDate=datetime.utcnow(),
+                notes=args.notes,
+            ).save()
+            resp = jsonify(
+                quoteId=str(quote.id)
+            )
 
         return make_response(resp, return_code)
 

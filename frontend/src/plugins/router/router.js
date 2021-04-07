@@ -57,7 +57,8 @@ import PostRequestDescription from "../../pages/request/PostRequestDescription";
 import PostRequestNote from "../../pages/request/PostRequestNote";
 import PostRequestReview from "../../pages/request/PostRequestReview";
 import BrowseRequests from "../../pages/request/BrowseRequests"
-
+import QuoteRequest from "../../pages/request/QuoteRequest"
+import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
 import Workplace from "../../pages/dashboard/Workplace"
 
 
@@ -443,8 +444,23 @@ const router = createRouter({
       props: false,
     },
 
-    
+    {
+      name: 'quote-request',
+      path: '/quote-request',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: QuoteRequest, header: HeaderUser },
+      props: false,
+    },
 
+    {
+      name: 'quote-submitted',
+      path: '/quote-submitted',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: QuoteSubmitted, header: HeaderUser },
+      props: false,
+    },
+
+    
     {
       name: 'workplace',
       path: '/workplace',

@@ -75,7 +75,7 @@
               </div>
 
               <div class="lf-submit-container">
-                <button type="button" class="if-submit">Apply</button>
+                <button type="button" class="if-submit" @click="quoteRequest(post)">Apply</button>
               </div>
             </div>
           </template>
@@ -87,7 +87,6 @@
 
 <script>
 import { RequestPostApi, requestPostUtils, DateUtils } from "../../utils/index";
-import { requestPostStatusEnum } from "../../types/index";
 import BootStrapAccordionItem from "../../components/accordions/templates/BootStrapAccordionItem";
 
 export default {
@@ -108,21 +107,13 @@ export default {
     GetDateString(o) {
       return DateUtils.FromJsonToString(o);
     },
-    viewProject(event) {
-      let requestId = event.currentTarget.id;
-      let request = this.postList.filter(function (x) {
-        return x.requestId == requestId;
-      })[0];
 
+    quoteRequest(request) {
       requestPostUtils.fillRequest(request);
-      if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestDescription();
-      } else if (request.status === requestPostStatusEnum.PUBLISHED) {
-        this.mnx_navToBuyerRequestView();
-      } else {
-        this.mnx_navToBuyerProjectView();
-      }
+      requestPostUtils.fillQuote(null);
+      this.mnx_navToQuoteRequest();
     },
+
     async fetchAllPostSummary() {
       RequestPostApi.fetchAllPublishedAsSummary()
         .then((response) => {

@@ -2,6 +2,7 @@ from bson import ObjectId
 import json
 from ..models.request_notes import RequestNotes
 from ..models.requests_description import RequestDescription
+from ..models.request_quote import QuoteNotes
 
 
 class FieldValidator():
@@ -29,6 +30,14 @@ class FieldValidator():
     @staticmethod
     def description(jdesc):
         return RequestDescription.from_json(json.dumps(jdesc))
+
+    @staticmethod
+    def quoteNotes(jnote):
+        try:
+            return QuoteNotes.from_json(json.dumps(jnote))
+        except Exception as e:
+            print(e)
+            raise
 
     @staticmethod
     def stringList(jdesc):

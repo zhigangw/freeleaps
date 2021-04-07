@@ -188,6 +188,14 @@ export default {
             this.$router.push("/browse-requests/" )
         },
 
+        mnx_navToQuoteRequest(){
+            this.$router.push("/quote-request/" )
+        },
+
+        mnx_navToQuoteSubmitted(){
+            this.$router.push("/quote-submitted/" )
+        },
+
         mnx_navToBuyerProjectView(requestId) {
             this.$router.push("/buyer-project-view/" + requestId);
         },
