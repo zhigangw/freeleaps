@@ -1,5 +1,14 @@
 <template>
   <div class="lf-board-container">
+    <div class="lf-head-container">
+      <div class="flex-grow-1 border pe-1 d-flex">
+        <label class="me-1" for="search-input">Search:</label>
+        <input id="search-input" class="flex-grow-1" type="text" />
+      </div>
+      <div class>
+        <button class="btn btn-primary" @click="postProject">Post a Request</button>
+      </div>
+    </div>
     <div class="lf-body-container">
       <div class="accordion w-100" id="accordion-parent">
         <boot-strap-accordion-item v-for="post in postList" :key="post.requestId">
@@ -104,6 +113,11 @@ export default {
     this.fetchAllPostSummary();
   },
   methods: {
+    postProject() {
+      requestPostUtils.fillRequest(null);
+      this.mnx_navToPostRequestDescription();
+    },
+
     GetDateString(o) {
       return DateUtils.FromJsonToString(o);
     },

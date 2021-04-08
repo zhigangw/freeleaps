@@ -9,7 +9,6 @@
         </td>
       </tr>
     </table>
-    <button @click="postProject">Post a Request</button>
   </div>
 </template>
 
@@ -32,10 +31,6 @@ export default {
     this.fetchMyAllPostSummary();
   },
   methods: {
-    postProject() {
-      requestPostUtils.fillRequest(null);
-      this.mnx_navToPostRequestDescription();
-    },
     viewProject(event) {
       let requestId = event.currentTarget.id;
       let request = this.postList.filter(function (x) {
