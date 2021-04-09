@@ -171,10 +171,6 @@ export default {
             this.$router.push("/user-work")
         },
 
-        mnx_navToWorkplace() {
-            this.$router.push("/workplace")
-        },
-
         mnx_navToPostRequestDescription() {
             this.$router.push("/post-request-description/");
         },
@@ -195,6 +191,23 @@ export default {
         mnx_navToQuoteSubmitted(){
             this.$router.push("/quote-submitted/" )
         },
+
+        mnx_navToWorkplaceMessages() {
+            this.$router.push("/workplace-messages")
+        },
+
+        mnx_navToWorkplaceProjects() {
+            this.$router.push("/workplace-projects")
+        },
+
+        mnx_navToWorkplaceRequests() {
+            this.$router.push("/workplace-requests")
+        },
+
+        mnx_navToWorkplace() {
+            this.$router.push("/workplace")
+        },
+
 
         mnx_navToBuyerProjectView(requestId) {
             this.$router.push("/buyer-project-view/" + requestId);

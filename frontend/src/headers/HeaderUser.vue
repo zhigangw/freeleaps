@@ -2,10 +2,32 @@
   <div class="container-div">
     <img class="company-logo" alt="freeleaps logo" src="@/assets/logo.png" />
     <div class="nav-bar-container" role="navigation">
-      <button class="nav-bar-button" @click="gotoWorkplace">Workplace</button>
-      <button class="nav-bar-button" @click="gotoRequests">Requests</button>
-      <button class="nav-bar-button" @click="gotoNetwork">Network</button>
-      <button class="nav-bar-button" @click="gotoPost">Post</button>
+      <div class="nav-bar-dropdown btn-group">
+        <button type="button" class="nav-bar-button" @click="gotoWorkplace">Workplace</button>
+        <button
+          class="nav-bar-dropdown-button dropdown-toggle-split"
+          id="workplace-dropdown"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="visually-hidden">Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="workplace-dropdown">
+          <li>
+            <button class="nav-bar-dropdown-menu-button" @click="gotoWorkplaceMessages">Messages</button>
+          </li>
+          <li>
+            <button class="nav-bar-dropdown-menu-button" @click="gotoWorkplaceRequests">Requests</button>
+          </li>
+          <li>
+            <button class="nav-bar-dropdown-menu-button" @click="gotoWorkplaceProjects">Projects</button>
+          </li>
+        </ul>
+      </div>
+      <button class="nav-bar-button w-20" @click="gotoRequests">Requests</button>
+      <button class="nav-bar-button w-20" @click="gotoNetwork">Network</button>
+      <button class="nav-bar-button w-20" @click="gotoPost">Post</button>
     </div>
     <div class="dropdown">
       <button
@@ -30,7 +52,9 @@
         <li>
           <button class="account-menu-button" @click="gotoSubscripton">Subscripton</button>
         </li>
-        <hr />
+        <li>
+          <hr class="dropdown-divider" />
+        </li>
         <li>
           <button class="account-menu-button" @click="signout">Log out ({{userIdentityNote}})</button>
         </li>
@@ -56,6 +80,15 @@ export default {
     };
   },
   methods: {
+    gotoWorkplaceRequests() {
+      this.mnx_navToWorkplaceRequests();
+    },
+    gotoWorkplaceProjects() {
+      this.mnx_navToWorkplaceProjects();
+    },
+    gotoWorkplaceMessages() {
+      this.mnx_navToWorkplaceMessages();
+    },
     gotoWorkplace() {
       this.mnx_navToWorkplace();
     },
@@ -128,14 +161,14 @@ export default {
   @extend .nav;
   @extend .nav-fill;
   @extend .mx-auto;
-  @extend .mt-2;
-  @extend .h-80;
+  @extend .mt-0;
+  @extend .h-100;
   @extend .w-90;
   @extend .w-sm-70;
   @extend .w-lg-50;
 }
 
-.nav-bar-button {
+.nav-bar-item {
   @include media-breakpoint-up(xs) {
     font-size: rfs-fluid-value(0.5rem);
   }
@@ -156,13 +189,32 @@ export default {
   }
   @extend .align-middle;
   @extend .text-wrap;
+  @extend .border-0;
+}
+.nav-bar-button {
+  @extend .nav-bar-item;
   @extend .nav-link;
   @extend .btn;
   @extend .btn-outline-info;
-  @extend .border-0;
-  @extend .w-20;
   color: #fae4ab;
-  height: 100%;
+}
+
+.nav-bar-dropdown {
+  @extend .dropdown;
+  @extend .nav-bar-item;
+}
+.nav-bar-dropdown-menu-button {
+  @extend .btn;
+  @extend .btn-link;
+  @extend .dropdown-item;
+}
+
+.nav-bar-dropdown-button {
+  @extend .btn;
+  @extend .btn-outline-success;
+  @extend .dropdown-toggle;
+  color: #fae4ab;
+  @extend .h-100;
 }
 
 .account-button {
@@ -177,9 +229,11 @@ export default {
   @extend .btn-link;
   @extend .dropdown-item;
 }
+
 .account-menu-item {
   @extend .dropdown-item;
 }
+
 .account-note {
   max-width: 100%;
   @include font-size(0.5rem);

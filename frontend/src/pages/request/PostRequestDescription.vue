@@ -65,7 +65,9 @@ export default {
 
   data() {
     return {
-      request: requestPostUtils.fetchRequest()?  requestPostUtils.fetchRequest(): requestPostSkeleton,
+      request: requestPostUtils.fetchRequest()
+        ? requestPostUtils.fetchRequest()
+        : requestPostSkeleton,
       placeholderDetails:
         "Provide detailed description about the request, usually including problem statement, deliverables, qualification and other informations",
       errorMessage: null,
@@ -74,8 +76,7 @@ export default {
 
   created() {},
   components: { RichTextEditor },
-  mounted() {
-  },
+  mounted() {},
   methods: {
     goBack() {
       this.mnx_goBack();

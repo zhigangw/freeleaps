@@ -1,6 +1,7 @@
 import { RequestHeadlineValidator } from "./requestHeadlineValidator"
 import { RequestDetailsValidator } from "./requestDetailsValidator"
 import {RequestNotesValidator} from "./requestNotesValidator"
+
 class RequestValidator {
     constructor() {
         this.requestHeadlineValidator = new RequestHeadlineValidator();

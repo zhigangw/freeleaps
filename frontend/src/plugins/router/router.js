@@ -59,6 +59,9 @@ import PostRequestReview from "../../pages/request/PostRequestReview";
 import BrowseRequests from "../../pages/request/BrowseRequests"
 import QuoteRequest from "../../pages/request/QuoteRequest"
 import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
+import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
+import WorkplaceRequests from "../../pages/dashboard/WorkplaceRequests"
+import WorkplaceMessages from "../../pages/dashboard/WorkplaceMessages"
 import Workplace from "../../pages/dashboard/Workplace"
 
 
@@ -458,6 +461,27 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.USER] },
       components: { default: QuoteSubmitted, header: HeaderUser },
       props: false,
+    },
+
+    {
+      name: 'workplace-projects',
+      path: '/workplace-projects',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WorkplaceProjects, header: HeaderUser },
+    },
+
+    {
+      name: 'workplace-messages',
+      path: '/workplace-messages',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WorkplaceMessages, header: HeaderUser },
+    },
+
+    {
+      name: 'workplace-requests',
+      path: '/workplace-requests',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WorkplaceRequests, header: HeaderUser },
     },
 
     
