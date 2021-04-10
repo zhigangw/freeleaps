@@ -180,6 +180,7 @@ export default {
         mnx_navToPostRequestReview() {
             this.$router.push("/post-request-review/" )
         },
+
         mnx_navToRequests(){
             this.$router.push("/browse-requests/" )
         },
@@ -202,6 +203,10 @@ export default {
 
         mnx_navToWorkplaceRequests() {
             this.$router.push("/workplace-requests")
+        },
+
+        mnx_navToWorkplaceProposals() {
+            this.$router.push("/workplace-proposals")
         },
 
         mnx_navToWorkplace() {

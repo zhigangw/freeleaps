@@ -30,6 +30,19 @@ class RequestQuoteApi {
         return request;
     }
 
+    static fetchMyAll() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-quote/fetch-my-all',
+            {
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
     static fetchOpen() {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(

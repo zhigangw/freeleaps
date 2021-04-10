@@ -6,4 +6,17 @@ const requestQuoteStatusEnum = Object.freeze({
     DECLINED: 4,
 });
 
-export { requestQuoteStatusEnum }
+class RequestQuoteUtils {
+    static getStatusString(status) {
+        switch (status) {
+            case 0: return "Draft";
+            case 1: return "Submitted";
+            case 2: return "Reviewed";
+            case 3: return "Accepted";
+            case 4: return "Declined";
+        }
+        return "undefined";
+    }
+}
+
+export { requestQuoteStatusEnum, RequestQuoteUtils }

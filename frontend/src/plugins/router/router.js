@@ -62,6 +62,7 @@ import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
 import WorkplaceRequests from "../../pages/dashboard/WorkplaceRequests"
 import WorkplaceMessages from "../../pages/dashboard/WorkplaceMessages"
+import WorkplaceProposals from "../../pages/dashboard/WorkplaceProposals"
 import Workplace from "../../pages/dashboard/Workplace"
 
 
@@ -484,6 +485,12 @@ const router = createRouter({
       components: { default: WorkplaceRequests, header: HeaderUser },
     },
 
+    {
+      name: 'workplace-proposals',
+      path: '/workplace-proposals',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WorkplaceProposals, header: HeaderUser },
+    },
     
     {
       name: 'workplace',

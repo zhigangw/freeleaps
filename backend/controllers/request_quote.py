@@ -92,6 +92,25 @@ class RequestQuoteMine(Resource):
 
         return make_response(resp, return_code)
 
+class RequestQuoteMyAll(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        userIdentity = get_jwt_identity()
+        return_code = 200
+        resp = None
+
+        quotes = RequestQuoteDoc.objects(
+            providerId=userIdentity,
+        )
+
+        resp = jsonify(quotes)
+
+        return make_response(resp, return_code)
+
 
 class RequestQuoteFetchQuotes(Resource):
     def __init__(self) -> None:
@@ -227,6 +246,7 @@ class RequestQuoteAcceptQuote(Resource):
 routeMap = [
     {'res': RequestQuoteSubmit, 'url': '/api/request-quote/submit-quote'},
     {'res': RequestQuoteMine, 'url': '/api/request-quote/fetch-mine'},
+    {'res': RequestQuoteMyAll, 'url': '/api/request-quote/fetch-my-all'},
     {'res': RequestQuoteFetchQuotes,
      'url': '/api/request-quote/fetch-quotes'},
     {'res': RequestQuoteAcceptQuote,

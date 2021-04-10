@@ -9,7 +9,7 @@ class Pay(me.EmbeddedDocument):
 
 class QuoteNotes(me.EmbeddedDocument):
     requestId = me.StringField()
-    status = me.IntField() #0 -- drafted 1 -- sent 2 -- rejected 3 -- accepted
+    status = me.IntField() #0 -- draft 1 -- submmited 2 -- reviewed 3 -- accepted  4 -- rejected
     pay = me.EmbeddedDocumentField(Pay)
     notes = me.StringField()
 

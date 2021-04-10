@@ -23,6 +23,9 @@
           <li>
             <button class="nav-bar-dropdown-menu-button" @click="gotoWorkplaceProjects">Projects</button>
           </li>
+          <li>
+            <button class="nav-bar-dropdown-menu-button" @click="gotoWorkplaceProposals">Proposals</button>
+          </li>
         </ul>
       </div>
       <button class="nav-bar-button w-20" @click="gotoRequests">Requests</button>
@@ -80,6 +83,9 @@ export default {
     };
   },
   methods: {
+    gotoWorkplaceProposals() {
+      this.mnx_navToWorkplaceProposals();
+    },
     gotoWorkplaceRequests() {
       this.mnx_navToWorkplaceRequests();
     },
