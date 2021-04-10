@@ -285,8 +285,9 @@ class RequestPostFetchMyAllAsSummary(Resource):
                 'createdDate': q.createdDate,
                 'updatedDate': q.updatedDate,
                 'statueUpdatedDate': q.statueUpdatedDate,
-                'description': q.description
-            }
+                'description': q.description,
+                'quoteCount':len(q.quotes),
+                }
             s.append(r)
 
         resp = jsonify(s)

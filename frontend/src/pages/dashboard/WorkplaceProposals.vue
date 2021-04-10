@@ -68,48 +68,4 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-.row-flow-container {
-  @extend .w-100;
-}
-
-.row-flow-item-container {
-  @extend .w-100;
-  @extend .w-lg-90;
-  @extend .d-flex;
-  @extend .flex-wrap;
-  @extend .mx-auto;
-  @extend .my-3;
-  @extend .border;
-  cursor: pointer;
-}
-.row-flow-item-subject-area {
-  @extend .w-80;
-  @extend .d-flex;
-  @extend .flex-wrap;
-}
-
-.row-flow-item-subject-text {
-  @extend .mx-0;
-  @extend .mx-lg-1;
-}
-
-.row-flow-item-status-area {
-  @extend .w-10;
-  @extend .d-flex;
-  @extend .flex-wrap;
-}
-.row-flow-item-status-text {
-  @extend .mx-0;
-  @extend .mx-lg-1;
-}
-.row-flow-item-notes-area {
-  @extend .w-10;
-  @extend .d-flex;
-  @extend .flex-wrap;
-}
-.row-flow-item-notes-text {
-  @extend .mx-0;
-  @extend .mx-lg-1;
-}
-</style>
+<style scoped lang="scss"></style>

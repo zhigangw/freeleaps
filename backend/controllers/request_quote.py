@@ -57,6 +57,11 @@ class RequestQuoteSubmit(Resource):
                 createdDate=datetime.utcnow(),
                 notes=args.notes,
             ).save()
+            RequestPostDoc.objects(
+                reqeustId=args.notes.requestId
+            ).update(
+                add_to_set__quotes=str(quote.id),
+            )
             resp = jsonify(
                 quoteId=str(quote.id)
             )
@@ -91,6 +96,7 @@ class RequestQuoteMine(Resource):
         resp = jsonify(quote)
 
         return make_response(resp, return_code)
+
 
 class RequestQuoteMyAll(Resource):
     def __init__(self) -> None:

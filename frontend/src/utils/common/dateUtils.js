@@ -1,13 +1,17 @@
 class DateUtils {
     static FromJson(o) {
-        if (o && "$date" in o) {
-            return new Date(o["$date"]);
+        if (o) {
+            if (typeof o === 'string') {
+
+                return new Date(o);
+            }
+            if ("$date" in o) {
+                return new Date(o["$date"]);
+            }
         }
-        else {
-            return null;
-        }
+        return null;
     }
-    
+
     static FromJsonToString(o) {
         let date = DateUtils.FromJson(o);
         if (date) {

@@ -1,19 +1,29 @@
 <template>
-  <div>
-    <h1>BuyerDashboard</h1>
-    <table>
-      <tr v-for="post in postList" :key="post.requestId">
-        <td>{{post.description.headline}}</td>
-        <td>
-          <button :id="post.requestId" @click="viewProject($event)">Details</button>
-        </td>
-      </tr>
-    </table>
+  <div class="row-flow-container">
+    <div class="w-90 mx-auto my-3 d-flex">
+      <button class="btn btn-primary ms-auto p-2" @click="postProject">Post a Request</button>
+    </div>
+    <div
+      class="row-flow-item-container"
+      v-for="(post,index) in postList"
+      :key="index"
+      @click="viewRequest(post)"
+    >
+      <div class="row-flow-item-subject-area">
+        <p class="row-flow-item-subject-text">{{post.description.headline}}</p>
+      </div>
+      <div class="row-flow-item-status-area">
+        <p class="row-flow-item-status-text">Proposals ({{post.quoteCount}})</p>
+      </div>
+      <div class="row-flow-item-notes-area">
+        <p class="row-flow-item-notes-text">{{getFormalizedDate(post)}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { RequestPostApi, requestPostUtils } from "../../utils/index";
+import { RequestPostApi, requestPostUtils, DateUtils } from "../../utils/index";
 import { requestPostStatusEnum } from "../../types/index";
 
 export default {
@@ -31,12 +41,16 @@ export default {
     this.fetchMyAllPostSummary();
   },
   methods: {
-    viewProject(event) {
-      let requestId = event.currentTarget.id;
-      let request = this.postList.filter(function (x) {
-        return x.requestId == requestId;
-      })[0];
+    getFormalizedDate(post) {
+      return DateUtils.FromJsonToString(post.updatedDate);
+    },
 
+    postProject() {
+      requestPostUtils.fillRequest(null);
+      this.mnx_navToPostRequestDescription();
+    },
+
+    viewRequest(request) {
       requestPostUtils.fillRequest(request);
       if (request.status == requestPostStatusEnum.DRAFT) {
         this.mnx_navToPostRequestDescription();
