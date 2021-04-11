@@ -1,13 +1,13 @@
 <template>
   <div class="row-flow-container">
-    <div
-      class="row-flow-item-container"
-      v-for="(message,index) in messageList"
-      :key="index"
-      @click="viewMessage(message)"
-    >
+    <div class="row-flow-header"></div>
+    <div class="row-flow-item-container" v-for="(message,index) in messageList" :key="index">
       <div class="row-flow-item-subject-area">
-        <p class="row-flow-item-subject-text">{{message.subject}}</p>
+        <p
+          class="row-flow-item-subject-text"
+          style="cursor:pointer"
+          @click="viewMessage(message)"
+        >{{message.subject}}</p>
       </div>
       <div class="row-flow-item-status-area">
         <p class="row-flow-item-status-text">{{message.category}}</p>

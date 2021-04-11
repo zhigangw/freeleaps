@@ -3,17 +3,20 @@
     <div class="w-90 mx-auto my-3 d-flex">
       <button class="btn btn-primary ms-auto p-2" @click="postProject">Post a Request</button>
     </div>
-    <div
-      class="row-flow-item-container"
-      v-for="(post,index) in postList"
-      :key="index"
-      @click="viewRequest(post)"
-    >
+    <div class="row-flow-item-container" v-for="(post,index) in postList" :key="index">
       <div class="row-flow-item-subject-area">
-        <p class="row-flow-item-subject-text">{{post.description.headline}}</p>
+        <p
+          class="row-flow-item-subject-text"
+          style="cursor:pointer"
+          @click="viewRequest(post)"
+        >{{post.description.headline}}</p>
       </div>
       <div class="row-flow-item-status-area">
-        <p class="row-flow-item-status-text">Proposals ({{post.quoteCount}})</p>
+        <p
+          class="row-flow-item-status-text"
+          style="cursor:pointer"
+          @click="viewProposal(post)"
+        >Proposals ({{post.quoteCount}})</p>
       </div>
       <div class="row-flow-item-notes-area">
         <p class="row-flow-item-notes-text">{{getFormalizedDate(post)}}</p>
@@ -24,7 +27,6 @@
 
 <script>
 import { RequestPostApi, requestPostUtils, DateUtils } from "../../utils/index";
-import { requestPostStatusEnum } from "../../types/index";
 
 export default {
   name: "WorkPlace",
@@ -52,14 +54,14 @@ export default {
 
     viewRequest(request) {
       requestPostUtils.fillRequest(request);
-      if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestDescription();
-      } else if (request.status === requestPostStatusEnum.PUBLISHED) {
-        this.mnx_navToBuyerRequestView();
-      } else {
-        this.mnx_navToBuyerProjectView();
-      }
+      this.mnx_navToPostRequestDescription();
     },
+
+    viewProposal(request) {
+      requestPostUtils.fillRequest(request);
+      this.mnx_navToWorkplace();
+    },
+    
     async fetchMyAllPostSummary() {
       RequestPostApi.fetchMineAsSummary()
         .then((response) => {
