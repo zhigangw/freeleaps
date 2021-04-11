@@ -10,7 +10,7 @@ from .project_manage import routeMap as pm_route
 from .geo_country import routeMap as gc_route
 from .job_role import routeMap as jr_route
 from .subscription_services import routeMap as ss_route
-
+from .work_place import routeMap as wl_route
 
 controllerMap = [
     *ua_route,
@@ -25,4 +25,5 @@ controllerMap = [
     *gc_route,
     *jr_route,
     *ss_route,
+    *wl_route,
 ]

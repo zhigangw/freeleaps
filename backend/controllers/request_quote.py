@@ -13,6 +13,7 @@ from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.models.request_notes import RequestNotes
 
 from ..mongodb.models.request_quote import RequestQuoteDoc
+from ..mongodb.models.workplace.inbox import InboxDoc
 from ..mongodb.models.project_manage import WorkSite, Contract, ProjectDoc
 from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.types.request_qoute import RequestQuoteStatus
@@ -57,11 +58,21 @@ class RequestQuoteSubmit(Resource):
                 createdDate=datetime.utcnow(),
                 notes=args.notes,
             ).save()
-            RequestPostDoc.objects(
+
+            request = RequestPostDoc.objects(
                 reqeustId=args.notes.requestId
-            ).update(
+            ).get()
+
+            request.update(
                 add_to_set__quotes=str(quote.id),
             )
+
+            InboxDoc(
+                userId=request.posterId,
+                category='quote',
+                documentId=str(quote.id)
+            ).save()
+
             resp = jsonify(
                 quoteId=str(quote.id)
             )

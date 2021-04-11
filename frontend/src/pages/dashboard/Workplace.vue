@@ -1,20 +1,26 @@
 <template>
-  <div>
-    <h1>BuyerDashboard</h1>
-    <table>
-      <tr v-for="post in postList" :key="post.requestId">
-        <td>{{post.description.headline}}</td>
-        <td>
-          <button :id="post.requestId" @click="viewProject($event)">Details</button>
-        </td>
-      </tr>
-    </table>
+  <div class="row-flow-container">
+    <div
+      class="row-flow-item-container"
+      v-for="(message,index) in messageList"
+      :key="index"
+      @click="viewMessage(message)"
+    >
+      <div class="row-flow-item-subject-area">
+        <p class="row-flow-item-subject-text">{{message.subject}}</p>
+      </div>
+      <div class="row-flow-item-status-area">
+        <p class="row-flow-item-status-text">{{message.category}}</p>
+      </div>
+      <div class="row-flow-item-notes-area">
+        <p class="row-flow-item-notes-text">{{getFormalizedDate(message)}}</p>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { RequestPostApi, requestPostUtils } from "../../utils/index";
-import { requestPostStatusEnum } from "../../types/index";
+import { WorkplaceApi, requestPostUtils, DateUtils } from "../../utils/index";
 
 export default {
   name: "WorkPlace",
@@ -22,34 +28,29 @@ export default {
   components: {},
   data() {
     return {
-      postList: [],
+      messageList: [],
     };
   },
 
   created() {},
   mounted() {
-    this.fetchMyAllPostSummary();
+    this.fetchInbox();
   },
   methods: {
-    viewProject(event) {
-      let requestId = event.currentTarget.id;
-      let request = this.postList.filter(function (x) {
-        return x.requestId == requestId;
-      })[0];
+    getFormalizedDate(message) {
+      return DateUtils.FromJsonToString(message.date);
+    },
 
-      requestPostUtils.fillRequest(request);
-      if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestDescription();
-      } else if (request.status === requestPostStatusEnum.PUBLISHED) {
-        this.mnx_navToBuyerRequestView();
-      } else {
-        this.mnx_navToBuyerProjectView();
+    viewMessage(message) {
+      if (message.category == "quote") {
+        requestPostUtils.fillQuote(message.quote);
+        this.mnx_navToAcceptQuote();
       }
     },
-    async fetchMyAllPostSummary() {
-      RequestPostApi.fetchMineAsSummary()
+    async fetchInbox() {
+      WorkplaceApi.fetchInbox()
         .then((response) => {
-          this.postList = response.data;
+          this.messageList = response.data;
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);

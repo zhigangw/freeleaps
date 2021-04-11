@@ -9,7 +9,8 @@ export {
     CareerProfileApi,
     CareerApi,
     SubscriptionApi,
-    ResponseFormatter
+    ResponseFormatter,
+    WorkplaceApi
 } from './backend/index'
 export { userUtils, requestPostUtils, userProfileUtils } from './store/index'
 export { ValueChecker, DateUtils, OIDUtils } from './common/index'

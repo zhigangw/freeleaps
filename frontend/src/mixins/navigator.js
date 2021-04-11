@@ -193,6 +193,10 @@ export default {
             this.$router.push("/quote-submitted/" )
         },
 
+        mnx_navToAcceptQuote(){
+            this.$router.push("/accept-quote/" )
+        },
+
         mnx_navToWorkplaceMessages() {
             this.$router.push("/workplace-messages")
         },

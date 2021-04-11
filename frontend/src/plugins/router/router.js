@@ -59,6 +59,8 @@ import PostRequestReview from "../../pages/request/PostRequestReview";
 import BrowseRequests from "../../pages/request/BrowseRequests"
 import QuoteRequest from "../../pages/request/QuoteRequest"
 import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
+import AcceptQuote from "../../pages/request/AcceptQuote"
+
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
 import WorkplaceRequests from "../../pages/dashboard/WorkplaceRequests"
 import WorkplaceMessages from "../../pages/dashboard/WorkplaceMessages"
@@ -464,6 +466,13 @@ const router = createRouter({
       props: false,
     },
 
+    {
+      name: 'accept-quote',
+      path: '/accept-quote',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: AcceptQuote, header: HeaderUser },
+      props: false,
+    },
     {
       name: 'workplace-projects',
       path: '/workplace-projects',
