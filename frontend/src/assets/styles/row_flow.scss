@@ -3,7 +3,8 @@
 }
 
 .row-flow-header {
-  @extend .w-90;
+  @extend .w-100;
+  @extend .w-lg-90;
   @extend .mx-auto;
   @extend .my-3;
   @extend .d-flex;

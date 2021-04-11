@@ -20,6 +20,14 @@ class RequestPostUtils {
     fetchQuote() {
         return this.quote;
     }
+    
+    fillProject(project) {
+        this.project = project;
+    }
+
+    fetchProject() {
+        return this.project;
+    }
 }
 
 const requestPostUtils = new RequestPostUtils(store);

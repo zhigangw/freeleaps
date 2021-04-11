@@ -60,6 +60,9 @@ import BrowseRequests from "../../pages/request/BrowseRequests"
 import QuoteRequest from "../../pages/request/QuoteRequest"
 import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
 import AcceptQuote from "../../pages/request/AcceptQuote"
+import QuoteAccepted from "../../pages/request/QuoteAccepted"
+
+import ViewProject from "../../pages/project/ViewProject"
 
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
 import WorkplaceRequests from "../../pages/dashboard/WorkplaceRequests"
@@ -473,6 +476,24 @@ const router = createRouter({
       components: { default: AcceptQuote, header: HeaderUser },
       props: false,
     },
+    
+
+    {
+      name: 'quote-accepted',
+      path: '/quote-accepted',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: QuoteAccepted, header: HeaderUser },
+      props: false,
+    },
+    
+    {
+      name: 'view-project',
+      path: '/view-project',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ViewProject, header: HeaderUser },
+      props: false,
+    },
+
     {
       name: 'workplace-projects',
       path: '/workplace-projects',

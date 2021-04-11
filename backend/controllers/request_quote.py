@@ -38,7 +38,7 @@ class RequestQuoteSubmit(Resource):
         userIdentity = get_jwt_identity()
         return_code = 200
         resp = None
-
+        args.notes.status = RequestQuoteStatus.SUBMITTED
         updated = RequestQuoteDoc.objects(
             providerId=userIdentity,
         ).update(
@@ -169,7 +169,7 @@ class RequestQuoteFetchOpen(Resource):
 
         quotes = RequestQuoteDoc.objects(
             providerId=userIdentity,
-            status__ne=RequestQuoteStatus.ACCEPTED
+            notes_status__ne=RequestQuoteStatus.ACCEPTED
         )
 
         resp = jsonify(quotes)
@@ -210,7 +210,7 @@ class RequestQuoteAcceptQuote(Resource):
 
         if(quote == None):
             resp = jsonify(text="quote with the quoteId does not exist")
-            return_code = 403
+            return_code = 406
             return make_response(resp, return_code)
 
         request = RequestPostDoc.objects(
@@ -218,7 +218,7 @@ class RequestQuoteAcceptQuote(Resource):
         ).first()
         if(request == None):
             resp = jsonify(text="request with the requestId does not exist")
-            return_code = 403
+            return_code = 406
             return make_response(resp, return_code)
 
         if ProjectDoc.objects(
@@ -226,7 +226,7 @@ class RequestQuoteAcceptQuote(Resource):
             contract__quoteId=args.quoteId,
         ).count() > 0:
             resp = jsonify(text="project with the requestId and quoteId exist")
-            return_code = 403
+            return_code = 406
             return make_response(resp, return_code)
 
         request.status = RequestPostStatus.ONGOING
@@ -234,7 +234,7 @@ class RequestQuoteAcceptQuote(Resource):
         request.statueUpdatedDate = datetime.utcnow()
         request.save()
 
-        quote.status = RequestQuoteStatus.ACCEPTED
+        quote.notes.status = RequestQuoteStatus.ACCEPTED
         quote.updatedDate = datetime.utcnow()
         quote.save()
 
@@ -255,7 +255,7 @@ class RequestQuoteAcceptQuote(Resource):
         )
         project.save()
 
-        resp = jsonify(projectId=str(project.id))
+        resp = jsonify(project)
 
         return make_response(resp, return_code)
 

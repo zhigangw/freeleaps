@@ -1,80 +1,58 @@
 <template>
-  <div class="lf-board-container">
-      <div class="lf-head-container">
-        <div class="lf-head-left">
-          <button class="btn btn-primary">Back</button>
+  <div class="row-flow-container">
+    <div class="row-flow-header">
+      <button class="btn btn-primary" @click="goBack">Back</button>
+    </div>
+    <div class="row-flow-item-container">
+      <h4 class="lf-body-block-container-title">Pay</h4>
+      <div class="lf-body-block-container-body">
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label" for="total-budget">Total Budget (USD)</h5>
+          <p class="lf-body-item-block-notes">The total payment upon completion</p>
+          <input
+            class="lf-body-item--block-input"
+            type="number"
+            id="total-budget"
+            min="0"
+            max="100000"
+            readonly
+            v-model.trim="quote.notes.pay.totalBudget"
+          />
         </div>
-        <div class="lf-head-right">
-          <div>
-            <button class="btn btn-primary">Prev</button>
-            <button class="btn btn-primary">Next</button>
-          </div>
-        </div>
-      </div>
-      <div class="lf-body-container">
-        <div class="lf-body-content">
-          <div class="lf-body-block-container">
-            <h4 class="lf-body-block-container-title">Pay</h4>
-            <div class="lf-body-block-container-body">
-              <div class="lf-body-item-block">
-                <h5 class="lf-body-item-block-label" for="total-budget">Total Budget (USD)</h5>
-                <p class="lf-body-item-block-notes">The total payment upon completion</p>
-                <input
-                  class="lf-body-item--block-input"
-                  type="number"
-                  id="total-budget"
-                  min="0"
-                  max="100000"
-                  readonly
-                  v-model.trim="quote.notes.pay.totalBudget"
-                />
-              </div>
-              <div class="lf-body-item-block">
-                <h5 class="lf-body-item-block-label" for="escorted-deposit">Escorted Deposit (USD)</h5>
-                <p class="lf-body-item-block-notes">The amount escorted by the platform</p>
-                <input
-                  class="lf-body-item--block-input"
-                  type="number"
-                  id="escorted-deposit"
-                  min="0"
-                  max="100000"
-                  readonly
-                  v-model.trim="quote.notes.pay.escortedDeposit"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="lf-body-block-container">
-            <h4 class="lf-body-block-container-title">Notes</h4>
-            <div class="lf-body-block-container-body">
-              <div class="w-100">
-                <p
-                  class="lf-body-item-block-notes"
-                >Leave notes to applicants, including the paymant plan, etc (32 ~ 4098 characters)</p>
-                <div
-                  class="lf-body-item--block-input mx-auto"
-                  id="package-notes"
-                  v-html="quote.notes.notes"
-                />
-              </div>
-            </div>
-          </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label" for="escorted-deposit">Escorted Deposit (USD)</h5>
+          <p class="lf-body-item-block-notes">The amount escorted by the platform</p>
+          <input
+            class="lf-body-item--block-input"
+            type="number"
+            id="escorted-deposit"
+            min="0"
+            max="100000"
+            readonly
+            v-model.trim="quote.notes.pay.escortedDeposit"
+          />
         </div>
       </div>
-      <p v-show="hasError()" class="if-errorInput">{{errorMessage}}</p>
-      <div class="lf-submit-container">
-        <button class="if-cancel" type="button" @click="goBack">Decline</button>
-        <button class="if-submit" type="button">Accept</button>
+    </div>
+
+    <div class="row-flow-item-container">
+      <h4 class="lf-body-block-container-title">Notes</h4>
+      <div class="lf-body-block-container-body">
+        <p class="text-start" id="package-notes" v-html="quote.notes.notes" />
       </div>
+    </div>
+    <div v-if="quote.notes.status == 1" class="lf-submit-container">
+      <button class="if-cancel" type="button" @click="declineQuote">Decline</button>
+      <button class="if-submit" type="button" @click="acceptQuote">Accept</button>
+    </div>
+    <div v-if="quote.notes.status == 2" class="lf-submit-container">
+      <button class="if-submit" type="button" @click="viewProject">Go to project</button>
+    </div>
   </div>
 </template>
 
 <script>
-import {
-  RequestQuoteApi,
-  requestPostUtils,
-  requestValidator,
-} from "../../utils/index";
+import { RequestQuoteApi, requestPostUtils, OIDUtils,PojectManagerApi } from "../../utils/index";
 export default {
   name: "AcceptQuote",
   props: {},
@@ -90,47 +68,35 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    hasError() {
-      return this.errorMessage;
-    },
-
-    gotoNext() {
-      requestPostUtils.fillQuote(this.quote);
-      this.mnx_navToQuoteSubmitted();
-    },
-
     goBack() {
       requestPostUtils.fillQuote(this.quote);
       this.mnx_goBack();
     },
 
-    async submitForm() {
-      if (this.quote.notes.pay.totalBudget <= 0) {
-        this.errorMessage = "The total budget must greater then zero.";
-        return;
-      }
-
-      if (
-        this.quote.notes.pay.escortedDeposit <= 0 ||
-        this.quote.notes.pay.escortedDeposit > this.quote.notes.pay.totalBudget
-      ) {
-        this.errorMessage =
-          "The escorted budget must greater then zero and less than the total budget.";
-        return;
-      }
-      this.errorMessage = requestValidator.requestNotesValidator.validate(
-        this.quote.notes.notes
-      );
-      if (this.hasError()) {
-        return;
-      }
-
-      RequestQuoteApi.submitQuote(this.quote.notes)
+    viewProject() {
+      PojectManagerApi.fetchForRequest(this.quote.notes.requestId)
         .then((response) => {
-          this.quote.quoteId = response.data.quoteId;
-          requestPostUtils.fillQuote(this.quote);
+          requestPostUtils.fillProject(response.data);
+          this.mnx_navToViewProject();
+        })
+        .catch((error) => {
+          this.mnx_backendErrorHandler(error);
+        });
+    },
 
-          this.gotoNext();
+    async declineQuote() {
+      requestPostUtils.fillQuote(this.quote);
+      this.mnx_navToQuoteSubmitted();
+    },
+
+    async acceptQuote() {
+      RequestQuoteApi.acceptQuote(
+        OIDUtils.FromJson(this.quote),
+        this.quote.notes.requestId
+      )
+        .then((response) => {
+          requestPostUtils.fillProject(response.data);
+          this.mnx_navToQuoteAccepted();
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);

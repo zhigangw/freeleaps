@@ -162,7 +162,7 @@ export default {
         mnx_navToChooseUsername() {
             this.$router.push("/choose-username")
         },
-        
+
         mnx_navToPlanUpdated() {
             this.$router.push("/plan-updated")
         },
@@ -175,26 +175,33 @@ export default {
             this.$router.push("/post-request-description/");
         },
         mnx_navToPostRequestNote() {
-            this.$router.push("/post-request-note/" );
+            this.$router.push("/post-request-note/");
         },
         mnx_navToPostRequestReview() {
-            this.$router.push("/post-request-review/" )
+            this.$router.push("/post-request-review/")
         },
 
-        mnx_navToRequests(){
-            this.$router.push("/browse-requests/" )
+        mnx_navToRequests() {
+            this.$router.push("/browse-requests/")
         },
 
-        mnx_navToQuoteRequest(){
-            this.$router.push("/quote-request/" )
+        mnx_navToQuoteRequest() {
+            this.$router.push("/quote-request/")
         },
 
-        mnx_navToQuoteSubmitted(){
-            this.$router.push("/quote-submitted/" )
+        mnx_navToQuoteSubmitted() {
+            this.$router.push("/quote-submitted/")
         },
 
-        mnx_navToAcceptQuote(){
-            this.$router.push("/accept-quote/" )
+        mnx_navToAcceptQuote() {
+            this.$router.push("/accept-quote/")
+        },
+        mnx_navToQuoteAccepted() {
+
+            this.$router.push("/qutoe-accepted/")
+        },
+        mnx_navToViewProject() {
+            this.$router.push("/view-project/")
         },
 
         mnx_navToWorkplaceMessages() {

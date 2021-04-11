@@ -30,7 +30,39 @@ class ProjectManageFetchForProvider(Resource):
         return make_response(resp, return_code)
 
 
+class ProjectManageFetchForRequest(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'requestId',
+            dest='requestId',
+            type=str,
+            location='json',
+            required=True,
+            help='The request post\'s requestId',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        project = ProjectDoc.objects(
+            contract__providerId=userIdentity,
+            contract__requestId=args.requestId,
+        ).first()
+        resp = jsonify(
+            project
+        )
+
+        return make_response(resp, return_code)
+
+
 routeMap = [
     {'res': ProjectManageFetchForProvider,
      'url': '/api/project-manage/fetch-for-provider'},
+    {'res': ProjectManageFetchForRequest,
+     'url': '/api/project-manage/fetch-for-request'},
 ]
