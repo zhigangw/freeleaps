@@ -29,6 +29,25 @@ class ProjectManageFetchForProvider(Resource):
 
         return make_response(resp, return_code)
 
+class ProjectManageFetchForPoster(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        projects = ProjectDoc.objects(
+            contract__posterId=userIdentity,
+        )
+        resp = jsonify(
+            projects
+        )
+
+        return make_response(resp, return_code)
+
 
 class ProjectManageFetchForRequest(Resource):
     def __init__(self) -> None:
@@ -61,6 +80,8 @@ class ProjectManageFetchForRequest(Resource):
 
 
 routeMap = [
+    {'res': ProjectManageFetchForPoster,
+     'url': '/api/project-manage/fetch-for-poster'},
     {'res': ProjectManageFetchForProvider,
      'url': '/api/project-manage/fetch-for-provider'},
     {'res': ProjectManageFetchForRequest,

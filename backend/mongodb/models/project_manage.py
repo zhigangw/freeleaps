@@ -7,7 +7,6 @@ class Contract(me.EmbeddedDocument):
     quoteId = me.StringField()
     posterId = me.StringField()
     providerId = me.StringField()
-    notes = me.EmbeddedDocumentField(QuoteNotes)
 
 class WorkSite(me.EmbeddedDocument):
     teamSite = me.StringField()
@@ -17,5 +16,9 @@ class WorkSite(me.EmbeddedDocument):
 class ProjectDoc(me.Document):
     createdDate = me.DateField()
     updatedDate = me.DateField()
+    status = me.IntField()
+    headline=me.StringField()
+    deliveredDate =me.DateField()
+    kickoffDate = me.DateField()
     contract = me.EmbeddedDocumentField(Contract)
     workSite = me.EmbeddedDocumentField(WorkSite)

@@ -1,9 +1,8 @@
 const requestQuoteStatusEnum = Object.freeze({
     DRAFT: 0,
     SUBMITTED: 1,
-    REVIEWED: 2,
-    ACCEPTED: 3,
-    DECLINED: 4,
+    ACCEPTED: 2,
+    DECLINED: 3,
 });
 
 class RequestQuoteUtils {
@@ -11,9 +10,8 @@ class RequestQuoteUtils {
         switch (status) {
             case 0: return "Draft";
             case 1: return "Submitted";
-            case 2: return "Reviewed";
-            case 3: return "Accepted";
-            case 4: return "Declined";
+            case 2: return "Accepted";
+            case 3: return "Declined";
         }
         return "undefined";
     }

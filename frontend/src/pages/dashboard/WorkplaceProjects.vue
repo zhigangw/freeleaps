@@ -1,20 +1,52 @@
 <template>
-  <div>
-    <h1>BuyerDashboard</h1>
-    <table>
-      <tr v-for="post in postList" :key="post.requestId">
-        <td>{{post.description.headline}}</td>
-        <td>
-          <button :id="post.requestId" @click="viewProject($event)">Details</button>
-        </td>
-      </tr>
-    </table>
+  <div class="row-flow-container">
+    <div v-if="providedProjects.length > 0" class="w-100 border">
+      <div
+        class="row-flow-item-container"
+        v-for="(project,index) in providedProjects"
+        :key="index"
+        @click="viewProject(project)"
+      >
+        <div class="row-flow-item-subject-area">
+          <p class="row-flow-item-subject-text" style="cursor:pointer">({{project.headline}})</p>
+        </div>
+        <div class="row-flow-item-status-area">
+          <p class="row-flow-item-status-text">{{getFormalizedStatus(project)}}</p>
+        </div>
+        <div class="row-flow-item-notes-area">
+          <p class="row-flow-item-notes-text">{{getFormalizedDate(project)}}</p>
+        </div>
+      </div>
+    </div>
+    <div v-if="requestedProjects.length > 0" class="w-100 border">
+      <div
+        class="row-flow-item-container"
+        v-for="(project,index) in requestedProjects"
+        :key="index"
+        @click="viewProject(project)"
+      >
+        <div class="row-flow-item-subject-area">
+          <p class="row-flow-item-subject-text" style="cursor:pointer">({{project.headline}})</p>
+        </div>
+        <div class="row-flow-item-status-area">
+          <p class="row-flow-item-status-text">{{getFormalizedStatus(project)}}</p>
+        </div>
+        <div class="row-flow-item-notes-area">
+          <p class="row-flow-item-notes-text">{{getFormalizedDate(project)}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { RequestPostApi, requestPostUtils } from "../../utils/index";
-import { requestPostStatusEnum } from "../../types/index";
+import {
+  PojectManagerApi,
+  requestPostUtils,
+  DateUtils,
+} from "../../utils/index";
+
+import { ProjectData } from "../../types/index";
 
 export default {
   name: "WorkPlace",
@@ -22,34 +54,44 @@ export default {
   components: {},
   data() {
     return {
-      postList: [],
+      providedProjects: [],
+      requestedProjects: [],
     };
   },
 
   created() {},
   mounted() {
-    this.fetchMyAllPostSummary();
+    this.fetchProvidedProjects();
+    this.fetchRequestedProjects();
   },
-  methods: {
-    viewProject(event) {
-      let requestId = event.currentTarget.id;
-      let request = this.postList.filter(function (x) {
-        return x.requestId == requestId;
-      })[0];
 
-      requestPostUtils.fillRequest(request);
-      if (request.status == requestPostStatusEnum.DRAFT) {
-        this.mnx_navToPostRequestDescription();
-      } else if (request.status === requestPostStatusEnum.PUBLISHED) {
-        this.mnx_navToBuyerRequestView();
-      } else {
-        this.mnx_navToBuyerProjectView();
-      }
+  methods: {
+    getFormalizedStatus(project) {
+      return ProjectData.getStatusString(project.status);
     },
-    async fetchMyAllPostSummary() {
-      RequestPostApi.fetchMineAsSummary()
+    getFormalizedDate(project) {
+      return DateUtils.FromJsonToString(project.kickoffDate);
+    },
+
+    viewProject(project) {
+      requestPostUtils.fillProject(project);
+      this.mnx_navToViewProject();
+    },
+
+    async fetchProvidedProjects() {
+      PojectManagerApi.fetchForProvider()
         .then((response) => {
-          this.postList = response.data;
+          this.providedProjects = response.data;
+        })
+        .catch((error) => {
+          this.mnx_backendErrorHandler(error);
+        });
+    },
+
+    async fetchRequestedProjects() {
+      PojectManagerApi.fetchForPoster()
+        .then((response) => {
+          this.requestedProjects = response.data;
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);

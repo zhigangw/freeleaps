@@ -5,7 +5,7 @@
         <p
           class="callout text-center"
         >ViewProject.</p>
-        <button class="btn btn-primary my-5" @click="backToBrowseProject">Go to project view</button>
+        <button class="btn btn-primary my-5" @click="backToBrowseProject">Go to project list</button>
       </div>
     </div>
   </div>

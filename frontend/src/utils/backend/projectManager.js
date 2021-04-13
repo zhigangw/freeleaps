@@ -15,6 +15,19 @@ class PojectManagerApi {
         return request;
 
     }
+    static fetchForPoster() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/project-manage/fetch-for-poster',
+            {
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+
+    }
     static fetchForRequest(requestId) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(

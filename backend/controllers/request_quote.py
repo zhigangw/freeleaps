@@ -10,13 +10,13 @@ from flask_jwt_extended import (
 from mongoengine.base import utils
 from mongoengine.queryset.transform import update
 from ..mongodb.models.request_post import RequestPostDoc
-from ..mongodb.models.request_notes import RequestNotes
 
 from ..mongodb.models.request_quote import RequestQuoteDoc
 from ..mongodb.models.workplace.inbox import InboxDoc
 from ..mongodb.models.project_manage import WorkSite, Contract, ProjectDoc
 from ..mongodb.types.request_post import RequestPostStatus
 from ..mongodb.types.request_qoute import RequestQuoteStatus
+from ..mongodb.types.project_manager import ProjectStatus
 from ..mongodb.utils.field_validator import FieldValidator
 
 
@@ -229,7 +229,7 @@ class RequestQuoteAcceptQuote(Resource):
             return_code = 406
             return make_response(resp, return_code)
 
-        request.status = RequestPostStatus.ONGOING
+        request.status = RequestPostStatus.ACCEPTED
         request.updatedDate = datetime.utcnow()
         request.statueUpdatedDate = datetime.utcnow()
         request.save()
@@ -240,13 +240,15 @@ class RequestQuoteAcceptQuote(Resource):
 
         project = ProjectDoc(
             createdDate=datetime.utcnow(),
+            kickoffDate=datetime.utcnow(),
             updatedDate=datetime.utcnow(),
+            status=ProjectStatus.ONGOING,
+            headline=request.description.headline,
             contract=Contract(
                 requestId=args.requestId,
                 quoteId=args.quoteId,
                 posterId=request.posterId,
                 providerId=quote.providerId,
-                notes=quote.notes
             ),
             workSite=WorkSite(
                 teamSite="to_be_done",
