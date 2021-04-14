@@ -133,7 +133,12 @@
     @extend .mt-1;
     @extend .mb-3;
 }
-
+.lf-body-item--block-text{
+    @extend .w-90;
+    @extend .mt-1;
+    @extend .mb-3;
+    @extend .text-start;
+}
 .lf-body-item-label-note {
     @extend .text-start;
     @include font-size(0.5rem);
