@@ -3,7 +3,7 @@ import json
 from ..models.request_notes import RequestNotes
 from ..models.requests_description import RequestDescription
 from ..models.request_quote import QuoteNotes
-
+from ..models.project_manage import PayStatus, TrackStatus
 
 class FieldValidator():
     @staticmethod
@@ -43,6 +43,23 @@ class FieldValidator():
     def stringList(jdesc):
         try:
             return json.loads(json.dumps(jdesc))
+        except Exception as e:
+            print(e)
+            raise
+
+    @staticmethod
+    def payStatus(jnote):
+        try:
+            return PayStatus.from_json(json.dumps(jnote))
+        except Exception as e:
+            print(e)
+            raise
+
+
+    @staticmethod
+    def trackStatus(jnote):
+        try:
+            return TrackStatus.from_json(json.dumps(jnote))
         except Exception as e:
             print(e)
             raise
