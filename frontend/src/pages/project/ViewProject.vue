@@ -3,45 +3,88 @@
     <div class="row-flow-header flex-wrap">
       <button class="btn btn-primary" @click="backToBrowseProject">Project list</button>
       <div class="w-80 mx-auto d-flex flex-wrap">
-        <p class="flex-grow-1 text-start text-wrap">{{project.headline}}</p>
-        <select
-          class="form-select w-40 w-sm-25 w-lg-15 w-xl-10"
-          aria-label="project status"
-          v-model="project.status"
-        >
-          <option value="0">Ongoing</option>
-          <option value="1">Delivered</option>
-          <option value="2">Blocked</option>
-        </select>
+        <p class="w-100 text-start text-wrap">{{project.headline}}</p>
       </div>
     </div>
     <div class="row-flow-item-container">
-      <h4 class="lf-body-block-container-title">Status</h4>
+      <h4 class="lf-body-block-container-title">Track</h4>
       <div class="lf-body-block-container-body">
         <div class="lf-body-item-block">
-          <h5 class="lf-body-item-block-label" for="total-budget">Kick Off</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedDate(project.kickoffDate)}}</p>
+          <h5 class="lf-body-item-block-label">Status</h5>
+          <p class="lf-body-item--block-text">{{getFormalizedStatus(project.status)}}</p>
         </div>
         <div class="lf-body-item-block">
-          <h5 class="lf-body-item-block-label" for="total-budget">Kick Off</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedDate(project.kickoffDate)}}</p>
+          <h5 class="lf-body-item-block-label">Start</h5>
+          <p class="lf-body-item--block-text">{{getFormalizedDate(project.trackStatus.kickoffDate)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Lasting</h5>
+          <p
+            class="lf-body-item--block-text"
+          >{{getDeltaInDays(project.trackStatus.kickoffDate)}} days</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Due</h5>
+          <p class="lf-body-item--block-text">{{getFormalizedDate(project.trackStatus.dueDate)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Remaining</h5>
+          <p class="lf-body-item--block-text">{{getDeltaInDays(project.trackStatus.dueDate)}} days</p>
         </div>
       </div>
     </div>
     <div class="row-flow-item-container">
       <h4 class="lf-body-block-container-title">Pay</h4>
-      <div class="lf-body-block-container-body"></div>
+      <div class="lf-body-block-container-body">
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Total</h5>
+          <p class="lf-body-item--block-text">${{getFormalizedMoney(project.payStatus.totalBudget)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Escorted</h5>
+          <p
+            class="lf-body-item--block-text"
+          >$ {{getFormalizedMoney(project.payStatus.escortedDeposit)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Paid</h5>
+          <p class="lf-body-item--block-text">$ {{getFormalizedMoney(project.payStatus.paid)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Remaining</h5>
+          <p class="lf-body-item--block-text">$ {{getFormalizedMoney(project.payStatus.remaining)}}</p>
+        </div>
+      </div>
     </div>
     <div class="row-flow-item-container">
       <h4 class="lf-body-block-container-title">Contract</h4>
-      <div class="lf-body-block-container-body"></div>
+      <div class="lf-body-block-container-body">
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Request</h5>
+          <p class="lf-body-item--block-text">{{project.contract.requestId}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Poster</h5>
+          <p
+            class="lf-body-item--block-text"
+          >{{getFormalizedMoney(project.contract.posterId)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Proposal</h5>
+          <p class="lf-body-item--block-text">{{(project.contract.quoteId)}}</p>
+        </div>
+        <div class="lf-body-item-block">
+          <h5 class="lf-body-item-block-label">Provider</h5>
+          <p class="lf-body-item--block-text">{{(project.contract.providerId)}}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { requestPostUtils, DateUtils } from "../../utils/index";
-
+import { ProjectData } from "../../types/index";
 export default {
   name: "ViewProject",
   props: {},
@@ -57,10 +100,20 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    
-    getFormalizedDate(date) {
-      return DateUtils.FromJsonToString(date);
+    getFormalizedMoney(money) {
+      return money ? money : 0;
     },
+    getFormalizedStatus(status) {
+      return ProjectData.getStatusString(status);
+    },
+    getFormalizedDate(date) {
+      return date ? DateUtils.FromJsonToString(date) : "--";
+    },
+
+    getDeltaInDays(date) {
+      return date ? DateUtils.GetDeltaInDays(date) : 0;
+    },
+
     backToBrowseProjects() {
       requestPostUtils.fillProject(this.project);
       this.mnx_navToViewProject();

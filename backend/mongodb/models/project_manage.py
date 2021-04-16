@@ -3,9 +3,9 @@ import mongoengine as me
 from .request_quote import QuoteNotes
 
 
-class TrackStatus(me.EmbeddedDocumentField):
+class TrackStatus(me.EmbeddedDocument):
     kickoffDate = me.DateField()
-    etaDate = me.DateField()
+    dueDate = me.DateField()
 
 class PayStatus(me.EmbeddedDocument):
     totalBudget = me.DecimalField()
@@ -32,6 +32,7 @@ class ProjectDoc(me.Document):
     updatedDate = me.DateField()
     status = me.IntField()
     headline = me.StringField()
-    pay = me.EmbeddedDocumentField(Pay)
+    payStatus = me.EmbeddedDocumentField(PayStatus)
+    trackStatus = me.EmbeddedDocumentField(TrackStatus)
     contract = me.EmbeddedDocumentField(Contract)
     workSite = me.EmbeddedDocumentField(WorkSite)

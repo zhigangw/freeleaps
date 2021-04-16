@@ -21,6 +21,12 @@ class DateUtils {
             return null;
         }
     }
+
+    static GetDeltaInDays(o) {
+        let date = (o instanceof Date) ? o : DateUtils.FromJson(o);
+        return Math.abs(Math.floor((date - Date.now()) / (1000 * 60 * 60 * 24)))
+    }
+
 }
 
 export { DateUtils }
