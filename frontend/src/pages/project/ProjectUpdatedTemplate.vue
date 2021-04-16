@@ -1,34 +1,21 @@
 <template>
-  <div class="row-flow-container">
-    <div class="row-flow-header flex-wrap">
-      <button class="btn btn-primary" @click="backToBrowseProject">Project list</button>
-      <div class="w-80 mx-auto d-flex flex-wrap">
-        <p class="flex-grow-1 text-start text-wrap">{{project.headline}}</p>
-        <select
-          class="form-select w-40 w-sm-25 w-lg-15 w-xl-10"
-          aria-label="project status"
-          v-model="project.status"
-        >
-          <option value="0">Ongoing</option>
-          <option value="1">Delivered</option>
-          <option value="2">Blocked</option>
-        </select>
+  <div class="main-body">
+    <div class="story-board">
+      <div class="focus-area">
+        <slot name="result" />
       </div>
+      <button class="btn btn-primary my-5" @click="backToProject">Continue to Project</button>
     </div>
   </div>
 </template>
 
 <script>
-import { requestPostUtils, DateUtils } from "../../utils/index";
-
 export default {
-  name: "ViewProject",
+  name: "ProjectUpdatedTemplate",
   props: {},
 
   data() {
-    return {
-      project: requestPostUtils.fetchProject(),
-    };
+    return {};
   },
 
   components: {},
@@ -36,12 +23,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    
-    getFormalizedDate(date) {
-      return DateUtils.FromJsonToString(date);
-    },
-    backToBrowseProjects() {
-      requestPostUtils.fillProject(this.project);
+    backToProject() {
       this.mnx_navToViewProject();
     },
   },

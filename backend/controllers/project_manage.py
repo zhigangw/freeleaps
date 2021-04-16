@@ -8,7 +8,7 @@ from flask_jwt_extended import (
 from mongoengine.queryset.transform import update
 from ..mongodb.models.project_manage import ProjectDoc, TrackStatus, PayStatus
 from ..mongodb.utils.field_validator import FieldValidator
-
+from mongoengine.queryset.visitor import Q
 
 class ProjectManageFetchForProvider(Resource):
     def __init__(self) -> None:
@@ -80,7 +80,7 @@ class ProjectManageFetchForRequest(Resource):
         return make_response(resp, return_code)
 
 
-class ProjectManagerUpdateTrackStatus(Resource):
+class ProjectManagerUpdateStatus(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(
@@ -92,12 +92,12 @@ class ProjectManagerUpdateTrackStatus(Resource):
             help='The project\'s projectId',
         )
         self.post_parser.add_argument(
-            'trackStatus',
-            dest='trackStatus',
-            type=FieldValidator.trackStatus,
+            'status',
+            dest='status',
+            type=int,
             location='json',
             required=True,
-            help='The project\'s trackStatus',
+            help='The project\'s status',
         )
 
     @jwt_required
@@ -110,8 +110,8 @@ class ProjectManagerUpdateTrackStatus(Resource):
         ProjectDoc.objects(
             (Q(contract__providerId=userIdentity)
              | Q(contract__posterId=userIdentity))
-            & Q(id=args.requestId)
-        ).update(set__trackStatus=args.trackStatus)
+            & Q(id=args.projectId)
+        ).update(set__status=args.status)
 
         resp = jsonify(
         )
@@ -161,8 +161,8 @@ class ProjectManagerUpdatePayStatus(Resource):
 routeMap = [
     {'res': ProjectManagerUpdatePayStatus,
      'url': '/api/project-manage/update-pay-status'},
-    {'res': ProjectManagerUpdateTrackStatus,
-     'url': '/api/project-manage/update-track-status'},
+    {'res': ProjectManagerUpdateStatus,
+     'url': '/api/project-manage/update-status'},
     {'res': ProjectManageFetchForPoster,
      'url': '/api/project-manage/fetch-for-poster'},
     {'res': ProjectManageFetchForProvider,

@@ -200,9 +200,17 @@ export default {
 
             this.$router.push("/qutoe-accepted/")
         },
+
+        mnx_navToUpdateProjectStatus() {
+            this.$router.push("/update-project-status/")
+        },
+        mnx_navToProjectStatusUpdated() {
+            this.$router.push("/project-status-updated/")
+        },
         mnx_navToViewProject() {
             this.$router.push("/view-project/")
         },
+
 
         mnx_navToWorkplaceMessages() {
             this.$router.push("/workplace-messages")

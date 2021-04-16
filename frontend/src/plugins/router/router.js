@@ -62,6 +62,8 @@ import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
 import AcceptQuote from "../../pages/request/AcceptQuote"
 import QuoteAccepted from "../../pages/request/QuoteAccepted"
 
+import UpdateProjectStatus from "../../pages/project/UpdateProjectStatus"
+import ProjectStatusUpdated from "../../pages/project/ProjectStatusUpdated"
 import ViewProject from "../../pages/project/ViewProject"
 
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
@@ -285,7 +287,7 @@ const router = createRouter({
       path: '/update-name/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: UpdateName, header: HeaderUser },
-      props: false ,
+      props: false,
     },
 
     {
@@ -476,7 +478,7 @@ const router = createRouter({
       components: { default: AcceptQuote, header: HeaderUser },
       props: false,
     },
-    
+
 
     {
       name: 'quote-accepted',
@@ -485,7 +487,23 @@ const router = createRouter({
       components: { default: QuoteAccepted, header: HeaderUser },
       props: false,
     },
-    
+
+
+    {
+      name: 'update-project-status',
+      path: '/update-project-status',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: UpdateProjectStatus, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'project-status-updated',
+      path: '/project-status-updated',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ProjectStatusUpdated, header: HeaderUser },
+      props: false,
+    },
     {
       name: 'view-project',
       path: '/view-project',
@@ -521,7 +539,7 @@ const router = createRouter({
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: WorkplaceProposals, header: HeaderUser },
     },
-    
+
     {
       name: 'workplace',
       path: '/workplace',

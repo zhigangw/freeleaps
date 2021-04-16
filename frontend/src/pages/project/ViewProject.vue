@@ -11,7 +11,7 @@
       <div class="lf-body-block-container-body">
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Status</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedStatus(project.status)}}</p>
+          <p class="lf-body-item--block-text-clickable" @click="updateStatus">{{getFormalizedStatus(project.status)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Start</h5>
@@ -65,9 +65,7 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Poster</h5>
-          <p
-            class="lf-body-item--block-text"
-          >{{getFormalizedMoney(project.contract.posterId)}}</p>
+          <p class="lf-body-item--block-text">{{getFormalizedMoney(project.contract.posterId)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Proposal</h5>
@@ -100,6 +98,7 @@ export default {
   created() {},
   mounted() {},
   methods: {
+    
     getFormalizedMoney(money) {
       return money ? money : 0;
     },
@@ -118,6 +117,10 @@ export default {
       requestPostUtils.fillProject(this.project);
       this.mnx_navToViewProject();
     },
+
+    updateStatus(){
+      this.mnx_navToUpdateProjectStatus();
+    }
   },
 };
 </script>

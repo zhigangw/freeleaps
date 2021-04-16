@@ -133,12 +133,23 @@
     @extend .mt-1;
     @extend .mb-3;
 }
-.lf-body-item--block-text{
+
+.lf-body-item--block-text {
     @extend .w-90;
     @extend .mt-1;
     @extend .mb-3;
     @extend .text-start;
 }
+
+.lf-body-item--block-text-clickable {
+    @extend .w-90;
+    @extend .mt-1;
+    @extend .mb-3;
+    @extend .text-start;
+    @extend .text-decoration-underline;
+    cursor: pointer;
+}
+
 .lf-body-item-label-note {
     @extend .text-start;
     @include font-size(0.5rem);
@@ -149,11 +160,13 @@
     @extend .w-100;
     min-height: 40vh;
 }
-.lf-body-item-text{
+
+.lf-body-item-text {
     @extend .border;
     @extend .w-100;
     @extend .text-start;
 }
+
 .lf-body-item-text-input {
     @extend .border;
     @extend .w-100;
