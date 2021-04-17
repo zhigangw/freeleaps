@@ -64,6 +64,8 @@ import QuoteAccepted from "../../pages/request/QuoteAccepted"
 
 import UpdateProjectStatus from "../../pages/project/UpdateProjectStatus"
 import ProjectStatusUpdated from "../../pages/project/ProjectStatusUpdated"
+import UpdateProjectStart from "../../pages/project/UpdateProjectStart"
+import ProjectStartUpdated from "../../pages/project/ProjectStartUpdated"
 import ViewProject from "../../pages/project/ViewProject"
 
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
@@ -504,6 +506,25 @@ const router = createRouter({
       components: { default: ProjectStatusUpdated, header: HeaderUser },
       props: false,
     },
+
+    
+    {
+      name: 'update-project-start',
+      path: '/update-project-start',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: UpdateProjectStart, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'project-start-updated',
+      path: '/project-start-updated',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ProjectStartUpdated, header: HeaderUser },
+      props: false,
+    },
+
+
     {
       name: 'view-project',
       path: '/view-project',

@@ -196,6 +196,7 @@ export default {
         mnx_navToAcceptQuote() {
             this.$router.push("/accept-quote/")
         },
+
         mnx_navToQuoteAccepted() {
 
             this.$router.push("/qutoe-accepted/")
@@ -207,6 +208,14 @@ export default {
         mnx_navToProjectStatusUpdated() {
             this.$router.push("/project-status-updated/")
         },
+
+        mnx_navToUpdateProjectStart() {
+            this.$router.push("/update-project-start/")
+        },
+        mnx_navToProjectStartUpdated() {
+            this.$router.push("/project-start-updated/")
+        },
+
         mnx_navToViewProject() {
             this.$router.push("/view-project/")
         },

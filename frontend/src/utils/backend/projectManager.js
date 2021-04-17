@@ -28,7 +28,7 @@ class PojectManagerApi {
         return request;
 
     }
-    
+
     static fetchForRequest(requestId) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
@@ -50,7 +50,23 @@ class PojectManagerApi {
             '/api/project-manage/update-status',
             {
                 projectId: projectId,
-                status:status
+                status: status
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+
+    }
+
+    static updateStart(projectId, start) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/project-manage/update-start',
+            {
+                projectId: projectId,
+                start: start
             },
             {
                 headers: { Authorization: `Bearer ${jwt}` }

@@ -11,11 +11,17 @@
       <div class="lf-body-block-container-body">
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Status</h5>
-          <p class="lf-body-item--block-text-clickable" @click="updateStatus">{{getFormalizedStatus(project.status)}}</p>
+          <p
+            class="lf-body-item--block-text-clickable"
+            @click="updateStatus"
+          >{{getFormalizedStatus(project.status)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Start</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedDate(project.trackStatus.kickoffDate)}}</p>
+          <p
+            class="lf-body-item--block-text-clickable"
+            @click="updateStart"
+          >{{getFormalizedDate(project.trackStatus.kickoffDate)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Lasting</h5>
@@ -98,10 +104,10 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    
     getFormalizedMoney(money) {
       return money ? money : 0;
     },
+
     getFormalizedStatus(status) {
       return ProjectData.getStatusString(status);
     },
@@ -118,9 +124,13 @@ export default {
       this.mnx_navToViewProject();
     },
 
-    updateStatus(){
+    updateStatus() {
       this.mnx_navToUpdateProjectStatus();
-    }
+    },
+    
+    updateStart() {
+      this.mnx_navToUpdateProjectStart();
+    },
   },
 };
 </script>
