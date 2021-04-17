@@ -159,6 +159,45 @@ class ProjectManagerUpdateStart(Resource):
         return make_response(resp, return_code)
 
 
+class ProjectManagerUpdateDue(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'projectId',
+            dest='projectId',
+            type=str,
+            location='json',
+            required=True,
+            help='The project\'s projectId',
+        )
+        self.post_parser.add_argument(
+            'due',
+            dest='due',
+            type=datetime.fromisoformat,
+            location='json',
+            required=True,
+            help='The project\'s due',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+
+        ProjectDoc.objects(
+            (Q(contract__providerId=userIdentity)
+             | Q(contract__posterId=userIdentity))
+            & Q(id=args.projectId)
+        ).update(set__trackStatus__dueDate=args.due)
+
+        resp = jsonify(
+        )
+
+        return make_response(resp, return_code)
+
+
 class ProjectManagerUpdatePayStatus(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
@@ -199,6 +238,8 @@ class ProjectManagerUpdatePayStatus(Resource):
 
 
 routeMap = [
+    {'res': ProjectManagerUpdateDue,
+     'url': '/api/project-manage/update-due'},
     {'res': ProjectManagerUpdateStart,
      'url': '/api/project-manage/update-start'},
     {'res': ProjectManagerUpdateStatus,

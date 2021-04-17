@@ -75,6 +75,22 @@ class PojectManagerApi {
         return request;
 
     }
+
+    static updateDue(projectId, due) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/project-manage/update-due',
+            {
+                projectId: projectId,
+                due: due
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+
+    }
 }
 
 export { PojectManagerApi }

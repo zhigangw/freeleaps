@@ -216,6 +216,13 @@ export default {
             this.$router.push("/project-start-updated/")
         },
 
+        mnx_navToUpdateProjectDue() {
+            this.$router.push("/update-project-due/")
+        },
+        mnx_navToProjectDueUpdated() {
+            this.$router.push("/project-due-updated/")
+        },
+
         mnx_navToViewProject() {
             this.$router.push("/view-project/")
         },

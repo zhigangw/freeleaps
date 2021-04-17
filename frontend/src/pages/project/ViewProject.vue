@@ -31,7 +31,10 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Due</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedDate(project.trackStatus.dueDate)}}</p>
+          <p
+            class="lf-body-item--block-text-clickable"
+            @click="updateDue"
+          >{{getFormalizedDate(project.trackStatus.dueDate)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Remaining</h5>
@@ -127,9 +130,12 @@ export default {
     updateStatus() {
       this.mnx_navToUpdateProjectStatus();
     },
-    
+
     updateStart() {
       this.mnx_navToUpdateProjectStart();
+    },
+    updateDue() {
+      this.mnx_navToUpdateProjectDue();
     },
   },
 };
