@@ -129,7 +129,7 @@ class RequestQuoteMyAll(Resource):
         return make_response(resp, return_code)
 
 
-class RequestQuoteFetchQuotes(Resource):
+class RequestQuoteFetchQuoteByRequest(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
         self.post_parser.add_argument(
@@ -153,6 +153,34 @@ class RequestQuoteFetchQuotes(Resource):
         )
 
         resp = jsonify(quotes)
+
+        return make_response(resp, return_code)
+
+
+class RequestQuoteFetchQuoteById(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'quoteId',
+            dest='quoteId',
+            type=str,
+            location='json',
+            required=True,
+            help='The request post\'s quoteId',
+        )
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        userIdentity = get_jwt_identity()
+        return_code = 200
+        resp = None
+
+        quote = RequestQuoteDoc.objects(
+            id=args.quoteId,
+        ).get()
+
+        resp = jsonify(quote)
 
         return make_response(resp, return_code)
 
@@ -266,8 +294,11 @@ routeMap = [
     {'res': RequestQuoteSubmit, 'url': '/api/request-quote/submit-quote'},
     {'res': RequestQuoteMine, 'url': '/api/request-quote/fetch-mine'},
     {'res': RequestQuoteMyAll, 'url': '/api/request-quote/fetch-my-all'},
-    {'res': RequestQuoteFetchQuotes,
-     'url': '/api/request-quote/fetch-quotes'},
+    {'res': RequestQuoteFetchQuoteByRequest,
+     'url': '/api/request-quote/fetch-quote-by-request'},
+    {'res': RequestQuoteFetchQuoteById,
+     'url': '/api/request-quote/fetch-quote-by-id'},
+     
     {'res': RequestQuoteAcceptQuote,
      'url': '/api/request-quote/accept-quote'},
     {'res': RequestQuoteFetchOpen,

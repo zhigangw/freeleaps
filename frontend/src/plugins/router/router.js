@@ -60,7 +60,10 @@ import BrowseRequests from "../../pages/request/BrowseRequests"
 import QuoteRequest from "../../pages/request/QuoteRequest"
 import QuoteSubmitted from "../../pages/request/QuoteSubmitted"
 import AcceptQuote from "../../pages/request/AcceptQuote"
+import ViewQuote from "../../pages/request/ViewQuote"
 import QuoteAccepted from "../../pages/request/QuoteAccepted"
+import ViewRequest from "../../pages/request/ViewRequest"
+
 
 import UpdateProjectStatus from "../../pages/project/UpdateProjectStatus"
 import ProjectStatusUpdated from "../../pages/project/ProjectStatusUpdated"
@@ -468,10 +471,26 @@ const router = createRouter({
     },
 
     {
+      name: 'view-request',
+      path: '/view-request',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ViewRequest, header: HeaderUser },
+      props: false,
+    },
+
+    {
       name: 'quote-submitted',
       path: '/quote-submitted',
       meta: { requiredRoles: [userRoleEnum.USER] },
       components: { default: QuoteSubmitted, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'view-quote',
+      path: '/view-quote',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ViewQuote, header: HeaderUser },
       props: false,
     },
 

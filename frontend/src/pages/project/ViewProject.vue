@@ -70,7 +70,10 @@
       <div class="lf-body-block-container-body">
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Request</h5>
-          <p class="lf-body-item--block-text">{{project.contract.requestId}}</p>
+          <p
+            class="lf-body-item--block-text-clickable"
+            @click="viewRequest"
+          >{{project.contract.requestId}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Poster</h5>
@@ -78,7 +81,10 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Proposal</h5>
-          <p class="lf-body-item--block-text">{{(project.contract.quoteId)}}</p>
+          <p
+            class="lf-body-item--block-text-clickable"
+            @click="viewQuote"
+          >{{(project.contract.quoteId)}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Provider</h5>
@@ -90,7 +96,13 @@
 </template>
 
 <script>
-import { requestPostUtils, DateUtils, UserProfileApi } from "../../utils/index";
+import {
+  requestPostUtils,
+  DateUtils,
+  UserProfileApi,
+  RequestPostApi,
+  RequestQuoteApi,
+} from "../../utils/index";
 import { ProjectData } from "../../types/index";
 export default {
   name: "ViewProject",
@@ -159,8 +171,31 @@ export default {
     updateStart() {
       this.mnx_navToUpdateProjectStart();
     },
+
     updateDue() {
       this.mnx_navToUpdateProjectDue();
+    },
+
+    viewRequest() {
+      RequestPostApi.fetchWhole(this.project.contract.requestId)
+        .then((response) => {
+          requestPostUtils.fillRequest(response.data);
+          this.mnx_navToViewRequest();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    viewQuote() {
+      RequestQuoteApi.fetchQuoteById(this.project.contract.quoteId)
+        .then((response) => {
+          requestPostUtils.fillQuote(response.data);
+          this.mnx_navToViewQuote();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     async fetchPoster() {
       if (this.project.contract.posterId) {

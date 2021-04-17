@@ -55,12 +55,26 @@ class RequestQuoteApi {
         );
         return request;
     }
-    static fetchQuotes(requestId) {
+    static fetchQuotesByRequest(requestId) {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(
-            '/api/request-quote/fetch-quotes',
+            '/api/request-quote/fetch-quote-by-request',
             {
                 requestId: requestId
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
+    static fetchQuoteById(quoteId) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/request-quote/fetch-quote-by-id',
+            {
+                quoteId: quoteId
             },
             {
                 headers: { Authorization: `Bearer ${jwt}` }

@@ -1,6 +1,7 @@
 const requestPostStatusEnum = Object.freeze({
   DRAFT: 0,
   PUBLISHED: 1,
+  ACCEPTED :2,
 });
 
 const requestPostSkeleton = {

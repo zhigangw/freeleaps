@@ -3,44 +3,7 @@
     <div class="row-flow-header">
       <button class="btn btn-primary" @click="goBack">Back</button>
     </div>
-    <div class="row-flow-item-container">
-      <h4 class="lf-body-block-container-title">Pay</h4>
-      <div class="lf-body-block-container-body">
-        <div class="lf-body-item-block">
-          <h5 class="lf-body-item-block-label" for="total-budget">Total Budget (USD)</h5>
-          <p class="lf-body-item-block-notes">The total payment upon completion</p>
-          <input
-            class="lf-body-item--block-input"
-            type="number"
-            id="total-budget"
-            min="0"
-            max="100000"
-            readonly
-            v-model.trim="quote.notes.pay.totalBudget"
-          />
-        </div>
-        <div class="lf-body-item-block">
-          <h5 class="lf-body-item-block-label" for="escorted-deposit">Escorted Deposit (USD)</h5>
-          <p class="lf-body-item-block-notes">The amount escorted by the platform</p>
-          <input
-            class="lf-body-item--block-input"
-            type="number"
-            id="escorted-deposit"
-            min="0"
-            max="100000"
-            readonly
-            v-model.trim="quote.notes.pay.escortedDeposit"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="row-flow-item-container">
-      <h4 class="lf-body-block-container-title">Notes</h4>
-      <div class="lf-body-block-container-body">
-        <p class="text-start" id="package-notes" v-html="quote.notes.notes" />
-      </div>
-    </div>
+    <quote-view-template />
     <div v-if="quote.notes.status == 1" class="lf-submit-container">
       <button class="if-cancel" type="button" @click="declineQuote">Decline</button>
       <button class="if-submit" type="button" @click="acceptQuote">Accept</button>
@@ -52,11 +15,17 @@
 </template>
 
 <script>
-import { RequestQuoteApi, requestPostUtils, OIDUtils,PojectManagerApi } from "../../utils/index";
+import {
+  RequestQuoteApi,
+  requestPostUtils,
+  OIDUtils,
+  PojectManagerApi,
+} from "../../utils/index";
+import QuoteViewTemplate from "./QuoteViewTemplate";
 export default {
   name: "AcceptQuote",
   props: {},
-  components: {},
+  components: { QuoteViewTemplate },
   data() {
     return {
       request: requestPostUtils.fetchRequest(),

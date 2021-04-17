@@ -185,6 +185,10 @@ export default {
             this.$router.push("/browse-requests/")
         },
 
+        mnx_navToViewRequest() {
+            this.$router.push("/view-request/")
+        },
+
         mnx_navToQuoteRequest() {
             this.$router.push("/quote-request/")
         },
@@ -195,6 +199,10 @@ export default {
 
         mnx_navToAcceptQuote() {
             this.$router.push("/accept-quote/")
+        },
+        
+        mnx_navToViewQuote() {
+            this.$router.push("/view-quote/")
         },
 
         mnx_navToQuoteAccepted() {
