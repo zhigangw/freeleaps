@@ -18,13 +18,22 @@ import werkzeug
 
 class UserProfileFetchSettings(Resource):
     def __init__(self) -> None:
-        pass
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'userId',
+            dest='userId',
+            type=str,
+            location='json',
+            required=False,
+            help='The request \'s userId',
+        )
 
     @jwt_required
     def post(self):
+        args = self.post_parser.parse_args()
         return_code = 200
         resp = None
-        userIdentity = get_jwt_identity()
+        userIdentity = get_jwt_identity() if args.userId is None else args.userId
         user = UserDoc.objects(
             id=userIdentity,
         ).first()
@@ -39,7 +48,9 @@ class UserProfileFetchSettings(Resource):
         resp = jsonify(
             account=AuthProfile(
                 identity=user.authProfile.identity,
-                role=user.authProfile.role
+                role=user.authProfile.role,
+                email=user.authProfile.email,
+                mobile=user.authProfile.mobile
             ),
             work=user.workProfile,
             personal=user.personalProfile,

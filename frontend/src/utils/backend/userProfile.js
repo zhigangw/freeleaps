@@ -15,6 +15,19 @@ class UserProfileApi {
         );
         return request;
     }
+    static fetchSettingsById(userId) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/fetch-settings',
+            {
+                userId: userId
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
 
     static fetchAccount() {
         let jwt = userUtils.getJwtToken();

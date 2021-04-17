@@ -74,7 +74,7 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Poster</h5>
-          <p class="lf-body-item--block-text">{{getFormalizedMoney(project.contract.posterId)}}</p>
+          <p class="lf-body-item--block-text">{{getPoster}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Proposal</h5>
@@ -82,7 +82,7 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Provider</h5>
-          <p class="lf-body-item--block-text">{{(project.contract.providerId)}}</p>
+          <p class="lf-body-item--block-text">{{getProvider}}</p>
         </div>
       </div>
     </div>
@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import { requestPostUtils, DateUtils } from "../../utils/index";
+import { requestPostUtils, DateUtils, UserProfileApi } from "../../utils/index";
 import { ProjectData } from "../../types/index";
 export default {
   name: "ViewProject",
@@ -98,14 +98,39 @@ export default {
 
   data() {
     return {
+      poster: null,
+      provider: null,
       project: requestPostUtils.fetchProject(),
     };
   },
 
   components: {},
+  computed: {
+    getProvider() {
+      if (this.provider) {
+        return this.provider.account.identity
+          ? this.provider.account.identity
+          : this.provider.account.email;
+      } else {
+        return this.project.contract.providerId;
+      }
+    },
 
+    getPoster() {
+      if (this.poster) {
+        return this.poster.account.identity
+          ? this.poster.account.identity
+          : this.poster.account.email;
+      } else {
+        return this.project.contract.posterId;
+      }
+    },
+  },
   created() {},
-  mounted() {},
+  mounted() {
+    this.fetchPoster();
+    this.fetchProvider();
+  },
   methods: {
     getFormalizedMoney(money) {
       return money ? money : 0;
@@ -124,7 +149,7 @@ export default {
 
     backToBrowseProjects() {
       requestPostUtils.fillProject(this.project);
-      this.mnx_navToViewProject();
+      this.mnx_navToWorkplaceProjects();
     },
 
     updateStatus() {
@@ -136,6 +161,28 @@ export default {
     },
     updateDue() {
       this.mnx_navToUpdateProjectDue();
+    },
+    async fetchPoster() {
+      if (this.project.contract.posterId) {
+        UserProfileApi.fetchSettingsById(this.project.contract.posterId)
+          .then((response) => {
+            this.poster = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    },
+    async fetchProvider() {
+      if (this.project.contract.providerId) {
+        UserProfileApi.fetchSettingsById(this.project.contract.providerId)
+          .then((response) => {
+            this.provider = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
     },
   },
 };
