@@ -200,7 +200,7 @@ export default {
         mnx_navToAcceptQuote() {
             this.$router.push("/accept-quote/")
         },
-        
+
         mnx_navToViewQuote() {
             this.$router.push("/view-quote/")
         },
@@ -235,6 +235,13 @@ export default {
             this.$router.push("/view-project/")
         },
 
+        mnx_navToViewUser() {
+            this.$router.push("/view-user/")
+        },
+
+        mnx_navToBrowseUser() {
+            this.$router.push("/browse-user/")
+        },
 
         mnx_navToWorkplaceMessages() {
             this.$router.push("/workplace-messages")

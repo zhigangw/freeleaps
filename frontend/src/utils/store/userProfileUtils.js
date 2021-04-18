@@ -4,7 +4,12 @@ class UserProfileUtils {
     constructor(store) {
         this.store = store;
     }
-
+    fillUser(user) {
+        this.user = user;
+    }
+    fetchUser() {
+        return this.user;
+    }
     fillPhoto(photo) {
         this.photo = photo;
     }
@@ -37,7 +42,7 @@ class UserProfileUtils {
     fetchHeadline() {
         return this.headline;
     }
-    
+
     fillHighlight(highlight) {
         this.highlight = highlight;
     }
@@ -53,7 +58,7 @@ class UserProfileUtils {
     fetchPreferredRoles() {
         return this.perferredRoles;
     }
-    
+
     fillPreferredTags(preferredTags) {
         this.preferredTags = preferredTags;
     }
@@ -61,7 +66,7 @@ class UserProfileUtils {
     fetchPreferredTags() {
         return this.preferredTags;
     }
-    
+
     fillPeriod(period) {
         this.period = period;
     }
@@ -77,7 +82,7 @@ class UserProfileUtils {
     fetchSubscriptionPlan() {
         return this.plan;
     }
-    
+
 }
 
 const userProfileUtils = new UserProfileUtils(store);

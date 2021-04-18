@@ -77,7 +77,7 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Poster</h5>
-          <p class="lf-body-item--block-text">{{getPoster}}</p>
+          <p class="lf-body-item--block-text-clickable" @click="viewPoster">{{getPoster}}</p>
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Proposal</h5>
@@ -88,15 +88,19 @@
         </div>
         <div class="lf-body-item-block">
           <h5 class="lf-body-item-block-label">Provider</h5>
-          <p class="lf-body-item--block-text">{{getProvider}}</p>
+          <p class="lf-body-item--block-text-clickable" @click="viewProvider">{{getProvider}}</p>
         </div>
       </div>
+    </div>
+    <div class="lf-submit-container">
+      <button class="if-cancel" type="button" @click="goBack">Back</button>
     </div>
   </div>
 </template>
 
 <script>
 import {
+  userProfileUtils,
   requestPostUtils,
   DateUtils,
   UserProfileApi,
@@ -197,6 +201,21 @@ export default {
           console.log(error);
         });
     },
+
+    viewProvider() {
+      userProfileUtils.fillUser(this.provider);
+      this.mnx_navToViewUser();
+    },
+
+    viewPoster() {
+      userProfileUtils.fillUser(this.poster);
+      this.mnx_navToViewUser();
+    },
+
+    goBack() {
+      this.mnx_goBack();
+    },
+
     async fetchPoster() {
       if (this.project.contract.posterId) {
         UserProfileApi.fetchSettingsById(this.project.contract.posterId)

@@ -73,6 +73,9 @@ import UpdateProjectStart from "../../pages/project/UpdateProjectStart"
 import ProjectStartUpdated from "../../pages/project/ProjectStartUpdated"
 import ViewProject from "../../pages/project/ViewProject"
 
+import BrowseUsers from "../../pages/network/BrowseUsers"
+import ViewUser from "../../pages/network/ViewUser"
+
 import WorkplaceProjects from "../../pages/dashboard/WorkplaceProjects"
 import WorkplaceRequests from "../../pages/dashboard/WorkplaceRequests"
 import WorkplaceMessages from "../../pages/dashboard/WorkplaceMessages"
@@ -143,6 +146,7 @@ const router = createRouter({
       components: { default: UserForgetPassword, header: HeaderGuest },
       props: true,
     },
+
     {
       name: 'user-forget-username',
       path: '/user-forget-username/',
@@ -567,6 +571,22 @@ const router = createRouter({
       path: '/view-project',
       meta: { requiredRoles: [userRoleEnum.USER] },
       components: { default: ViewProject, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'browse-users',
+      path: '/browse-users',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: BrowseUsers, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'view-user',
+      path: '/view-user',
+      meta: { requiredRoles: [userRoleEnum.USER] },
+      components: { default: ViewUser, header: HeaderUser },
       props: false,
     },
 

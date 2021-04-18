@@ -8,7 +8,7 @@
         @click="viewProject(project)"
       >
         <div class="row-flow-item-subject-area">
-          <p class="row-flow-item-subject-text" style="cursor:pointer">({{project.headline}})</p>
+          <p class="row-flow-item-subject-text" style="cursor:pointer">{{project.headline}}</p>
         </div>
         <div class="row-flow-item-status-area">
           <p class="row-flow-item-status-text">{{getFormalizedStatus(project)}}</p>
