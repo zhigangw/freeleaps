@@ -191,6 +191,19 @@ class UserProfileApi {
         return request;
     }
 
+    static fetchSummary() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/user-profile/fetch-all-as-summary',
+            {
+
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
 }
 
 export { UserProfileApi }

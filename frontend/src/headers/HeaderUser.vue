@@ -102,7 +102,7 @@ export default {
       this.mnx_navToRequests();
     },
     gotoNetwork() {
-      this.mnx_navToNetwork();
+      this.mnx_navToBrowseUser();
     },
     gotoPost() {
       this.mnx_navToPost();

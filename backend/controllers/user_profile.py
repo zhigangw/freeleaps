@@ -175,7 +175,45 @@ class UserProfileFetchCareer(Resource):
         return make_response(resp, return_code)
 
 
+
+class UserProfileFetchAllAsSummary(Resource):
+    def __init__(self) -> None:
+        pass
+
+    @jwt_required
+    def post(self):
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        users = UserDoc.objects(
+        )
+
+        
+        s = []
+        for u in users:
+            r = {
+                'id': str(u.id),
+                'username': u.authProfile.identity,
+                'email': u.authProfile.email,
+                'mobile': u.authProfile.mobile,
+                'photo': u.personalProfile.photo,
+                'firstName': u.personalProfile.firstName,
+                'lastName': u.personalProfile.lastName,
+                'headline': u.careerProfile.experience.headline,
+                'preferredRoles': u.careerProfile.preferredRoles,
+                }
+            
+            s.append(r)
+
+        resp = jsonify(
+            s
+        )
+
+        return make_response(resp, return_code)
+
 routeMap = [
+    {'res': UserProfileFetchAllAsSummary,
+     'url': '/api/user-profile/fetch-all-as-summary'},
     {'res': UserProfileFetchSettings,
      'url': '/api/user-profile/fetch-settings'},
     {'res': UserProfileFetchAccount,
@@ -186,5 +224,4 @@ routeMap = [
      'url': '/api/user-profile/fetch-personal'},
     {'res': UserProfileFetchCareer,
      'url': '/api/user-profile/fetch-career'},
-
 ]

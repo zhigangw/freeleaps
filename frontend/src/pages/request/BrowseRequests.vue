@@ -96,7 +96,7 @@ import { RequestPostApi, requestPostUtils, DateUtils } from "../../utils/index";
 import BootStrapAccordionItem from "../../components/accordions/templates/BootStrapAccordionItem";
 
 export default {
-  name: "WorkPlace",
+  name: "BrowseRequests",
   props: {},
   components: { BootStrapAccordionItem },
   data() {

@@ -240,7 +240,7 @@ export default {
         },
 
         mnx_navToBrowseUser() {
-            this.$router.push("/browse-user/")
+            this.$router.push("/browse-users/")
         },
 
         mnx_navToWorkplaceMessages() {
