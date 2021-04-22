@@ -68,6 +68,21 @@ class CareerProfileApi {
         );
         return request;
     }
+    static updateWage(wage) {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            this.baseUrl + 'update/wage',
+            {
+                wage: wage,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${jwt}`
+                }
+            }
+        );
+        return request;
+    }
 
     static formalize(period) {
         period.oid = ResponseFormatter.getId(period);

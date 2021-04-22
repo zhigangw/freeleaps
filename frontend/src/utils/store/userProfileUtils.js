@@ -43,6 +43,14 @@ class UserProfileUtils {
         return this.headline;
     }
 
+    fillWage(wage) {
+        this.wage = wage;
+    }
+
+    fetchWage() {
+        return this.wage;
+    }
+
     fillHighlight(highlight) {
         this.highlight = highlight;
     }

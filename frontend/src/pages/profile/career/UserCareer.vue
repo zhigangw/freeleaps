@@ -11,6 +11,10 @@
           <p class="input-label">Highlight:</p>
           <p class="highlight-text">{{highlight}}</p>
         </div>
+        <div class="tags-group" @click="updateWage">
+          <p class="input-label">Hourly Wage:</p>
+          <p class="wage-text">{{wage.amount}}</p>
+        </div>
         <div class="role-group" @click="updateJobRoles">
           <p class="input-label">Preferred Roles:</p>
           <div class="roles-container">
@@ -76,6 +80,7 @@ export default {
       preferredTags: [],
       periods: [],
       careerProfile: {},
+      wage: {},
     };
   },
 
@@ -121,6 +126,9 @@ export default {
           this.careerProfile.preferredTags
         ) {
           this.preferredTags = this.careerProfile.preferredTags;
+        }
+        if ("wage" in this.careerProfile && this.careerProfile.wage) {
+          this.wage = this.careerProfile.wage;
         }
       }
     },
@@ -175,6 +183,11 @@ export default {
     updateJobRoles() {
       userProfileUtils.fillPreferredRoles(this.preferredRoles);
       this.mnx_navToUpdatePreferredRoles();
+    },
+
+    updateWage() {
+      userProfileUtils.fillWage(this.wage);
+      this.mnx_navToUpdateWage();
     },
 
     updateTags() {

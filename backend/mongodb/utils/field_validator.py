@@ -4,6 +4,7 @@ from ..models.request_notes import RequestNotes
 from ..models.requests_description import RequestDescription
 from ..models.request_quote import QuoteNotes
 from ..models.project_manage import PayStatus, TrackStatus
+from ..models.profile.career.career_profile import Wage
 
 class FieldValidator():
     @staticmethod
@@ -60,6 +61,14 @@ class FieldValidator():
     def trackStatus(jnote):
         try:
             return TrackStatus.from_json(json.dumps(jnote))
+        except Exception as e:
+            print(e)
+            raise
+
+    @staticmethod
+    def wage(jnote):
+        try:
+            return Wage.from_json(json.dumps(jnote))
         except Exception as e:
             print(e)
             raise

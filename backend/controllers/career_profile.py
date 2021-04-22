@@ -14,6 +14,32 @@ from ..mongodb.models.request_post import RequestPostDoc
 from ..mongodb.utils.field_validator import FieldValidator
 
 
+class UpdateWage(Resource):
+    def __init__(self) -> None:
+        self.post_parser = reqparse.RequestParser()
+        self.post_parser.add_argument(
+            'wage',  dest='wage', type=FieldValidator.wage, location='json',
+            required=True, help='The user\'s wage')
+
+    @jwt_required
+    def post(self):
+        args = self.post_parser.parse_args()
+        return_code = 200
+        resp = None
+        userIdentity = get_jwt_identity()
+        UserDoc.objects(
+            id=userIdentity,
+        ).update(
+            set__careerProfile__wage=args.wage,
+        )
+        resp = jsonify(
+            args.wage
+        )
+        return_code = 200
+
+        return make_response(resp, return_code)
+
+
 class UpdateJobRole(Resource):
     def __init__(self) -> None:
         self.post_parser = reqparse.RequestParser()
@@ -140,9 +166,10 @@ class UpdatePeriod(Resource):
         return make_response(resp, return_code)
 
 
-
 baseUrl = '/api/career-profile/'
 routeMap = [
+    {'res': UpdateWage,
+     'url': baseUrl+'update/wage'},
     {'res': UpdateJobRole,
      'url': baseUrl+'update/job-role'},
     {'res': UpdateHeadline,

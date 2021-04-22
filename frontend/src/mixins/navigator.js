@@ -147,6 +147,14 @@ export default {
             this.$router.push("/period-updated")
         },
 
+        mnx_navToUpdateWage() {
+            this.$router.push("/update-wage")
+        },
+
+        mnx_navToWageUpdated() {
+            this.$router.push("/wage-updated")
+        },
+
         mnx_navToUpdatePreferredRoles() {
             this.$router.push("/update-preferred-roles")
         },

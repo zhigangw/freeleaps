@@ -42,6 +42,10 @@
     @extend .content-text;
   }
   
+  .wage-text {
+    @extend .content-text;
+  }
+  
   .role-group {
     @extend .input-group-div;
     cursor: pointer;

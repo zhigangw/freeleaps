@@ -71,6 +71,12 @@
             >{{role}}</p>
           </div>
         </div>
+        <div class="lf-item-flex-box">
+          <h5 class="lf-body-item-block-label">Hourly Wage</h5>
+          <div class="roles-container">
+            <p class="lf-body-item--block-text">{{user.career.wage.amount}}</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="lf-submit-container">

@@ -43,6 +43,8 @@ import UpdateHighlight from "../../pages/profile/career/UpdateHighlight";
 import HighlightUpdated from "../../pages/profile/career/HighlightUpdated";
 import UpdatePeriod from "../../pages/profile/career/UpdatePeriod";
 import PeriodUpdated from "../../pages/profile/career/PeriodUpdated";
+import UpdateWage from "../../pages/profile/career/UpdateWage";
+import WageUpdated from "../../pages/profile/career/WageUpdated";
 import UpdatePreferredRoles from "../../pages/profile/career/UpdatePreferredRoles";
 import PreferredRolesUpdated from "../../pages/profile/career/PreferredRolesUpdated";
 
@@ -378,6 +380,22 @@ const router = createRouter({
       path: '/period-updated/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: PeriodUpdated, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'update-wage',
+      path: '/update-wage/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: UpdateWage, header: HeaderUser },
+      props: false,
+    },
+
+    {
+      name: 'wage-updated',
+      path: '/wage-updated/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WageUpdated, header: HeaderUser },
       props: false,
     },
 
