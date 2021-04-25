@@ -6,4 +6,5 @@ node_modules
 /static/
 venv*/
 *.swp
+.env
 ythe.sh
