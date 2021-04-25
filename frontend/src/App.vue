@@ -22,8 +22,6 @@ export default {
 };
 </script>
 <style lang="scss">
-</style>
-<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -32,8 +30,6 @@ export default {
   color: #2c3e50;
   margin-top: 0px;
 }
-</style>
-<style scoped lang="scss">
 .body-header {
   width: 100%;
   height: 5vmax;
