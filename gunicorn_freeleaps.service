@@ -7,8 +7,8 @@ After=network.target
 User=wwwadmin
 Group=wwwadmin
 WorkingDirectory=/home/wwwadmin/git/freeleaps
-ExecStart=/home/wwwadmin/git/freeleaps/venv_t/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/wwwadmin/git/freeleaps/freeleaps.sock backend.wsgi:app
 EnvironmentFile=/home/wwwadmin/git/freeleaps/.env
+ExecStart=/home/wwwadmin/git/freeleaps/venv_t/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/wwwadmin/git/freeleaps/freeleaps.sock backend.wsgi:app
 [Install]
 WantedBy=multi-user.target
 
