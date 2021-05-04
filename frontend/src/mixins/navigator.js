@@ -178,7 +178,11 @@ export default {
         mnx_navToUserWork() {
             this.$router.push("/user-work")
         },
-
+        
+        mnx_navToWorkAchievement() {
+            this.$router.push("/work-achievement")
+        },
+        
         mnx_navToPostRequestDescription() {
             this.$router.push("/post-request-description/");
         },

@@ -19,7 +19,6 @@ def InitMail(app):
 
 
 def SendMail(recipient, subject, body):
-    print(recipient, subject, body)
     msg = Message()
     msg.add_recipient(recipient)
     msg.subject = subject

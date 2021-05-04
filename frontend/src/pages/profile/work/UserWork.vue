@@ -92,33 +92,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.plan-item-div {
-  @extend .d-flex;
-  @extend .w-100;
-  @extend .w-lg-80;
-  @extend .w-xl-60;
-  @extend .mx-auto;
-}
-
-.plan-item-label {
-  @extend .my-1;
-  @extend .w-30;
-  @extend .text-start;
-}
-
-.plan-item-value {
-  @extend .my-1;
-  @extend .text-start;
-}
-
-.plan-item-value_clickable {
-  @extend .my-1;
-  @extend .btn, .btn-link;
-  @extend .m-0, .p-0;
-}
-
-.plan-item-value_link {
-  @extend .my-1;
-  @extend .m-0, .p-0;
-}
 </style>

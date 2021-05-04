@@ -23,13 +23,19 @@ def update_users():
                     "start": datetime.datetime(2021, 3, 20)
                 },
                 'achievements': {
-                    'jobPosted': 123,
-                    'amountSpent': 2345.23,
-                    'escortedDeposit': 4564.35,
-                    'memberSince': datetime.datetime(2021, 3, 20),
-                    'ongoingProjects': 345,
-                    'completedProjects': 74,
-                    'receivedStars': 598
+                    'membership': {
+                        'memberSince': datetime.datetime(2021, 3, 20),
+                        'receivedStars': 598
+                    },
+                    'payment': {
+                        'amountSpent': 2345.23,
+                        'escortedDeposit': 4564.35,
+                    },
+                    'project': {
+                        'requestPosted': 123,
+                        'ongoingProjects': 345,
+                        'completedProjects': 74,
+                    }
                 },
             },
             'careerProfile': {
@@ -85,13 +91,19 @@ def update_users():
                     "start": datetime.datetime(2021, 3, 20)
                 },
                 'achievements': {
-                    'jobPosted': 123,
-                    'amountSpent': 2345.23,
-                    'escortedDeposit': 4564.35,
-                    'memberSince': datetime.datetime(2021, 3, 20),
-                    'ongoingProjects': 345,
-                    'completedProjects': 74,
-                    'receivedStars': 598
+                    'membership': {
+                        'memberSince': datetime.datetime(2021, 3, 20),
+                        'receivedStars': 598
+                    },
+                    'payment': {
+                        'amountSpent': 2345.23,
+                        'escortedDeposit': 4564.35,
+                    },
+                    'project': {
+                        'requestPosted': 123,
+                        'ongoingProjects': 345,
+                        'completedProjects': 74,
+                    }
                 },
             },
             'careerProfile': {

@@ -53,6 +53,9 @@
           <button class="account-menu-button" @click="gotoCareer">Career</button>
         </li>
         <li>
+          <button class="account-menu-button" @click="gotoAchievement">Achievement</button>
+        </li>
+        <li>
           <button class="account-menu-button" @click="gotoSubscripton">Subscripton</button>
         </li>
         <li>
@@ -119,6 +122,9 @@ export default {
     },
     gotoSubscripton() {
       this.mnx_navToUserWork();
+    },
+    gotoAchievement(){
+      this.mnx_navToWorkAchievement();
     },
     logout(response, error) {
       response;

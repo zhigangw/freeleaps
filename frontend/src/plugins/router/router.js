@@ -53,6 +53,7 @@ import ChooseUsername from "../../pages/profile/work/ChooseUsername";
 import ChoosePlan from "../../pages/profile/work/ChoosePlan";
 import PlanUpdated from "../../pages/profile/work/PlanUpdated";
 import UserWork from "../../pages/profile/work/UserWork";
+import WorkAchievement from "../../pages/profile/work/WorkAchievement"
 
 
 import PostRequestDescription from "../../pages/request/PostRequestDescription";
@@ -443,14 +444,22 @@ const router = createRouter({
     },
 
     {
+      name: 'work-achievement',
+      path: '/work-achievement/',
+      meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
+      components: { default: WorkAchievement, header: HeaderUser },
+      props: false,
+    },
+    
+    
+
+    {
       name: 'user-work',
       path: '/user-work/',
       meta: { requiredRoles: [userRoleEnum.USER, userRoleEnum.ADMIN] },
       components: { default: UserWork, header: HeaderUser },
       props: false,
     },
-
-
 
     {
       name: 'post-request-description',
