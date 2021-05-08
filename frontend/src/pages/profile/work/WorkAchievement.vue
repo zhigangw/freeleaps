@@ -5,31 +5,49 @@
         <p class="callout">Achievement</p>
         <div class="plan-item-div">
           <label class="plan-item-label">Memeber Since:</label>
-          <span v-if="(workProfile.achievements.membership)" class="plan-item-value">{{formalizeDate(workProfile.achievements.membership.memberSince)}}</span>
+          <span
+            v-if="(achievements.membership)"
+            class="plan-item-value"
+          >{{formalizeDate(achievements.membership.memberSince)}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Received Stars:</label>
-          <span class="plan-item-value">{{workProfile.achievements.membership.receivedStars}}</span>
+          <span class="plan-item-value">{{achievements.membership.receivedStars}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Amount Spent:</label>
-          <span v-if="(workProfile.achievements.payment)" class="plan-item-value">{{workProfile.achievements.payment.amountSpent}}</span>
+          <span
+            v-if="(achievements.payment)"
+            class="plan-item-value"
+          >{{achievements.payment.amountSpent}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Escorted Deposit:</label>
-          <span v-if="(workProfile.achievements.payment)" class="plan-item-value">{{workProfile.achievements.payment.escortedDeposit}}</span>
+          <span
+            v-if="(achievements.payment)"
+            class="plan-item-value"
+          >{{achievements.payment.escortedDeposit}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Posted Requests:</label>
-          <span v-if="(workProfile.achievements.project)" class="plan-item-value">{{workProfile.achievements.project.requestPosted}}</span>
+          <span
+            v-if="(achievements.project)"
+            class="plan-item-value"
+          >{{achievements.project.requestPosted}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Ongoing Projects:</label>
-          <span v-if="(workProfile.achievements.project)" class="plan-item-value">{{workProfile.achievements.project.ongoingProjects}}</span>
+          <span
+            v-if="(achievements.project)"
+            class="plan-item-value"
+          >{{achievements.project.ongoingProjects}}</span>
         </div>
         <div class="plan-item-div">
           <label class="plan-item-label">Complete Projects:</label>
-          <span v-if="(workProfile.achievements.project)" class="plan-item-value">{{workProfile.achievements.project.completedProjects}}</span>
+          <span
+            v-if="(achievements.project)"
+            class="plan-item-value"
+          >{{achievements.project.completedProjects}}</span>
         </div>
       </div>
     </div>
@@ -45,12 +63,10 @@ export default {
 
   data() {
     return {
-      workProfile: {
-        achievements: {
-          membership: {},
-          payment: {},
-          project: {},
-        },
+      achievements: {
+        membership: {},
+        payment: {},
+        project: {},
       },
     };
   },
@@ -59,22 +75,22 @@ export default {
 
   created() {},
   mounted() {
-    this.fetchWork();
+    this.fetchAchievement();
   },
 
   methods: {
-    async fetchWork() {
-      UserProfileApi.fetchWork()
+    async fetchAchievement() {
+      UserProfileApi.fetchAchievement()
         .then((response) => {
-          this.workProfile = response.data.workProfile;
+          this.achievements = response.data;
         })
         .catch((error) => {
           this.mnx_backendErrorHandler(error);
         });
     },
-    formalizeDate(date){
-        return DateUtils.FromJsonToString(date)
-    }
+    formalizeDate(date) {
+      return DateUtils.FromJsonToString(date);
+    },
   },
 };
 </script>

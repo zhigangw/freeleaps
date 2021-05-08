@@ -10,6 +10,7 @@ class MembershipAchievement(me.EmbeddedDocument):
 
 class ProjectAchievement(me.EmbeddedDocument):
     requestPosted = me.IntField()
+    requestAccepted = me.IntField()
     ongoingProjects = me.IntField()
     completedProjects = me.IntField()
 

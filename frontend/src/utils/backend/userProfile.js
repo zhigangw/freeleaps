@@ -57,6 +57,20 @@ class UserProfileApi {
         return request;
     }
 
+    static fetchAchievement() {
+        let jwt = userUtils.getJwtToken();
+        const request = backendAxios.post(
+            '/api/work-achievement/fetch-all',
+            {
+
+            },
+            {
+                headers: { Authorization: `Bearer ${jwt}` }
+            }
+        );
+        return request;
+    }
+
     static fetchPersonal() {
         let jwt = userUtils.getJwtToken();
         const request = backendAxios.post(

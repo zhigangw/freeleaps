@@ -11,6 +11,7 @@ from .geo_country import routeMap as gc_route
 from .job_role import routeMap as jr_route
 from .subscription_services import routeMap as ss_route
 from .work_place import routeMap as wl_route
+from .work_achievement import routeMap as wa_route
 
 controllerMap = [
     *ua_route,
@@ -26,4 +27,5 @@ controllerMap = [
     *jr_route,
     *ss_route,
     *wl_route,
+    *wa_route
 ]
